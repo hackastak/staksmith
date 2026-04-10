@@ -38,8 +38,9 @@ results="[]"
 # Function to check if repo should be excluded
 is_excluded() {
     local repo_name="$1"
+    [[ -z "$EXCLUDE_REPOS" ]] && return 1  # Nothing excluded if list is empty
     while IFS= read -r excluded; do
-        [[ "$repo_name" == *"$excluded"* ]] && return 0
+        [[ -n "$excluded" && "$repo_name" == *"$excluded"* ]] && return 0
     done <<< "$EXCLUDE_REPOS"
     return 1
 }
@@ -62,15 +63,24 @@ scan_repo() {
 
     echo "  Scanning: $repo_name" >&2
 
-    # Get commits since date
-    commits=$(git -C "$repo_path" log \
+    # Get commits since date (use -sc for compact JSON)
+    # Handle repos with no commits yet (git log returns error)
+    git_log_output=$(git -C "$repo_path" log \
         --since="$SINCE_DATE" \
         --author="$AUTHOR_NAME" \
         --regexp-ignore-case \
         --pretty=format:'{"hash":"%h","date":"%ad","message":"%s"}' \
-        --date=short 2>/dev/null | jq -s '.' || echo "[]")
+        --date=short 2>/dev/null) || git_log_output=""
 
-    commit_count=$(echo "$commits" | jq 'length')
+    if [[ -n "$git_log_output" ]]; then
+        commits=$(echo "$git_log_output" | jq -sc '.' 2>/dev/null)
+    else
+        commits="[]"
+    fi
+    [[ -z "$commits" ]] && commits="[]"
+
+    commit_count=$(echo "$commits" | jq 'length' 2>/dev/null)
+    [[ -z "$commit_count" ]] && commit_count=0
 
     # Get uncommitted changes
     uncommitted=$(git -C "$repo_path" status --short 2>/dev/null | wc -l | tr -d ' ')
@@ -78,39 +88,46 @@ scan_repo() {
     # Get current branch
     current_branch=$(git -C "$repo_path" rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
 
-    # Get all branches
-    branches=$(git -C "$repo_path" branch -a 2>/dev/null | sed 's/^[* ] //' | jq -R . | jq -s '.' || echo "[]")
+    # Get all branches (use -c for compact JSON)
+    branches=$(git -C "$repo_path" branch -a 2>/dev/null | sed 's/^[* ] //' | jq -R . | jq -sc '.' 2>/dev/null)
+    [[ -z "$branches" ]] && branches="[]"
 
-    # Get package.json version if exists
+    # Get package.json version if exists (as proper JSON)
     version="null"
     if [[ -f "$repo_path/package.json" ]]; then
-        version=$(jq -r '.version // "unknown"' "$repo_path/package.json" 2>/dev/null || echo "null")
-        version="\"$version\""
+        version=$(jq '.version // null' "$repo_path/package.json" 2>/dev/null || echo "null")
     fi
 
     # Check for go.mod
     if [[ -f "$repo_path/go.mod" && "$version" == "null" ]]; then
-        version="\"go-module\""
+        version='"go-module"'
     fi
 
-    # Build repo result object
-    repo_result=$(cat <<EOF
-{
-  "name": "$repo_name",
-  "path": "$repo_path",
-  "commits": $commits,
-  "commit_count": $commit_count,
-  "uncommitted_changes": $uncommitted,
-  "current_branch": "$current_branch",
-  "branches": $branches,
-  "version": $version
-}
-EOF
-)
+    # Build repo result object using jq for safe JSON construction
+    repo_result=$(jq -n \
+        --arg name "$repo_name" \
+        --arg path "$repo_path" \
+        --argjson commits "$commits" \
+        --argjson commit_count "$commit_count" \
+        --argjson uncommitted "$uncommitted" \
+        --arg branch "$current_branch" \
+        --argjson branches "$branches" \
+        --argjson version "$version" \
+        '{
+            name: $name,
+            path: $path,
+            commits: $commits,
+            commit_count: $commit_count,
+            uncommitted_changes: $uncommitted,
+            current_branch: $branch,
+            branches: $branches,
+            version: $version
+        }'
+    )
 
     # Add to results if has activity
     if [[ $commit_count -gt 0 || $uncommitted -gt 0 ]]; then
-        results=$(echo "$results" | jq ". += [$repo_result]")
+        results=$(echo "$results" | jq --argjson item "$repo_result" '. += [$item]')
     fi
 }
 
