@@ -1,0 +1,25 @@
+{
+  "name": "jarvis",
+  "version": "1.8.0",
+  "description": "Complete collection of battle-tested Claude Code configs - agents, skills, hooks, and rules evolved over 10+ months of intensive daily use",
+  "author": {
+    "name": "hackastak",
+    "url": "https://github.com/hackastak"
+  },
+  "homepage": "https://github.com/hackastak/jarvis",
+  "repository": "https://github.com/hackastak/jarvis",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "agents",
+    "skills",
+    "hooks",
+    "rules",
+    "tdd",
+    "code-review",
+    "security",
+    "workflow",
+    "automation",
+    "best-practices"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "inbox_path": "/Users/hackastak/Developer/My_Notes/0. Inbox/",
+  "confidence_threshold": 0.7,
+  "exclude_folders": ["Graduates", "Matter", "Excalidraw"],
+  "dry_run": true,
+  "vault_structure": {
+    "projects": "1. Projects/",
+    "areas": "2. Areas/",
+    "resources": "3. Resources/",
+    "archives": "4. Archives/"
+  },
+  "cache_path": "~/.claude/homunculus/inbox-gradient-accelerator/cache.json"
+}

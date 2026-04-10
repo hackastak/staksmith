@@ -1,0 +1,31 @@
+{
+  "repos_root": [
+    "/Users/hackastak/Developer/PROJECTS",
+    "/Users/hackastak/Developer/SMILESTACKLABS"
+  ],
+  "watch_files": [
+    "README.md",
+    "CLAUDE.md",
+    "CONTRIBUTING.md",
+    "docs/*.md",
+    "API_DOCUMENTATION.md"
+  ],
+  "ignore_repos": [],
+  "auto_commit": false,
+  "staleness_threshold_days": 30,
+  "auto_fix_types": [],
+  "cache_path": "~/.claude/homunculus/code-to-docs-sync/",
+  "comparison_rules": {
+    "README.md": {
+      "tech_stack_vs_dependencies": true,
+      "scripts_vs_build_commands": true
+    },
+    "CLAUDE.md": {
+      "build_commands_vs_package_scripts": true,
+      "test_commands_vs_package_scripts": true
+    },
+    "API_DOCUMENTATION.md": {
+      "endpoints_vs_routes": true
+    }
+  }
+}

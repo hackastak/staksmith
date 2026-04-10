@@ -1,0 +1,14 @@
+{
+  "repos_root": [
+    "/Users/hackastak/Developer/PROJECTS",
+    "/Users/hackastak/Developer/SMILESTACKLABS"
+  ],
+  "vault_path": "/Users/hackastak/Developer/My_Notes",
+  "author_name": "hackastak",
+  "days_back": 7,
+  "output_format": "markdown",
+  "exclude_repos": [],
+  "include_uncommitted": true,
+  "include_branches": true,
+  "cache_path": "~/.claude/homunculus/weekly-momentum-report/"
+}

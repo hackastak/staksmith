@@ -1,0 +1,49 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "jarvis",
+  "description": "Battle-tested Claude Code configurations — agents, skills, hooks, commands, and rules evolved over 10+ months of intensive daily use",
+  "owner": {
+    "name": "hackastak",
+    "email": "hackastak@users.noreply.github.com"
+  },
+  "metadata": {
+    "description": "Battle-tested Claude Code configurations"
+  },
+  "plugins": [
+    {
+      "name": "jarvis",
+      "source": "./",
+      "description": "The most comprehensive Claude Code plugin — 14+ agents, 56+ skills, 33+ commands, and production-ready hooks for TDD, security scanning, code review, and continuous learning",
+      "version": "1.8.0",
+      "author": {
+        "name": "hackastak",
+        "email": "hackastak@users.noreply.github.com"
+      },
+      "homepage": "https://github.com/hackastak/jarvis",
+      "repository": "https://github.com/hackastak/jarvis",
+      "license": "MIT",
+      "keywords": [
+        "agents",
+        "skills",
+        "hooks",
+        "commands",
+        "tdd",
+        "code-review",
+        "security",
+        "best-practices"
+      ],
+      "category": "workflow",
+      "tags": [
+        "agents",
+        "skills",
+        "hooks",
+        "commands",
+        "tdd",
+        "code-review",
+        "security",
+        "best-practices"
+      ],
+      "strict": false
+    }
+  ]
+}

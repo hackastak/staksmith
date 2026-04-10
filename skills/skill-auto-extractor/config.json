@@ -1,0 +1,20 @@
+{
+  "repos_root": [
+    "/Users/hackastak/Developer/PROJECTS",
+    "/Users/hackastak/Developer/SMILESTACKLABS"
+  ],
+  "days_back": 30,
+  "min_frequency": 3,
+  "confidence_threshold": 0.8,
+  "output_path": "~/.claude/homunculus/evolved/skills/",
+  "session_logs_path": "~/.claude/homunculus/observations.jsonl",
+  "exclude_repos": [],
+  "author_name": "hackastak",
+  "pattern_types": [
+    "framework_addition",
+    "config_setup",
+    "workflow_sequence",
+    "architecture_pattern"
+  ],
+  "cache_path": "~/.claude/homunculus/skill-auto-extractor/"
+}

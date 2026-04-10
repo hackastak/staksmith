@@ -1,0 +1,20 @@
+{
+  "vault_path": "/Users/hackastak/Developer/My_Notes/1. Projects/",
+  "repos_root": [
+    "/Users/hackastak/Developer/PROJECTS",
+    "/Users/hackastak/Developer/SMILESTACKLABS"
+  ],
+  "templates_path": "./templates/",
+  "auto_match_threshold": 0.8,
+  "dry_run": true,
+  "manual_mappings": {},
+  "sync_sections": [
+    "build_commands",
+    "tech_stack",
+    "architecture",
+    "conventions",
+    "constraints"
+  ],
+  "cache_path": "~/.claude/homunculus/vault-to-code-bridge/",
+  "preserve_manual_edits": true
+}
