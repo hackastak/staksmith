@@ -32,9 +32,9 @@ fi
 echo "Scanning git history since: $SINCE_DATE" >&2
 echo "Author filter: $AUTHOR_NAME" >&2
 
-# Initialize results
-commit_data="[]"
-file_changes="[]"
+# Initialize results (collect as newline-separated JSON objects for O(n) performance)
+commit_records=""
+file_change_records=""
 
 # Function to check if repo should be excluded
 is_excluded() {
@@ -90,38 +90,49 @@ scan_repo() {
             pattern_type="architecture_pattern"
         fi
 
-        # Build commit record
-        commit_record=$(cat <<EOF
-{
-  "repo": "$repo_name",
-  "hash": "$hash",
-  "date": "$date",
-  "message": "$(echo "$message" | sed 's/"/\\"/g')",
-  "files": $files,
-  "pattern_type": "$pattern_type"
-}
-EOF
-)
+        # Build commit record using jq to properly escape all values
+        commit_record=$(jq -n \
+            --arg repo "$repo_name" \
+            --arg hash "$hash" \
+            --arg date "$date" \
+            --arg message "$message" \
+            --arg pattern_type "$pattern_type" \
+            --argjson files "$files" \
+            '{
+                repo: $repo,
+                hash: $hash,
+                date: $date,
+                message: $message,
+                files: $files,
+                pattern_type: $pattern_type
+            }'
+        )
 
-        commit_data=$(echo "$commit_data" | jq ". += [$commit_record]")
+        # Append to records string (O(1) operation)
+        commit_records+="$commit_record"$'\n'
 
         # Track file change patterns
         files_count=$(echo "$files" | jq 'length')
         for ((i=0; i<files_count; i++)); do
             file=$(echo "$files" | jq -r ".[$i]")
 
-            # Create file change record
-            file_record=$(cat <<EOF
-{
-  "file": "$file",
-  "repo": "$repo_name",
-  "commit": "$hash",
-  "message": "$(echo "$message" | sed 's/"/\\"/g')",
-  "pattern_type": "$pattern_type"
-}
-EOF
-)
-            file_changes=$(echo "$file_changes" | jq ". += [$file_record]")
+            # Create file change record using jq to properly escape all values
+            file_record=$(jq -n \
+                --arg file "$file" \
+                --arg repo "$repo_name" \
+                --arg commit "$hash" \
+                --arg message "$message" \
+                --arg pattern_type "$pattern_type" \
+                '{
+                    file: $file,
+                    repo: $repo,
+                    commit: $commit,
+                    message: $message,
+                    pattern_type: $pattern_type
+                }'
+            )
+            # Append to records string (O(1) operation)
+            file_change_records+="$file_record"$'\n'
         done
 
     done < <(git -C "$repo_path" log \
@@ -148,6 +159,20 @@ for root in "${REPOS_ROOT[@]}"; do
         ((total_repos++))
     done < <(find "$root" -mindepth 1 -maxdepth 1 -type d -print0)
 done
+
+# Combine all records into arrays (single O(n) operation)
+echo "Combining results..." >&2
+if [[ -n "$commit_records" ]]; then
+    commit_data=$(echo "$commit_records" | jq -s '.')
+else
+    commit_data="[]"
+fi
+
+if [[ -n "$file_change_records" ]]; then
+    file_changes=$(echo "$file_change_records" | jq -s '.')
+else
+    file_changes="[]"
+fi
 
 # Save raw commit data
 commits_file="$CACHE_PATH/commits.json"

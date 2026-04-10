@@ -66,6 +66,7 @@ scan_repo() {
     commits=$(git -C "$repo_path" log \
         --since="$SINCE_DATE" \
         --author="$AUTHOR_NAME" \
+        --regexp-ignore-case \
         --pretty=format:'{"hash":"%h","date":"%ad","message":"%s"}' \
         --date=short 2>/dev/null | jq -s '.' || echo "[]")
 

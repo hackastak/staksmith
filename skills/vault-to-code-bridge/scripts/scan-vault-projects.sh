@@ -185,7 +185,8 @@ while IFS= read -r -d '' project_dir; do
 EOF
 )
 
-    mappings=$(echo "$mappings" | jq ". += {\"$project_name\": $mapping}")
+    # Use jq to safely construct the object key
+    mappings=$(echo "$mappings" | jq --arg key "$project_name" --argjson value "$mapping" '. += {($key): $value}')
 done < <(find "$VAULT_PATH" -mindepth 1 -maxdepth 1 -type d -print0)
 
 # Save mappings

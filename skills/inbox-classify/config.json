@@ -1,0 +1,5 @@
+{
+  "vault_path": "~/Developer/My_Notes/",
+  "confidence_threshold": 0.7,
+  "cache_path": "~/.claude/cache/inbox-classify/"
+}

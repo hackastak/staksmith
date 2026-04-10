@@ -56,7 +56,9 @@ check_staleness() {
     fi
 
     # Get last modification time of code files
+    # Initialize to prevent segfault if no code files found
     latest_code_mtime=0
+
     while IFS= read -r -d '' code_file; do
         if [[ "$OSTYPE" == "darwin"* ]]; then
             code_mtime=$(stat -f "%m" "$code_file")
@@ -191,7 +193,7 @@ scan_repo() {
     fi
 
     # Skip if ignored
-    if is_ignored "$repo_name"; then
+    if [[ -n "$IGNORE_REPOS" ]] && is_ignored "$repo_name"; then
         return
     fi
 

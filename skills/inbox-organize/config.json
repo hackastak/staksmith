@@ -1,0 +1,7 @@
+{
+  "confidence_threshold": 0.7,
+  "dry_run": true,
+  "tag_uncertain": true,
+  "uncertain_tag": "#needs-review",
+  "cache_path": "~/.claude/cache/inbox-organize/"
+}
