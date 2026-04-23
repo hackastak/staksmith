@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 # scan-repos.sh - Phase 1: Scan git repositories for activity
 # Outputs JSON with commits, branches, uncommitted changes
+#
+# Usage:
+#   ./scan-repos.sh                      # Uses days_back from config
+#   ./scan-repos.sh --week 2025-W16      # Specific ISO week
+#   ./scan-repos.sh --since 2025-04-14 --until 2025-04-20  # Date range
 
 set -euo pipefail
 
@@ -22,14 +27,122 @@ CACHE_PATH=$(jq -r '.cache_path' "$CONFIG_FILE" | sed "s|~|$HOME|")
 # Create cache directory
 mkdir -p "$CACHE_PATH"
 
-# Calculate date threshold
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    SINCE_DATE=$(date -v-${DAYS_BACK}d +"%Y-%m-%d")
+# Function to calculate ISO week start (Monday) and end (Sunday) dates
+# ISO 8601: Week 1 is the week containing the first Thursday of the year
+calc_week_dates() {
+    local week_str="$1"  # Format: YYYY-WXX
+    local year="${week_str%-W*}"
+    local week="${week_str#*-W}"
+    week="${week#0}"  # Remove leading zero
+
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS: Find Jan 4 (always in week 1), get its weekday, calculate week 1 Monday
+        local jan4=$(date -j -f "%Y-%m-%d" "${year}-01-04" +"%s")
+        local jan4_dow=$(date -j -f "%Y-%m-%d" "${year}-01-04" +"%u")  # 1=Mon, 7=Sun
+        local week1_monday=$((jan4 - (jan4_dow - 1) * 86400))
+
+        # Calculate target week's Monday (add (week-1) * 7 days)
+        local target_monday=$((week1_monday + (week - 1) * 7 * 86400))
+        local target_sunday=$((target_monday + 6 * 86400))
+
+        SINCE_DATE=$(date -j -f "%s" "$target_monday" +"%Y-%m-%d")
+        UNTIL_DATE=$(date -j -f "%s" "$target_sunday" +"%Y-%m-%d")
+    else
+        # Linux: Use date's ISO week support
+        local jan4=$(date -d "${year}-01-04" +"%s")
+        local jan4_dow=$(date -d "${year}-01-04" +"%u")
+        local week1_monday=$((jan4 - (jan4_dow - 1) * 86400))
+
+        local target_monday=$((week1_monday + (week - 1) * 7 * 86400))
+        local target_sunday=$((target_monday + 6 * 86400))
+
+        SINCE_DATE=$(date -d "@$target_monday" +"%Y-%m-%d")
+        UNTIL_DATE=$(date -d "@$target_sunday" +"%Y-%m-%d")
+    fi
+}
+
+# Parse command line arguments
+SINCE_DATE=""
+UNTIL_DATE=""
+WEEK_ARG=""
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --since)
+            SINCE_DATE="$2"
+            shift 2
+            ;;
+        --until)
+            UNTIL_DATE="$2"
+            shift 2
+            ;;
+        --week)
+            WEEK_ARG="$2"
+            shift 2
+            ;;
+        *)
+            echo "Unknown option: $1" >&2
+            echo "Usage: $0 [--week YYYY-WXX] [--since YYYY-MM-DD --until YYYY-MM-DD]" >&2
+            exit 1
+            ;;
+    esac
+done
+
+# Function to normalize week input to YYYY-WXX format
+normalize_week() {
+    local input="$1"
+    local current_year=$(date +"%Y")
+
+    # Convert to uppercase for consistent matching
+    input=$(echo "$input" | tr '[:lower:]' '[:upper:]')
+
+    if [[ "$input" =~ ^[0-9]{4}-W[0-9]{2}$ ]]; then
+        # Already full format: 2025-W16
+        echo "$input"
+    elif [[ "$input" =~ ^W([0-9]{1,2})$ ]]; then
+        # Format: W16 or W5
+        local week="${BASH_REMATCH[1]}"
+        printf "%s-W%02d" "$current_year" "$week"
+    elif [[ "$input" =~ ^([0-9]{1,2})$ ]]; then
+        # Format: 16 or 5 (just the week number)
+        local week="${BASH_REMATCH[1]}"
+        printf "%s-W%02d" "$current_year" "$week"
+    else
+        echo ""  # Invalid format
+    fi
+}
+
+# Calculate dates based on arguments
+if [[ -n "$WEEK_ARG" ]]; then
+    # Normalize week format
+    WEEK_ARG=$(normalize_week "$WEEK_ARG")
+    if [[ -z "$WEEK_ARG" ]]; then
+        echo "Error: Invalid week format. Use YYYY-WXX, WXX, or just XX (e.g., 2025-W16, W16, 16)" >&2
+        exit 1
+    fi
+    calc_week_dates "$WEEK_ARG"
+    echo "Week $WEEK_ARG: $SINCE_DATE to $UNTIL_DATE" >&2
+elif [[ -n "$SINCE_DATE" && -n "$UNTIL_DATE" ]]; then
+    # Use provided date range
+    echo "Date range: $SINCE_DATE to $UNTIL_DATE" >&2
+elif [[ -n "$SINCE_DATE" || -n "$UNTIL_DATE" ]]; then
+    echo "Error: Both --since and --until must be provided together" >&2
+    exit 1
 else
-    SINCE_DATE=$(date -d "$DAYS_BACK days ago" +"%Y-%m-%d")
+    # Default: use days_back from config
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        SINCE_DATE=$(date -v-${DAYS_BACK}d +"%Y-%m-%d")
+    else
+        SINCE_DATE=$(date -d "$DAYS_BACK days ago" +"%Y-%m-%d")
+    fi
+    UNTIL_DATE=""  # No upper bound for rolling window
 fi
 
-echo "Scanning repositories since: $SINCE_DATE" >&2
+if [[ -n "$UNTIL_DATE" ]]; then
+    echo "Scanning repositories: $SINCE_DATE to $UNTIL_DATE" >&2
+else
+    echo "Scanning repositories since: $SINCE_DATE" >&2
+fi
 echo "Author filter: $AUTHOR_NAME" >&2
 
 # Initialize results array
@@ -63,14 +176,21 @@ scan_repo() {
 
     echo "  Scanning: $repo_name" >&2
 
-    # Get commits since date (use -sc for compact JSON)
+    # Get commits in date range (use -sc for compact JSON)
     # Handle repos with no commits yet (git log returns error)
-    git_log_output=$(git -C "$repo_path" log \
-        --since="$SINCE_DATE" \
-        --author="$AUTHOR_NAME" \
-        --regexp-ignore-case \
-        --pretty=format:'{"hash":"%h","date":"%ad","message":"%s"}' \
-        --date=short 2>/dev/null) || git_log_output=""
+    local git_log_args=(
+        -C "$repo_path" log
+        --since="$SINCE_DATE"
+        --author="$AUTHOR_NAME"
+        --regexp-ignore-case
+        --pretty=format:'{"hash":"%h","date":"%ad","message":"%s"}'
+        --date=short
+    )
+    # Add --until if specified (for specific week/date range)
+    if [[ -n "$UNTIL_DATE" ]]; then
+        git_log_args+=(--until="$UNTIL_DATE 23:59:59")
+    fi
+    git_log_output=$(git "${git_log_args[@]}" 2>/dev/null) || git_log_output=""
 
     if [[ -n "$git_log_output" ]]; then
         commits=$(echo "$git_log_output" | jq -sc '.' 2>/dev/null)

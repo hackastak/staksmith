@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 # scan-vault-tasks.sh - Phase 2: Parse vault tasks
 # Extracts completed and pending tasks from project backlogs
+#
+# Usage:
+#   ./scan-vault-tasks.sh                      # Uses days_back from config
+#   ./scan-vault-tasks.sh --week 2025-W16      # Specific ISO week
+#   ./scan-vault-tasks.sh --since 2025-04-14 --until 2025-04-20  # Date range
 
 set -euo pipefail
 
@@ -20,14 +25,114 @@ CACHE_PATH=$(jq -r '.cache_path' "$CONFIG_FILE" | sed "s|~|$HOME|")
 # Create cache directory
 mkdir -p "$CACHE_PATH"
 
-# Calculate date threshold
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    SINCE_DATE=$(date -v-${DAYS_BACK}d +"%Y-%m-%d")
+# Function to calculate ISO week start (Monday) and end (Sunday) dates
+calc_week_dates() {
+    local week_str="$1"  # Format: YYYY-WXX
+    local year="${week_str%-W*}"
+    local week="${week_str#*-W}"
+    week="${week#0}"  # Remove leading zero
+
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        local jan4=$(date -j -f "%Y-%m-%d" "${year}-01-04" +"%s")
+        local jan4_dow=$(date -j -f "%Y-%m-%d" "${year}-01-04" +"%u")
+        local week1_monday=$((jan4 - (jan4_dow - 1) * 86400))
+        local target_monday=$((week1_monday + (week - 1) * 7 * 86400))
+        local target_sunday=$((target_monday + 6 * 86400))
+
+        SINCE_DATE=$(date -j -f "%s" "$target_monday" +"%Y-%m-%d")
+        UNTIL_DATE=$(date -j -f "%s" "$target_sunday" +"%Y-%m-%d")
+    else
+        local jan4=$(date -d "${year}-01-04" +"%s")
+        local jan4_dow=$(date -d "${year}-01-04" +"%u")
+        local week1_monday=$((jan4 - (jan4_dow - 1) * 86400))
+        local target_monday=$((week1_monday + (week - 1) * 7 * 86400))
+        local target_sunday=$((target_monday + 6 * 86400))
+
+        SINCE_DATE=$(date -d "@$target_monday" +"%Y-%m-%d")
+        UNTIL_DATE=$(date -d "@$target_sunday" +"%Y-%m-%d")
+    fi
+}
+
+# Parse command line arguments
+SINCE_DATE=""
+UNTIL_DATE=""
+WEEK_ARG=""
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --since)
+            SINCE_DATE="$2"
+            shift 2
+            ;;
+        --until)
+            UNTIL_DATE="$2"
+            shift 2
+            ;;
+        --week)
+            WEEK_ARG="$2"
+            shift 2
+            ;;
+        *)
+            echo "Unknown option: $1" >&2
+            echo "Usage: $0 [--week YYYY-WXX] [--since YYYY-MM-DD --until YYYY-MM-DD]" >&2
+            exit 1
+            ;;
+    esac
+done
+
+# Function to normalize week input to YYYY-WXX format
+normalize_week() {
+    local input="$1"
+    local current_year=$(date +"%Y")
+
+    # Convert to uppercase for consistent matching
+    input=$(echo "$input" | tr '[:lower:]' '[:upper:]')
+
+    if [[ "$input" =~ ^[0-9]{4}-W[0-9]{2}$ ]]; then
+        # Already full format: 2025-W16
+        echo "$input"
+    elif [[ "$input" =~ ^W([0-9]{1,2})$ ]]; then
+        # Format: W16 or W5
+        local week="${BASH_REMATCH[1]}"
+        printf "%s-W%02d" "$current_year" "$week"
+    elif [[ "$input" =~ ^([0-9]{1,2})$ ]]; then
+        # Format: 16 or 5 (just the week number)
+        local week="${BASH_REMATCH[1]}"
+        printf "%s-W%02d" "$current_year" "$week"
+    else
+        echo ""  # Invalid format
+    fi
+}
+
+# Calculate dates based on arguments
+if [[ -n "$WEEK_ARG" ]]; then
+    # Normalize week format
+    WEEK_ARG=$(normalize_week "$WEEK_ARG")
+    if [[ -z "$WEEK_ARG" ]]; then
+        echo "Error: Invalid week format. Use YYYY-WXX, WXX, or just XX (e.g., 2025-W16, W16, 16)" >&2
+        exit 1
+    fi
+    calc_week_dates "$WEEK_ARG"
+    echo "Week $WEEK_ARG: $SINCE_DATE to $UNTIL_DATE" >&2
+elif [[ -n "$SINCE_DATE" && -n "$UNTIL_DATE" ]]; then
+    echo "Date range: $SINCE_DATE to $UNTIL_DATE" >&2
+elif [[ -n "$SINCE_DATE" || -n "$UNTIL_DATE" ]]; then
+    echo "Error: Both --since and --until must be provided together" >&2
+    exit 1
 else
-    SINCE_DATE=$(date -d "$DAYS_BACK days ago" +"%Y-%m-%d")
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        SINCE_DATE=$(date -v-${DAYS_BACK}d +"%Y-%m-%d")
+    else
+        SINCE_DATE=$(date -d "$DAYS_BACK days ago" +"%Y-%m-%d")
+    fi
+    UNTIL_DATE=""  # No upper bound for rolling window
 fi
 
-echo "Scanning vault tasks since: $SINCE_DATE" >&2
+if [[ -n "$UNTIL_DATE" ]]; then
+    echo "Scanning vault tasks: $SINCE_DATE to $UNTIL_DATE" >&2
+else
+    echo "Scanning vault tasks since: $SINCE_DATE" >&2
+fi
 echo "Vault path: $VAULT_PATH" >&2
 
 # Check if vault exists
@@ -66,8 +171,14 @@ parse_tasks() {
             task_text="${BASH_REMATCH[1]}"
             task_date="${BASH_REMATCH[2]}"
 
-            # Check if date is within range
+            # Check if date is within range (>= since AND <= until if set)
+            local in_range=false
             if [[ "$task_date" > "$SINCE_DATE" || "$task_date" == "$SINCE_DATE" ]]; then
+                if [[ -z "$UNTIL_DATE" || "$task_date" < "$UNTIL_DATE" || "$task_date" == "$UNTIL_DATE" ]]; then
+                    in_range=true
+                fi
+            fi
+            if [[ "$in_range" == "true" ]]; then
                 task_json=$(cat <<EOF
 {
   "text": "$(echo "$task_text" | sed 's/"/\\"/g')",
