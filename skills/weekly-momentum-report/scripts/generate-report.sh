@@ -126,125 +126,107 @@ mkdir -p "$WEEKLY_DIR"
 
 REPORT_FILE="$WEEKLY_DIR/$WEEK_ID.md"
 
+# Calculate metrics
+total_commits=$(echo "$repos_data" | jq '[.[].commit_count] | add // 0')
+active_repos=$(echo "$repos_data" | jq '[.[] | select(.commit_count > 0)] | length')
+total_repos=$(echo "$repos_data" | jq 'length')
+total_completed=$(echo "$tasks_data" | jq '[.[].completed_count] | add // 0')
+total_pending=$(echo "$tasks_data" | jq '[.[].pending_count] | add // 0')
+
+# Get list of projects with activity
+active_projects=$(echo "$tasks_data" | jq -r '
+  to_entries
+  | map(select(.value.completed_count > 0 or .value.pending_count > 0))
+  | map(.key)
+  | join(", ")
+')
+
 # Generate report content
 cat > "$REPORT_FILE" <<EOF
-# $WEEK_ID - Weekly Review
+# $WEEK_ID - Weekly Momentum Report
 
 Generated: $(date +"%Y-%m-%d %H:%M")${DATE_RANGE_STR:+
 Date Range: ${SINCE_DATE} to ${UNTIL_DATE}}
 
+---
+
 ## Highlights
+<!-- Top 3-4 accomplishments for the week. Focus on shipped features, milestones reached, and significant progress. -->
+
+-
+-
+-
+
+## Summary
+<!-- Narrative breakdown by project area. Describe what was worked on, decisions made, and progress achieved. -->
 
 EOF
 
-# Extract top accomplishments from completed tasks
-echo "$(echo "$tasks_data" | jq -r '
+# Add project sections based on active projects
+echo "$tasks_data" | jq -r '
   to_entries
-  | map(select(.value.completed_count > 0))
-  | sort_by(.value.completed_count)
-  | reverse
-  | .[0:3]
+  | map(select(.value.completed_count > 0 or .value.pending_count > 0))
+  | sort_by(.key)
   | .[]
-  | "- ✅ \(.key): \(.value.completed_count) tasks completed"
-')" >> "$REPORT_FILE"
-
-# Add repo highlights
-total_commits=$(echo "$repos_data" | jq '[.[].commit_count] | add // 0')
-active_repos=$(echo "$repos_data" | jq 'length')
+  | "**\(.key)**: \n"
+' >> "$REPORT_FILE"
 
 cat >> "$REPORT_FILE" <<EOF
 
-- 🚀 $total_commits commits across $active_repos active repositories
+## Learning & New Ideas
+<!-- New knowledge, insights, technologies explored, or ideas that emerged this week. -->
 
-## Commits by Repository
+-
+
+## Blockers & Challenges
+<!-- Issues faced, platform problems, architectural concerns, or anything that slowed progress. -->
+
+-
+
+## Metrics
+- **Commits**: $total_commits across $active_repos active repos
+- **Tasks completed**: $total_completed
+- **Active projects**: $active_projects
+
+---
+
+## Changelog
 
 EOF
 
-# List commits per repository
+# List commits per repository (only repos with commits)
 echo "$repos_data" | jq -r '
   .[]
   | select(.commit_count > 0)
-  | "### \(.name) (\(.commit_count) commits)\n\n" +
-    (.commits | map("- \(.message)") | join("\n")) +
+  | "### \(.name)\n" +
+    (.commits | map("- \(.message) (\(.date))") | join("\n")) +
     "\n"
 ' >> "$REPORT_FILE"
 
-# Add vault tasks section
+# Add SAP repos section placeholder
 cat >> "$REPORT_FILE" <<EOF
-
-## Vault Tasks Completed
-
-EOF
-
-# List completed tasks by project
-echo "$tasks_data" | jq -r '
-  to_entries
-  | map(select(.value.completed_count > 0))
-  | sort_by(.key)
-  | .[]
-  | "### \(.key)\n\n" +
-    (.value.completed | map("- [x] \(.text) ✅ \(.completed_date)") | join("\n")) +
-    "\n"
-' >> "$REPORT_FILE"
-
-# Add pending tasks section
-cat >> "$REPORT_FILE" <<EOF
-
-## Pending Tasks
-
-EOF
-
-echo "$tasks_data" | jq -r '
-  to_entries
-  | map(select(.value.pending_count > 0))
-  | sort_by(.key)
-  | .[]
-  | "### \(.key)\n\n" +
-    (.value.pending[0:5] | map("- [ ] \(.text)") | join("\n")) +
-    (if .value.pending_count > 5 then "\n- ... and \(.value.pending_count - 5) more" else "" end) +
-    "\n"
-' >> "$REPORT_FILE"
-
-# Add uncommitted changes section if any
-uncommitted_repos=$(echo "$repos_data" | jq '[.[] | select(.uncommitted_changes > 0)]')
-uncommitted_count=$(echo "$uncommitted_repos" | jq 'length')
-
-if [[ $uncommitted_count -gt 0 ]]; then
-    cat >> "$REPORT_FILE" <<EOF
-
-## Uncommitted Changes
-
-EOF
-
-    echo "$uncommitted_repos" | jq -r '
-      .[]
-      | "### \(.name)\n- \(.uncommitted_changes) uncommitted files\n- Current branch: \(.current_branch)\n"
-    ' >> "$REPORT_FILE"
-fi
-
-# Add metrics section
-total_completed=$(echo "$tasks_data" | jq '[.[].completed_count] | add // 0')
-total_pending=$(echo "$tasks_data" | jq '[.[].pending_count] | add // 0')
-total_uncommitted=$(echo "$repos_data" | jq '[.[].uncommitted_changes] | add // 0')
-
-cat >> "$REPORT_FILE" <<EOF
-
-## Metrics
-
-- **Total commits**: $total_commits across $active_repos repositories
-- **Tasks completed**: $total_completed
-- **Pending tasks**: $total_pending
-- **Active branches**: $(echo "$repos_data" | jq '[.[].branches | length] | add // 0')
-- **Uncommitted changes**: $total_uncommitted files
-
-## Next Week Priorities
-
-<!-- AI-generated suggestions would go here -->
-<!-- User can manually add priorities -->
-
-## Notes
-
-<!-- Additional observations, blockers, insights -->
+---
+### SAP Repos (run commands to populate)
+#### oms-joule
+\`\`\`shell
+git log --author="Hunter Wiginton" --since="$SINCE_DATE" --until="$UNTIL_DATE" --pretty=format:"- [%s](https://github.tools.sap/OMS/oms-joule/commits/%H) (%ad)" --date=format:"%Y-%m-%d %H:%M" | pbcopy
+\`\`\`
+#### omf-joule
+\`\`\`shell
+git log --author="Hunter Wiginton" --since="$SINCE_DATE" --until="$UNTIL_DATE" --pretty=format:"- [%s](https://github.tools.sap/OMS/omf-joule/commits/%H) (%ad)" --date=format:"%Y-%m-%d %H:%M" | pbcopy
+\`\`\`
+#### oms-knowledge-graph-models
+\`\`\`shell
+git log --author="Hunter Wiginton" --since="$SINCE_DATE" --until="$UNTIL_DATE" --pretty=format:"- [%s](https://github.tools.sap/OMS/oms-knowledge-graph-models/commits/%H) (%ad)" --date=format:"%Y-%m-%d %H:%M" | pbcopy
+\`\`\`
+#### oms-knowledge-graph-scripts
+\`\`\`shell
+git log --author="Hunter Wiginton" --since="$SINCE_DATE" --until="$UNTIL_DATE" --pretty=format:"- [%s](https://github.tools.sap/OMS/oms-knowledge-graph-scripts/commits/%H) (%ad)" --date=format:"%Y-%m-%d %H:%M" | pbcopy
+\`\`\`
+#### oms-knowledge-graph-service
+\`\`\`shell
+git log --author="Hunter Wiginton" --since="$SINCE_DATE" --until="$UNTIL_DATE" --pretty=format:"- [%s](https://github.tools.sap/OMS/oms-knowledge-graph-service/commits/%H) (%ad)" --date=format:"%Y-%m-%d %H:%M" | pbcopy
+\`\`\`
 
 ---
 
@@ -261,8 +243,7 @@ report_metadata=$(cat <<EOF
     "total_commits": $total_commits,
     "active_repos": $active_repos,
     "tasks_completed": $total_completed,
-    "tasks_pending": $total_pending,
-    "uncommitted_files": $total_uncommitted
+    "tasks_pending": $total_pending
   }
 }
 EOF

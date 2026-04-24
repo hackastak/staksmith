@@ -12,18 +12,20 @@ Aggregate project status from git repos, vault tasks, and GitHub for comprehensi
 
 ## What This Skill Does
 
-The Weekly Momentum Report Generator scans your development environment (25+ repositories) and Obsidian vault to create a comprehensive weekly status report. It combines:
+The Weekly Momentum Report Generator scans your development environment (25+ repositories) and Obsidian vault to create a comprehensive weekly status report. The report uses a **narrative summary format** rather than listing individual tasks, providing a readable overview of what was accomplished, learned, and blocked.
 
-- **Git Activity**: Commits, branches, uncommitted work across all repos
-- **Vault Tasks**: Completed and pending items from project backlogs
-- **Package Versions**: Track releases and version bumps
-- **Executive Summary**: AI-generated insights on momentum and blockers
+**Key Features:**
+- **Narrative Summaries**: Project-by-project breakdown of work done, decisions made, and progress achieved
+- **Learning Capture**: Documents new knowledge, technologies explored, and insights gained
+- **Blocker Tracking**: Records challenges, platform issues, and architectural concerns
+- **Git Changelog**: Automated commit aggregation from all configured repositories
+- **Metrics Dashboard**: Commit counts, active projects, and task statistics
 
 **3-Phase Workflow:**
 
 1. **Scan Repos Phase**: Inventory git activity across all repositories
-2. **Scan Vault Tasks Phase**: Parse completed/pending tasks from Obsidian
-3. **Generate Report Phase**: Synthesize findings into formatted weekly note
+2. **Scan Vault Tasks Phase**: Parse completed/pending tasks from Obsidian backlogs
+3. **Generate Report Phase**: Create scaffold with metrics and changelogs; Claude fills narrative sections from daily journal
 
 ## Configuration
 
@@ -84,69 +86,71 @@ Set up weekly automation via launchd:
 ### Example Report Output
 
 ```markdown
-# 2026-W14 - Weekly Review
+# 2026-W16 - Weekly Momentum Report
+
+Generated: 2026-04-19 17:00
+
+---
 
 ## Highlights
-- ✅ Shipped OMS v2.1 with authentication refactor
-- ✅ Completed BillScribe PDF generation feature
-- ✅ Migrated 3 projects to Drizzle ORM
+- Shipped ProtoFlow admin panel with full user management, request tracking, and dashboard overview
+- Added design-only subscription tiers to ProtoFlow, expanding the service offering with lower-overhead options
+- Fixed critical error handling and null check issues in the OMS transferFailureAgent for BETA release
+- Added GitHub PAT rotation support to RepoG (v0.2.3)
 
-## Commits by Repository
+## Summary
 
-### OMS_Athena (8 commits)
-- feat: add JWT refresh token rotation
-- fix: session timeout handling
-- docs: update API authentication guide
-- test: add auth integration tests
+**SAP/OMS**: Focused on stabilizing the transferFailureAgent for BETA release. Discovered that Gemini 2.5 Flash Lite was hallucinating tool parameters outside the defined schema, causing silent failures. Fixed by adding proper null checks and error handling to the fetchFailedDispatchTasks tool. Started investigating a deeper architectural issue with capability context variables - the manual review agent re-fetches dispatch tasks instead of pulling from context, causing state drift. Joule platform outages on Wednesday and Thursday blocked progress.
 
-### BillScribe (5 commits)
-- feat: PDF generation with custom templates
-- fix: invoice calculation rounding errors
-- refactor: extract PDF service
+**ProtoFlow**: Major UI milestone - completed the entire admin panel (layout, dashboard, request management, user management). Pivoted strategy to add design-only subscription plans after realizing design services have the lowest overhead and likely highest accessibility. Set up all Stripe products (Creator, Studio, Maker, Production) and integrated keys into the codebase.
 
-### SmileStackLabs/site (2 commits)
-- content: add blog post on AI workflows
-- fix: mobile navigation styling
+**RepoG**: Released v0.2.3 with GitHub PAT rotation support and fixed the SYNC command chunk_type constraint error for partitioned repositories.
 
-## Vault Tasks Completed (12)
-
-### OMS_Athena
-- [x] Design JWT refresh strategy ✅ 2026-04-05
-- [x] Implement session expiry handling ✅ 2026-04-06
-- [x] Write API security documentation ✅ 2026-04-07
-
-### BillScribe
-- [x] Research PDF generation libraries ✅ 2026-04-04
-- [x] Build template system ✅ 2026-04-06
-- [x] Add invoice preview feature ✅ 2026-04-07
-
-## Pending Tasks (8)
-
-### OMS_Athena
-- [ ] Deploy v2.1 to staging
-- [ ] Conduct security audit
-- [ ] Setup monitoring alerts
-
-### BillScribe
-- [ ] Add email delivery for invoices
-- [ ] Implement recurring billing
+## Learning & New Ideas
+- **OpenClaw**: Deep-diving into computer-use automation. Considering use cases for sales/marketing automation and potentially running vault skills autonomously. Set up AgentMail account and bought Udemy course.
+- **Design services accessibility**: Realized design-only plans may be more sellable than full manufacturing services due to lower barrier to entry for customers
+- **Agent context management**: Context variables in Joule are more fragile than expected - need to think through state management patterns for multi-step agent workflows
 
 ## Blockers & Challenges
-- Waiting on design feedback for BillScribe dashboard
-- OMS staging environment needs database migration
-
-## Next Week Priorities
-1. Complete OMS v2.1 staging deployment
-2. Security audit and penetration testing
-3. BillScribe email integration
-4. Blog post publication
+- Joule platform outages (Wed afternoon, Thu morning) blocked OMS agent testing
+- Gemini model hallucinating tool parameters not in schema
+- Context variable state management in transferFailureAgent needs architectural review
 
 ## Metrics
-- Total commits: 15 across 3 active projects
-- Tasks completed: 12
-- Active branches: 6
-- Repos with uncommitted changes: 2
+- **Commits**: 7 (ProtoFlow: 6, RepoG: 1)
+- **Active projects**: 3 (ProtoFlow, OMS_Athena, RepoG)
+
+---
+
+## Changelog
+
+### ProtoFlow
+- chore: add .env.example and update Agency annual pricing (2026-04-18)
+- feat: add design-only subscription tiers with Designer and Agency plans (2026-04-16)
+- feat: add monthly material weight limits and update subscription pricing (2026-04-14)
+- feat: add polish features with loading states, mobile nav, and profile management (2026-04-13)
+- feat: add admin panel with user, request, and inquiry management (2026-04-13)
+- feat: restructure subscription tiers into all-inclusive and print-only categories (2026-04-13)
+
+### RepoG
+- fix: support partitioned chunks and add github token rotation (2026-04-19)
 ```
+
+## Report Sections
+
+The momentum report contains these sections:
+
+1. **Highlights** - Top 3-4 accomplishments. Focus on shipped features, milestones, and significant progress. Written as bullet points.
+
+2. **Summary** - Narrative breakdown by project area. Describes what was worked on, decisions made, technical details, and progress achieved. Claude synthesizes this from the daily journal entries in the weekly note.
+
+3. **Learning & New Ideas** - New knowledge, insights, technologies explored, or ideas that emerged. Captures growth and exploration beyond task completion.
+
+4. **Blockers & Challenges** - Issues faced, platform problems, architectural concerns, or anything that slowed progress. Useful for retrospectives and planning.
+
+5. **Metrics** - Quantitative summary: commit counts, active projects, task statistics. Auto-generated from cached scan data.
+
+6. **Changelog** - Git commits grouped by repository. Auto-generated from the repos scan. Includes SAP repo command templates for manual population.
 
 ## Outputs
 

@@ -105,7 +105,7 @@ description: [What the skill does] and [when to use it]. Max 1024 characters.
 
 ### 5. Apply Best Practices
 
-**Conciseness**: Keep SKILL.md under 500 lines. Use progressive disclosure - reference additional files rather than embedding everything.
+**Conciseness**: Keep SKILL.md lean — it loads at inference time, so every line has a token cost. Use progressive disclosure: reference separate files for detailed content rather than embedding everything.
 
 **Appropriate specificity**:
 - Exact instructions for fragile operations
@@ -236,7 +236,7 @@ Before completing skill creation, verify:
 - [ ] Main instructions are clear and procedural
 - [ ] Example 1 is the minimal happy path (under 15 lines)
 - [ ] At least one tricky case example is included
-- [ ] SKILL.md is under 500 lines (use separate files if longer)
+- [ ] SKILL.md is lean; detailed content in separate reference files
 - [ ] Supporting files are referenced correctly
 - [ ] Description is in third person
 - [ ] Name uses gerund form where appropriate
