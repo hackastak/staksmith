@@ -173,7 +173,7 @@ For manual install instructions see the README in the `rules/` folder.
 /plugin list jarvis@jarvis
 ```
 
-✨ **That's it!** You now have access to 25 agents, 108 skills, and 57 commands.
+✨ **That's it!** You now have access to 25 agents, 109 skills, and 57 commands.
 
 ---
 
@@ -267,6 +267,7 @@ jarvis/
 |   |-- tdd-workflow/               # TDD methodology
 |   |-- security-review/            # Security checklist
 |   |-- eval-harness/               # Verification loop evaluation (Longform Guide)
+|   |-- grill-me/                   # Interview-style stress-testing for plans and designs (NEW)
 |   |-- verification-loop/          # Continuous verification (Longform Guide)
 |   |-- videodb/                   # Video and audio: ingest, search, edit, generate, stream (NEW)
 |   |-- golang-patterns/            # Go idioms and best practices
@@ -1017,7 +1018,7 @@ The configuration is automatically detected from `.opencode/opencode.json`.
 |---------|-------------|----------|--------|
 | Agents | ✅ 25 agents | ✅ 12 agents | **Claude Code leads** |
 | Commands | ✅ 57 commands | ✅ 31 commands | **Claude Code leads** |
-| Skills | ✅ 108 skills | ✅ 37 skills | **Claude Code leads** |
+| Skills | ✅ 109 skills | ✅ 37 skills | **Claude Code leads** |
 | Hooks | ✅ 8 event types | ✅ 11 events | **OpenCode has more!** |
 | Rules | ✅ 29 rules | ✅ 13 instructions | **Claude Code leads** |
 | MCP Servers | ✅ 14 servers | ✅ Full | **Full parity** |
@@ -1125,7 +1126,7 @@ ECC is the **first plugin to maximize every major AI coding tool**. Here's how e
 |---------|------------|------------|-----------|----------|
 | **Agents** | 21 | Shared (AGENTS.md) | Shared (AGENTS.md) | 12 |
 | **Commands** | 52 | Shared | Instruction-based | 31 |
-| **Skills** | 102 | Shared | 10 (native format) | 37 |
+| **Skills** | 103 | Shared | 10 (native format) | 37 |
 | **Hook Events** | 8 types | 15 types | None yet | 11 types |
 | **Hook Scripts** | 20+ scripts | 16 scripts (DRY adapter) | N/A | Plugin hooks |
 | **Rules** | 34 (common + lang) | 34 (YAML frontmatter) | Instruction-based | 13 instructions |

@@ -1,10 +1,10 @@
-# Implementation Complete: 5 Custom AI Skills for Workflow Automation
+# Implementation Complete: Custom AI Skills
 
 ## Overview
 
-Successfully implemented 5 specialized AI skills that integrate your Obsidian vault (My_Notes) with your development workflow across 25+ repositories.
+Successfully implemented 5 specialized AI skills that integrate your Obsidian vault (My_Notes) with your development workflow across 25+ repositories, plus additional planning and design skills.
 
-## Skills Implemented
+## Workflow Automation Skills Implemented
 
 ### ✅ 1. Inbox Gradient Accelerator
 **Location**: `~/Developer/Staksmith/skills/inbox-gradient-accelerator/`
@@ -159,10 +159,12 @@ All skills cache intermediate results in `~/.claude/homunculus/{skill-name}/`:
 │   ├── config.json
 │   ├── scripts/ (2 scripts)
 │   └── templates/ (2 templates)
-└── skill-auto-extractor/
-    ├── SKILL.md
-    ├── config.json
-    └── scripts/ (3 scripts)
+├── skill-auto-extractor/
+│   ├── SKILL.md
+│   ├── config.json
+│   └── scripts/ (3 scripts)
+└── grill-me/
+    └── SKILL.md
 
 ~/.claude/homunculus/
 ├── inbox-gradient-accelerator/
@@ -173,6 +175,24 @@ All skills cache intermediate results in `~/.claude/homunculus/{skill-name}/`:
 └── evolved/
     └── skills/ (auto-generated skills)
 ```
+
+---
+
+## Planning & Design Skills Implemented
+
+### ✅ 6. Grill Me
+**Location**: `~/Developer/Staksmith/skills/grill-me/`
+
+- **Purpose**: Interview-style stress-testing for plans and designs
+- **Files Created**:
+  - SKILL.md (357 bytes)
+
+**Key Features**:
+- Relentless questioning to uncover edge cases
+- One question at a time for focused discussion
+- Explores codebase when applicable
+- Provides recommended answers
+- Resolves decision tree branches systematically
 
 ---
 
@@ -232,9 +252,9 @@ Set up with launchd/cron for hands-free operation:
 
 ## Verification Results
 
-✅ All 5 skills created successfully
+✅ All 6 skills created successfully
 ✅ All SKILL.md files complete with examples
-✅ All config.json files valid JSON
+✅ All config.json files valid JSON (5 workflow skills)
 ✅ All 14 scripts created and executable
 ✅ 2 templates created for vault-to-code-bridge
 ✅ 5 cache directories initialized
@@ -292,7 +312,7 @@ cp -r ~/.claude/homunculus/evolved/skills/add-drizzle-orm \
 
 ## Success Criteria Met
 
-- [x] All 5 skills have complete SKILL.md files with proper frontmatter
+- [x] All 6 skills have complete SKILL.md files with proper frontmatter
 - [x] All supporting scripts are executable and functional
 - [x] Config files allow customization without code changes
 - [x] Dry-run mode works for all destructive operations
@@ -307,12 +327,12 @@ cp -r ~/.claude/homunculus/evolved/skills/add-drizzle-orm \
 
 | Category | Count | Total Size |
 |----------|-------|------------|
-| SKILL.md files | 5 | ~39 KB |
+| SKILL.md files | 6 | ~40 KB |
 | config.json files | 5 | ~3 KB |
 | Shell scripts | 14 | ~72 KB |
 | Templates | 2 | ~2 KB |
 | Documentation | 1 README | ~20 KB |
-| **Total** | **27 files** | **~136 KB** |
+| **Total** | **28 files** | **~137 KB** |
 
 ---
 

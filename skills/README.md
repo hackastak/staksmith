@@ -1,8 +1,8 @@
 # Staksmith Skills - Workflow Automation Suite
 
-This directory contains 5 custom AI skills designed to automate workflows across your Obsidian vault (My_Notes) and 25+ development repositories.
+This directory contains 5 custom AI skills designed to automate workflows across your Obsidian vault (My_Notes) and 25+ development repositories, plus additional planning and design skills.
 
-## Skills Overview
+## Custom Workflow Automation Skills
 
 ### 1. Inbox Gradient Accelerator
 **Location**: `inbox-gradient-accelerator/`
@@ -138,6 +138,36 @@ cd skill-auto-extractor
 ./scripts/scan-history.sh
 ./scripts/detect-patterns.sh
 ./scripts/generate-skill.sh
+```
+
+---
+
+## Planning & Design Skills
+
+### 6. Grill Me
+**Location**: `grill-me/`
+
+Interactive interview-style skill that stress-tests plans and designs through relentless questioning.
+
+**Use Cases:**
+- Stress-testing a new feature plan before implementation
+- Design review sessions
+- Exploring edge cases and dependencies
+- Validating architectural decisions
+- When you want critical feedback on a proposal
+
+**Key Features:**
+- One question at a time for focused discussion
+- Explores codebase when questions can be answered through code inspection
+- Walks through decision tree branches systematically
+- Provides recommended answers for each question
+- Resolves dependencies between decisions
+
+**Quick Start:**
+Simply invoke the skill with your plan or design:
+```
+User: "Grill me on adding OAuth to the app"
+Claude: [Invokes grill-me skill and begins systematic questioning]
 ```
 
 ---
