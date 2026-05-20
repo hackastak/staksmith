@@ -84,17 +84,28 @@ Do not restate the findings list below — this is the headline, not a recap.>
 
 Each finding represents a single review comment the user could paste onto the PR. Format every finding with the file/line location as the bullet header and the comment body on the indented line below, labeled `**Comment:**`. The comment should be a self-contained piece of prose covering what the issue is, why it matters, and the suggested fix — written the way you would write it directly to the author. Do not split it into separate Issue/Why/Fix labels.
 
+**Always separate findings with a blank line** — including between findings within the same severity subsection. This keeps the output scannable when there are multiple comments per file or per severity.
+
 ### Critical
 - `path/file.py:42`
   **Comment:** <Self-contained review comment covering issue, impact, and suggested fix in natural prose. Reference other code locations as `file:line` when helpful.>
 
+- `path/other.py:88`
+  **Comment:** <Next finding — note the blank line above separating it from the previous one.>
+
 ### Major
+- ...
+
 - ...
 
 ### Minor
 - ...
 
+- ...
+
 ### Nits
+- ...
+
 - ...
 
 ## What looks good
