@@ -82,31 +82,43 @@ Do not restate the findings list below — this is the headline, not a recap.>
 
 ## Findings
 
-Each finding represents a single review comment the user could paste onto the PR. Format every finding with the file/line location as the bullet header and the comment body on the indented line below, labeled `**Comment:**`. The comment should be a self-contained piece of prose covering what the issue is, why it matters, and the suggested fix — written the way you would write it directly to the author. Do not split it into separate Issue/Why/Fix labels.
+Each finding is its own `####` subsection — **never** a bullet list item. This is non-negotiable: bullet-list findings collapse together when rendered in a terminal, which is unreadable. Always use h4 headers so the renderer pads each finding with vertical space.
 
-**Always separate findings with a blank line** — including between findings within the same severity subsection. This keeps the output scannable when there are multiple comments per file or per severity.
+The `####` header is the file/line location (backtick-wrapped). The body is the review comment as natural prose covering what the issue is, why it matters, and the suggested fix — written the way you would write it directly to the author. Do not prefix the body with `**Comment:**` or split it into separate Issue/Why/Fix labels; the header already labels the finding.
+
+Always leave a blank line after every `####` header and a blank line after the comment body before the next `####`. Multiple file:line references for one logical finding can be combined in the header (e.g., `#### \`path/file.py:271, :280\``).
 
 ### Critical
-- `path/file.py:42`
-  **Comment:** <Self-contained review comment covering issue, impact, and suggested fix in natural prose. Reference other code locations as `file:line` when helpful.>
 
-- `path/other.py:88`
-  **Comment:** <Next finding — note the blank line above separating it from the previous one.>
+#### `path/file.py:42`
+
+<Self-contained review comment covering issue, impact, and suggested fix in natural prose. Reference other code locations as `file:line` when helpful.>
+
+#### `path/other.py:88`
+
+<Next finding — note the blank lines above and below separating each h4 block.>
 
 ### Major
-- ...
 
-- ...
+#### `path/foo.py:12`
+
+<...>
+
+#### `path/bar.py:34`
+
+<...>
 
 ### Minor
-- ...
 
-- ...
+#### `path/baz.py:56`
+
+<...>
 
 ### Nits
-- ...
 
-- ...
+#### `path/qux.py:78`
+
+<...>
 
 ## What looks good
 - <1–3 bullets — call out genuinely good choices, not filler.>
