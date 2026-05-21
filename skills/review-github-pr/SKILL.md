@@ -19,26 +19,28 @@ Wait for a number before proceeding. Do not guess.
 
 Run:
 
-- `gh pr view <num> --json number,title,body,baseRefName,headRefName,headRefOid,author,additions,deletions,changedFiles,url,isDraft,mergeable`
+- `gh pr view <num> --json number,title,body,baseRefName,headRefName,baseRefOid,headRefOid,author,additions,deletions,changedFiles,url,isDraft,mergeable`
 
-The review does **not** require the PR to be checked out locally — it works regardless of which branch the user is currently on. Capture `headRefOid` (the PR's head commit SHA) for later use when reading file contents. If the PR is a draft, note it in the summary but proceed with the review.
+The review does **not** require the PR to be checked out locally — it works regardless of which branch the user is currently on. Capture `baseRefOid` and `headRefOid` (the base and PR head commit SHAs) for later use when widening the diff and reading file contents. If the PR is a draft, note it in the summary but proceed with the review.
 
 ## 3. Gather changes
 
-Run in parallel:
+Start with the default diff and the file list (run in parallel):
 
-- `gh pr diff <num> -U15` — full unified diff with 15 lines of context per hunk. Wider context usually eliminates the need for full-file reads. (`gh pr diff` forwards extra flags to `git diff`, so `-U15` works.)
+- `gh pr diff <num>` — unified diff with the default 3 lines of context per hunk. **Do not pass `-U<n>` or other `git diff` flags here:** `gh pr diff` does not forward unknown flags to `git diff` (it errors with `unknown shorthand flag: 'U'`). Use the widened-diff recipe below when you need more context.
 - `gh pr view <num> --json files --jq '.files[].path'` — list of changed file paths
 
-When even the widened diff is not enough context (e.g., you need to see a helper function that's unchanged but called from a modified line), or when you need to verify a file line number before citing it, bring the PR's head commit into the local object database and read the file at that SHA:
+When the default 3 lines of context isn't enough (e.g., you need to see a helper called from a modified line, or you want to verify a file line number before citing it), bring the PR's commits into the local object database and use `git` directly:
 
-- `git fetch origin pull/<num>/head` — read-only on the working tree; only updates `FETCH_HEAD` and the object database
-- `git show <headRefOid>:<path>` — pure stdout read of the file at the PR's head SHA. Use `headRefOid` from the step 2 metadata, or `FETCH_HEAD` if you just fetched it.
+- `git fetch origin pull/<num>/head` — read-only on the working tree; only updates `FETCH_HEAD` and the object database. Brings `headRefOid` (and its ancestors, which usually include `baseRefOid`) into the local repo.
+- `git fetch origin <baseRefName>` — only needed if `baseRefOid` isn't already reachable (the first `git diff` below will fail with `fatal: bad object <sha>` if so).
+- `git diff -U15 <baseRefOid> <headRefOid>` — widened diff (15 lines of context). Use `baseRefOid` and `headRefOid` from the step 2 metadata; both are concrete SHAs, so this works regardless of which local refs exist.
+- `git show <headRefOid>:<path>` — pure stdout read of the file at the PR's head SHA. Use this when you need to see code that isn't in the diff at all.
 - `git show <headRefOid>:<path> | grep -n '<symbol>'` — get the real file line number for a function, class, or field name before citing it.
 
 **Do not** use the `Read` tool on the local working-tree copy — the user may be on a completely unrelated branch, and the working tree will not reflect the PR's content.
 
-**Do not** construct a manual diff range like `git diff <baseRef>...FETCH_HEAD` or `git diff <baseRef>...<headRefOid>`. `gh pr diff <num> -U15` already returns the full PR diff against the correct merge base — re-running it as a `git diff` is redundant and routinely fails on refs that aren't fetched locally (the base branch may not exist as a local ref, and inventing one produces errors like `fatal: ambiguous argument '<ref>...FETCH_HEAD': unknown revision`). Reserve direct `git` calls for `git show <headRefOid>:<path>` file reads only.
+**Do not** use symbolic refs like `<baseRefName>...FETCH_HEAD` in the `git diff` range — the base branch may not exist as a local ref, and `FETCH_HEAD` is fragile across multiple fetches. Always use the concrete `baseRefOid` and `headRefOid` SHAs from step 2.
 
 Look for project conventions before reviewing style:
 
