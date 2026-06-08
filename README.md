@@ -1,11 +1,8 @@
-# Jarvis
+# staksmith
 
-[![Stars](https://img.shields.io/github/stars/hackastak/jarvis?style=flat)](https://github.com/hackastak/jarvis/stargazers)
-[![Forks](https://img.shields.io/github/forks/hackastak/jarvis?style=flat)](https://github.com/hackastak/jarvis/network/members)
-[![Contributors](https://img.shields.io/github/contributors/hackastak/jarvis?style=flat)](https://github.com/hackastak/jarvis/graphs/contributors)
-[![npm ecc-universal](https://img.shields.io/npm/dw/ecc-universal?label=ecc-universal%20weekly%20downloads&logo=npm)](https://www.npmjs.com/package/ecc-universal)
-[![npm ecc-agentshield](https://img.shields.io/npm/dw/ecc-agentshield?label=ecc-agentshield%20weekly%20downloads&logo=npm)](https://www.npmjs.com/package/ecc-agentshield)
-[![GitHub App Install](https://img.shields.io/badge/GitHub%20App-150%20installs-2ea44f?logo=github)](https://github.com/marketplace/ecc-tools)
+[![Stars](https://img.shields.io/github/stars/hackastak/staksmith?style=flat)](https://github.com/hackastak/staksmith/stargazers)
+[![Forks](https://img.shields.io/github/forks/hackastak/staksmith?style=flat)](https://github.com/hackastak/staksmith/network/members)
+[![Contributors](https://img.shields.io/github/contributors/hackastak/staksmith?style=flat)](https://github.com/hackastak/staksmith/graphs/contributors)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Shell](https://img.shields.io/badge/-Shell-4EAA25?logo=gnu-bash&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white)
@@ -13,184 +10,103 @@
 ![Go](https://img.shields.io/badge/-Go-00ADD8?logo=go&logoColor=white)
 ![Markdown](https://img.shields.io/badge/-Markdown-000000?logo=markdown&logoColor=white)
 
-**The performance optimization system for AI agent harnesses.**
+**A collection of skills and configs for AI coding agents.**
 
-Not just configs. A complete system: skills, instincts, memory optimization, continuous learning, security scanning, and research-first development. Production-ready agents, hooks, commands, rules, and MCP configurations evolved over 10+ months of intensive daily use building real products.
+staksmith is a curated set of agents, skills, commands, hooks, rules, and MCP configurations for Claude Code and compatible AI agent harnesses. It bundles workflows that have been refined through daily use building real software — test-driven development, code review, security scanning, planning, continuous learning, and more — so you can drop them into any project instead of rebuilding them from scratch.
 
-Works across **Claude Code**, **Codex**, **Cowork**, and other AI agent harnesses.
-
----
-
-## The Guides
-
-This repo is the raw code only. The guides explain everything.
-
-<table>
-<tr>
-<td width="50%">
-<a href="https://x.com/hackastak/status/2012378465664745795">
-<img src="https://github.com/user-attachments/assets/1a471488-59cc-425b-8345-5245c7efbcef" alt="The Shorthand Guide to Everything Claude Code" />
-</a>
-</td>
-<td width="50%">
-<a href="https://x.com/hackastak/status/2014040193557471352">
-<img src="https://github.com/user-attachments/assets/c9ca43bc-b149-427f-b551-af6840c368f0" alt="The Longform Guide to Everything Claude Code" />
-</a>
-</td>
-</tr>
-<tr>
-<td align="center"><b>Shorthand Guide</b><br/>Setup, foundations, philosophy. <b>Read this first.</b></td>
-<td align="center"><b>Longform Guide</b><br/>Token optimization, memory persistence, evals, parallelization.</td>
-</tr>
-</table>
-
-| Topic | What You'll Learn |
-|-------|-------------------|
-| Token Optimization | Model selection, system prompt slimming, background processes |
-| Memory Persistence | Hooks that save/load context across sessions automatically |
-| Continuous Learning | Auto-extract patterns from sessions into reusable skills |
-| Verification Loops | Checkpoint vs continuous evals, grader types, pass@k metrics |
-| Parallelization | Git worktrees, cascade method, when to scale instances |
-| Subagent Orchestration | The context problem, iterative retrieval pattern |
+Works across **Claude Code**, **Cursor**, **Codex**, and **OpenCode**.
 
 ---
 
-## What's New
+## What's Inside
 
-### v1.8.0 — Harness Performance System (Mar 2026)
+staksmith is organized into independent components — install the whole thing or copy only the pieces you want.
 
-- **Harness-first release** — ECC is now explicitly framed as an agent harness performance system, not just a config pack.
-- **Hook reliability overhaul** — SessionStart root fallback, Stop-phase session summaries, and script-based hooks replacing fragile inline one-liners.
-- **Hook runtime controls** — `ECC_HOOK_PROFILE=minimal|standard|strict` and `ECC_DISABLED_HOOKS=...` for runtime gating without editing hook files.
-- **New harness commands** — `/harness-audit`, `/loop-start`, `/loop-status`, `/quality-gate`, `/model-route`.
-- **NanoClaw v2** — model routing, skill hot-load, session branch/search/export/compact/metrics.
-- **Cross-harness parity** — behavior tightened across Claude Code, Cursor, OpenCode, and Codex app/CLI.
-- **997 internal tests passing** — full suite green after hook/runtime refactor and compatibility updates.
-
-### v1.7.0 — Cross-Platform Expansion & Presentation Builder (Feb 2026)
-
-- **Codex app + CLI support** — Direct `AGENTS.md`-based Codex support, installer targeting, and Codex docs
-- **`frontend-slides` skill** — Zero-dependency HTML presentation builder with PPTX conversion guidance and strict viewport-fit rules
-- **5 new generic business/content skills** — `article-writing`, `content-engine`, `market-research`, `investor-materials`, `investor-outreach`
-- **Broader tool coverage** — Cursor, Codex, and OpenCode support tightened so the same repo ships cleanly across all major harnesses
-- **992 internal tests** — Expanded validation and regression coverage across plugin, hooks, skills, and packaging
-
-### v1.6.0 — Codex CLI, AgentShield & Marketplace (Feb 2026)
-
-- **Codex CLI support** — New `/codex-setup` command generates `codex.md` for OpenAI Codex CLI compatibility
-- **7 new skills** — `search-first`, `swift-actor-persistence`, `swift-protocol-di-testing`, `regex-vs-llm-structured-text`, `content-hash-cache-pattern`, `cost-aware-llm-pipeline`, `skill-stocktake`
-- **AgentShield integration** — `/security-scan` skill runs AgentShield directly from Claude Code; 1282 tests, 102 rules
-- **GitHub Marketplace** — ECC Tools GitHub App live at [github.com/marketplace/ecc-tools](https://github.com/marketplace/ecc-tools) with free/pro/enterprise tiers
-- **30+ community PRs merged** — Contributions from 30 contributors across 6 languages
-- **978 internal tests** — Expanded validation suite across agents, skills, commands, hooks, and rules
-
-### v1.4.1 — Bug Fix (Feb 2026)
-
-- **Fixed instinct import content loss** — `parse_instinct_file()` was silently dropping all content after frontmatter (Action, Evidence, Examples sections) during `/instinct-import`. Fixed by community contributor @ericcai0814 ([#148](https://github.com/hackastak/jarvis/issues/148), [#161](https://github.com/hackastak/jarvis/pull/161))
-
-### v1.4.0 — Multi-Language Rules, Installation Wizard & PM2 (Feb 2026)
-
-- **Interactive installation wizard** — New `configure-ecc` skill provides guided setup with merge/overwrite detection
-- **PM2 & multi-agent orchestration** — 6 new commands (`/pm2`, `/multi-plan`, `/multi-execute`, `/multi-backend`, `/multi-frontend`, `/multi-workflow`) for managing complex multi-service workflows
-- **Multi-language rules architecture** — Rules restructured from flat files into `common/` + `typescript/` + `python/` + `golang/` directories. Install only the languages you need
-- **Chinese (zh-CN) translations** — Complete translation of all agents, commands, skills, and rules (80+ files)
-- **GitHub Sponsors support** — Sponsor the project via GitHub Sponsors
-- **Enhanced CONTRIBUTING.md** — Detailed PR templates for each contribution type
-
-### v1.3.0 — OpenCode Plugin Support (Feb 2026)
-
-- **Full OpenCode integration** — 12 agents, 24 commands, 16 skills with hook support via OpenCode's plugin system (20+ event types)
-- **3 native custom tools** — run-tests, check-coverage, security-audit
-- **LLM documentation** — `llms.txt` for comprehensive OpenCode docs
-
-### v1.2.0 — Unified Commands & Skills (Feb 2026)
-
-- **Python/Django support** — Django patterns, security, TDD, and verification skills
-- **Java Spring Boot skills** — Patterns, security, TDD, and verification for Spring Boot
-- **Session management** — `/sessions` command for session history
-- **Continuous learning v2** — Instinct-based learning with confidence scoring, import/export, evolution
-
-See the full changelog in [Releases](https://github.com/hackastak/jarvis/releases).
+| Component | What it is |
+|-----------|------------|
+| **Agents** | Specialized subagents for delegated work (planner, architect, code-reviewer, security-reviewer, tdd-guide, and language-specific reviewers/build resolvers). |
+| **Skills** | Reusable workflow definitions and domain knowledge — TDD, security review, framework patterns (Django, Laravel, Next.js, Go, Swift, Rust, C++), continuous learning, research, and content/product workflows. |
+| **Commands** | Slash commands for quick execution (`/plan`, `/tdd`, `/code-review`, `/e2e`, `/build-fix`, `/refactor-clean`, and many more). |
+| **Rules** | Always-follow guidelines split into `common/` plus per-language directories. Install only the stacks you use. |
+| **Hooks** | Trigger-based automations for session persistence, formatting, type checks, and secret detection. |
+| **Contexts** | Dynamic system-prompt contexts for dev, review, and research modes. |
+| **MCP configs** | Ready-to-use MCP server configurations for common integrations. |
+| **Examples** | Real-world `CLAUDE.md` templates for several stacks. |
 
 ---
 
 ## 🚀 Quick Start
 
-Get up and running in under 2 minutes:
+Get up and running in a couple of minutes.
 
-### Step 1: Install the Plugin
+### Step 1: Install the plugin
 
 ```bash
-# Add marketplace
-/plugin marketplace add hackastak/jarvis
+# Add the marketplace
+/plugin marketplace add hackastak/staksmith
 
-# Install plugin
-/plugin install jarvis@jarvis
+# Install the plugin
+/plugin install staksmith@staksmith
 ```
 
-### Step 2: Install Rules (Required)
+### Step 2: Install rules (required)
 
 > ⚠️ **Important:** Claude Code plugins cannot distribute `rules` automatically. Install them manually:
 
 ```bash
 # Clone the repo first
-git clone https://github.com/hackastak/jarvis.git
-cd jarvis
+git clone https://github.com/hackastak/staksmith.git
+cd staksmith
 
 # Install dependencies (pick your package manager)
 npm install        # or: pnpm install | yarn install | bun install
 
 # macOS/Linux
-./install.sh typescript    # or python or golang or swift or php
+./install.sh typescript    # or python, golang, swift, php, cpp
 # ./install.sh typescript python golang swift php
 # ./install.sh --target cursor typescript
-# ./install.sh --target antigravity typescript
 ```
 
 ```powershell
 # Windows PowerShell
-.\install.ps1 typescript   # or python or golang or swift or php
+.\install.ps1 typescript   # or python, golang, swift, php, cpp
 # .\install.ps1 typescript python golang swift php
 # .\install.ps1 --target cursor typescript
-# .\install.ps1 --target antigravity typescript
-
-# npm-installed compatibility entrypoint also works cross-platform
-npx ecc-install typescript
 ```
 
 For manual install instructions see the README in the `rules/` folder.
 
-### Step 3: Start Using
+### Step 3: Start using
 
 ```bash
-# Try a command (plugin install uses namespaced form)
-/jarvis:plan "Add user authentication"
+# Try a command (plugin install uses the namespaced form)
+/staksmith:plan "Add user authentication"
 
 # Manual install (Option 2) uses the shorter form:
 # /plan "Add user authentication"
 
-# Check available commands
-/plugin list jarvis@jarvis
+# Check what's available
+/plugin list staksmith@staksmith
 ```
 
-✨ **That's it!** You now have access to 25 agents, 109 skills, and 57 commands.
+✨ **That's it!** You now have access to the full set of agents, skills, and commands.
 
 ---
 
 ## 🌐 Cross-Platform Support
 
-This plugin now fully supports **Windows, macOS, and Linux**, alongside tight integration across major IDEs (Cursor, OpenCode, Antigravity) and CLI harnesses. All hooks and scripts have been rewritten in Node.js for maximum compatibility.
+staksmith supports **Windows, macOS, and Linux**, alongside integration across major IDEs and CLI harnesses (Cursor, OpenCode, Codex). All hooks and scripts are written in Node.js for maximum compatibility.
 
-### Package Manager Detection
+### Package manager detection
 
-The plugin automatically detects your preferred package manager (npm, pnpm, yarn, or bun) with the following priority:
+staksmith automatically detects your preferred package manager (npm, pnpm, yarn, or bun) in this priority order:
 
 1. **Environment variable**: `CLAUDE_PACKAGE_MANAGER`
 2. **Project config**: `.claude/package-manager.json`
 3. **package.json**: `packageManager` field
-4. **Lock file**: Detection from package-lock.json, yarn.lock, pnpm-lock.yaml, or bun.lockb
+4. **Lock file**: package-lock.json, yarn.lock, pnpm-lock.yaml, or bun.lockb
 5. **Global config**: `~/.claude/package-manager.json`
-6. **Fallback**: First available package manager
+6. **Fallback**: first available package manager
 
 To set your preferred package manager:
 
@@ -210,13 +126,13 @@ node scripts/setup-package-manager.js --detect
 
 Or use the `/setup-pm` command in Claude Code.
 
-### Hook Runtime Controls
+### Hook runtime controls
 
-Use runtime flags to tune strictness or disable specific hooks temporarily:
+Tune hook strictness or disable specific hooks temporarily with environment variables:
 
 ```bash
 # Hook strictness profile (default: standard)
-export ECC_HOOK_PROFILE=standard
+export ECC_HOOK_PROFILE=standard   # minimal | standard | strict
 
 # Comma-separated hook IDs to disable
 export ECC_DISABLED_HOOKS="pre:bash:tmux-reminder,post:edit:typecheck"
@@ -224,181 +140,97 @@ export ECC_DISABLED_HOOKS="pre:bash:tmux-reminder,post:edit:typecheck"
 
 ---
 
-## 📦 What's Inside
+## 📦 Repository Layout
 
-This repo is a **Claude Code plugin** - install it directly or copy components manually.
+staksmith is a **Claude Code plugin** — install it directly or copy components manually.
 
 ```
-jarvis/
+staksmith/
 |-- .claude-plugin/   # Plugin and marketplace manifests
 |   |-- plugin.json         # Plugin metadata and component paths
 |   |-- marketplace.json    # Marketplace catalog for /plugin marketplace add
 |
 |-- agents/           # Specialized subagents for delegation
-|   |-- planner.md           # Feature implementation planning
-|   |-- architect.md         # System design decisions
-|   |-- tdd-guide.md         # Test-driven development
-|   |-- code-reviewer.md     # Quality and security review
-|   |-- security-reviewer.md # Vulnerability analysis
+|   |-- planner.md            # Feature implementation planning
+|   |-- architect.md          # System design decisions
+|   |-- tdd-guide.md          # Test-driven development
+|   |-- code-reviewer.md      # Quality and security review
+|   |-- security-reviewer.md  # Vulnerability analysis
 |   |-- build-error-resolver.md
-|   |-- e2e-runner.md        # Playwright E2E testing
-|   |-- refactor-cleaner.md  # Dead code cleanup
-|   |-- doc-updater.md       # Documentation sync
-|   |-- go-reviewer.md       # Go code review
-|   |-- go-build-resolver.md # Go build error resolution
-|   |-- python-reviewer.md   # Python code review (NEW)
-|   |-- database-reviewer.md # Database/Supabase review (NEW)
+|   |-- e2e-runner.md         # Playwright E2E testing
+|   |-- refactor-cleaner.md   # Dead code cleanup
+|   |-- doc-updater.md        # Documentation sync
+|   |-- python-reviewer.md    # Python code review
+|   |-- go-reviewer.md        # Go code review
+|   |-- rust-reviewer.md      # Rust code review
+|   |-- cpp-reviewer.md       # C++ code review
+|   |-- database-reviewer.md  # Database/Supabase review
+|   |-- ...                   # plus build resolvers and orchestration agents
 |
 |-- skills/           # Workflow definitions and domain knowledge
-|   |-- coding-standards/           # Language best practices
-|   |-- clickhouse-io/              # ClickHouse analytics, queries, data engineering
-|   |-- backend-patterns/           # API, database, caching patterns
-|   |-- frontend-patterns/          # React, Next.js patterns
-|   |-- frontend-slides/            # HTML slide decks and PPTX-to-web presentation workflows (NEW)
-|   |-- article-writing/            # Long-form writing in a supplied voice without generic AI tone (NEW)
-|   |-- content-engine/             # Multi-platform social content and repurposing workflows (NEW)
-|   |-- market-research/            # Source-attributed market, competitor, and investor research (NEW)
-|   |-- investor-materials/         # Pitch decks, one-pagers, memos, and financial models (NEW)
-|   |-- investor-outreach/          # Personalized fundraising outreach and follow-up (NEW)
-|   |-- continuous-learning/        # Auto-extract patterns from sessions (Longform Guide)
-|   |-- continuous-learning-v2/     # Instinct-based learning with confidence scoring
-|   |-- iterative-retrieval/        # Progressive context refinement for subagents
-|   |-- strategic-compact/          # Manual compaction suggestions (Longform Guide)
-|   |-- tdd-workflow/               # TDD methodology
-|   |-- security-review/            # Security checklist
-|   |-- eval-harness/               # Verification loop evaluation (Longform Guide)
-|   |-- grill-me/                   # Interview-style stress-testing for plans and designs (NEW)
-|   |-- verification-loop/          # Continuous verification (Longform Guide)
-|   |-- videodb/                   # Video and audio: ingest, search, edit, generate, stream (NEW)
-|   |-- golang-patterns/            # Go idioms and best practices
-|   |-- golang-testing/             # Go testing patterns, TDD, benchmarks
-|   |-- cpp-coding-standards/         # C++ coding standards from C++ Core Guidelines (NEW)
-|   |-- cpp-testing/                # C++ testing with GoogleTest, CMake/CTest (NEW)
-|   |-- django-patterns/            # Django patterns, models, views (NEW)
-|   |-- django-security/            # Django security best practices (NEW)
-|   |-- django-tdd/                 # Django TDD workflow (NEW)
-|   |-- django-verification/        # Django verification loops (NEW)
-|   |-- laravel-patterns/           # Laravel architecture patterns (NEW)
-|   |-- laravel-security/           # Laravel security best practices (NEW)
-|   |-- laravel-tdd/                # Laravel TDD workflow (NEW)
-|   |-- laravel-verification/       # Laravel verification loops (NEW)
-|   |-- python-patterns/            # Python idioms and best practices (NEW)
-|   |-- python-testing/             # Python testing with pytest (NEW)
-|   |-- configure-ecc/              # Interactive installation wizard (NEW)
-|   |-- security-scan/              # AgentShield security auditor integration (NEW)
-|   |-- postgres-patterns/         # PostgreSQL optimization patterns (NEW)
-|   |-- nutrient-document-processing/ # Document processing with Nutrient API (NEW)
-|   |-- project-guidelines-example/   # Template for project-specific skills
-|   |-- database-migrations/         # Migration patterns (Prisma, Drizzle, Django, Go) (NEW)
-|   |-- api-design/                  # REST API design, pagination, error responses (NEW)
-|   |-- deployment-patterns/         # CI/CD, Docker, health checks, rollbacks (NEW)
-|   |-- docker-patterns/            # Docker Compose, networking, volumes, container security (NEW)
-|   |-- e2e-testing/                 # Playwright E2E patterns and Page Object Model (NEW)
-|   |-- content-hash-cache-pattern/  # SHA-256 content hash caching for file processing (NEW)
-|   |-- cost-aware-llm-pipeline/     # LLM cost optimization, model routing, budget tracking (NEW)
-|   |-- regex-vs-llm-structured-text/ # Decision framework: regex vs LLM for text parsing (NEW)
-|   |-- swift-actor-persistence/     # Thread-safe Swift data persistence with actors (NEW)
-|   |-- swift-protocol-di-testing/   # Protocol-based DI for testable Swift code (NEW)
-|   |-- search-first/               # Research-before-coding workflow (NEW)
-|   |-- skill-stocktake/            # Audit skills and commands for quality (NEW)
-|   |-- liquid-glass-design/         # iOS 26 Liquid Glass design system (NEW)
-|   |-- foundation-models-on-device/ # Apple on-device LLM with FoundationModels (NEW)
-|   |-- swift-concurrency-6-2/       # Swift 6.2 Approachable Concurrency (NEW)
-|   |-- autonomous-loops/           # Autonomous loop patterns: sequential pipelines, PR loops, DAG orchestration (NEW)
-|   |-- plankton-code-quality/      # Write-time code quality enforcement with Plankton hooks (NEW)
+|   |-- coding-standards/      # Language best practices
+|   |-- backend-patterns/      # API, database, caching patterns
+|   |-- frontend-patterns/     # React, Next.js patterns
+|   |-- tdd-workflow/          # TDD methodology
+|   |-- security-review/       # Security checklist
+|   |-- verification-loop/     # Continuous verification
+|   |-- continuous-learning/   # Auto-extract patterns from sessions
+|   |-- django-* / laravel-*   # Framework patterns, security, TDD, verification
+|   |-- python-* / golang-* / rust-* / cpp-* / swift-*  # Per-language patterns & testing
+|   |-- deep-research/         # Multi-source, fact-checked research
+|   |-- ...                    # 100+ skills across engineering, content, and product
 |
 |-- commands/         # Slash commands for quick execution
-|   |-- tdd.md              # /tdd - Test-driven development
-|   |-- plan.md             # /plan - Implementation planning
-|   |-- e2e.md              # /e2e - E2E test generation
-|   |-- code-review.md      # /code-review - Quality review
-|   |-- build-fix.md        # /build-fix - Fix build errors
-|   |-- refactor-clean.md   # /refactor-clean - Dead code removal
-|   |-- learn.md            # /learn - Extract patterns mid-session (Longform Guide)
-|   |-- learn-eval.md       # /learn-eval - Extract, evaluate, and save patterns (NEW)
-|   |-- checkpoint.md       # /checkpoint - Save verification state (Longform Guide)
-|   |-- verify.md           # /verify - Run verification loop (Longform Guide)
-|   |-- setup-pm.md         # /setup-pm - Configure package manager
-|   |-- go-review.md        # /go-review - Go code review (NEW)
-|   |-- go-test.md          # /go-test - Go TDD workflow (NEW)
-|   |-- go-build.md         # /go-build - Fix Go build errors (NEW)
-|   |-- skill-create.md     # /skill-create - Generate skills from git history (NEW)
-|   |-- instinct-status.md  # /instinct-status - View learned instincts (NEW)
-|   |-- instinct-import.md  # /instinct-import - Import instincts (NEW)
-|   |-- instinct-export.md  # /instinct-export - Export instincts (NEW)
-|   |-- evolve.md           # /evolve - Cluster instincts into skills
-|   |-- pm2.md              # /pm2 - PM2 service lifecycle management (NEW)
-|   |-- multi-plan.md       # /multi-plan - Multi-agent task decomposition (NEW)
-|   |-- multi-execute.md    # /multi-execute - Orchestrated multi-agent workflows (NEW)
-|   |-- multi-backend.md    # /multi-backend - Backend multi-service orchestration (NEW)
-|   |-- multi-frontend.md   # /multi-frontend - Frontend multi-service orchestration (NEW)
-|   |-- multi-workflow.md   # /multi-workflow - General multi-service workflows (NEW)
-|   |-- orchestrate.md      # /orchestrate - Multi-agent coordination
-|   |-- sessions.md         # /sessions - Session history management
-|   |-- eval.md             # /eval - Evaluate against criteria
-|   |-- test-coverage.md    # /test-coverage - Test coverage analysis
-|   |-- update-docs.md      # /update-docs - Update documentation
-|   |-- update-codemaps.md  # /update-codemaps - Update codemaps
-|   |-- python-review.md    # /python-review - Python code review (NEW)
+|   |-- plan.md               # /plan  - Implementation planning
+|   |-- tdd.md                # /tdd   - Test-driven development
+|   |-- code-review.md        # /code-review - Quality review
+|   |-- e2e.md                # /e2e   - E2E test generation
+|   |-- build-fix.md          # /build-fix - Fix build errors
+|   |-- refactor-clean.md     # /refactor-clean - Dead code removal
+|   |-- verify.md             # /verify - Run verification loop
+|   |-- setup-pm.md           # /setup-pm - Configure package manager
+|   |-- ...                   # plus language reviews, multi-agent, and session commands
 |
 |-- rules/            # Always-follow guidelines (copy to ~/.claude/rules/)
-|   |-- README.md            # Structure overview and installation guide
-|   |-- common/              # Language-agnostic principles
-|   |   |-- coding-style.md    # Immutability, file organization
-|   |   |-- git-workflow.md    # Commit format, PR process
-|   |   |-- testing.md         # TDD, 80% coverage requirement
-|   |   |-- performance.md     # Model selection, context management
-|   |   |-- patterns.md        # Design patterns, skeleton projects
-|   |   |-- hooks.md           # Hook architecture, TodoWrite
-|   |   |-- agents.md          # When to delegate to subagents
-|   |   |-- security.md        # Mandatory security checks
-|   |-- typescript/          # TypeScript/JavaScript specific
-|   |-- python/              # Python specific
-|   |-- golang/              # Go specific
-|   |-- swift/               # Swift specific
-|   |-- php/                 # PHP specific (NEW)
+|   |-- README.md             # Structure overview and installation guide
+|   |-- common/               # Language-agnostic principles
+|   |   |-- coding-style.md     # Immutability, file organization
+|   |   |-- git-workflow.md     # Commit format, PR process
+|   |   |-- testing.md          # TDD, coverage requirements
+|   |   |-- performance.md      # Model selection, context management
+|   |   |-- patterns.md         # Design patterns, skeleton projects
+|   |   |-- hooks.md            # Hook architecture, TodoWrite
+|   |   |-- agents.md           # When to delegate to subagents
+|   |   |-- security.md         # Mandatory security checks
+|   |-- typescript/           # TypeScript/JavaScript specific
+|   |-- python/               # Python specific
+|   |-- golang/               # Go specific
+|   |-- swift/                # Swift specific
+|   |-- php/                  # PHP specific
+|   |-- cpp/                  # C++ specific
 |
 |-- hooks/            # Trigger-based automations
-|   |-- README.md                 # Hook documentation, recipes, and customization guide
-|   |-- hooks.json                # All hooks config (PreToolUse, PostToolUse, Stop, etc.)
-|   |-- memory-persistence/       # Session lifecycle hooks (Longform Guide)
-|   |-- strategic-compact/        # Compaction suggestions (Longform Guide)
+|   |-- README.md             # Hook documentation, recipes, and customization guide
+|   |-- hooks.json            # All hooks config (PreToolUse, PostToolUse, Stop, etc.)
+|   |-- memory-persistence/   # Session lifecycle hooks
+|   |-- strategic-compact/    # Compaction suggestions
 |
-|-- scripts/          # Cross-platform Node.js scripts (NEW)
-|   |-- lib/                     # Shared utilities
-|   |   |-- utils.js             # Cross-platform file/path/system utilities
-|   |   |-- package-manager.js   # Package manager detection and selection
-|   |-- hooks/                   # Hook implementations
-|   |   |-- session-start.js     # Load context on session start
-|   |   |-- session-end.js       # Save state on session end
-|   |   |-- pre-compact.js       # Pre-compaction state saving
-|   |   |-- suggest-compact.js   # Strategic compaction suggestions
-|   |   |-- evaluate-session.js  # Extract patterns from sessions
-|   |-- setup-package-manager.js # Interactive PM setup
+|-- scripts/          # Cross-platform Node.js scripts
+|   |-- lib/                  # Shared utilities (file/path/system, package-manager detection)
+|   |-- hooks/                # Hook implementations
+|   |-- setup-package-manager.js
 |
-|-- tests/            # Test suite (NEW)
-|   |-- lib/                     # Library tests
-|   |-- hooks/                   # Hook tests
-|   |-- run-all.js               # Run all tests
+|-- tests/            # Test suite for scripts and utilities
 |
-|-- contexts/         # Dynamic system prompt injection contexts (Longform Guide)
-|   |-- dev.md              # Development mode context
-|   |-- review.md           # Code review mode context
-|   |-- research.md         # Research/exploration mode context
+|-- contexts/         # Dynamic system prompt injection contexts
+|   |-- dev.md                # Development mode context
+|   |-- review.md             # Code review mode context
+|   |-- research.md           # Research/exploration mode context
 |
-|-- examples/         # Example configurations and sessions
-|   |-- CLAUDE.md             # Example project-level config
-|   |-- user-CLAUDE.md        # Example user-level config
-|   |-- saas-nextjs-CLAUDE.md   # Real-world SaaS (Next.js + Supabase + Stripe)
-|   |-- go-microservice-CLAUDE.md # Real-world Go microservice (gRPC + PostgreSQL)
-|   |-- django-api-CLAUDE.md      # Real-world Django REST API (DRF + Celery)
-|   |-- laravel-api-CLAUDE.md     # Real-world Laravel API (PostgreSQL + Redis) (NEW)
-|   |-- rust-api-CLAUDE.md        # Real-world Rust API (Axum + SQLx + PostgreSQL) (NEW)
+|-- examples/         # Example CLAUDE.md configs for real-world stacks
 |
 |-- mcp-configs/      # MCP server configurations
-|   |-- mcp-servers.json    # GitHub, Supabase, Vercel, Railway, etc.
-|
-|-- marketplace.json  # Self-hosted marketplace config (for /plugin marketplace add)
+|   |-- mcp-servers.json      # GitHub, Supabase, Vercel, Railway, etc.
 ```
 
 ---
@@ -407,74 +239,18 @@ jarvis/
 
 ### Skill Creator
 
-Two ways to generate Claude Code skills from your repository:
-
-#### Option A: Local Analysis (Built-in)
-
-Use the `/skill-create` command for local analysis without external services:
+Generate Claude Code skills from your repository's git history without external services:
 
 ```bash
 /skill-create                    # Analyze current repo
 /skill-create --instincts        # Also generate instincts for continuous-learning
 ```
 
-This analyzes your git history locally and generates SKILL.md files.
+This analyzes your git history locally and generates SKILL.md files, instinct collections for continuous-learning, and pattern extraction from your commit history.
 
-#### Option B: GitHub App (Advanced)
+### Continuous Learning
 
-For advanced features (10k+ commits, auto-PRs, team sharing):
-
-[Install GitHub App](https://github.com/apps/skill-creator) | [ecc.tools](https://ecc.tools)
-
-```bash
-# Comment on any issue:
-/skill-creator analyze
-
-# Or auto-triggers on push to default branch
-```
-
-Both options create:
-- **SKILL.md files** - Ready-to-use skills for Claude Code
-- **Instinct collections** - For continuous-learning-v2
-- **Pattern extraction** - Learns from your commit history
-
-### AgentShield — Security Auditor
-
-> Built at the Claude Code Hackathon (Cerebral Valley x Anthropic, Feb 2026). 1282 tests, 98% coverage, 102 static analysis rules.
-
-Scan your Claude Code configuration for vulnerabilities, misconfigurations, and injection risks.
-
-```bash
-# Quick scan (no install needed)
-npx ecc-agentshield scan
-
-# Auto-fix safe issues
-npx ecc-agentshield scan --fix
-
-# Deep analysis with three Opus 4.6 agents
-npx ecc-agentshield scan --opus --stream
-
-# Generate secure config from scratch
-npx ecc-agentshield init
-```
-
-**What it scans:** CLAUDE.md, settings.json, MCP configs, hooks, agent definitions, and skills across 5 categories — secrets detection (14 patterns), permission auditing, hook injection analysis, MCP server risk profiling, and agent config review.
-
-**The `--opus` flag** runs three Claude Opus 4.6 agents in a red-team/blue-team/auditor pipeline. The attacker finds exploit chains, the defender evaluates protections, and the auditor synthesizes both into a prioritized risk assessment. Adversarial reasoning, not just pattern matching.
-
-**Output formats:** Terminal (color-graded A-F), JSON (CI pipelines), Markdown, HTML. Exit code 2 on critical findings for build gates.
-
-Use `/security-scan` in Claude Code to run it, or add to CI with the [GitHub Action](https://github.com/hackastak/agentshield).
-
-[GitHub](https://github.com/hackastak/agentshield) | [npm](https://www.npmjs.com/package/ecc-agentshield)
-
-### 🔬 Plankton — Write-Time Code Quality Enforcement
-
-Plankton (credit: @alxfazio) is a recommended companion for write-time code quality enforcement. It runs formatters and 20+ linters on every file edit via PostToolUse hooks, then spawns Claude subprocesses (routed to Haiku/Sonnet/Opus by violation complexity) to fix issues the main agent missed. Three-phase architecture: auto-format silently (40-50% of issues), collect remaining violations as structured JSON, delegate fixes to a subprocess. Includes config protection hooks that prevent agents from modifying linter configs to pass instead of fixing code. Supports Python, TypeScript, Shell, YAML, JSON, TOML, Markdown, and Dockerfile. Use alongside AgentShield for security + quality coverage. See `skills/plankton-code-quality/` for full integration guide.
-
-### 🧠 Continuous Learning v2
-
-The instinct-based learning system automatically learns your patterns:
+The instinct-based learning system captures your patterns over time:
 
 ```bash
 /instinct-status        # Show learned instincts with confidence
@@ -485,47 +261,48 @@ The instinct-based learning system automatically learns your patterns:
 
 See `skills/continuous-learning-v2/` for full documentation.
 
+### Write-Time Quality (Plankton)
+
+Plankton (credit: [@alxfazio](https://github.com/alxfazio)) is a recommended companion for write-time code quality enforcement. It runs formatters and linters on every file edit via PostToolUse hooks, then delegates remaining fixes to Claude subprocesses. Supports Python, TypeScript, Shell, YAML, JSON, TOML, Markdown, and Dockerfile. See `skills/plankton-code-quality/` for the integration guide.
+
 ---
 
 ## 📋 Requirements
 
-### Claude Code CLI Version
+### Claude Code CLI
 
-**Minimum version: v2.1.0 or later**
+staksmith relies on Claude Code's plugin and hook system. Use a current Claude Code release for the smoothest experience:
 
-This plugin requires Claude Code CLI v2.1.0+ due to changes in how the plugin system handles hooks.
-
-Check your version:
 ```bash
 claude --version
 ```
 
-### Important: Hooks Auto-Loading Behavior
+### Hooks auto-loading behavior
 
-> ⚠️ **For Contributors:** Do NOT add a `"hooks"` field to `.claude-plugin/plugin.json`. This is enforced by a regression test.
+> ⚠️ **For contributors:** Do **NOT** add a `"hooks"` field to `.claude-plugin/plugin.json`. This is enforced by a regression test.
 
-Claude Code v2.1+ **automatically loads** `hooks/hooks.json` from any installed plugin by convention. Explicitly declaring it in `plugin.json` causes a duplicate detection error:
+Claude Code **automatically loads** `hooks/hooks.json` from any installed plugin by convention. Explicitly declaring it in `plugin.json` causes a duplicate detection error:
 
 ```
 Duplicate hooks file detected: ./hooks/hooks.json resolves to already-loaded file
 ```
 
-**History:** This has caused repeated fix/revert cycles in this repo ([#29](https://github.com/hackastak/jarvis/issues/29), [#52](https://github.com/hackastak/jarvis/issues/52), [#103](https://github.com/hackastak/jarvis/issues/103)). The behavior changed between Claude Code versions, leading to confusion. We now have a regression test to prevent this from being reintroduced.
+A regression test keeps this from being reintroduced.
 
 ---
 
 ## 📥 Installation
 
-### Option 1: Install as Plugin (Recommended)
+### Option 1: Install as a plugin (recommended)
 
-The easiest way to use this repo - install as a Claude Code plugin:
+The easiest way to use staksmith — install it as a Claude Code plugin:
 
 ```bash
 # Add this repo as a marketplace
-/plugin marketplace add hackastak/jarvis
+/plugin marketplace add hackastak/staksmith
 
 # Install the plugin
-/plugin install jarvis@jarvis
+/plugin install staksmith@staksmith
 ```
 
 Or add directly to your `~/.claude/settings.json`:
@@ -533,82 +310,77 @@ Or add directly to your `~/.claude/settings.json`:
 ```json
 {
   "extraKnownMarketplaces": {
-    "jarvis": {
+    "staksmith": {
       "source": {
         "source": "github",
-        "repo": "hackastak/jarvis"
+        "repo": "hackastak/staksmith"
       }
     }
   },
   "enabledPlugins": {
-    "jarvis@jarvis": true
+    "staksmith@staksmith": true
   }
 }
 ```
 
 This gives you instant access to all commands, agents, skills, and hooks.
 
-> **Note:** The Claude Code plugin system does not support distributing `rules` via plugins ([upstream limitation](https://code.claude.com/docs/en/plugins-reference)). You need to install rules manually:
+> **Note:** The Claude Code plugin system does not support distributing `rules` via plugins ([upstream limitation](https://code.claude.com/docs/en/plugins-reference)). Install rules manually:
 >
 > ```bash
 > # Clone the repo first
-> git clone https://github.com/hackastak/jarvis.git
+> git clone https://github.com/hackastak/staksmith.git
 >
 > # Option A: User-level rules (applies to all projects)
 > mkdir -p ~/.claude/rules
-> cp -r jarvis/rules/common/* ~/.claude/rules/
-> cp -r jarvis/rules/typescript/* ~/.claude/rules/   # pick your stack
-> cp -r jarvis/rules/python/* ~/.claude/rules/
-> cp -r jarvis/rules/golang/* ~/.claude/rules/
-> cp -r jarvis/rules/php/* ~/.claude/rules/
+> cp -r staksmith/rules/common/* ~/.claude/rules/
+> cp -r staksmith/rules/typescript/* ~/.claude/rules/   # pick your stack
+> cp -r staksmith/rules/python/* ~/.claude/rules/
+> cp -r staksmith/rules/golang/* ~/.claude/rules/
+> cp -r staksmith/rules/php/* ~/.claude/rules/
 >
 > # Option B: Project-level rules (applies to current project only)
 > mkdir -p .claude/rules
-> cp -r jarvis/rules/common/* .claude/rules/
-> cp -r jarvis/rules/typescript/* .claude/rules/     # pick your stack
+> cp -r staksmith/rules/common/* .claude/rules/
+> cp -r staksmith/rules/typescript/* .claude/rules/     # pick your stack
 > ```
 
 ---
 
-### 🔧 Option 2: Manual Installation
+### 🔧 Option 2: Manual installation
 
 If you prefer manual control over what's installed:
 
 ```bash
 # Clone the repo
-git clone https://github.com/hackastak/jarvis.git
+git clone https://github.com/hackastak/staksmith.git
 
 # Copy agents to your Claude config
-cp jarvis/agents/*.md ~/.claude/agents/
+cp staksmith/agents/*.md ~/.claude/agents/
 
 # Copy rules (common + language-specific)
-cp -r jarvis/rules/common/* ~/.claude/rules/
-cp -r jarvis/rules/typescript/* ~/.claude/rules/   # pick your stack
-cp -r jarvis/rules/python/* ~/.claude/rules/
-cp -r jarvis/rules/golang/* ~/.claude/rules/
-cp -r jarvis/rules/php/* ~/.claude/rules/
+cp -r staksmith/rules/common/* ~/.claude/rules/
+cp -r staksmith/rules/typescript/* ~/.claude/rules/   # pick your stack
+cp -r staksmith/rules/python/* ~/.claude/rules/
+cp -r staksmith/rules/golang/* ~/.claude/rules/
+cp -r staksmith/rules/php/* ~/.claude/rules/
 
 # Copy commands
-cp jarvis/commands/*.md ~/.claude/commands/
+cp staksmith/commands/*.md ~/.claude/commands/
 
-# Copy skills (core vs niche)
-# Recommended (new users): core/general skills only
-cp -r jarvis/.agents/skills/* ~/.claude/skills/
-cp -r jarvis/skills/search-first ~/.claude/skills/
-
-# Optional: add niche/framework-specific skills only when needed
-# for s in django-patterns django-tdd laravel-patterns; do
-#   cp -r jarvis/skills/$s ~/.claude/skills/
-# done
+# Copy skills (copy all, or just the ones you need)
+cp -r staksmith/skills/* ~/.claude/skills/
+# Or copy a single skill:
+# cp -r staksmith/skills/search-first ~/.claude/skills/
 ```
 
 #### Add hooks to settings.json
 
-Copy the hooks from `hooks/hooks.json` to your `~/.claude/settings.json`.
+Copy the hooks from `hooks/hooks.json` into your `~/.claude/settings.json`.
 
 #### Configure MCPs
 
-Copy desired MCP servers from `mcp-configs/mcp-servers.json` to your `~/.claude.json`.
+Copy the MCP servers you want from `mcp-configs/mcp-servers.json` into your `~/.claude.json`.
 
 **Important:** Replace `YOUR_*_HERE` placeholders with your actual API keys.
 
@@ -642,12 +414,12 @@ Skills are workflow definitions invoked by commands or agents:
 2. Write failing tests (RED)
 3. Implement minimal code (GREEN)
 4. Refactor (IMPROVE)
-5. Verify 80%+ coverage
+5. Verify coverage thresholds
 ```
 
 ### Hooks
 
-Hooks fire on tool events. Example - warn about console.log:
+Hooks fire on tool events. Example — warn about `console.log`:
 
 ```json
 {
@@ -661,7 +433,7 @@ Hooks fire on tool events. Example - warn about console.log:
 
 ### Rules
 
-Rules are always-follow guidelines, organized into `common/` (language-agnostic) + language-specific directories:
+Rules are always-follow guidelines, organized into `common/` (language-agnostic) plus language-specific directories:
 
 ```
 rules/
@@ -671,6 +443,7 @@ rules/
   golang/          # Go specific patterns and tools
   swift/           # Swift specific patterns and tools
   php/             # PHP specific patterns and tools
+  cpp/             # C++ specific patterns and tools
 ```
 
 See [`rules/README.md`](rules/README.md) for installation and structure details.
@@ -683,8 +456,8 @@ Not sure where to start? Use this quick reference:
 
 | I want to... | Use this command | Agent used |
 |--------------|-----------------|------------|
-| Plan a new feature | `/jarvis:plan "Add auth"` | planner |
-| Design system architecture | `/jarvis:plan` + architect agent | architect |
+| Plan a new feature | `/staksmith:plan "Add auth"` | planner |
+| Design system architecture | `/staksmith:plan` + architect agent | architect |
 | Write code with tests first | `/tdd` | tdd-guide |
 | Review code I just wrote | `/code-review` | code-reviewer |
 | Fix a failing build | `/build-fix` | build-error-resolver |
@@ -700,7 +473,7 @@ Not sure where to start? Use this quick reference:
 
 **Starting a new feature:**
 ```
-/jarvis:plan "Add user authentication with OAuth"
+/staksmith:plan "Add user authentication with OAuth"
                                               → planner creates implementation blueprint
 /tdd                                          → tdd-guide enforces write-tests-first
 /code-review                                  → code-reviewer checks your work
@@ -717,7 +490,7 @@ Not sure where to start? Use this quick reference:
 ```
 /security-scan                                → security-reviewer: OWASP Top 10 audit
 /e2e                                          → e2e-runner: critical user flow tests
-/test-coverage                                → verify 80%+ coverage
+/test-coverage                                → verify coverage thresholds
 ```
 
 ---
@@ -728,7 +501,7 @@ Not sure where to start? Use this quick reference:
 <summary><b>How do I check which agents/commands are installed?</b></summary>
 
 ```bash
-/plugin list jarvis@jarvis
+/plugin list staksmith@staksmith
 ```
 
 This shows all available agents, commands, and skills from the plugin.
@@ -737,13 +510,13 @@ This shows all available agents, commands, and skills from the plugin.
 <details>
 <summary><b>My hooks aren't working / I see "Duplicate hooks file" errors</b></summary>
 
-This is the most common issue. **Do NOT add a `"hooks"` field to `.claude-plugin/plugin.json`.** Claude Code v2.1+ automatically loads `hooks/hooks.json` from installed plugins. Explicitly declaring it causes duplicate detection errors. See [#29](https://github.com/hackastak/jarvis/issues/29), [#52](https://github.com/hackastak/jarvis/issues/52), [#103](https://github.com/hackastak/jarvis/issues/103).
+This is the most common issue. **Do NOT add a `"hooks"` field to `.claude-plugin/plugin.json`.** Claude Code automatically loads `hooks/hooks.json` from installed plugins. Explicitly declaring it causes duplicate detection errors.
 </details>
 
 <details>
-<summary><b>Can I use ECC with Claude Code on a custom API endpoint or model gateway?</b></summary>
+<summary><b>Can I use staksmith with a custom API endpoint or model gateway?</b></summary>
 
-Yes. ECC does not hardcode Anthropic-hosted transport settings. It runs locally through Claude Code's normal CLI/plugin surface, so it works with:
+Yes. staksmith does not hardcode Anthropic-hosted transport settings. It runs locally through Claude Code's normal CLI/plugin surface, so it works with:
 
 - Anthropic-hosted Claude Code
 - Official Claude Code gateway setups using `ANTHROPIC_BASE_URL` and `ANTHROPIC_AUTH_TOKEN`
@@ -757,7 +530,7 @@ export ANTHROPIC_AUTH_TOKEN=your-token
 claude
 ```
 
-If your gateway remaps model names, configure that in Claude Code rather than in ECC. ECC's hooks, skills, commands, and rules are model-provider agnostic once the `claude` CLI is already working.
+If your gateway remaps model names, configure that in Claude Code rather than in staksmith. staksmith's hooks, skills, commands, and rules are model-provider agnostic once the `claude` CLI is already working.
 
 Official references:
 - [Claude Code LLM gateway docs](https://docs.anthropic.com/en/docs/claude-code/llm-gateway)
@@ -768,7 +541,7 @@ Official references:
 <details>
 <summary><b>My context window is shrinking / Claude is running out of context</b></summary>
 
-Too many MCP servers eat your context. Each MCP tool description consumes tokens from your 200k window, potentially reducing it to ~70k.
+Too many MCP servers eat your context. Each MCP tool description consumes tokens from your context window.
 
 **Fix:** Disable unused MCPs per project:
 ```json
@@ -788,23 +561,22 @@ Yes. Use Option 2 (manual installation) and copy only what you need:
 
 ```bash
 # Just agents
-cp jarvis/agents/*.md ~/.claude/agents/
+cp staksmith/agents/*.md ~/.claude/agents/
 
 # Just rules
-cp -r jarvis/rules/common/* ~/.claude/rules/
+cp -r staksmith/rules/common/* ~/.claude/rules/
 ```
 
 Each component is fully independent.
 </details>
 
 <details>
-<summary><b>Does this work with Cursor / OpenCode / Codex / Antigravity?</b></summary>
+<summary><b>Does this work with Cursor / OpenCode / Codex?</b></summary>
 
-Yes. ECC is cross-platform:
+Yes. staksmith is cross-platform:
 - **Cursor**: Pre-translated configs in `.cursor/`. See [Cursor IDE Support](#cursor-ide-support).
 - **OpenCode**: Full plugin support in `.opencode/`. See [OpenCode Support](#-opencode-support).
-- **Codex**: First-class support for both macOS app and CLI, with adapter drift guards and SessionStart fallback. See PR [#257](https://github.com/hackastak/jarvis/pull/257).
-- **Antigravity**: Tightly integrated setup for workflows, skills, and flatten rules in `.agent/`.
+- **Codex**: Support for both the macOS app and CLI via `AGENTS.md` and `.codex/`. See [Codex Support](#codex-macos-app--cli-support).
 - **Claude Code**: Native — this is the primary target.
 </details>
 
@@ -822,7 +594,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). The short version:
 
 ## 🧪 Running Tests
 
-The plugin includes a comprehensive test suite:
+staksmith includes a test suite for its scripts and utilities:
 
 ```bash
 # Run all tests
@@ -840,7 +612,7 @@ node tests/hooks/hooks.test.js
 
 **Contributions are welcome and encouraged.**
 
-This repo is meant to be a community resource. If you have:
+staksmith is meant to be a community resource. If you have:
 - Useful agents or skills
 - Clever hooks
 - Better MCP configurations
@@ -848,9 +620,9 @@ This repo is meant to be a community resource. If you have:
 
 Please contribute! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-### Ideas for Contributions
+### Ideas for contributions
 
-- Language-specific skills (Rust, C#) — Go, Python, Swift, and TypeScript already included
+- Language-specific skills (C#, Kotlin) — Go, Python, Rust, Swift, C++, and TypeScript already included
 - Framework-specific configs (Rails, FastAPI, NestJS) — Django, Laravel already included
 - DevOps agents (Kubernetes, Terraform, AWS, Docker)
 - Testing strategies (different frameworks, visual regression)
@@ -860,7 +632,7 @@ Please contribute! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Cursor IDE Support
 
-ECC provides **full Cursor IDE support** with hooks, rules, agents, skills, commands, and MCP configs adapted for Cursor's native format.
+staksmith provides **full Cursor IDE support** with hooks, rules, agents, skills, commands, and MCP configs adapted for Cursor's native format.
 
 ### Quick Start (Cursor)
 
@@ -868,29 +640,15 @@ ECC provides **full Cursor IDE support** with hooks, rules, agents, skills, comm
 # macOS/Linux
 ./install.sh --target cursor typescript
 ./install.sh --target cursor python golang swift php
-```
 
-```powershell
 # Windows PowerShell
 .\install.ps1 --target cursor typescript
 .\install.ps1 --target cursor python golang swift php
 ```
 
-### What's Included
+### Hook architecture (DRY adapter pattern)
 
-| Component | Count | Details |
-|-----------|-------|---------|
-| Hook Events | 15 | sessionStart, beforeShellExecution, afterFileEdit, beforeMCPExecution, beforeSubmitPrompt, and 10 more |
-| Hook Scripts | 16 | Thin Node.js scripts delegating to `scripts/hooks/` via shared adapter |
-| Rules | 34 | 9 common (alwaysApply) + 25 language-specific (TypeScript, Python, Go, Swift, PHP) |
-| Agents | Shared | Via AGENTS.md at root (read by Cursor natively) |
-| Skills | Shared + Bundled | Via AGENTS.md at root and `.cursor/skills/` for translated additions |
-| Commands | Shared | `.cursor/commands/` if installed |
-| MCP Config | Shared | `.cursor/mcp.json` if installed |
-
-### Hook Architecture (DRY Adapter Pattern)
-
-Cursor has **more hook events than Claude Code** (20 vs 8). The `.cursor/hooks/adapter.js` module transforms Cursor's stdin JSON to Claude Code's format, allowing existing `scripts/hooks/*.js` to be reused without duplication.
+Cursor has more hook events than Claude Code. The `.cursor/hooks/adapter.js` module transforms Cursor's stdin JSON to Claude Code's format, letting the existing `scripts/hooks/*.js` be reused without duplication.
 
 ```
 Cursor stdin JSON → adapter.js → transforms → scripts/hooks/*.js
@@ -898,13 +656,13 @@ Cursor stdin JSON → adapter.js → transforms → scripts/hooks/*.js
 ```
 
 Key hooks:
-- **beforeShellExecution** — Blocks dev servers outside tmux (exit 2), git push review
-- **afterFileEdit** — Auto-format + TypeScript check + console.log warning
-- **beforeSubmitPrompt** — Detects secrets (sk-, ghp_, AKIA patterns) in prompts
-- **beforeTabFileRead** — Blocks Tab from reading .env, .key, .pem files (exit 2)
+- **beforeShellExecution** — blocks dev servers outside tmux, git push review
+- **afterFileEdit** — auto-format + TypeScript check + console.log warning
+- **beforeSubmitPrompt** — detects secrets (sk-, ghp_, AKIA patterns) in prompts
+- **beforeTabFileRead** — blocks Tab from reading `.env`, `.key`, `.pem` files
 - **beforeMCPExecution / afterMCPExecution** — MCP audit logging
 
-### Rules Format
+### Rules format
 
 Cursor rules use YAML frontmatter with `description`, `globs`, and `alwaysApply`:
 
@@ -920,7 +678,7 @@ alwaysApply: false
 
 ## Codex macOS App + CLI Support
 
-ECC provides **first-class Codex support** for both the macOS app and CLI, with a reference configuration, Codex-specific AGENTS.md supplement, and shared skills.
+staksmith provides **Codex support** for both the macOS app and CLI, with a reference configuration, a Codex-specific `AGENTS.md` supplement, and shared skills.
 
 ### Quick Start (Codex App + CLI)
 
@@ -935,70 +693,33 @@ cp .codex/config.toml ~/.codex/config.toml
 Codex macOS app:
 - Open this repository as your workspace.
 - The root `AGENTS.md` is auto-detected.
-- `.codex/config.toml` and `.codex/agents/*.toml` work best when kept project-local.
-- The reference `.codex/config.toml` intentionally does not pin `model` or `model_provider`, so Codex uses its own current default unless you override it.
-- Optional: copy `.codex/config.toml` to `~/.codex/config.toml` for global defaults; keep the multi-agent role files project-local unless you also copy `.codex/agents/`.
-
-### What's Included
-
-| Component | Count | Details |
-|-----------|-------|---------|
-| Config | 1 | `.codex/config.toml` — top-level approvals/sandbox/web_search, MCP servers, notifications, profiles |
-| AGENTS.md | 2 | Root (universal) + `.codex/AGENTS.md` (Codex-specific supplement) |
-| Skills | 16 | `.agents/skills/` — SKILL.md + agents/openai.yaml per skill |
-| MCP Servers | 4 | GitHub, Context7, Memory, Sequential Thinking (command-based) |
-| Profiles | 2 | `strict` (read-only sandbox) and `yolo` (full auto-approve) |
-| Agent Roles | 3 | `.codex/agents/` — explorer, reviewer, docs-researcher |
+- `.codex/config.toml` and `.codex/agents/*.toml` work best kept project-local.
+- The reference `.codex/config.toml` intentionally does not pin `model` or `model_provider`, so Codex uses its own default unless you override it.
 
 ### Skills
 
-Skills at `.agents/skills/` are auto-loaded by Codex:
+Skills at `.agents/skills/` are auto-loaded by Codex and include TDD, security review, coding standards, frontend/backend patterns, E2E testing, API design, and verification loops.
 
-| Skill | Description |
-|-------|-------------|
-| tdd-workflow | Test-driven development with 80%+ coverage |
-| security-review | Comprehensive security checklist |
-| coding-standards | Universal coding standards |
-| frontend-patterns | React/Next.js patterns |
-| frontend-slides | HTML presentations, PPTX conversion, visual style exploration |
-| article-writing | Long-form writing from notes and voice references |
-| content-engine | Platform-native social content and repurposing |
-| market-research | Source-attributed market and competitor research |
-| investor-materials | Decks, memos, models, and one-pagers |
-| investor-outreach | Personalized outreach, follow-ups, and intro blurbs |
-| backend-patterns | API design, database, caching |
-| e2e-testing | Playwright E2E tests |
-| eval-harness | Eval-driven development |
-| strategic-compact | Context management |
-| api-design | REST API design patterns |
-| verification-loop | Build, test, lint, typecheck, security |
+### Key limitation
 
-### Key Limitation
+Codex does **not yet provide Claude-style hook execution parity**. staksmith enforcement there is instruction-based via `AGENTS.md`, optional `model_instructions_file` overrides, and sandbox/approval settings.
 
-Codex does **not yet provide Claude-style hook execution parity**. ECC enforcement there is instruction-based via `AGENTS.md`, optional `model_instructions_file` overrides, and sandbox/approval settings.
+### Multi-agent support
 
-### Multi-Agent Support
-
-Current Codex builds support experimental multi-agent workflows.
+Current Codex builds support experimental multi-agent workflows:
 
 - Enable `features.multi_agent = true` in `.codex/config.toml`
 - Define roles under `[agents.<name>]`
 - Point each role at a file under `.codex/agents/`
 - Use `/agent` in the CLI to inspect or steer child agents
 
-ECC ships three sample role configs:
-
-| Role | Purpose |
-|------|---------|
-| `explorer` | Read-only codebase evidence gathering before edits |
-| `reviewer` | Correctness, security, and missing-test review |
-| `docs_researcher` | Documentation and API verification before release/docs changes |
+staksmith ships sample role configs for an `explorer` (read-only evidence gathering), a `reviewer` (correctness, security, missing tests), and a `docs_researcher` (documentation and API verification).
 
 ---
 
 ## 🔌 OpenCode Support
 
-ECC provides **full OpenCode support** including plugins and hooks.
+staksmith provides **full OpenCode support** including plugins and hooks.
 
 ### Quick Start
 
@@ -1012,21 +733,9 @@ opencode
 
 The configuration is automatically detected from `.opencode/opencode.json`.
 
-### Feature Parity
+### Hook support via plugins
 
-| Feature | Claude Code | OpenCode | Status |
-|---------|-------------|----------|--------|
-| Agents | ✅ 25 agents | ✅ 12 agents | **Claude Code leads** |
-| Commands | ✅ 57 commands | ✅ 31 commands | **Claude Code leads** |
-| Skills | ✅ 109 skills | ✅ 37 skills | **Claude Code leads** |
-| Hooks | ✅ 8 event types | ✅ 11 events | **OpenCode has more!** |
-| Rules | ✅ 29 rules | ✅ 13 instructions | **Claude Code leads** |
-| MCP Servers | ✅ 14 servers | ✅ Full | **Full parity** |
-| Custom Tools | ✅ Via hooks | ✅ 6 native tools | **OpenCode is better** |
-
-### Hook Support via Plugins
-
-OpenCode's plugin system is MORE sophisticated than Claude Code with 20+ event types:
+OpenCode's plugin system maps cleanly onto Claude Code's hooks, with additional events:
 
 | Claude Code Hook | OpenCode Plugin Event |
 |-----------------|----------------------|
@@ -1038,132 +747,42 @@ OpenCode's plugin system is MORE sophisticated than Claude Code with 20+ event t
 
 **Additional OpenCode events**: `file.edited`, `file.watcher.updated`, `message.updated`, `lsp.client.diagnostics`, `tui.toast.show`, and more.
 
-### Available Commands (31+)
-
-| Command | Description |
-|---------|-------------|
-| `/plan` | Create implementation plan |
-| `/tdd` | Enforce TDD workflow |
-| `/code-review` | Review code changes |
-| `/build-fix` | Fix build errors |
-| `/e2e` | Generate E2E tests |
-| `/refactor-clean` | Remove dead code |
-| `/orchestrate` | Multi-agent workflow |
-| `/learn` | Extract patterns from session |
-| `/checkpoint` | Save verification state |
-| `/verify` | Run verification loop |
-| `/eval` | Evaluate against criteria |
-| `/update-docs` | Update documentation |
-| `/update-codemaps` | Update codemaps |
-| `/test-coverage` | Analyze coverage |
-| `/go-review` | Go code review |
-| `/go-test` | Go TDD workflow |
-| `/go-build` | Fix Go build errors |
-| `/python-review` | Python code review (PEP 8, type hints, security) |
-| `/multi-plan` | Multi-model collaborative planning |
-| `/multi-execute` | Multi-model collaborative execution |
-| `/multi-backend` | Backend-focused multi-model workflow |
-| `/multi-frontend` | Frontend-focused multi-model workflow |
-| `/multi-workflow` | Full multi-model development workflow |
-| `/pm2` | Auto-generate PM2 service commands |
-| `/sessions` | Manage session history |
-| `/skill-create` | Generate skills from git |
-| `/instinct-status` | View learned instincts |
-| `/instinct-import` | Import instincts |
-| `/instinct-export` | Export instincts |
-| `/evolve` | Cluster instincts into skills |
-| `/promote` | Promote project instincts to global scope |
-| `/projects` | List known projects and instinct stats |
-| `/learn-eval` | Extract and evaluate patterns before saving |
-| `/setup-pm` | Configure package manager |
-| `/harness-audit` | Audit harness reliability, eval readiness, and risk posture |
-| `/loop-start` | Start controlled agentic loop execution pattern |
-| `/loop-status` | Inspect active loop status and checkpoints |
-| `/quality-gate` | Run quality gate checks for paths or entire repo |
-| `/model-route` | Route tasks to models by complexity and budget |
-
-### Plugin Installation
-
-**Option 1: Use directly**
-```bash
-cd jarvis
-opencode
-```
-
-**Option 2: Install as npm package**
-```bash
-npm install ecc-universal
-```
-
-Then add to your `opencode.json`:
-```json
-{
-  "plugin": ["ecc-universal"]
-}
-```
-
-That npm plugin entry enables ECC's published OpenCode plugin module (hooks/events and plugin tools).
-It does **not** automatically add ECC's full command/agent/instruction catalog to your project config.
-
-For the full ECC OpenCode setup, either:
-- run OpenCode inside this repository, or
-- copy the bundled `.opencode/` config assets into your project and wire the `instructions`, `agent`, and `command` entries in `opencode.json`
-
 ### Documentation
 
 - **Migration Guide**: `.opencode/MIGRATION.md`
 - **OpenCode Plugin README**: `.opencode/README.md`
 - **Consolidated Rules**: `.opencode/instructions/INSTRUCTIONS.md`
-- **LLM Documentation**: `llms.txt` (complete OpenCode docs for LLMs)
+- **LLM Documentation**: `llms.txt`
 
 ---
 
-## Cross-Tool Feature Parity
+## 🧱 Cross-Tool Notes
 
-ECC is the **first plugin to maximize every major AI coding tool**. Here's how each harness compares:
+Some architectural decisions that make staksmith work across harnesses:
 
-| Feature | Claude Code | Cursor IDE | Codex CLI | OpenCode |
-|---------|------------|------------|-----------|----------|
-| **Agents** | 21 | Shared (AGENTS.md) | Shared (AGENTS.md) | 12 |
-| **Commands** | 52 | Shared | Instruction-based | 31 |
-| **Skills** | 103 | Shared | 10 (native format) | 37 |
-| **Hook Events** | 8 types | 15 types | None yet | 11 types |
-| **Hook Scripts** | 20+ scripts | 16 scripts (DRY adapter) | N/A | Plugin hooks |
-| **Rules** | 34 (common + lang) | 34 (YAML frontmatter) | Instruction-based | 13 instructions |
-| **Custom Tools** | Via hooks | Via hooks | N/A | 6 native tools |
-| **MCP Servers** | 14 | Shared (mcp.json) | 4 (command-based) | Full |
-| **Config Format** | settings.json | hooks.json + rules/ | config.toml | opencode.json |
-| **Context File** | CLAUDE.md + AGENTS.md | AGENTS.md | AGENTS.md | AGENTS.md |
-| **Secret Detection** | Hook-based | beforeSubmitPrompt hook | Sandbox-based | Hook-based |
-| **Auto-Format** | PostToolUse hook | afterFileEdit hook | N/A | file.edited hook |
-| **Version** | Plugin | Plugin | Reference config | 1.8.0 |
-
-**Key architectural decisions:**
-- **AGENTS.md** at root is the universal cross-tool file (read by all 4 tools)
-- **DRY adapter pattern** lets Cursor reuse Claude Code's hook scripts without duplication
-- **Skills format** (SKILL.md with YAML frontmatter) works across Claude Code, Codex, and OpenCode
-- Codex's lack of hooks is compensated by `AGENTS.md`, optional `model_instructions_file` overrides, and sandbox permissions
+- **AGENTS.md** at the repo root is the universal cross-tool file (read by Claude Code, Cursor, Codex, and OpenCode).
+- **DRY adapter pattern** lets Cursor reuse Claude Code's hook scripts without duplication.
+- **Skills format** (SKILL.md with YAML frontmatter) works across Claude Code, Codex, and OpenCode.
+- Codex's lack of hooks is compensated by `AGENTS.md`, optional `model_instructions_file` overrides, and sandbox permissions.
 
 ---
 
 ## 📖 Background
 
-I've been using Claude Code since the experimental rollout. Won the Anthropic x Forum Ventures hackathon in Sep 2025 building [zenith.chat](https://zenith.chat) with [@DRodriguezFX](https://x.com/DRodriguezFX) - entirely using Claude Code.
+These configs are battle-tested across multiple production applications and refined through daily use building real software with Claude Code.
 
-These configs are battle-tested across multiple production applications.
-
-## Inspiration Credits
+### Inspiration credits
 
 - inspired by [zarazhangrui](https://github.com/zarazhangrui)
 - homunculus-inspired by [humanplane](https://github.com/humanplane)
 
 ---
 
-## Token Optimization
+## 💸 Token Optimization
 
-Claude Code usage can be expensive if you don't manage token consumption. These settings significantly reduce costs without sacrificing quality.
+Claude Code usage can be expensive if you don't manage token consumption. These settings reduce costs without sacrificing much quality.
 
-### Recommended Settings
+### Recommended settings
 
 Add to `~/.claude/settings.json`:
 
@@ -1177,30 +796,30 @@ Add to `~/.claude/settings.json`:
 }
 ```
 
-| Setting | Default | Recommended | Impact |
-|---------|---------|-------------|--------|
-| `model` | opus | **sonnet** | ~60% cost reduction; handles 80%+ of coding tasks |
-| `MAX_THINKING_TOKENS` | 31,999 | **10,000** | ~70% reduction in hidden thinking cost per request |
-| `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` | 95 | **50** | Compacts earlier — better quality in long sessions |
+| Setting | Recommended | Impact |
+|---------|-------------|--------|
+| `model` | **sonnet** | Large cost reduction; handles most coding tasks |
+| `MAX_THINKING_TOKENS` | **10000** | Big reduction in hidden thinking cost per request |
+| `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` | **50** | Compacts earlier — better quality in long sessions |
 
-Switch to Opus only when you need deep architectural reasoning:
+Switch to Opus when you need deep architectural reasoning:
 ```
 /model opus
 ```
 
-### Daily Workflow Commands
+### Daily workflow commands
 
-| Command | When to Use |
+| Command | When to use |
 |---------|-------------|
 | `/model sonnet` | Default for most tasks |
 | `/model opus` | Complex architecture, debugging, deep reasoning |
 | `/clear` | Between unrelated tasks (free, instant reset) |
 | `/compact` | At logical task breakpoints (research done, milestone complete) |
-| `/cost` | Monitor token spending during session |
+| `/cost` | Monitor token spending during a session |
 
-### Strategic Compaction
+### Strategic compaction
 
-The `strategic-compact` skill (included in this plugin) suggests `/compact` at logical breakpoints instead of relying on auto-compaction at 95% context. See `skills/strategic-compact/SKILL.md` for the full decision guide.
+The `strategic-compact` skill suggests `/compact` at logical breakpoints instead of relying on auto-compaction. See `skills/strategic-compact/SKILL.md` for the full decision guide.
 
 **When to compact:**
 - After research/exploration, before implementation
@@ -1211,45 +830,19 @@ The `strategic-compact` skill (included in this plugin) suggests `/compact` at l
 **When NOT to compact:**
 - Mid-implementation (you'll lose variable names, file paths, partial state)
 
-### Context Window Management
+### Context window management
 
-**Critical:** Don't enable all MCPs at once. Each MCP tool description consumes tokens from your 200k window, potentially reducing it to ~70k.
+**Critical:** Don't enable all MCPs at once. Each MCP tool description consumes tokens from your context window.
 
 - Keep under 10 MCPs enabled per project
 - Keep under 80 tools active
 - Use `disabledMcpServers` in project config to disable unused ones
 
-### Agent Teams Cost Warning
-
-Agent Teams spawns multiple context windows. Each teammate consumes tokens independently. Only use for tasks where parallelism provides clear value (multi-module work, parallel reviews). For simple sequential tasks, subagents are more token-efficient.
-
 ---
 
-## ⚠️ Important Notes
+## ⚠️ Customization
 
-### Token Optimization
-
-Hitting daily limits? See the **[Token Optimization Guide](docs/token-optimization.md)** for recommended settings and workflow tips.
-
-Quick wins:
-
-```json
-// ~/.claude/settings.json
-{
-  "model": "sonnet",
-  "env": {
-    "MAX_THINKING_TOKENS": "10000",
-    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50",
-    "CLAUDE_CODE_SUBAGENT_MODEL": "haiku"
-  }
-}
-```
-
-Use `/clear` between unrelated tasks, `/compact` at logical breakpoints, and `/cost` to monitor spending.
-
-### Customization
-
-These configs work for my workflow. You should:
+These configs reflect one opinionated workflow. You should:
 1. Start with what resonates
 2. Modify for your stack
 3. Remove what you don't use
@@ -1257,34 +850,18 @@ These configs work for my workflow. You should:
 
 ---
 
-## 💜 Sponsors
-
-This project is free and open source. Sponsors help keep it maintained and growing.
-
-[**Become a Sponsor**](https://github.com/sponsors/hackastak) | [Sponsor Tiers](SPONSORS.md) | [Sponsorship Program](SPONSORING.md)
-
----
-
-## 🌟 Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=hackastak/jarvis&type=Date)](https://star-history.com/#hackastak/jarvis&Date)
-
----
-
 ## 🔗 Links
 
-- **Shorthand Guide (Start Here):** [The Shorthand Guide to Everything Claude Code](https://x.com/hackastak/status/2012378465664745795)
-- **Longform Guide (Advanced):** [The Longform Guide to Everything Claude Code](https://x.com/hackastak/status/2014040193557471352)
-- **Follow:** [@hackastak](https://x.com/hackastak)
-- **zenith.chat:** [zenith.chat](https://zenith.chat)
-- **Skills Directory:** awesome-agent-skills (community-maintained directory of agent skills)
+- **Repository:** [github.com/hackastak/staksmith](https://github.com/hackastak/staksmith)
+- **Contributing:** [CONTRIBUTING.md](CONTRIBUTING.md)
+- **Rules guide:** [rules/README.md](rules/README.md)
 
 ---
 
 ## 📄 License
 
-MIT - Use freely, modify as needed, contribute back if you can.
+MIT — use freely, modify as needed, contribute back if you can.
 
 ---
 
-**Star this repo if it helps. Read both guides. Build something great.**
+**Star this repo if it helps. Build something great.**
