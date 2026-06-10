@@ -567,9 +567,9 @@ The patterns in this guide aren't complex. They're habits. Build them into your 
 
 ## references
 
-**ECC Ecosystem:**
+**staksmith Ecosystem:**
 - [AgentShield on npm](https://www.npmjs.com/package/ecc-agentshield) — Zero-install agent security scanning
-- [Everything Claude Code](https://github.com/hackastak/jarvis) — 50K+ stars, production-ready agent configurations
+- [staksmith](https://github.com/hackastak/staksmith) — 50K+ stars, production-ready agent configurations
 - [The Shorthand Guide](./the-shortform-guide.md) — Setup and configuration fundamentals
 - [The Longform Guide](./the-longform-guide.md) — Advanced patterns and optimization
 - [The OpenClaw Guide](./the-openclaw-guide.md) — Security lessons from the agent frontier
@@ -592,4 +592,4 @@ The patterns in this guide aren't complex. They're habits. Build them into your 
 
 *Built from 10 months of maintaining the most-forked agent configuration on GitHub, auditing thousands of community contributions, and building the tools to automate what humans can't catch at scale.*
 
-*[@hackastak](https://github.com/hackastak) — Creator of Jarvis and AgentShield*
+*[@hackastak](https://github.com/hackastak) — Creator of Staksmith and AgentShield*

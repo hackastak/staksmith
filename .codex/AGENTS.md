@@ -1,4 +1,4 @@
-# ECC for Codex CLI
+# staksmith for Codex CLI
 
 This supplements the root `AGENTS.md` with Codex-specific guidance.
 
@@ -44,7 +44,7 @@ Available skills:
 
 ## MCP Servers
 
-Treat the project-local `.codex/config.toml` as the default Codex baseline for ECC. The current ECC baseline enables GitHub, Context7, Exa, Memory, Playwright, and Sequential Thinking; add heavier extras in `~/.codex/config.toml` only when a task actually needs them.
+Treat the project-local `.codex/config.toml` as the default Codex baseline for staksmith. The current staksmith baseline enables GitHub, Context7, Exa, Memory, Playwright, and Sequential Thinking; add heavier extras in `~/.codex/config.toml` only when a task actually needs them.
 
 ## Multi-Agent Support
 

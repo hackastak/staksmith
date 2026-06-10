@@ -10,8 +10,8 @@ description: >
   managing CAPAs, interpreting SPC data, or handling supplier quality issues.
 license: Apache-2.0
 version: 1.0.0
-homepage: https://github.com/hackastak/jarvis
-origin: ECC
+homepage: https://github.com/hackastak/staksmith
+origin: staksmith
 metadata:
   author: evos
   clawdbot:

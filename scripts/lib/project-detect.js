@@ -4,7 +4,7 @@
  * Cross-platform (Windows, macOS, Linux) project type detection
  * by inspecting files in the working directory.
  *
- * Resolves: https://github.com/hackastak/jarvis/issues/293
+ * Resolves: https://github.com/hackastak/staksmith/issues/293
  */
 
 const fs = require('fs');

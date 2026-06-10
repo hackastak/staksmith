@@ -1,6 +1,6 @@
 # Troubleshooting Guide
 
-Common issues and solutions for Everything Claude Code (ECC) plugin.
+Common issues and solutions for staksmith plugin.
 
 ## Table of Contents
 
@@ -256,7 +256,7 @@ mv ~/.claude/plugins/cache ~/.claude/plugins/cache.backup.$(date +%Y%m%d-%H%M%S)
 mkdir -p ~/.claude/plugins/cache
 
 # Reinstall from marketplace
-# Claude Code → Extensions → Everything Claude Code → Uninstall
+# Claude Code → Extensions → staksmith → Uninstall
 # Then reinstall from marketplace
 
 # Check Claude Code version
@@ -264,8 +264,8 @@ claude --version
 # Requires Claude Code 2.0+
 
 # Manual install (if marketplace fails)
-git clone https://github.com/hackastak/jarvis.git
-cp -r jarvis ~/.claude/plugins/ecc
+git clone https://github.com/hackastak/staksmith.git
+cp -r staksmith ~/.claude/plugins/staksmith
 ```
 
 ### Package Manager Detection Fails
@@ -370,11 +370,11 @@ chmod -R u+rwX,go+rX ~/.claude/homunculus
 
 ```bash
 # Install plugin dependencies
-cd ~/.claude/plugins/cache/jarvis
+cd ~/.claude/plugins/cache/staksmith
 npm install
 
 # Or for manual install
-cd ~/.claude/plugins/ecc
+cd ~/.claude/plugins/staksmith
 npm install
 ```
 
@@ -396,7 +396,7 @@ find ~/.claude/plugins -name "*.sh" -exec dos2unix {} \;
 
  If you're still experiencing issues:
 
-1. **Check GitHub Issues**: [github.com/hackastak/jarvis/issues](https://github.com/hackastak/jarvis/issues)
+1. **Check GitHub Issues**: [github.com/hackastak/staksmith/issues](https://github.com/hackastak/staksmith/issues)
 2. **Enable Debug Logging**:
    ```bash
    export CLAUDE_DEBUG=1

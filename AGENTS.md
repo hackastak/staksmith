@@ -1,6 +1,6 @@
-# Everything Claude Code (ECC) — Agent Instructions
+# staksmith — Agent Instructions
 
-This is a **production-ready AI coding plugin** providing 25 specialized agents, 108 skills, 57 commands, and automated hook workflows for software development.
+This is a **production-ready AI coding plugin** providing 21 specialized agents, 110 skills, 53 commands, and automated hook workflows for software development.
 
 ## Core Principles
 
@@ -130,9 +130,9 @@ Troubleshoot failures: check test isolation → verify mocks → fix implementat
 ## Project Structure
 
 ```
-agents/          — 25 specialized subagents
-skills/          — 102 workflow skills and domain knowledge
-commands/        — 57 slash commands
+agents/          — 21 specialized subagents
+skills/          — 110 workflow skills and domain knowledge
+commands/        — 53 slash commands
 hooks/           — Trigger-based automations
 rules/           — Always-follow guidelines (common + per-language)
 scripts/         — Cross-platform Node.js utilities

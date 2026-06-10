@@ -2,7 +2,7 @@
 /**
  * scripts/codemaps/generate.ts
  *
- * Codemap Generator for jarvis (ECC)
+ * Codemap Generator for staksmith (staksmith)
  *
  * Scans the current working directory and generates architectural
  * codemap documentation under docs/CODEMAPS/ as specified by the

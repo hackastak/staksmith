@@ -3,7 +3,7 @@
 ## Snapshot
 
 This document records a live GitHub triage snapshot for the
-`jarvis` pull-request queue as of `2026-03-13T08:33:31Z`.
+`staksmith` pull-request queue as of `2026-03-13T08:33:31Z`.
 
 Sources used:
 
@@ -37,10 +37,10 @@ Validation performed against merged head `546628182200c16cc222b97673ddd79e942eac
 - targeted hook invocations for:
   - interactive CLI session
   - `CLAUDE_CODE_ENTRYPOINT=mcp`
-  - `ECC_HOOK_PROFILE=minimal`
-  - `ECC_SKIP_OBSERVE=1`
+  - `STAKSMITH_HOOK_PROFILE=minimal`
+  - `STAKSMITH_SKIP_OBSERVE=1`
   - `agent_id` payload
-  - trimmed `ECC_OBSERVE_SKIP_PATHS`
+  - trimmed `STAKSMITH_OBSERVE_SKIP_PATHS`
 
 Behavioral result:
 
@@ -58,8 +58,8 @@ Remaining findings:
    later exit early.
 2. Low: the new guard matrix shipped without direct regression coverage.
    The hook test suite still validates adjacent behavior, but it does not
-   directly assert the new `CLAUDE_CODE_ENTRYPOINT`, `ECC_HOOK_PROFILE`,
-   `ECC_SKIP_OBSERVE`, `agent_id`, or trimmed skip-path branches.
+   directly assert the new `CLAUDE_CODE_ENTRYPOINT`, `STAKSMITH_HOOK_PROFILE`,
+   `STAKSMITH_SKIP_OBSERVE`, `agent_id`, or trimmed skip-path branches.
 
 Verdict:
 
@@ -177,7 +177,7 @@ Scope:
 - `scripts/codex-git-hooks/pre-push`
 - `scripts/codex/check-codex-global-state.sh`
 - `scripts/codex/install-global-git-hooks.sh`
-- `scripts/sync-ecc-to-codex.sh`
+- `scripts/sync-staksmith-to-codex.sh`
 
 Assessment:
 
@@ -217,7 +217,7 @@ Scope:
 - `rules/php/patterns.md`
 - `rules/php/security.md`
 - `rules/php/testing.md`
-- `skills/configure-ecc/SKILL.md`
+- `skills/configure-staksmith/SKILL.md`
 - `skills/laravel-patterns/SKILL.md`
 - `skills/laravel-security/SKILL.md`
 - `skills/laravel-tdd/SKILL.md`

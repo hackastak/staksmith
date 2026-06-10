@@ -27,8 +27,8 @@ function test(name, fn) {
 function runScript(args = [], envOverrides = {}) {
   const env = { ...process.env, ...envOverrides };
   // Remove potentially interfering env vars unless explicitly set
-  if (!envOverrides.ECC_HOOK_PROFILE) delete env.ECC_HOOK_PROFILE;
-  if (!envOverrides.ECC_DISABLED_HOOKS) delete env.ECC_DISABLED_HOOKS;
+  if (!envOverrides.STAKSMITH_HOOK_PROFILE) delete env.STAKSMITH_HOOK_PROFILE;
+  if (!envOverrides.STAKSMITH_DISABLED_HOOKS) delete env.STAKSMITH_DISABLED_HOOKS;
 
   const result = spawnSync('node', [script, ...args], {
     encoding: 'utf8',
@@ -80,24 +80,24 @@ function runTests() {
   console.log('\nDisabled hooks:');
 
   if (test('returns no when hook is disabled via env', () => {
-    const result = runScript(['my-hook'], { ECC_DISABLED_HOOKS: 'my-hook' });
+    const result = runScript(['my-hook'], { STAKSMITH_DISABLED_HOOKS: 'my-hook' });
     assert.strictEqual(result.stdout, 'no');
   })) passed++; else failed++;
 
   if (test('returns yes when different hook is disabled', () => {
-    const result = runScript(['my-hook'], { ECC_DISABLED_HOOKS: 'other-hook' });
+    const result = runScript(['my-hook'], { STAKSMITH_DISABLED_HOOKS: 'other-hook' });
     assert.strictEqual(result.stdout, 'yes');
   })) passed++; else failed++;
 
   console.log('\nProfile overrides:');
 
   if (test('returns yes for strict profile with strict-only hook', () => {
-    const result = runScript(['my-hook', 'strict'], { ECC_HOOK_PROFILE: 'strict' });
+    const result = runScript(['my-hook', 'strict'], { STAKSMITH_HOOK_PROFILE: 'strict' });
     assert.strictEqual(result.stdout, 'yes');
   })) passed++; else failed++;
 
   if (test('returns yes for minimal profile with minimal-only hook', () => {
-    const result = runScript(['my-hook', 'minimal'], { ECC_HOOK_PROFILE: 'minimal' });
+    const result = runScript(['my-hook', 'minimal'], { STAKSMITH_HOOK_PROFILE: 'minimal' });
     assert.strictEqual(result.stdout, 'yes');
   })) passed++; else failed++;
 

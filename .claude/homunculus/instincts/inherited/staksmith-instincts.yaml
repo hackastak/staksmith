@@ -1,16 +1,16 @@
-# Curated instincts for hackastak/jarvis
-# Import with: /instinct-import .claude/homunculus/instincts/inherited/jarvis-instincts.yaml
+# Curated instincts for hackastak/staksmith
+# Import with: /instinct-import .claude/homunculus/instincts/inherited/staksmith-instincts.yaml
 
 ---
-id: jarvis-conventional-commits
-trigger: "when making a commit in jarvis"
+id: staksmith-conventional-commits
+trigger: "when making a commit in staksmith"
 confidence: 0.9
 domain: git
 source: repo-curation
-source_repo: hackastak/jarvis
+source_repo: hackastak/staksmith
 ---
 
-# Everything Claude Code Conventional Commits
+# staksmith Conventional Commits
 
 ## Action
 
@@ -22,15 +22,15 @@ Use conventional commit prefixes such as `feat:`, `fix:`, `docs:`, `test:`, `cho
 - Release and changelog automation expect readable commit categorization.
 
 ---
-id: jarvis-commit-length
-trigger: "when writing a commit subject in jarvis"
+id: staksmith-commit-length
+trigger: "when writing a commit subject in staksmith"
 confidence: 0.8
 domain: git
 source: repo-curation
-source_repo: hackastak/jarvis
+source_repo: hackastak/staksmith
 ---
 
-# Everything Claude Code Commit Length
+# staksmith Commit Length
 
 ## Action
 
@@ -42,15 +42,15 @@ Keep commit subjects concise and close to the repository norm of about 70 charac
 - Short, descriptive subjects read well in release notes and PR summaries.
 
 ---
-id: jarvis-js-file-naming
-trigger: "when creating a new JavaScript or TypeScript module in jarvis"
+id: staksmith-js-file-naming
+trigger: "when creating a new JavaScript or TypeScript module in staksmith"
 confidence: 0.85
 domain: code-style
 source: repo-curation
-source_repo: hackastak/jarvis
+source_repo: hackastak/staksmith
 ---
 
-# Everything Claude Code JS File Naming
+# staksmith JS File Naming
 
 ## Action
 
@@ -62,15 +62,15 @@ Prefer camelCase for JavaScript and TypeScript module filenames, and keep skill 
 - `skills/` and `commands/` directories use kebab-case consistently.
 
 ---
-id: jarvis-test-runner
-trigger: "when adding or updating tests in jarvis"
+id: staksmith-test-runner
+trigger: "when adding or updating tests in staksmith"
 confidence: 0.9
 domain: testing
 source: repo-curation
-source_repo: hackastak/jarvis
+source_repo: hackastak/staksmith
 ---
 
-# Everything Claude Code Test Runner
+# staksmith Test Runner
 
 ## Action
 
@@ -82,15 +82,15 @@ Use the repository's existing Node-based test flow: targeted `*.test.js` files f
 - Test files follow the `*.test.js` naming pattern across hook, CI, and integration coverage.
 
 ---
-id: jarvis-hooks-change-set
-trigger: "when modifying hooks or hook-adjacent behavior in jarvis"
+id: staksmith-hooks-change-set
+trigger: "when modifying hooks or hook-adjacent behavior in staksmith"
 confidence: 0.88
 domain: workflow
 source: repo-curation
-source_repo: hackastak/jarvis
+source_repo: hackastak/staksmith
 ---
 
-# Everything Claude Code Hooks Change Set
+# staksmith Hooks Change Set
 
 ## Action
 
@@ -102,15 +102,15 @@ Update the hook script, its configuration, its tests, and its user-facing docume
 - Partial hook changes are a common source of regressions and stale docs.
 
 ---
-id: jarvis-cross-platform-sync
-trigger: "when shipping a user-visible feature across ECC surfaces"
+id: staksmith-cross-platform-sync
+trigger: "when shipping a user-visible feature across staksmith surfaces"
 confidence: 0.9
 domain: workflow
 source: repo-curation
-source_repo: hackastak/jarvis
+source_repo: hackastak/staksmith
 ---
 
-# Everything Claude Code Cross Platform Sync
+# staksmith Cross Platform Sync
 
 ## Action
 
@@ -118,19 +118,19 @@ Treat the root repo as the source of truth, then mirror shipped changes to `.cur
 
 ## Evidence
 
-- ECC maintains multiple harness-specific surfaces with overlapping but not identical files.
+- staksmith maintains multiple harness-specific surfaces with overlapping but not identical files.
 - The safest workflow is root-first followed by explicit parity updates.
 
 ---
-id: jarvis-release-sync
-trigger: "when preparing a release for jarvis"
+id: staksmith-release-sync
+trigger: "when preparing a release for staksmith"
 confidence: 0.86
 domain: workflow
 source: repo-curation
-source_repo: hackastak/jarvis
+source_repo: hackastak/staksmith
 ---
 
-# Everything Claude Code Release Sync
+# staksmith Release Sync
 
 ## Action
 
@@ -142,15 +142,15 @@ Keep package versions, plugin manifests, and release-facing docs synchronized be
 - Version drift causes broken update paths and confusing install surfaces.
 
 ---
-id: jarvis-learning-curation
-trigger: "when importing or evolving instincts for jarvis"
+id: staksmith-learning-curation
+trigger: "when importing or evolving instincts for staksmith"
 confidence: 0.84
 domain: workflow
 source: repo-curation
-source_repo: hackastak/jarvis
+source_repo: hackastak/staksmith
 ---
 
-# Everything Claude Code Learning Curation
+# staksmith Learning Curation
 
 ## Action
 

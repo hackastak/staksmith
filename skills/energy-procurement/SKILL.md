@@ -10,8 +10,8 @@ description: >
   demand charges, evaluating PPAs, or developing energy strategies.
 license: Apache-2.0
 version: 1.0.0
-homepage: https://github.com/hackastak/jarvis
-origin: ECC
+homepage: https://github.com/hackastak/staksmith
+origin: staksmith
 metadata:
   author: evos
   clawdbot:

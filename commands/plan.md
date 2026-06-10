@@ -109,7 +109,7 @@ After planning:
 
 ## Related Agents
 
-This command invokes the `planner` agent provided by ECC.
+This command invokes the `planner` agent provided by staksmith.
 
 For manual installs, the source file lives at:
 `agents/planner.md`

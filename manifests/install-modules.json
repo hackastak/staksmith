@@ -171,7 +171,7 @@
       "description": "Evaluation, TDD, verification, learning, and compaction skills.",
       "paths": [
         "skills/ai-regression-testing",
-        "skills/configure-ecc",
+        "skills/configure-staksmith",
         "skills/continuous-learning",
         "skills/continuous-learning-v2",
         "skills/e2e-testing",

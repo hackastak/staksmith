@@ -53,7 +53,7 @@ test('renderTemplate rejects unknown placeholders', () => {
 
 console.log('\nPlan generation:');
 test('buildOrchestrationPlan creates worktrees, branches, and tmux commands', () => {
-  const repoRoot = path.join('/tmp', 'ecc');
+  const repoRoot = path.join('/tmp', 'staksmith');
   const plan = buildOrchestrationPlan({
     repoRoot,
     sessionName: 'Skill Audit',
@@ -75,7 +75,7 @@ test('buildOrchestrationPlan creates worktrees, branches, and tmux commands', ()
     'Should create branch-backed worktrees'
   );
   assert.ok(
-    plan.workerPlans[0].worktreePath.endsWith(path.join('ecc-skill-audit-docs-a')),
+    plan.workerPlans[0].worktreePath.endsWith(path.join('staksmith-skill-audit-docs-a')),
     'Should create sibling worktree path'
   );
   assert.ok(
@@ -107,7 +107,7 @@ test('buildOrchestrationPlan creates worktrees, branches, and tmux commands', ()
 test('buildOrchestrationPlan requires at least one worker', () => {
   assert.throws(
     () => buildOrchestrationPlan({
-      repoRoot: '/tmp/ecc',
+      repoRoot: '/tmp/staksmith',
       sessionName: 'empty',
       launcherCommand: 'codex exec --task-file {task_file}',
       workers: []
@@ -118,7 +118,7 @@ test('buildOrchestrationPlan requires at least one worker', () => {
 
 test('buildOrchestrationPlan normalizes global and worker seed paths', () => {
   const plan = buildOrchestrationPlan({
-    repoRoot: '/tmp/ecc',
+    repoRoot: '/tmp/staksmith',
     sessionName: 'seeded',
     launcherCommand: 'echo run',
     seedPaths: ['scripts/orchestrate-worktrees.js', './.claude/plan/workflow-e2e-test.json'],
@@ -141,7 +141,7 @@ test('buildOrchestrationPlan normalizes global and worker seed paths', () => {
 test('buildOrchestrationPlan rejects worker names that collapse to the same slug', () => {
   assert.throws(
     () => buildOrchestrationPlan({
-      repoRoot: '/tmp/ecc',
+      repoRoot: '/tmp/staksmith',
       sessionName: 'duplicates',
       launcherCommand: 'echo run',
       workers: [
@@ -198,13 +198,13 @@ test('buildOrchestrationPlan shell-quotes the orchestration banner command', () 
 
 test('normalizeSeedPaths rejects paths outside the repo root', () => {
   assert.throws(
-    () => normalizeSeedPaths(['../outside.txt'], '/tmp/ecc'),
+    () => normalizeSeedPaths(['../outside.txt'], '/tmp/staksmith'),
     /inside repoRoot/
   );
 });
 
 test('materializePlan keeps worker instructions inside the worktree boundary', () => {
-  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'ecc-orchestrator-test-'));
+  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'staksmith-orchestrator-test-'));
 
   try {
     const plan = buildOrchestrationPlan({
@@ -241,7 +241,7 @@ test('materializePlan keeps worker instructions inside the worktree boundary', (
 });
 
 test('overlaySeedPaths copies local overlays into the worker worktree', () => {
-  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'ecc-orchestrator-overlay-'));
+  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'staksmith-orchestrator-overlay-'));
   const repoRoot = path.join(tempRoot, 'repo');
   const worktreePath = path.join(tempRoot, 'worktree');
 
@@ -290,17 +290,17 @@ test('overlaySeedPaths copies local overlays into the worker worktree', () => {
 
 test('executePlan rolls back partial setup when orchestration fails mid-run', () => {
   const plan = {
-    repoRoot: '/tmp/ecc',
+    repoRoot: '/tmp/staksmith',
     sessionName: 'rollback-test',
-    coordinationDir: '/tmp/ecc/.orchestration/rollback-test',
+    coordinationDir: '/tmp/staksmith/.orchestration/rollback-test',
     replaceExisting: false,
     workerPlans: [
       {
         workerName: 'Docs',
         workerSlug: 'docs',
-        worktreePath: '/tmp/ecc-rollback-docs',
+        worktreePath: '/tmp/staksmith-rollback-docs',
         seedPaths: ['commands/orchestrate.md'],
-        gitArgs: ['worktree', 'add', '-b', 'orchestrator-rollback-test-docs', '/tmp/ecc-rollback-docs', 'HEAD'],
+        gitArgs: ['worktree', 'add', '-b', 'orchestrator-rollback-test-docs', '/tmp/staksmith-rollback-docs', 'HEAD'],
         launchCommand: 'echo run'
       }
     ]
@@ -361,17 +361,17 @@ test('executePlan rolls back partial setup when orchestration fails mid-run', ()
 
 test('executePlan does not mark pre-existing resources for rollback when worktree creation fails', () => {
   const plan = {
-    repoRoot: '/tmp/ecc',
+    repoRoot: '/tmp/staksmith',
     sessionName: 'rollback-existing',
-    coordinationDir: '/tmp/ecc/.orchestration/rollback-existing',
+    coordinationDir: '/tmp/staksmith/.orchestration/rollback-existing',
     replaceExisting: false,
     workerPlans: [
       {
         workerName: 'Docs',
         workerSlug: 'docs',
-        worktreePath: '/tmp/ecc-existing-docs',
+        worktreePath: '/tmp/staksmith-existing-docs',
         seedPaths: [],
-        gitArgs: ['worktree', 'add', '-b', 'orchestrator-rollback-existing-docs', '/tmp/ecc-existing-docs', 'HEAD'],
+        gitArgs: ['worktree', 'add', '-b', 'orchestrator-rollback-existing-docs', '/tmp/staksmith-existing-docs', 'HEAD'],
         launchCommand: 'echo run',
         branchName: 'orchestrator-rollback-existing-docs'
       }

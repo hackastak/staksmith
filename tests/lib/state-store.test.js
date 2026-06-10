@@ -1,5 +1,5 @@
 /**
- * Tests for the SQLite-backed ECC state store and CLI commands.
+ * Tests for the SQLite-backed staksmith state store and CLI commands.
  */
 
 const assert = require('assert');
@@ -13,7 +13,7 @@ const {
   resolveStateStorePath,
 } = require('../../scripts/lib/state-store');
 
-const ECC_SCRIPT = path.join(__dirname, '..', '..', 'scripts', 'ecc.js');
+const STAKSMITH_SCRIPT = path.join(__dirname, '..', '..', 'scripts', 'staksmith.js');
 const STATUS_SCRIPT = path.join(__dirname, '..', '..', 'scripts', 'status.js');
 const SESSIONS_SCRIPT = path.join(__dirname, '..', '..', 'scripts', 'sessions-cli.js');
 
@@ -60,17 +60,17 @@ async function seedStore(dbPath) {
     adapterId: 'dmux-tmux',
     harness: 'claude',
     state: 'active',
-    repoRoot: '/tmp/ecc-repo',
+    repoRoot: '/tmp/staksmith-repo',
     startedAt: '2026-03-15T08:00:00.000Z',
     endedAt: null,
     snapshot: {
-      schemaVersion: 'ecc.session.v1',
+      schemaVersion: 'staksmith.session.v1',
       adapterId: 'dmux-tmux',
       session: {
         id: 'session-active',
         kind: 'orchestrated',
         state: 'active',
-        repoRoot: '/tmp/ecc-repo',
+        repoRoot: '/tmp/staksmith-repo',
       },
       workers: [
         {
@@ -78,14 +78,14 @@ async function seedStore(dbPath) {
           label: 'Worker 1',
           state: 'active',
           branch: 'feat/state-store',
-          worktree: '/tmp/ecc-repo/.worktrees/worker-1',
+          worktree: '/tmp/staksmith-repo/.worktrees/worker-1',
         },
         {
           id: 'worker-2',
           label: 'Worker 2',
           state: 'idle',
           branch: 'feat/state-store',
-          worktree: '/tmp/ecc-repo/.worktrees/worker-2',
+          worktree: '/tmp/staksmith-repo/.worktrees/worker-2',
         },
       ],
       aggregates: {
@@ -103,17 +103,17 @@ async function seedStore(dbPath) {
     adapterId: 'claude-history',
     harness: 'claude',
     state: 'recorded',
-    repoRoot: '/tmp/ecc-repo',
+    repoRoot: '/tmp/staksmith-repo',
     startedAt: '2026-03-14T18:00:00.000Z',
     endedAt: '2026-03-14T19:00:00.000Z',
     snapshot: {
-      schemaVersion: 'ecc.session.v1',
+      schemaVersion: 'staksmith.session.v1',
       adapterId: 'claude-history',
       session: {
         id: 'session-recorded',
         kind: 'history',
         state: 'recorded',
-        repoRoot: '/tmp/ecc-repo',
+        repoRoot: '/tmp/staksmith-repo',
       },
       workers: [
         {
@@ -121,7 +121,7 @@ async function seedStore(dbPath) {
           label: 'History Worker',
           state: 'recorded',
           branch: 'main',
-          worktree: '/tmp/ecc-repo',
+          worktree: '/tmp/staksmith-repo',
         },
       ],
       aggregates: {
@@ -180,7 +180,7 @@ async function seedStore(dbPath) {
     skillId: 'planner',
     skillVersion: '1.0.0',
     sessionId: 'session-recorded',
-    taskDescription: 'Outline ECC 2.0 work',
+    taskDescription: 'Outline staksmith 2.0 work',
     outcome: 'unknown',
     failureReason: null,
     tokensUsed: 300,
@@ -202,7 +202,7 @@ async function seedStore(dbPath) {
     id: 'decision-1',
     sessionId: 'session-active',
     title: 'Use SQLite for durable state',
-    rationale: 'Need queryable local state for ECC control plane',
+    rationale: 'Need queryable local state for staksmith control plane',
     alternatives: ['json-files', 'memory-only'],
     supersedes: null,
     status: 'active',
@@ -259,10 +259,10 @@ async function runTests() {
   let failed = 0;
 
   if (await test('creates the default state.db path and applies migrations idempotently', async () => {
-    const homeDir = createTempDir('ecc-state-home-');
+    const homeDir = createTempDir('staksmith-state-home-');
 
     try {
-      const expectedPath = path.join(homeDir, '.claude', 'ecc', 'state.db');
+      const expectedPath = path.join(homeDir, '.claude', 'staksmith', 'state.db');
       assert.strictEqual(resolveStateStorePath({ homeDir }), expectedPath);
 
       const firstStore = await createStateStore({ homeDir });
@@ -285,7 +285,7 @@ async function runTests() {
   })) passed += 1; else failed += 1;
 
   if (await test('preserves SQLite special database names like :memory:', async () => {
-    const tempDir = createTempDir('ecc-state-memory-');
+    const tempDir = createTempDir('staksmith-state-memory-');
     const previousCwd = process.cwd();
 
     try {
@@ -305,7 +305,7 @@ async function runTests() {
   })) passed += 1; else failed += 1;
 
   if (await test('stores sessions and returns detailed session views with workers, skill runs, and decisions', async () => {
-    const testDir = createTempDir('ecc-state-db-');
+    const testDir = createTempDir('staksmith-state-db-');
     const dbPath = path.join(testDir, 'state.db');
 
     try {
@@ -329,7 +329,7 @@ async function runTests() {
   })) passed += 1; else failed += 1;
 
   if (await test('builds a status snapshot with active sessions, skill rates, install health, and pending governance', async () => {
-    const testDir = createTempDir('ecc-state-db-');
+    const testDir = createTempDir('staksmith-state-db-');
     const dbPath = path.join(testDir, 'state.db');
 
     try {
@@ -355,7 +355,7 @@ async function runTests() {
   })) passed += 1; else failed += 1;
 
   if (await test('validates entity payloads before writing to the database', async () => {
-    const testDir = createTempDir('ecc-state-db-');
+    const testDir = createTempDir('staksmith-state-db-');
     const dbPath = path.join(testDir, 'state.db');
 
     try {
@@ -405,7 +405,7 @@ async function runTests() {
   })) passed += 1; else failed += 1;
 
   if (await test('status CLI supports human-readable and --json output', async () => {
-    const testDir = createTempDir('ecc-state-cli-');
+    const testDir = createTempDir('staksmith-state-cli-');
     const dbPath = path.join(testDir, 'state.db');
 
     try {
@@ -429,7 +429,7 @@ async function runTests() {
   })) passed += 1; else failed += 1;
 
   if (await test('sessions CLI supports list and detail views in human-readable and --json output', async () => {
-    const testDir = createTempDir('ecc-state-cli-');
+    const testDir = createTempDir('staksmith-state-cli-');
     const dbPath = path.join(testDir, 'state.db');
 
     try {
@@ -460,19 +460,19 @@ async function runTests() {
     }
   })) passed += 1; else failed += 1;
 
-  if (await test('ecc CLI delegates the new status and sessions subcommands', async () => {
-    const testDir = createTempDir('ecc-state-cli-');
+  if (await test('staksmith CLI delegates the new status and sessions subcommands', async () => {
+    const testDir = createTempDir('staksmith-state-cli-');
     const dbPath = path.join(testDir, 'state.db');
 
     try {
       await seedStore(dbPath);
 
-      const statusResult = runNode(ECC_SCRIPT, ['status', '--db', dbPath, '--json']);
+      const statusResult = runNode(STAKSMITH_SCRIPT, ['status', '--db', dbPath, '--json']);
       assert.strictEqual(statusResult.status, 0, statusResult.stderr);
       const statusPayload = parseJson(statusResult.stdout);
       assert.strictEqual(statusPayload.activeSessions.activeCount, 1);
 
-      const sessionsResult = runNode(ECC_SCRIPT, ['sessions', 'session-active', '--db', dbPath, '--json']);
+      const sessionsResult = runNode(STAKSMITH_SCRIPT, ['sessions', 'session-active', '--db', dbPath, '--json']);
       assert.strictEqual(sessionsResult.status, 0, sessionsResult.stderr);
       const sessionsPayload = parseJson(sessionsResult.stdout);
       assert.strictEqual(sessionsPayload.session.id, 'session-active');

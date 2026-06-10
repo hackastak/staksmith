@@ -13,7 +13,7 @@ USR1_FIRED=0
 ANALYZING=0
 LAST_ANALYSIS_EPOCH=0
 # Minimum seconds between analyses (prevents rapid re-triggering)
-ANALYSIS_COOLDOWN="${ECC_OBSERVER_ANALYSIS_COOLDOWN:-60}"
+ANALYSIS_COOLDOWN="${STAKSMITH_OBSERVER_ANALYSIS_COOLDOWN:-60}"
 
 cleanup() {
   [ -n "$SLEEP_PID" ] && kill "$SLEEP_PID" 2>/dev/null
@@ -36,8 +36,8 @@ analyze_observations() {
 
   echo "[$(date)] Analyzing $obs_count observations for project ${PROJECT_NAME}..." >> "$LOG_FILE"
 
-  if [ "${CLV2_IS_WINDOWS:-false}" = "true" ] && [ "${ECC_OBSERVER_ALLOW_WINDOWS:-false}" != "true" ]; then
-    echo "[$(date)] Skipping claude analysis on Windows due to known non-interactive hang issue (#295). Set ECC_OBSERVER_ALLOW_WINDOWS=true to override." >> "$LOG_FILE"
+  if [ "${CLV2_IS_WINDOWS:-false}" = "true" ] && [ "${STAKSMITH_OBSERVER_ALLOW_WINDOWS:-false}" != "true" ]; then
+    echo "[$(date)] Skipping claude analysis on Windows due to known non-interactive hang issue (#295). Set STAKSMITH_OBSERVER_ALLOW_WINDOWS=true to override." >> "$LOG_FILE"
     return
   fi
 
@@ -54,13 +54,13 @@ analyze_observations() {
 
   # Sample recent observations instead of loading the entire file (#521).
   # This prevents multi-MB payloads from being passed to the LLM.
-  MAX_ANALYSIS_LINES="${ECC_OBSERVER_MAX_ANALYSIS_LINES:-500}"
-  analysis_file="$(mktemp "${TMPDIR:-/tmp}/ecc-observer-analysis.XXXXXX.jsonl")"
+  MAX_ANALYSIS_LINES="${STAKSMITH_OBSERVER_MAX_ANALYSIS_LINES:-500}"
+  analysis_file="$(mktemp "${TMPDIR:-/tmp}/staksmith-observer-analysis.XXXXXX.jsonl")"
   tail -n "$MAX_ANALYSIS_LINES" "$OBSERVATIONS_FILE" > "$analysis_file"
   analysis_count=$(wc -l < "$analysis_file" 2>/dev/null || echo 0)
   echo "[$(date)] Using last $analysis_count of $obs_count observations for analysis" >> "$LOG_FILE"
 
-  prompt_file="$(mktemp "${TMPDIR:-/tmp}/ecc-observer-prompt.XXXXXX")"
+  prompt_file="$(mktemp "${TMPDIR:-/tmp}/staksmith-observer-prompt.XXXXXX")"
   cat > "$prompt_file" <<PROMPT
 Read ${analysis_file} and identify patterns for the project ${PROJECT_NAME} (user corrections, error resolutions, repeated workflows, tool preferences).
 If you find 3+ occurrences of the same pattern, create an instinct file in ${INSTINCTS_DIR}/<id>.md.
@@ -99,8 +99,8 @@ Rules:
 - Examples of project patterns: use React functional components, follow Django REST framework conventions
 PROMPT
 
-  timeout_seconds="${ECC_OBSERVER_TIMEOUT_SECONDS:-120}"
-  max_turns="${ECC_OBSERVER_MAX_TURNS:-10}"
+  timeout_seconds="${STAKSMITH_OBSERVER_TIMEOUT_SECONDS:-120}"
+  max_turns="${STAKSMITH_OBSERVER_MAX_TURNS:-10}"
   exit_code=0
 
   case "$max_turns" in
@@ -114,7 +114,7 @@ PROMPT
   fi
 
   # Prevent observe.sh from recording this automated Haiku session as observations
-  ECC_SKIP_OBSERVE=1 ECC_HOOK_PROFILE=minimal claude --model haiku --max-turns "$max_turns" --print < "$prompt_file" >> "$LOG_FILE" 2>&1 &
+  STAKSMITH_SKIP_OBSERVE=1 STAKSMITH_HOOK_PROFILE=minimal claude --model haiku --max-turns "$max_turns" --print < "$prompt_file" >> "$LOG_FILE" 2>&1 &
   claude_pid=$!
 
   (

@@ -92,8 +92,8 @@ if [ -n "${CLV2_CONFIG:-}" ] && [ -f "$(dirname "$CLV2_CONFIG")/disabled" ]; the
 fi
 
 # Prevent observe.sh from firing on non-human sessions to avoid:
-#   - ECC observing its own Haiku observer sessions (self-loop)
-#   - ECC observing other tools' automated sessions
+#   - staksmith observing its own Haiku observer sessions (self-loop)
+#   - staksmith observing other tools' automated sessions
 #   - automated sessions creating project-scoped homunculus metadata
 
 # Layer 1: entrypoint. Only interactive terminal sessions should continue.
@@ -103,20 +103,20 @@ case "${CLAUDE_CODE_ENTRYPOINT:-cli}" in
 esac
 
 # Layer 2: minimal hook profile suppresses non-essential hooks.
-[ "${ECC_HOOK_PROFILE:-standard}" = "minimal" ] && exit 0
+[ "${STAKSMITH_HOOK_PROFILE:-standard}" = "minimal" ] && exit 0
 
 # Layer 3: cooperative skip env var for automated sessions.
-[ "${ECC_SKIP_OBSERVE:-0}" = "1" ] && exit 0
+[ "${STAKSMITH_SKIP_OBSERVE:-0}" = "1" ] && exit 0
 
 # Layer 4: subagent sessions are automated by definition.
-_ECC_AGENT_ID=$(echo "$INPUT_JSON" | "$PYTHON_CMD" -c "import json,sys; print(json.load(sys.stdin).get('agent_id',''))" 2>/dev/null || true)
-[ -n "$_ECC_AGENT_ID" ] && exit 0
+_STAKSMITH_AGENT_ID=$(echo "$INPUT_JSON" | "$PYTHON_CMD" -c "import json,sys; print(json.load(sys.stdin).get('agent_id',''))" 2>/dev/null || true)
+[ -n "$_STAKSMITH_AGENT_ID" ] && exit 0
 
 # Layer 5: known observer-session path exclusions.
-_ECC_SKIP_PATHS="${ECC_OBSERVE_SKIP_PATHS:-observer-sessions,.claude-mem}"
+_STAKSMITH_SKIP_PATHS="${STAKSMITH_OBSERVE_SKIP_PATHS:-observer-sessions,.claude-mem}"
 if [ -n "$STDIN_CWD" ]; then
-  IFS=',' read -ra _ECC_SKIP_ARRAY <<< "$_ECC_SKIP_PATHS"
-  for _pattern in "${_ECC_SKIP_ARRAY[@]}"; do
+  IFS=',' read -ra _STAKSMITH_SKIP_ARRAY <<< "$_STAKSMITH_SKIP_PATHS"
+  for _pattern in "${_STAKSMITH_SKIP_ARRAY[@]}"; do
     _pattern="${_pattern#"${_pattern%%[![:space:]]*}"}"
     _pattern="${_pattern%"${_pattern##*[![:space:]]}"}"
     [ -z "$_pattern" ] && continue
@@ -368,7 +368,7 @@ fi
 # Throttle SIGUSR1: only signal observer every N observations (#521)
 # This prevents rapid signaling when tool calls fire every second,
 # which caused runaway parallel Claude analysis processes.
-SIGNAL_EVERY_N="${ECC_OBSERVER_SIGNAL_EVERY_N:-20}"
+SIGNAL_EVERY_N="${STAKSMITH_OBSERVER_SIGNAL_EVERY_N:-20}"
 SIGNAL_COUNTER_FILE="${PROJECT_DIR}/.observer-signal-counter"
 
 should_signal=0

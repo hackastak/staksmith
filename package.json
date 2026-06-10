@@ -1,5 +1,5 @@
 {
-  "name": "ecc-universal",
+  "name": "staksmith",
   "version": "1.8.0",
   "description": "Complete collection of battle-tested Claude Code configs — agents, skills, hooks, commands, and rules evolved over 10+ months of intensive daily use by an Anthropic hackathon winner",
   "keywords": [
@@ -31,11 +31,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hackastak/jarvis.git"
+    "url": "git+https://github.com/hackastak/staksmith.git"
   },
-  "homepage": "https://github.com/hackastak/jarvis#readme",
+  "homepage": "https://github.com/hackastak/staksmith#readme",
   "bugs": {
-    "url": "https://github.com/hackastak/jarvis/issues"
+    "url": "https://github.com/hackastak/staksmith/issues"
   },
   "files": [
     ".agents/",
@@ -65,7 +65,7 @@
     "rules/",
     "schemas/",
     "scripts/ci/",
-    "scripts/ecc.js",
+    "scripts/staksmith.js",
     "scripts/hooks/",
     "scripts/lib/",
     "scripts/claw.js",
@@ -93,11 +93,11 @@
     "llms.txt"
   ],
   "bin": {
-    "ecc": "scripts/ecc.js",
-    "ecc-install": "scripts/install-apply.js"
+    "staksmith": "scripts/staksmith.js",
+    "staksmith-install": "scripts/install-apply.js"
   },
   "scripts": {
-    "postinstall": "echo '\\n  ecc-universal installed!\\n  Run: npx ecc typescript\\n  Compat: npx ecc-install typescript\\n  Docs: https://github.com/hackastak/jarvis\\n'",
+    "postinstall": "echo '\\n  staksmith installed!\\n  Run: npx staksmith typescript\\n  Compat: npx staksmith-install typescript\\n  Docs: https://github.com/hackastak/staksmith\\n'",
     "lint": "eslint . && markdownlint '**/*.md' --ignore node_modules",
     "harness:audit": "node scripts/harness-audit.js",
     "claw": "node scripts/claw.js",

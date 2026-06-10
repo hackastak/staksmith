@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * NanoClaw v2 — Barebones Agent REPL for Everything Claude Code
+ * NanoClaw v2 — Barebones Agent REPL for staksmith
  *
  * Zero external dependencies. Session-aware REPL around `claude -p`.
  */
@@ -58,7 +58,7 @@ function normalizeSkillList(raw) {
   return String(raw).split(',').map(s => s.trim()).filter(Boolean);
 }
 
-function loadECCContext(skillList) {
+function loadStaksmithContext(skillList) {
   const requested = normalizeSkillList(skillList !== undefined ? skillList : process.env.CLAW_SKILLS || '');
   if (requested.length === 0) return '';
 
@@ -291,7 +291,7 @@ function main() {
     skills: normalizeSkillList(process.env.CLAW_SKILLS || ''),
   };
 
-  let eccContext = loadECCContext(state.skills);
+  let eccContext = loadStaksmithContext(state.skills);
 
   const loadedCount = state.skills.filter(skillExists).length;
 
@@ -360,7 +360,7 @@ function main() {
         if (!state.skills.includes(skill)) {
           state.skills.push(skill);
         }
-        eccContext = loadECCContext(state.skills);
+        eccContext = loadStaksmithContext(state.skills);
         console.log(`Loaded skill: ${skill}`);
         return prompt();
       }
@@ -445,7 +445,7 @@ module.exports = {
   listSessions,
   loadHistory,
   appendTurn,
-  loadECCContext,
+  loadStaksmithContext,
   buildPrompt,
   askClaude,
   isValidSessionName,

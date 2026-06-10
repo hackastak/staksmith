@@ -1,6 +1,6 @@
 # Sponsors
 
-Thank you to everyone who sponsors this project! Your support keeps the ECC ecosystem growing.
+Thank you to everyone who sponsors this project! Your support keeps the staksmith ecosystem growing.
 
 ## Enterprise Sponsors
 
@@ -33,7 +33,7 @@ Your sponsorship helps:
 
 Use these proof points in sponsor conversations:
 
-- Live npm install/download metrics for `ecc-universal` and `ecc-agentshield`
+- Live npm install/download metrics for `staksmith` and `ecc-agentshield`
 - GitHub App distribution via Marketplace installs
 - Public adoption signals: stars, forks, contributors, release cadence
 - Cross-harness support: Claude Code, Cursor, OpenCode, Codex app/CLI

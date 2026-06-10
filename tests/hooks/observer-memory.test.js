@@ -31,7 +31,7 @@ function test(name, fn) {
 }
 
 function createTempDir() {
-  return fs.mkdtempSync(path.join(os.tmpdir(), 'ecc-observer-test-'));
+  return fs.mkdtempSync(path.join(os.tmpdir(), 'staksmith-observer-test-'));
 }
 
 function cleanupDir(dir) {
@@ -89,7 +89,7 @@ test('observe.sh only signals when counter reaches threshold', () => {
 test('observe.sh default throttle is 20 observations per signal', () => {
   const content = fs.readFileSync(observeShPath, 'utf8');
   assert.ok(
-    content.includes('ECC_OBSERVER_SIGNAL_EVERY_N:-20'),
+    content.includes('STAKSMITH_OBSERVER_SIGNAL_EVERY_N:-20'),
     'Default signal frequency should be every 20 observations'
   );
 });
@@ -160,7 +160,7 @@ test('on_usr1 enforces cooldown between analyses', () => {
 test('default cooldown is 60 seconds', () => {
   const content = fs.readFileSync(observerLoopPath, 'utf8');
   assert.ok(
-    content.includes('ECC_OBSERVER_ANALYSIS_COOLDOWN:-60'),
+    content.includes('STAKSMITH_OBSERVER_ANALYSIS_COOLDOWN:-60'),
     'Default cooldown should be 60 seconds'
   );
 });
@@ -182,7 +182,7 @@ test('analyze_observations uses tail to sample recent observations', () => {
 test('default max analysis lines is 500', () => {
   const content = fs.readFileSync(observerLoopPath, 'utf8');
   assert.ok(
-    content.includes('ECC_OBSERVER_MAX_ANALYSIS_LINES:-500'),
+    content.includes('STAKSMITH_OBSERVER_MAX_ANALYSIS_LINES:-500'),
     'Default should sample last 500 lines'
   );
 });
@@ -190,7 +190,7 @@ test('default max analysis lines is 500', () => {
 test('analysis temp file is created and cleaned up', () => {
   const content = fs.readFileSync(observerLoopPath, 'utf8');
   assert.ok(
-    content.includes('ecc-observer-analysis'),
+    content.includes('staksmith-observer-analysis'),
     'Should create a temp analysis file'
   );
   assert.ok(
@@ -272,7 +272,7 @@ console.log('\n--- observe.sh end-to-end throttle (shell execution) ---');
 test('observe.sh creates counter file and increments on each call', () => {
   // This test runs observe.sh with minimal input to verify counter behavior.
   // We need python3, bash, and a valid project dir to test the full flow.
-  // We use ECC_SKIP_OBSERVE=0 and minimal JSON so observe.sh processes but
+  // We use STAKSMITH_SKIP_OBSERVE=0 and minimal JSON so observe.sh processes but
   // exits before signaling (no observer PID running).
 
   const testDir = createTempDir();
@@ -321,8 +321,8 @@ test('observe.sh creates counter file and increments on each call', () => {
         ...process.env,
         HOME: testDir,
         CLAUDE_CODE_ENTRYPOINT: 'cli',
-        ECC_HOOK_PROFILE: 'standard',
-        ECC_SKIP_OBSERVE: '0',
+        STAKSMITH_HOOK_PROFILE: 'standard',
+        STAKSMITH_SKIP_OBSERVE: '0',
         CLAUDE_PROJECT_DIR: projectDir
       },
       timeout: 5000

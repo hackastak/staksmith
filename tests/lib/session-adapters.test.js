@@ -56,7 +56,7 @@ function withHome(homeDir, fn) {
 }
 
 test('dmux adapter normalizes orchestration snapshots into canonical form', () => {
-  const recordingDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ecc-session-recordings-'));
+  const recordingDir = fs.mkdtempSync(path.join(os.tmpdir(), 'staksmith-session-recordings-'));
 
   try {
     const adapter = createDmuxTmuxAdapter({
@@ -118,7 +118,7 @@ test('dmux adapter normalizes orchestration snapshots into canonical form', () =
     const recordingPath = getFallbackSessionRecordingPath(snapshot, { recordingDir });
     const persisted = JSON.parse(fs.readFileSync(recordingPath, 'utf8'));
 
-    assert.strictEqual(snapshot.schemaVersion, 'ecc.session.v1');
+    assert.strictEqual(snapshot.schemaVersion, 'staksmith.session.v1');
     assert.strictEqual(snapshot.adapterId, 'dmux-tmux');
     assert.strictEqual(snapshot.session.id, 'workflow-visual-proof');
     assert.strictEqual(snapshot.session.kind, 'orchestrated');
@@ -136,7 +136,7 @@ test('dmux adapter normalizes orchestration snapshots into canonical form', () =
 });
 
 test('dmux adapter marks finished sessions as completed and records history', () => {
-  const recordingDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ecc-session-recordings-'));
+  const recordingDir = fs.mkdtempSync(path.join(os.tmpdir(), 'staksmith-session-recordings-'));
 
   try {
     const adapter = createDmuxTmuxAdapter({
@@ -221,7 +221,7 @@ test('dmux adapter marks finished sessions as completed and records history', ()
 });
 
 test('fallback recording does not append duplicate history entries for unchanged snapshots', () => {
-  const recordingDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ecc-session-recordings-'));
+  const recordingDir = fs.mkdtempSync(path.join(os.tmpdir(), 'staksmith-session-recordings-'));
 
   try {
     const adapter = createDmuxTmuxAdapter({
@@ -281,8 +281,8 @@ test('fallback recording does not append duplicate history entries for unchanged
 });
 
 test('claude-history adapter loads the latest recorded session', () => {
-  const homeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ecc-session-adapter-home-'));
-  const recordingDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ecc-session-recordings-'));
+  const homeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'staksmith-session-adapter-home-'));
+  const recordingDir = fs.mkdtempSync(path.join(os.tmpdir(), 'staksmith-session-recordings-'));
   const sessionsDir = path.join(homeDir, '.claude', 'sessions');
   fs.mkdirSync(sessionsDir, { recursive: true });
 
@@ -293,9 +293,9 @@ test('claude-history adapter loads the latest recorded session', () => {
     '**Date:** 2026-03-13',
     '**Started:** 09:00',
     '**Last Updated:** 11:30',
-    '**Project:** jarvis',
+    '**Project:** staksmith',
     '**Branch:** feat/session-adapter',
-    '**Worktree:** /tmp/ecc-worktree',
+    '**Worktree:** /tmp/staksmith-worktree',
     '',
     '### Completed',
     '- [x] Build snapshot prototype',
@@ -319,13 +319,13 @@ test('claude-history adapter loads the latest recorded session', () => {
       const recordingPath = getFallbackSessionRecordingPath(snapshot, { recordingDir });
       const persisted = JSON.parse(fs.readFileSync(recordingPath, 'utf8'));
 
-      assert.strictEqual(snapshot.schemaVersion, 'ecc.session.v1');
+      assert.strictEqual(snapshot.schemaVersion, 'staksmith.session.v1');
       assert.strictEqual(snapshot.adapterId, 'claude-history');
       assert.strictEqual(snapshot.session.kind, 'history');
       assert.strictEqual(snapshot.session.state, 'recorded');
       assert.strictEqual(snapshot.workers.length, 1);
       assert.strictEqual(snapshot.workers[0].branch, 'feat/session-adapter');
-      assert.strictEqual(snapshot.workers[0].worktree, '/tmp/ecc-worktree');
+      assert.strictEqual(snapshot.workers[0].worktree, '/tmp/staksmith-worktree');
       assert.strictEqual(snapshot.workers[0].runtime.kind, 'claude-session');
       assert.deepStrictEqual(snapshot.workers[0].intent.seedPaths, ['scripts/lib/orchestration-session.js']);
       assert.strictEqual(snapshot.workers[0].artifacts.sessionFile, sessionPath);
@@ -340,7 +340,7 @@ test('claude-history adapter loads the latest recorded session', () => {
 });
 
 test('adapter registry routes plan files to dmux and explicit claude targets to history', () => {
-  const repoRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'ecc-session-registry-repo-'));
+  const repoRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'staksmith-session-registry-repo-'));
   const planPath = path.join(repoRoot, 'workflow.json');
   fs.writeFileSync(planPath, JSON.stringify({
     sessionName: 'workflow-visual-proof',
@@ -348,7 +348,7 @@ test('adapter registry routes plan files to dmux and explicit claude targets to 
     coordinationRoot: path.join(repoRoot, '.claude', 'orchestration')
   }));
 
-  const homeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ecc-session-registry-home-'));
+  const homeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'staksmith-session-registry-home-'));
   const sessionsDir = path.join(homeDir, '.claude', 'sessions');
   fs.mkdirSync(sessionsDir, { recursive: true });
   fs.writeFileSync(
@@ -391,7 +391,7 @@ test('adapter registry routes plan files to dmux and explicit claude targets to 
 });
 
 test('adapter registry resolves structured target types into the correct adapter', () => {
-  const repoRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'ecc-session-typed-repo-'));
+  const repoRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'staksmith-session-typed-repo-'));
   const planPath = path.join(repoRoot, 'workflow.json');
   fs.writeFileSync(planPath, JSON.stringify({
     sessionName: 'workflow-typed-proof',
@@ -399,7 +399,7 @@ test('adapter registry resolves structured target types into the correct adapter
     coordinationRoot: path.join(repoRoot, '.claude', 'orchestration')
   }));
 
-  const homeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ecc-session-typed-home-'));
+  const homeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'staksmith-session-typed-home-'));
   const sessionsDir = path.join(homeDir, '.claude', 'sessions');
   fs.mkdirSync(sessionsDir, { recursive: true });
   fs.writeFileSync(
@@ -445,7 +445,7 @@ test('adapter registry resolves structured target types into the correct adapter
 });
 
 test('default registry forwards a nested state-store writer to adapters', () => {
-  const homeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ecc-session-registry-home-'));
+  const homeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'staksmith-session-registry-home-'));
   const sessionsDir = path.join(homeDir, '.claude', 'sessions');
   fs.mkdirSync(sessionsDir, { recursive: true });
   fs.writeFileSync(
@@ -498,7 +498,7 @@ test('adapter registry lists adapter metadata and target types', () => {
 
 test('persistence only falls back when the state-store module is missing', () => {
   const snapshot = {
-    schemaVersion: 'ecc.session.v1',
+    schemaVersion: 'staksmith.session.v1',
     adapterId: 'claude-history',
     session: {
       id: 'a1b2c3d4',

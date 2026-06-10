@@ -1,5 +1,5 @@
 /**
- * ECC Custom Tool: Git Summary
+ * staksmith Custom Tool: Git Summary
  *
  * Returns branch/status/log/diff details for the active repository.
  */

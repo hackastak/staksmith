@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Sync Everything Claude Code (ECC) assets into a local Codex CLI setup.
+# Sync staksmith assets into a local Codex CLI setup.
 # - Backs up ~/.codex config and AGENTS.md
-# - Replaces AGENTS.md with ECC AGENTS.md
+# - Replaces AGENTS.md with staksmith AGENTS.md
 # - Syncs Codex-ready skills from .agents/skills
 # - Generates prompt files from commands/*.md
 # - Generates Codex QA wrappers and optional language rule-pack prompts
@@ -33,9 +33,9 @@ SANITY_CHECKER="$REPO_ROOT/scripts/codex/check-codex-global-state.sh"
 CURSOR_RULES_DIR="$REPO_ROOT/.cursor/rules"
 
 STAMP="$(date +%Y%m%d-%H%M%S)"
-BACKUP_DIR="$CODEX_HOME/backups/ecc-$STAMP"
+BACKUP_DIR="$CODEX_HOME/backups/staksmith-$STAMP"
 
-log() { printf '[ecc-sync] %s\n' "$*"; }
+log() { printf '[staksmith-sync] %s\n' "$*"; }
 
 run_or_echo() {
   if [[ "$MODE" == "dry-run" ]]; then
@@ -111,9 +111,9 @@ generate_prompt_file() {
   local out="$2"
   local cmd_name="$3"
   {
-    printf '# ECC Command Prompt: /%s\n\n' "$cmd_name"
+    printf '# staksmith Command Prompt: /%s\n\n' "$cmd_name"
     printf 'Source: %s\n\n' "$src"
-    printf 'Use this prompt to run the ECC `%s` workflow.\n\n' "$cmd_name"
+    printf 'Use this prompt to run the staksmith `%s` workflow.\n\n' "$cmd_name"
     awk '
       NR == 1 && $0 == "---" { fm = 1; next }
       fm == 1 && $0 == "---" { fm = 0; next }
@@ -123,13 +123,13 @@ generate_prompt_file() {
   } > "$out"
 }
 
-require_path "$REPO_ROOT/AGENTS.md" "ECC AGENTS.md"
-require_path "$AGENTS_CODEX_SUPP_SRC" "ECC Codex AGENTS supplement"
-require_path "$SKILLS_SRC" "ECC skills directory"
-require_path "$PROMPTS_SRC" "ECC commands directory"
-require_path "$HOOKS_INSTALLER" "ECC global git hooks installer"
-require_path "$SANITY_CHECKER" "ECC global sanity checker"
-require_path "$CURSOR_RULES_DIR" "ECC Cursor rules directory"
+require_path "$REPO_ROOT/AGENTS.md" "staksmith AGENTS.md"
+require_path "$AGENTS_CODEX_SUPP_SRC" "staksmith Codex AGENTS supplement"
+require_path "$SKILLS_SRC" "staksmith skills directory"
+require_path "$PROMPTS_SRC" "staksmith commands directory"
+require_path "$HOOKS_INSTALLER" "staksmith global git hooks installer"
+require_path "$SANITY_CHECKER" "staksmith global sanity checker"
+require_path "$CURSOR_RULES_DIR" "staksmith Cursor rules directory"
 require_path "$CONFIG_FILE" "Codex config.toml"
 
 log "Mode: $MODE"
@@ -143,19 +143,19 @@ if [[ -f "$AGENTS_FILE" ]]; then
   run_or_echo "cp \"$AGENTS_FILE\" \"$BACKUP_DIR/AGENTS.md\""
 fi
 
-log "Replacing global AGENTS.md with ECC AGENTS + Codex supplement"
+log "Replacing global AGENTS.md with staksmith AGENTS + Codex supplement"
 if [[ "$MODE" == "dry-run" ]]; then
   printf '[dry-run] compose %s from %s + %s\n' "$AGENTS_FILE" "$AGENTS_ROOT_SRC" "$AGENTS_CODEX_SUPP_SRC"
 else
   {
     cat "$AGENTS_ROOT_SRC"
     printf '\n\n---\n\n'
-    printf '# Codex Supplement (From ECC .codex/AGENTS.md)\n\n'
+    printf '# Codex Supplement (From staksmith .codex/AGENTS.md)\n\n'
     cat "$AGENTS_CODEX_SUPP_SRC"
   } > "$AGENTS_FILE"
 fi
 
-log "Syncing ECC Codex skills"
+log "Syncing staksmith Codex skills"
 run_or_echo "mkdir -p \"$SKILLS_DEST\""
 skills_count=0
 for skill_dir in "$SKILLS_SRC"/*; do
@@ -167,9 +167,9 @@ for skill_dir in "$SKILLS_SRC"/*; do
   skills_count=$((skills_count + 1))
 done
 
-log "Generating prompt files from ECC commands"
+log "Generating prompt files from staksmith commands"
 run_or_echo "mkdir -p \"$PROMPTS_DEST\""
-manifest="$PROMPTS_DEST/ecc-prompts-manifest.txt"
+manifest="$PROMPTS_DEST/staksmith-prompts-manifest.txt"
 if [[ "$MODE" == "dry-run" ]]; then
   printf '[dry-run] > %s\n' "$manifest"
 else
@@ -179,12 +179,12 @@ fi
 prompt_count=0
 while IFS= read -r -d '' command_file; do
   name="$(basename "$command_file" .md)"
-  out="$PROMPTS_DEST/ecc-$name.md"
+  out="$PROMPTS_DEST/staksmith-$name.md"
   if [[ "$MODE" == "dry-run" ]]; then
     printf '[dry-run] generate %s from %s\n' "$out" "$command_file"
   else
     generate_prompt_file "$command_file" "$out" "$name"
-    printf 'ecc-%s.md\n' "$name" >> "$manifest"
+    printf 'staksmith-%s.md\n' "$name" >> "$manifest"
   fi
   prompt_count=$((prompt_count + 1))
 done < <(find "$PROMPTS_SRC" -maxdepth 1 -type f -name '*.md' -print0 | sort -z)
@@ -194,7 +194,7 @@ if [[ "$MODE" == "apply" ]]; then
 fi
 
 log "Generating Codex tool prompts + optional rule-pack prompts"
-extension_manifest="$PROMPTS_DEST/ecc-extension-prompts-manifest.txt"
+extension_manifest="$PROMPTS_DEST/staksmith-extension-prompts-manifest.txt"
 if [[ "$MODE" == "dry-run" ]]; then
   printf '[dry-run] > %s\n' "$extension_manifest"
 else
@@ -215,8 +215,8 @@ write_extension_prompt() {
   extension_count=$((extension_count + 1))
 }
 
-write_extension_prompt "ecc-tool-run-tests.md" <<EOF
-# ECC Tool Prompt: run-tests
+write_extension_prompt "staksmith-tool-run-tests.md" <<EOF
+# staksmith Tool Prompt: run-tests
 
 Run the repository test suite with package-manager autodetection and concise reporting.
 
@@ -239,8 +239,8 @@ Suggested next step:
 \`\`\`
 EOF
 
-write_extension_prompt "ecc-tool-check-coverage.md" <<EOF
-# ECC Tool Prompt: check-coverage
+write_extension_prompt "staksmith-tool-check-coverage.md" <<EOF
+# staksmith Tool Prompt: check-coverage
 
 Analyze coverage and compare it to an 80% threshold (or a threshold I specify).
 
@@ -263,8 +263,8 @@ Recommended focus:
 \`\`\`
 EOF
 
-write_extension_prompt "ecc-tool-security-audit.md" <<EOF
-# ECC Tool Prompt: security-audit
+write_extension_prompt "staksmith-tool-security-audit.md" <<EOF
+# staksmith Tool Prompt: security-audit
 
 Run a practical security audit: dependency vulnerabilities + secret scan + high-risk code patterns.
 
@@ -289,10 +289,10 @@ Remediation plan:
 \`\`\`
 EOF
 
-write_extension_prompt "ecc-rules-pack-common.md" <<EOF
-# ECC Rule Pack: common (optional)
+write_extension_prompt "staksmith-rules-pack-common.md" <<EOF
+# staksmith Rule Pack: common (optional)
 
-Apply ECC common engineering rules for this session. Use these files as the source of truth:
+Apply staksmith common engineering rules for this session. Use these files as the source of truth:
 
 - \`$CURSOR_RULES_DIR/common-agents.md\`
 - \`$CURSOR_RULES_DIR/common-coding-style.md\`
@@ -307,13 +307,13 @@ Apply ECC common engineering rules for this session. Use these files as the sour
 Treat these as strict defaults for planning, implementation, review, and verification in this repo.
 EOF
 
-write_extension_prompt "ecc-rules-pack-typescript.md" <<EOF
-# ECC Rule Pack: typescript (optional)
+write_extension_prompt "staksmith-rules-pack-typescript.md" <<EOF
+# staksmith Rule Pack: typescript (optional)
 
-Apply ECC common rules plus TypeScript-specific rules for this session.
+Apply staksmith common rules plus TypeScript-specific rules for this session.
 
 ## Common
-Use \`$PROMPTS_DEST/ecc-rules-pack-common.md\`.
+Use \`$PROMPTS_DEST/staksmith-rules-pack-common.md\`.
 
 ## TypeScript Extensions
 - \`$CURSOR_RULES_DIR/typescript-coding-style.md\`
@@ -325,13 +325,13 @@ Use \`$PROMPTS_DEST/ecc-rules-pack-common.md\`.
 Language-specific guidance overrides common rules when they conflict.
 EOF
 
-write_extension_prompt "ecc-rules-pack-python.md" <<EOF
-# ECC Rule Pack: python (optional)
+write_extension_prompt "staksmith-rules-pack-python.md" <<EOF
+# staksmith Rule Pack: python (optional)
 
-Apply ECC common rules plus Python-specific rules for this session.
+Apply staksmith common rules plus Python-specific rules for this session.
 
 ## Common
-Use \`$PROMPTS_DEST/ecc-rules-pack-common.md\`.
+Use \`$PROMPTS_DEST/staksmith-rules-pack-common.md\`.
 
 ## Python Extensions
 - \`$CURSOR_RULES_DIR/python-coding-style.md\`
@@ -343,13 +343,13 @@ Use \`$PROMPTS_DEST/ecc-rules-pack-common.md\`.
 Language-specific guidance overrides common rules when they conflict.
 EOF
 
-write_extension_prompt "ecc-rules-pack-golang.md" <<EOF
-# ECC Rule Pack: golang (optional)
+write_extension_prompt "staksmith-rules-pack-golang.md" <<EOF
+# staksmith Rule Pack: golang (optional)
 
-Apply ECC common rules plus Go-specific rules for this session.
+Apply staksmith common rules plus Go-specific rules for this session.
 
 ## Common
-Use \`$PROMPTS_DEST/ecc-rules-pack-common.md\`.
+Use \`$PROMPTS_DEST/staksmith-rules-pack-common.md\`.
 
 ## Go Extensions
 - \`$CURSOR_RULES_DIR/golang-coding-style.md\`
@@ -361,13 +361,13 @@ Use \`$PROMPTS_DEST/ecc-rules-pack-common.md\`.
 Language-specific guidance overrides common rules when they conflict.
 EOF
 
-write_extension_prompt "ecc-rules-pack-swift.md" <<EOF
-# ECC Rule Pack: swift (optional)
+write_extension_prompt "staksmith-rules-pack-swift.md" <<EOF
+# staksmith Rule Pack: swift (optional)
 
-Apply ECC common rules plus Swift-specific rules for this session.
+Apply staksmith common rules plus Swift-specific rules for this session.
 
 ## Common
-Use \`$PROMPTS_DEST/ecc-rules-pack-common.md\`.
+Use \`$PROMPTS_DEST/staksmith-rules-pack-common.md\`.
 
 ## Swift Extensions
 - \`$CURSOR_RULES_DIR/swift-coding-style.md\`

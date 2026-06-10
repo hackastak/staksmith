@@ -1,8 +1,8 @@
-# Jarvis
+# Staksmith
 
-Use this skill when working inside the `jarvis` repository and you need repo-specific guidance instead of generic coding advice.
+Use this skill when working inside the `staksmith` repository and you need repo-specific guidance instead of generic coding advice.
 
-Optional companion instincts live at `.claude/homunculus/instincts/inherited/jarvis-instincts.yaml` for teams using `continuous-learning-v2`.
+Optional companion instincts live at `.claude/homunculus/instincts/inherited/staksmith-instincts.yaml` for teams using `continuous-learning-v2`.
 
 ## When to Use
 

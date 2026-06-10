@@ -50,17 +50,17 @@ function runTests() {
     const statePath = adapter.getInstallStatePath({ projectRoot });
 
     assert.strictEqual(root, path.join(projectRoot, '.cursor'));
-    assert.strictEqual(statePath, path.join(projectRoot, '.cursor', 'ecc-install-state.json'));
+    assert.strictEqual(statePath, path.join(projectRoot, '.cursor', 'staksmith-install-state.json'));
   })) passed++; else failed++;
 
   if (test('resolves claude adapter root and install-state path from home dir', () => {
     const adapter = getInstallTargetAdapter('claude');
     const homeDir = '/Users/example';
-    const root = adapter.resolveRoot({ homeDir, repoRoot: '/repo/ecc' });
-    const statePath = adapter.getInstallStatePath({ homeDir, repoRoot: '/repo/ecc' });
+    const root = adapter.resolveRoot({ homeDir, repoRoot: '/repo/staksmith' });
+    const statePath = adapter.getInstallStatePath({ homeDir, repoRoot: '/repo/staksmith' });
 
     assert.strictEqual(root, path.join(homeDir, '.claude'));
-    assert.strictEqual(statePath, path.join(homeDir, '.claude', 'ecc', 'install-state.json'));
+    assert.strictEqual(statePath, path.join(homeDir, '.claude', 'staksmith', 'install-state.json'));
   })) passed++; else failed++;
 
   if (test('plans scaffold operations and flattens native target roots', () => {
@@ -86,7 +86,7 @@ function runTests() {
 
     assert.strictEqual(plan.adapter.id, 'cursor-project');
     assert.strictEqual(plan.targetRoot, path.join(projectRoot, '.cursor'));
-    assert.strictEqual(plan.installStatePath, path.join(projectRoot, '.cursor', 'ecc-install-state.json'));
+    assert.strictEqual(plan.installStatePath, path.join(projectRoot, '.cursor', 'staksmith-install-state.json'));
 
     const flattened = plan.operations.find(operation => operation.sourceRelativePath === '.cursor');
     const preserved = plan.operations.find(operation => (
@@ -197,14 +197,14 @@ function runTests() {
     assert.strictEqual(typeof claudeAdapter.planOperations, 'function');
     assert.strictEqual(typeof claudeAdapter.validate, 'function');
     assert.deepStrictEqual(
-      claudeAdapter.validate({ homeDir: '/Users/example', repoRoot: '/repo/ecc' }),
+      claudeAdapter.validate({ homeDir: '/Users/example', repoRoot: '/repo/staksmith' }),
       []
     );
 
     assert.strictEqual(typeof cursorAdapter.planOperations, 'function');
     assert.strictEqual(typeof cursorAdapter.validate, 'function');
     assert.deepStrictEqual(
-      cursorAdapter.validate({ projectRoot: '/workspace/app', repoRoot: '/repo/ecc' }),
+      cursorAdapter.validate({ projectRoot: '/workspace/app', repoRoot: '/repo/staksmith' }),
       []
     );
   })) passed++; else failed++;

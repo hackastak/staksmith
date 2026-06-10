@@ -1,6 +1,6 @@
-# Sponsoring ECC
+# Sponsoring staksmith
 
-ECC is maintained as an open-source agent harness performance system across Claude Code, Cursor, OpenCode, and Codex app/CLI.
+staksmith is maintained as an open-source agent harness performance system across Claude Code, Cursor, OpenCode, and Codex app/CLI.
 
 ## Why Sponsor
 
@@ -17,14 +17,14 @@ These are practical starting points and can be adjusted for partnership scope.
 | Tier | Price | Best For | Includes |
 |------|-------|----------|----------|
 | Pilot Partner | $200/mo | First sponsor engagement | Monthly metrics update, roadmap preview, prioritized maintainer feedback |
-| Growth Partner | $500/mo | Teams actively adopting ECC | Pilot benefits + monthly office-hours sync + workflow integration guidance |
+| Growth Partner | $500/mo | Teams actively adopting staksmith | Pilot benefits + monthly office-hours sync + workflow integration guidance |
 | Strategic Partner | $1,000+/mo | Platform/ecosystem partnerships | Growth benefits + coordinated launch support + deeper maintainer collaboration |
 
 ## Sponsor Reporting
 
 Metrics shared monthly can include:
 
-- npm downloads (`ecc-universal`, `ecc-agentshield`)
+- npm downloads (`staksmith`, `ecc-agentshield`)
 - Repository adoption (stars, forks, contributors)
 - GitHub App install trend
 - Release cadence and reliability milestones
@@ -40,4 +40,4 @@ For exact command snippets and a repeatable pull process, see [`docs/business/me
 ## Sponsor Here
 
 - GitHub Sponsors: [https://github.com/sponsors/hackastak](https://github.com/sponsors/hackastak)
-- Project site: [https://ecc.tools](https://ecc.tools)
+- Project site: [https://staksmith.tools](https://staksmith.tools)

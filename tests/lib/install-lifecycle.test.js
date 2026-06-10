@@ -63,8 +63,8 @@ function runTests() {
     const projectRoot = createTempDir('install-lifecycle-project-');
 
     try {
-      const claudeStatePath = path.join(homeDir, '.claude', 'ecc', 'install-state.json');
-      const cursorStatePath = path.join(projectRoot, '.cursor', 'ecc-install-state.json');
+      const claudeStatePath = path.join(homeDir, '.claude', 'staksmith', 'install-state.json');
+      const cursorStatePath = path.join(projectRoot, '.cursor', 'staksmith-install-state.json');
 
       writeState(claudeStatePath, {
         adapter: { id: 'claude-home', target: 'claude', kind: 'home' },
@@ -133,7 +133,7 @@ function runTests() {
 
     try {
       const targetRoot = path.join(projectRoot, '.cursor');
-      const statePath = path.join(targetRoot, 'ecc-install-state.json');
+      const statePath = path.join(targetRoot, 'staksmith-install-state.json');
       fs.mkdirSync(targetRoot, { recursive: true });
 
       writeState(statePath, {
@@ -190,7 +190,7 @@ function runTests() {
 
     try {
       const targetRoot = path.join(homeDir, '.claude');
-      const statePath = path.join(targetRoot, 'ecc', 'install-state.json');
+      const statePath = path.join(targetRoot, 'staksmith', 'install-state.json');
       const managedFile = path.join(targetRoot, 'rules', 'common', 'coding-style.md');
       const sourceContent = fs.readFileSync(path.join(REPO_ROOT, 'rules', 'common', 'coding-style.md'), 'utf8');
       fs.mkdirSync(path.dirname(managedFile), { recursive: true });
@@ -250,7 +250,7 @@ function runTests() {
 
     try {
       const targetRoot = path.join(projectRoot, '.cursor');
-      const statePath = path.join(targetRoot, 'ecc-install-state.json');
+      const statePath = path.join(targetRoot, 'staksmith-install-state.json');
       const sourcePath = path.join(REPO_ROOT, '.cursor', 'hooks.json');
       const destinationPath = path.join(targetRoot, 'hooks.json');
       fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
@@ -311,7 +311,7 @@ function runTests() {
 
     try {
       const targetRoot = path.join(projectRoot, '.cursor');
-      const statePath = path.join(targetRoot, 'ecc-install-state.json');
+      const statePath = path.join(targetRoot, 'staksmith-install-state.json');
       fs.mkdirSync(targetRoot, { recursive: true });
 
       writeState(statePath, {
@@ -358,7 +358,7 @@ function runTests() {
 
     try {
       const targetRoot = path.join(homeDir, '.claude');
-      const statePath = path.join(targetRoot, 'ecc', 'install-state.json');
+      const statePath = path.join(targetRoot, 'staksmith', 'install-state.json');
       const destinationPath = path.join(targetRoot, 'plugin.json');
       fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
       fs.writeFileSync(destinationPath, '{"drifted":true}\n');
@@ -417,7 +417,7 @@ function runTests() {
 
     try {
       const targetRoot = path.join(projectRoot, '.cursor');
-      const statePath = path.join(targetRoot, 'ecc-install-state.json');
+      const statePath = path.join(targetRoot, 'staksmith-install-state.json');
       const destinationPath = path.join(targetRoot, 'hooks.json');
       fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
       fs.writeFileSync(destinationPath, JSON.stringify({
@@ -492,7 +492,7 @@ function runTests() {
 
     try {
       const targetRoot = path.join(projectRoot, '.cursor');
-      const statePath = path.join(targetRoot, 'ecc-install-state.json');
+      const statePath = path.join(targetRoot, 'staksmith-install-state.json');
       const destinationPath = path.join(targetRoot, 'legacy-note.txt');
       fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
       fs.writeFileSync(destinationPath, 'stale');
@@ -550,7 +550,7 @@ function runTests() {
 
     try {
       const targetRoot = path.join(projectRoot, '.cursor');
-      const statePath = path.join(targetRoot, 'ecc-install-state.json');
+      const statePath = path.join(targetRoot, 'staksmith-install-state.json');
       const destinationPath = path.join(targetRoot, 'hooks.json');
       fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
       fs.writeFileSync(destinationPath, JSON.stringify({
@@ -618,7 +618,7 @@ function runTests() {
 
     try {
       const targetRoot = path.join(tempDir, '.claude');
-      const statePath = path.join(targetRoot, 'ecc', 'install-state.json');
+      const statePath = path.join(targetRoot, 'staksmith', 'install-state.json');
       const destinationPath = path.join(targetRoot, 'plugin.json');
       fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
       fs.writeFileSync(destinationPath, '{"generated":true}\n');
@@ -679,7 +679,7 @@ function runTests() {
 
     try {
       const targetRoot = path.join(projectRoot, '.cursor');
-      const statePath = path.join(targetRoot, 'ecc-install-state.json');
+      const statePath = path.join(targetRoot, 'staksmith-install-state.json');
       const destinationPath = path.join(targetRoot, 'legacy-note.txt');
       fs.mkdirSync(targetRoot, { recursive: true });
 

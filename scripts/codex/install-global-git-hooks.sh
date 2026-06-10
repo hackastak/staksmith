@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Install ECC git safety hooks globally via core.hooksPath.
+# Install staksmith git safety hooks globally via core.hooksPath.
 # Usage:
 #   ./scripts/codex/install-global-git-hooks.sh
 #   ./scripts/codex/install-global-git-hooks.sh --dry-run
@@ -14,12 +14,12 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 SOURCE_DIR="$REPO_ROOT/scripts/codex-git-hooks"
-DEST_DIR="${ECC_GLOBAL_HOOKS_DIR:-$HOME/.codex/git-hooks}"
+DEST_DIR="${STAKSMITH_GLOBAL_HOOKS_DIR:-$HOME/.codex/git-hooks}"
 STAMP="$(date +%Y%m%d-%H%M%S)"
 BACKUP_DIR="$HOME/.codex/backups/git-hooks-$STAMP"
 
 log() {
-  printf '[ecc-hooks] %s\n' "$*"
+  printf '[staksmith-hooks] %s\n' "$*"
 }
 
 run_or_echo() {
@@ -58,6 +58,6 @@ if [[ "$MODE" == "apply" ]]; then
 fi
 run_or_echo "git config --global core.hooksPath \"$DEST_DIR\""
 
-log "Installed ECC global git hooks."
-log "Disable per repo by creating .ecc-hooks-disable in project root."
-log "Temporary bypass: ECC_SKIP_PRECOMMIT=1 or ECC_SKIP_PREPUSH=1"
+log "Installed staksmith global git hooks."
+log "Disable per repo by creating .staksmith-hooks-disable in project root."
+log "Temporary bypass: STAKSMITH_SKIP_PRECOMMIT=1 or STAKSMITH_SKIP_PREPUSH=1"

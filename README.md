@@ -89,7 +89,7 @@ For manual install instructions see the README in the `rules/` folder.
 /plugin list staksmith@staksmith
 ```
 
-✨ **That's it!** You now have access to the full set of agents, skills, and commands.
+✨ **That's it!** You now have access to 21 agents, 110 skills, and 53 commands.
 
 ---
 
@@ -132,10 +132,10 @@ Tune hook strictness or disable specific hooks temporarily with environment vari
 
 ```bash
 # Hook strictness profile (default: standard)
-export ECC_HOOK_PROFILE=standard   # minimal | standard | strict
+export STAKSMITH_HOOK_PROFILE=standard   # minimal | standard | strict
 
 # Comma-separated hook IDs to disable
-export ECC_DISABLED_HOOKS="pre:bash:tmux-reminder,post:edit:typecheck"
+export STAKSMITH_DISABLED_HOOKS="pre:bash:tmux-reminder,post:edit:typecheck"
 ```
 
 ---

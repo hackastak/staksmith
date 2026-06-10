@@ -1,8 +1,8 @@
-# ECC 2.0 Session Adapter Discovery
+# staksmith 2.0 Session Adapter Discovery
 
 ## Purpose
 
-This document turns the March 11 ECC 2.0 control-plane direction into a
+This document turns the March 11 staksmith 2.0 control-plane direction into a
 concrete adapter and snapshot design grounded in the orchestration code that
 already exists in this repo.
 
@@ -21,7 +21,7 @@ The repo already has a real first-pass orchestration substrate:
 - `commands/sessions.md`
   already exposes adjacent session-history concepts from Claude's local store
 - `scripts/lib/session-adapters/canonical-session.js`
-  defines the canonical `ecc.session.v1` normalization layer
+  defines the canonical `staksmith.session.v1` normalization layer
 - `scripts/lib/session-adapters/dmux-tmux.js`
   wraps the current orchestration snapshot collector as adapter `dmux-tmux`
 - `scripts/lib/session-adapters/claude-history.js`
@@ -31,7 +31,7 @@ The repo already has a real first-pass orchestration substrate:
 - `scripts/session-inspect.js`
   emits canonical read-only session snapshots through the adapter registry
 
-In practice, ECC can already answer:
+In practice, staksmith can already answer:
 
 - what workers exist in a tmux-orchestrated session
 - what pane each worker is attached to
@@ -41,7 +41,7 @@ In practice, ECC can already answer:
   snapshot shape as orchestration sessions
 
 That is enough to prove the substrate. It is not yet enough to qualify as a
-general ECC 2.0 control plane.
+general staksmith 2.0 control plane.
 
 ## What The Current Snapshot Actually Models
 
@@ -117,16 +117,16 @@ implicitly tied to one execution style:
 - markdown coordination files
 - plan-file or session-name lookup rules
 
-## Gap Between ECC 1.x And ECC 2.0
+## Gap Between staksmith 1.x And staksmith 2.0
 
-ECC 1.x currently has two different "session" surfaces:
+staksmith 1.x currently has two different "session" surfaces:
 
 1. Claude local session history
 2. Orchestration runtime/session snapshots
 
 Those surfaces are adjacent but not unified.
 
-The missing ECC 2.0 layer is a harness-neutral session adapter boundary that
+The missing staksmith 2.0 layer is a harness-neutral session adapter boundary that
 can normalize:
 
 - tmux-orchestrated workers
@@ -140,7 +140,7 @@ tmux-specific details and coordination markdown directly.
 
 ## Adapter Boundary
 
-ECC 2.0 should introduce a canonical session adapter contract.
+staksmith 2.0 should introduce a canonical session adapter contract.
 
 Suggested minimal interface:
 
@@ -164,7 +164,7 @@ Suggested first-pass canonical payload:
 
 ```json
 {
-  "schemaVersion": "ecc.session.v1",
+  "schemaVersion": "staksmith.session.v1",
   "adapterId": "dmux-tmux",
   "session": {
     "id": "workflow-visual-proof",
@@ -240,7 +240,7 @@ and the existing session-manager utilities already expose:
 - project path
 - recency / file size / item counts
 
-This provides a non-orchestrated baseline for ECC 2.0.
+This provides a non-orchestrated baseline for staksmith 2.0.
 
 ### 3. `codex-worktree`
 
@@ -302,19 +302,19 @@ implementation rather than remaining the only product contract.
 
 1. Should worker identity be keyed by worker slug, branch, or stable UUID?
 2. Do we need separate `state` and `health` fields at the canonical layer?
-3. Should event streaming be part of v1, or should ECC 2.0 ship snapshot-only
+3. Should event streaming be part of v1, or should staksmith 2.0 ship snapshot-only
    first?
 4. How much path information should be redacted before snapshots leave the local
    machine?
 5. Should the adapter registry live inside this repo long-term, or move into the
-   eventual ECC 2.0 control-plane app once the interface stabilizes?
+   eventual staksmith 2.0 control-plane app once the interface stabilizes?
 
 ## Recommendation
 
 Treat the current tmux/worktree implementation as adapter `0`, not as the final
 product surface.
 
-The shortest path to ECC 2.0 is:
+The shortest path to staksmith 2.0 is:
 
 1. preserve the current orchestration substrate
 2. wrap it in a canonical session adapter contract

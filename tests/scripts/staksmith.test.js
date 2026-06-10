@@ -1,5 +1,5 @@
 /**
- * Tests for scripts/ecc.js
+ * Tests for scripts/staksmith.js
  */
 
 const assert = require('assert');
@@ -8,7 +8,7 @@ const os = require('os');
 const path = require('path');
 const { spawnSync } = require('child_process');
 
-const SCRIPT = path.join(__dirname, '..', '..', 'scripts', 'ecc.js');
+const SCRIPT = path.join(__dirname, '..', '..', 'scripts', 'staksmith.js');
 
 function runCli(args, options = {}) {
   const envOverrides = {
@@ -55,7 +55,7 @@ function runTest(name, fn) {
 }
 
 function main() {
-  console.log('\n=== Testing ecc.js ===\n');
+  console.log('\n=== Testing staksmith.js ===\n');
 
   let passed = 0;
   let failed = 0;
@@ -64,7 +64,7 @@ function main() {
     ['shows top-level help', () => {
       const result = runCli(['--help']);
       assert.strictEqual(result.status, 0);
-      assert.match(result.stdout, /ECC selective-install CLI/);
+      assert.match(result.stdout, /staksmith selective-install CLI/);
       assert.match(result.stdout, /list-installed/);
       assert.match(result.stdout, /doctor/);
     }],
@@ -94,8 +94,8 @@ function main() {
       assert.ok(payload.profiles.length > 0);
     }],
     ['delegates lifecycle commands', () => {
-      const homeDir = createTempDir('ecc-cli-home-');
-      const projectRoot = createTempDir('ecc-cli-project-');
+      const homeDir = createTempDir('staksmith-cli-home-');
+      const projectRoot = createTempDir('staksmith-cli-project-');
       const result = runCli(['list-installed', '--json'], {
         cwd: projectRoot,
         env: { HOME: homeDir },
@@ -105,12 +105,12 @@ function main() {
       assert.deepStrictEqual(payload.records, []);
     }],
     ['delegates session-inspect command', () => {
-      const homeDir = createTempDir('ecc-cli-home-');
+      const homeDir = createTempDir('staksmith-cli-home-');
       const sessionsDir = path.join(homeDir, '.claude', 'sessions');
       fs.mkdirSync(sessionsDir, { recursive: true });
       fs.writeFileSync(
         path.join(sessionsDir, '2026-03-13-a1b2c3d4-session.tmp'),
-        '# ECC Session\n\n**Branch:** feat/ecc-cli\n'
+        '# staksmith Session\n\n**Branch:** feat/staksmith-cli\n'
       );
 
       const result = runCli(['session-inspect', 'claude:latest'], {
@@ -120,7 +120,7 @@ function main() {
       assert.strictEqual(result.status, 0, result.stderr);
       const payload = parseJson(result.stdout);
       assert.strictEqual(payload.adapterId, 'claude-history');
-      assert.strictEqual(payload.workers[0].branch, 'feat/ecc-cli');
+      assert.strictEqual(payload.workers[0].branch, 'feat/staksmith-cli');
     }],
     ['supports help for a subcommand', () => {
       const result = runCli(['help', 'repair']);

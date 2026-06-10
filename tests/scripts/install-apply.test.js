@@ -98,7 +98,7 @@ function runTests() {
       assert.ok(fs.existsSync(path.join(claudeRoot, 'skills', 'coding-standards', 'SKILL.md')));
       assert.ok(fs.existsSync(path.join(claudeRoot, 'plugin.json')));
 
-      const statePath = path.join(homeDir, '.claude', 'ecc', 'install-state.json');
+      const statePath = path.join(homeDir, '.claude', 'staksmith', 'install-state.json');
       const state = readJson(statePath);
       assert.strictEqual(state.target.id, 'claude-home');
       assert.deepStrictEqual(state.request.legacyLanguages, ['typescript']);
@@ -135,7 +135,7 @@ function runTests() {
       assert.ok(fs.existsSync(path.join(projectDir, '.cursor', 'skills', 'tdd-workflow', 'SKILL.md')));
       assert.ok(fs.existsSync(path.join(projectDir, '.cursor', 'skills', 'coding-standards', 'SKILL.md')));
 
-      const statePath = path.join(projectDir, '.cursor', 'ecc-install-state.json');
+      const statePath = path.join(projectDir, '.cursor', 'staksmith-install-state.json');
       const state = readJson(statePath);
       const normalizedProjectDir = fs.realpathSync(projectDir);
       assert.strictEqual(state.target.id, 'cursor-project');
@@ -168,7 +168,7 @@ function runTests() {
       assert.ok(fs.existsSync(path.join(projectDir, '.agent', 'workflows', 'plan.md')));
       assert.ok(fs.existsSync(path.join(projectDir, '.agent', 'skills', 'architect.md')));
 
-      const statePath = path.join(projectDir, '.agent', 'ecc-install-state.json');
+      const statePath = path.join(projectDir, '.agent', 'staksmith-install-state.json');
       const state = readJson(statePath);
       assert.strictEqual(state.target.id, 'antigravity-project');
       assert.deepStrictEqual(state.request.legacyLanguages, ['typescript']);
@@ -200,7 +200,7 @@ function runTests() {
       assert.ok(result.stdout.includes('Mode: legacy-compat'));
       assert.ok(result.stdout.includes('Legacy languages: typescript'));
       assert.ok(!fs.existsSync(path.join(projectDir, '.cursor', 'hooks.json')));
-      assert.ok(!fs.existsSync(path.join(projectDir, '.cursor', 'ecc-install-state.json')));
+      assert.ok(!fs.existsSync(path.join(projectDir, '.cursor', 'staksmith-install-state.json')));
     } finally {
       cleanup(homeDir);
       cleanup(projectDir);
@@ -218,7 +218,7 @@ function runTests() {
       assert.ok(result.stdout.includes('Profile: core'));
       assert.ok(result.stdout.includes('Included components: (none)'));
       assert.ok(result.stdout.includes('Selected modules: rules-core, agents-core, commands-core, hooks-runtime, platform-configs, workflow-quality'));
-      assert.ok(!fs.existsSync(path.join(homeDir, '.claude', 'ecc', 'install-state.json')));
+      assert.ok(!fs.existsSync(path.join(homeDir, '.claude', 'staksmith', 'install-state.json')));
     } finally {
       cleanup(homeDir);
       cleanup(projectDir);
@@ -241,7 +241,7 @@ function runTests() {
       assert.ok(fs.existsSync(path.join(claudeRoot, 'scripts', 'hooks', 'session-end.js')));
       assert.ok(fs.existsSync(path.join(claudeRoot, 'plugin.json')));
 
-      const state = readJson(path.join(claudeRoot, 'ecc', 'install-state.json'));
+      const state = readJson(path.join(claudeRoot, 'staksmith', 'install-state.json'));
       assert.strictEqual(state.request.profile, 'core');
       assert.strictEqual(state.request.legacyMode, false);
       assert.deepStrictEqual(state.request.legacyLanguages, []);
@@ -271,7 +271,7 @@ function runTests() {
       assert.ok(fs.existsSync(path.join(projectDir, '.agent', 'workflows', 'plan.md')));
       assert.ok(!fs.existsSync(path.join(projectDir, '.agent', 'skills', 'tdd-workflow', 'SKILL.md')));
 
-      const state = readJson(path.join(projectDir, '.agent', 'ecc-install-state.json'));
+      const state = readJson(path.join(projectDir, '.agent', 'staksmith-install-state.json'));
       assert.strictEqual(state.request.profile, 'core');
       assert.strictEqual(state.request.legacyMode, false);
       assert.deepStrictEqual(state.resolution.selectedModules, ['rules-core', 'agents-core', 'commands-core']);
@@ -296,7 +296,7 @@ function runTests() {
       assert.ok(fs.existsSync(path.join(projectDir, '.cursor', 'hooks.json')));
       assert.ok(fs.existsSync(path.join(projectDir, '.cursor', 'rules', 'common-agents.md')));
 
-      const state = readJson(path.join(projectDir, '.cursor', 'ecc-install-state.json'));
+      const state = readJson(path.join(projectDir, '.cursor', 'staksmith-install-state.json'));
       assert.strictEqual(state.request.profile, null);
       assert.deepStrictEqual(state.request.modules, ['platform-configs']);
       assert.deepStrictEqual(state.request.includeComponents, []);
@@ -304,7 +304,7 @@ function runTests() {
       assert.strictEqual(state.request.legacyMode, false);
       assert.ok(state.resolution.selectedModules.includes('platform-configs'));
       assert.ok(
-        !state.operations.some(operation => operation.destinationPath.endsWith('ecc-install-state.json')),
+        !state.operations.some(operation => operation.destinationPath.endsWith('staksmith-install-state.json')),
         'Manifest copy operations should not include generated install-state files'
       );
     } finally {
@@ -319,10 +319,10 @@ function runTests() {
     assert.ok(result.stderr.includes('Unknown install module: ghost-module'));
   })) passed++; else failed++;
 
-  if (test('installs from ecc-install.json and persists component selections', () => {
+  if (test('installs from staksmith-install.json and persists component selections', () => {
     const homeDir = createTempDir('install-apply-home-');
     const projectDir = createTempDir('install-apply-project-');
-    const configPath = path.join(projectDir, 'ecc-install.json');
+    const configPath = path.join(projectDir, 'staksmith-install.json');
 
     try {
       fs.writeFileSync(configPath, JSON.stringify({
@@ -339,7 +339,7 @@ function runTests() {
       assert.ok(fs.existsSync(path.join(homeDir, '.claude', 'skills', 'security-review', 'SKILL.md')));
       assert.ok(!fs.existsSync(path.join(homeDir, '.claude', 'skills', 'dmux-workflows', 'SKILL.md')));
 
-      const state = readJson(path.join(homeDir, '.claude', 'ecc', 'install-state.json'));
+      const state = readJson(path.join(homeDir, '.claude', 'staksmith', 'install-state.json'));
       assert.strictEqual(state.request.profile, 'developer');
       assert.deepStrictEqual(state.request.includeComponents, ['capability:security']);
       assert.deepStrictEqual(state.request.excludeComponents, ['capability:orchestration']);

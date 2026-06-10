@@ -1,4 +1,4 @@
-# Contributing to Everything Claude Code
+# Contributing to staksmith
 
 Thanks for wanting to contribute! This repo is a community resource for Claude Code users.
 
@@ -51,8 +51,8 @@ Slash commands that invoke useful workflows:
 
 ```bash
 # 1. Fork and clone
-gh repo fork hackastak/jarvis --clone
-cd jarvis
+gh repo fork hackastak/staksmith --clone
+cd staksmith
 
 # 2. Create a branch
 git checkout -b feat/my-contribution
@@ -87,7 +87,7 @@ skills/
 ---
 name: your-skill-name
 description: Brief description shown in skill list
-origin: ECC
+origin: staksmith
 ---
 
 # Your Skill Title
@@ -365,7 +365,7 @@ Skills and agents can use **MCP (Model Context Protocol)** tools to pull in up-t
 
 ### Skill subsets (Codex and Cursor)
 
-ECC ships skill subsets for other harnesses:
+staksmith ships skill subsets for other harnesses:
 
 - **Codex:** `.agents/skills/` — skills listed in `agents/openai.yaml` are loaded by Codex.
 - **Cursor:** `.cursor/skills/` — a subset of skills is bundled for Cursor.
@@ -453,7 +453,7 @@ How you tested this.
 
 ## Questions?
 
-- **Issues:** [github.com/hackastak/jarvis/issues](https://github.com/hackastak/jarvis/issues)
+- **Issues:** [github.com/hackastak/staksmith/issues](https://github.com/hackastak/staksmith/issues)
 - **X/Twitter:** [@hackastak](https://x.com/hackastak)
 
 ---

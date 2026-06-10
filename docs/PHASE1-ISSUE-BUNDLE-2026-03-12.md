@@ -10,9 +10,9 @@ blocked by missing GitHub authentication in the MCP session.
 
 These drafts were later posted via `gh`:
 
-- `#423` Implement manifest-driven selective install profiles for ECC
-- `#421` Add ECC install-state plus uninstall / doctor / repair lifecycle
-- `#424` Define canonical session adapter contract for ECC 2.0 control plane
+- `#423` Implement manifest-driven selective install profiles for staksmith
+- `#421` Add staksmith install-state plus uninstall / doctor / repair lifecycle
+- `#424` Define canonical session adapter contract for staksmith 2.0 control plane
 - `#422` Define generated skill placement and provenance policy
 - `#425` Define governance and visibility past the tool call
 
@@ -23,7 +23,7 @@ issues.
 
 ### Title
 
-Implement manifest-driven selective install profiles for ECC
+Implement manifest-driven selective install profiles for staksmith
 
 ### Labels
 
@@ -34,7 +34,7 @@ Implement manifest-driven selective install profiles for ECC
 ```md
 ## Problem
 
-ECC still installs primarily by target and language. The repo now has first-pass
+staksmith still installs primarily by target and language. The repo now has first-pass
 selective-install manifests and a non-mutating plan resolver, but the installer
 itself does not yet consume those profiles.
 
@@ -52,7 +52,7 @@ preserving backward compatibility.
 
 ## Scope
 
-Implement manifest-driven install execution for current ECC targets:
+Implement manifest-driven install execution for current staksmith targets:
 
 - `claude`
 - `cursor`
@@ -60,8 +60,8 @@ Implement manifest-driven install execution for current ECC targets:
 
 Add first-pass support for:
 
-- `ecc-install --profile <name>`
-- `ecc-install --modules <id,id,...>`
+- `staksmith-install --profile <name>`
+- `staksmith-install --modules <id,id,...>`
 - target-aware filtering based on module target support
 - backward-compatible legacy language installs during rollout
 
@@ -85,7 +85,7 @@ Add first-pass support for:
 
 ### Title
 
-Add ECC install-state plus uninstall / doctor / repair lifecycle
+Add staksmith install-state plus uninstall / doctor / repair lifecycle
 
 ### Labels
 
@@ -96,7 +96,7 @@ Add ECC install-state plus uninstall / doctor / repair lifecycle
 ```md
 ## Problem
 
-ECC has no canonical installed-state record. That makes uninstall, repair, and
+staksmith has no canonical installed-state record. That makes uninstall, repair, and
 post-install inspection nondeterministic.
 
 Today the repo can classify installable content, but it still cannot reliably
@@ -104,8 +104,8 @@ answer:
 
 - what profile/modules were installed
 - what target they were installed into
-- what paths ECC owns
-- how to remove or repair only ECC-managed files
+- what paths staksmith owns
+- how to remove or repair only staksmith-managed files
 
 Without install-state, lifecycle commands are guesswork.
 
@@ -113,16 +113,16 @@ Without install-state, lifecycle commands are guesswork.
 
 Introduce a durable install-state contract and the first lifecycle commands:
 
-- `ecc list-installed`
-- `ecc uninstall`
-- `ecc doctor`
-- `ecc repair`
+- `staksmith list-installed`
+- `staksmith uninstall`
+- `staksmith doctor`
+- `staksmith repair`
 
 Suggested state locations:
 
-- Claude: `~/.claude/ecc/install-state.json`
-- Cursor: `./.cursor/ecc-install-state.json`
-- Antigravity: `./.agent/ecc-install-state.json`
+- Claude: `~/.claude/staksmith/install-state.json`
+- Cursor: `./.cursor/staksmith-install-state.json`
+- Antigravity: `./.agent/staksmith-install-state.json`
 
 The state file should capture at minimum:
 
@@ -147,7 +147,7 @@ The state file should capture at minimum:
 - `list-installed` reports target/profile/modules/version cleanly
 - `doctor` reports missing or drifted managed paths
 - `repair` restores missing managed files from recorded install-state
-- `uninstall` removes only ECC-managed files and leaves unrelated local files
+- `uninstall` removes only staksmith-managed files and leaves unrelated local files
   alone
 - Tests cover install-state creation and lifecycle behavior
 ```
@@ -156,7 +156,7 @@ The state file should capture at minimum:
 
 ### Title
 
-Define canonical session adapter contract for ECC 2.0 control plane
+Define canonical session adapter contract for staksmith 2.0 control plane
 
 ### Labels
 
@@ -167,7 +167,7 @@ Define canonical session adapter contract for ECC 2.0 control plane
 ```md
 ## Problem
 
-ECC now has real orchestration/session substrate, but it is still
+staksmith now has real orchestration/session substrate, but it is still
 implementation-specific.
 
 Current state:
@@ -185,7 +185,7 @@ session/task state across:
 - OpenCode sessions
 - later remote or GitHub-integrated operator surfaces
 
-Without that adapter contract, any future ECC 2.0 operator shell will be forced
+Without that adapter contract, any future staksmith 2.0 operator shell will be forced
 to read tmux-specific and markdown-coordination details directly.
 
 ## Scope
@@ -202,7 +202,7 @@ Suggested deliverables:
 
 ## Non-Goals
 
-- Full ECC 2.0 UI in the same issue
+- Full staksmith 2.0 UI in the same issue
 - Monetization/GitHub App implementation
 - Remote multi-user control plane
 
@@ -232,7 +232,7 @@ Define generated skill placement and provenance policy
 ```md
 ## Problem
 
-ECC now has a large and growing skill surface, but generated/imported/learned
+staksmith now has a large and growing skill surface, but generated/imported/learned
 skills do not yet have a clear long-term placement and provenance policy.
 
 This creates several problems:
@@ -242,7 +242,7 @@ This creates several problems:
 - weak provenance for imported or machine-generated skill content
 - uncertainty about where future automated learning outputs should live
 
-As ECC grows, the repo needs explicit rules for where generated skill artifacts
+As staksmith grows, the repo needs explicit rules for where generated skill artifacts
 belong and how they are identified.
 
 ## Scope

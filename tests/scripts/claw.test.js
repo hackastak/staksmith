@@ -17,7 +17,7 @@ const {
   listSessions,
   loadHistory,
   appendTurn,
-  loadECCContext,
+  loadStaksmithContext,
   buildPrompt,
   askClaude,
   isValidSessionName,
@@ -29,7 +29,7 @@ const {
   compactSession
 } = require(path.join(__dirname, '..', '..', 'scripts', 'claw.js'));
 
-// Test helper — matches ECC's custom test pattern
+// Test helper — matches staksmith's custom test pattern
 function test(name, fn) {
   try {
     fn();
@@ -118,18 +118,18 @@ function runTests() {
 
   console.log('\nContext:');
 
-  if (test('loadECCContext() returns "" when no skills specified', () => {
-    const result = loadECCContext('');
+  if (test('loadStaksmithContext() returns "" when no skills specified', () => {
+    const result = loadStaksmithContext('');
     assert.strictEqual(result, '');
   })) passed++; else failed++;
 
-  if (test('loadECCContext() skips missing skill directories gracefully', () => {
-    const result = loadECCContext('nonexistent-skill-xyz');
+  if (test('loadStaksmithContext() skips missing skill directories gracefully', () => {
+    const result = loadStaksmithContext('nonexistent-skill-xyz');
     assert.strictEqual(result, '');
   })) passed++; else failed++;
 
-  if (test('loadECCContext() concatenates multiple skill files', () => {
-    // Use real skills from the ECC repo if they exist
+  if (test('loadStaksmithContext() concatenates multiple skill files', () => {
+    // Use real skills from the staksmith repo if they exist
     const skillsDir = path.join(process.cwd(), 'skills');
     if (!fs.existsSync(skillsDir)) {
       console.log('    (skipped — no skills/ directory in CWD)');
@@ -144,7 +144,7 @@ function runTests() {
       return;
     }
     const twoSkills = available.slice(0, 2).join(',');
-    const result = loadECCContext(twoSkills);
+    const result = loadStaksmithContext(twoSkills);
     assert.ok(result.length > 0, 'Should return non-empty context');
     // Should contain content from both skills
     for (const name of available.slice(0, 2)) {
@@ -198,7 +198,7 @@ function runTests() {
     const claw = require(path.join(__dirname, '..', '..', 'scripts', 'claw.js'));
     const required = [
       'getClawDir', 'getSessionPath', 'listSessions', 'loadHistory',
-      'appendTurn', 'loadECCContext', 'askClaude', 'main'
+      'appendTurn', 'loadStaksmithContext', 'askClaude', 'main'
     ];
     for (const fn of required) {
       assert.strictEqual(typeof claw[fn], 'function',

@@ -1,5 +1,5 @@
 ---
-description: "ECC coding style: immutability, file organization, error handling, validation"
+description: "staksmith coding style: immutability, file organization, error handling, validation"
 alwaysApply: true
 ---
 # Coding Style

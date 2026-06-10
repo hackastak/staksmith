@@ -8,24 +8,24 @@ Windows CI lane is already merged via `#417`.
 
 ## Current Snapshot
 
-- `jarvis` has finished the orchestration, Codex baseline, and
+- `staksmith` has finished the orchestration, Codex baseline, and
   Windows CI recovery lane.
-- The next open ECC Phase 1 items are:
+- The next open staksmith Phase 1 items are:
   - review `#399`
   - convert recurring discussion pressure into tracked issues
   - define selective-install architecture
-  - write the ECC 2.0 discovery doc
-- `agentshield`, `ECC-website`, and `skill-creator-app` all have dirty
+  - write the staksmith 2.0 discovery doc
+- `agentshield`, `staksmith-website`, and `skill-creator-app` all have dirty
   `main` worktrees and should not be edited directly on `main`.
 - `applications/` is not a standalone git repo. It lives inside the parent
-  workspace repo at `<ECC_ROOT>`.
+  workspace repo at `<STAKSMITH_ROOT>`.
 
-## Repo: `jarvis`
+## Repo: `staksmith`
 
 ### Prompt A — PR `#399` Review and Merge Readiness
 
 ```text
-Work in: <ECC_ROOT>/jarvis
+Work in: <STAKSMITH_ROOT>/staksmith
 
 Goal:
 Review PR #399 ("fix(observe): 5-layer automated session guard to prevent
@@ -58,18 +58,18 @@ Deliverables:
 ### Prompt B — Roadmap Issues Extraction
 
 ```text
-Work in: <ECC_ROOT>/jarvis
+Work in: <STAKSMITH_ROOT>/staksmith
 
 Goal:
 Convert recurring discussion pressure from the mega plan into concrete GitHub
-issues. Focus on high-signal roadmap items that unblock ECC 1.x and ECC 2.0.
+issues. Focus on high-signal roadmap items that unblock staksmith 1.x and staksmith 2.0.
 
 Create issue drafts or a ready-to-post issue bundle for:
 1. selective install profiles
 2. uninstall / doctor / repair lifecycle
 3. generated skill placement and provenance policy
 4. governance past the tool call
-5. ECC 2.0 discovery doc / adapter contracts
+5. staksmith 2.0 discovery doc / adapter contracts
 
 Tasks:
 1. Read the March 11 mega plan and March 12 handoff.
@@ -88,13 +88,13 @@ Deliverables:
 - duplication notes against existing issues
 ```
 
-### Prompt C — ECC 2.0 Discovery and Adapter Spec
+### Prompt C — staksmith 2.0 Discovery and Adapter Spec
 
 ```text
-Work in: <ECC_ROOT>/jarvis
+Work in: <STAKSMITH_ROOT>/staksmith
 
 Goal:
-Turn the existing ECC 2.0 vision into a first concrete discovery doc focused on
+Turn the existing staksmith 2.0 vision into a first concrete discovery doc focused on
 adapter contracts, session/task state, token accounting, and security/policy
 events.
 
@@ -104,7 +104,7 @@ Tasks:
    later Cursor / GitHub App integration.
 3. Define the initial SQLite-backed data model for sessions, tasks, worktrees,
    events, findings, and approvals.
-4. Define what stays in ECC 1.x versus what belongs in ECC 2.0.
+4. Define what stays in staksmith 1.x versus what belongs in staksmith 2.0.
 5. Call out unresolved product decisions separately from implementation
    requirements.
 
@@ -125,7 +125,7 @@ Deliverables:
 ### Prompt — False Positive Audit and Regression Plan
 
 ```text
-Work in: <ECC_ROOT>/agentshield
+Work in: <STAKSMITH_ROOT>/agentshield
 
 Goal:
 Advance the AgentShield Phase 2 workstream from the mega plan: reduce false
@@ -160,12 +160,12 @@ Deliverables:
 - remaining edge cases
 ```
 
-## Repo: `ECC-website`
+## Repo: `staksmith-website`
 
 ### Prompt — Landing Rewrite and Product Framing
 
 ```text
-Work in: <ECC_ROOT>/ECC-website
+Work in: <STAKSMITH_ROOT>/staksmith-website
 
 Goal:
 Execute the website lane from the mega plan by rewriting the landing/product
@@ -195,7 +195,7 @@ Tasks:
 Constraints:
 - do not silently overwrite existing dirty work
 - preserve existing design system where it is coherent
-- distinguish ECC 1.x toolkit from ECC 2.0 control plane clearly
+- distinguish staksmith 1.x toolkit from staksmith 2.0 control plane clearly
 
 Deliverables:
 - branch recommendation
@@ -209,7 +209,7 @@ Deliverables:
 ### Prompt — Skill Import Pipeline and Product Fit
 
 ```text
-Work in: <ECC_ROOT>/skill-creator-app
+Work in: <STAKSMITH_ROOT>/skill-creator-app
 
 Goal:
 Align skill-creator-app with the mega-plan external skill sourcing and audited
@@ -225,7 +225,7 @@ Tasks:
    - inventorying external skills
    - provenance tagging
    - dependency/risk audit fields
-   - ECC convention adaptation workflows
+   - staksmith convention adaptation workflows
 2. Review the existing GitHub integration surface in src/lib/github.ts.
 3. Produce a concrete product/technical scope for an audited import pipeline.
 4. If safe after branching, land the smallest enabling changes for metadata
@@ -233,7 +233,7 @@ Tasks:
 
 Constraints:
 - do not turn this into a generic prompt-builder
-- keep the focus on audited skill ingestion and ECC-compatible output
+- keep the focus on audited skill ingestion and staksmith-compatible output
 
 Deliverables:
 - product-fit summary
@@ -242,15 +242,15 @@ Deliverables:
 - code changes if they are small and clearly justified
 ```
 
-## Repo: `ECC` Workspace (`applications/`, `knowledge/`, `tasks/`)
+## Repo: `staksmith` Workspace (`applications/`, `knowledge/`, `tasks/`)
 
 ### Prompt — Example Apps and Workflow Reliability Proofs
 
 ```text
-Work in: <ECC_ROOT>
+Work in: <STAKSMITH_ROOT>
 
 Goal:
-Use the parent ECC workspace to support the mega-plan hosted/workflow lanes.
+Use the parent staksmith workspace to support the mega-plan hosted/workflow lanes.
 This is not a standalone applications repo; it is the umbrella workspace that
 contains applications/, knowledge/, tasks/, and related planning assets.
 
@@ -258,7 +258,7 @@ Tasks:
 1. Inventory what in applications/ is real product code vs placeholder.
 2. Identify where example repos or demo apps should live for:
    - GitHub App workflow proofs
-   - ECC 2.0 prototype spikes
+   - staksmith 2.0 prototype spikes
    - example install / setup reliability checks
 3. Propose a clean workspace structure so product code, research, and planning
    stop bleeding into each other.
@@ -267,7 +267,7 @@ Tasks:
 Constraints:
 - do not move large directories blindly
 - distinguish repo structure recommendations from immediate code changes
-- keep recommendations compatible with the current multi-repo ECC setup
+- keep recommendations compatible with the current multi-repo staksmith setup
 
 Deliverables:
 - workspace inventory
@@ -278,9 +278,9 @@ Deliverables:
 
 ## Local Continuation
 
-The current worktree should stay on ECC-native Phase 1 work that does not touch
+The current worktree should stay on staksmith-native Phase 1 work that does not touch
 the existing dirty skill-file changes here. The best next local tasks are:
 
 1. selective-install architecture
-2. ECC 2.0 discovery doc
+2. staksmith 2.0 discovery doc
 3. PR `#399` review

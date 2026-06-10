@@ -1,5 +1,5 @@
 /**
- * ECC Custom Tool: Lint Check
+ * staksmith Custom Tool: Lint Check
  *
  * Detects the appropriate linter and returns a runnable lint command.
  */
