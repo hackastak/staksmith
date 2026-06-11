@@ -1,3 +1,9 @@
+---
+name: weekly-momentum-report
+description: Aggregate project status from git repos, vault tasks, and GitHub for comprehensive weekly reviews.
+origin: Hackastak
+---
+
 # Weekly Momentum Report Generator
 
 Aggregate project status from git repos, vault tasks, and GitHub for comprehensive weekly reviews.

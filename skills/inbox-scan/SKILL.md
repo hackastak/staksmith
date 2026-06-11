@@ -1,3 +1,9 @@
+---
+name: inbox-scan
+description: Inventory markdown files in your Obsidian vault inbox with basic metadata.
+origin: Hackastak
+---
+
 # Inbox Scan
 
 Inventory markdown files in your Obsidian vault inbox with basic metadata.

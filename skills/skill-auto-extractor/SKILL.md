@@ -1,3 +1,9 @@
+---
+name: skill-auto-extractor
+description: Mine git history and session logs to automatically create reusable skill definitions from repeated workflows.
+origin: Hackastak
+---
+
 # Skill Auto-Extractor from Patterns
 
 Mine git history and session logs to automatically create reusable skill definitions from repeated workflows.

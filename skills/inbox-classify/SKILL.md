@@ -1,3 +1,9 @@
+---
+name: inbox-classify
+description: AI-powered classification of inbox items into PARA categories.
+origin: Hackastak
+---
+
 # Inbox Classify
 
 AI-powered classification of inbox items into PARA categories.

@@ -1,3 +1,9 @@
+---
+name: inbox-organize
+description: Move inbox files to their classified destinations.
+origin: Hackastak
+---
+
 # Inbox Organize
 
 Move inbox files to their classified destinations.
