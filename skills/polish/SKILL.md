@@ -196,8 +196,19 @@ After polishing, append a checklist to the article:
 After adding the checklist:
 
 1. Save the updated article
-2. Confirm what was changed
-3. Offer next steps:
+2. Drop the `DRAFT` suffix from the filename (the article is now publication-ready):
+   - If the filename ends in `_DRAFT.md`, before renaming, find any wikilinks that point at the draft name so they don't break:
+     ```bash
+     grep -rl "<BaseName>_DRAFT" --include="*.md" "VAULT_PATH"
+     ```
+   - Rename the file, stripping the suffix:
+     ```bash
+     mv "BLOG_PATH/<BaseName>_DRAFT.md" "BLOG_PATH/<BaseName>.md"
+     ```
+   - Update any `[[<BaseName>_DRAFT]]` wikilinks found above to `[[<BaseName>]]`.
+   - If the filename has no `_DRAFT` suffix, skip this step.
+3. Confirm what was changed
+4. Offer next steps:
 
 > "Article polished and checklist added. Next steps:
 > 1. Open in Obsidian to review
