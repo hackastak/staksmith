@@ -1,0 +1,5 @@
+interface:
+  display_name: "Writing Grounding"
+  short_description: "Prerequisite vs introduced concepts in a piece"
+policy:
+  allow_implicit_invocation: false
