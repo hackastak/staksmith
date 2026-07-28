@@ -1,0 +1,3 @@
+interface:
+  display_name: "ADR Standard"
+  short_description: "House format and rules for Architecture Decision Records"
