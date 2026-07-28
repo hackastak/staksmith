@@ -22,10 +22,35 @@ Vault-to-Code Bridge synchronizes your project planning and architecture notes f
 
 **Key Transformations:**
 - Vault project notes → CLAUDE.md (developer guide)
-- Architecture decisions → ARCHITECTURE.md (ADRs)
+- Architecture notes → ARCHITECTURE.md (system overview, regenerable)
+- Architecture decisions → `docs/adr/NNNN-slug.md` (one immutable file per ADR)
 - Backlog tasks → README features section
 - Build notes → Package scripts documentation
 - Design patterns → Code conventions guide
+
+## Architecture Decision Records
+
+ADRs do **not** live in `ARCHITECTURE.md`. That file is regenerated from vault notes on every
+run, and regeneration would silently overwrite decisions — but an accepted ADR is immutable.
+
+Each decision gets its own file at `docs/adr/NNNN-slug.md`, following the house standard in the
+**`adr-standard`** skill: Status, Problem Statement, Considered Options with pros and cons,
+Decision, Consequences.
+
+Two rules this skill enforces:
+
+- **Append-only.** An ADR file that already exists is never rewritten. Re-running generation
+  scaffolds only decisions that have no file yet, and reports the rest as left untouched.
+- **Numbers are never reused,** even when an ADR is superseded or withdrawn. The next number is
+  always highest-existing + 1.
+
+To change a decision, write a new ADR that supersedes the old one and edit only the old file's
+Status line. Never edit the vault note and regenerate expecting the ADR to update — it won't,
+by design.
+
+Scaffolded ADRs land with `Status: Proposed` and the raw vault text under Problem Statement.
+Shape them into the house sections before accepting them; `domain-modeling` is the skill for
+that conversation.
 
 **2-Phase Workflow:**
 
@@ -180,7 +205,7 @@ Layered architecture:
 - Trade-off: Slightly slower than normalized tables
 ```
 
-**Generated ARCHITECTURE.md**:
+**Generated ARCHITECTURE.md** (regenerable — index only, no ADR bodies):
 ```markdown
 # Architecture - BillScribe
 
@@ -190,48 +215,55 @@ BillScribe is an invoice generation and management system with PDF export capabi
 
 ## Architecture Decision Records
 
-### ADR-001: PDF Generation Strategy
+ADRs are not stored in this file. This document is regenerated from vault notes, and
+regeneration would overwrite them — accepted ADRs are immutable. Each decision lives in
+its own file under `docs/adr/`, following the house standard (see the `adr-standard`
+skill). The index below is safe to regenerate.
 
-**Status**: Accepted
-**Date**: 2026-04-07
+- [ADR-0001: PDF Generation Strategy](docs/adr/0001-pdf-generation-strategy.md)
+- [ADR-0002: Invoice Storage](docs/adr/0002-invoice-storage.md)
+```
 
-**Context**: Need to generate professional invoices as PDF files with custom branding and styling.
+**Generated `docs/adr/0001-pdf-generation-strategy.md`** (immutable once accepted):
+```markdown
+# ADR-0001: PDF Generation Strategy
 
-**Decision**: Use Puppeteer for HTML-to-PDF conversion.
+**Status:** Accepted
+**Date:** 2026-04-07
 
-**Rationale**:
-- Full control over styling via HTML/CSS
-- Consistent rendering across platforms
-- Can preview before generating PDF
+## Problem Statement
 
-**Alternatives Considered**:
-- jsPDF: Limited styling capabilities
-- PDFKit: Low-level API, complex for templating
+Invoices must be generated as PDFs with custom branding and styling. Rendering has to be
+consistent across platforms, and the team needs to preview output before generating.
 
-**Consequences**:
-- ⊕ Flexible templating system
-- ⊕ Easy styling with CSS
-- ⊖ Requires headless Chrome in production environment
-- ⊖ Slightly higher resource usage
+## Considered Options
 
-### ADR-002: Invoice Storage
+### Option A — Puppeteer (headless Chrome)
 
-**Status**: Accepted
-**Date**: 2026-04-07
+**Pros:** Full control over styling via HTML/CSS; consistent cross-platform rendering; previewable.
+**Cons:** Requires headless Chrome in production; higher resource usage per render.
 
-**Context**: Need flexible invoice schema that can evolve without migrations.
+### Option B — jsPDF
 
-**Decision**: Store invoices as JSON in PostgreSQL JSONB column.
+**Pros:** Pure JS, no browser dependency, light runtime.
+**Cons:** Limited styling; the branded layout is not achievable without heavy manual positioning.
 
-**Rationale**:
-- Schema flexibility for custom fields
-- Still queryable via PostgreSQL JSON operators
-- Built-in version history via immutable records
+### Option C — PDFKit
 
-**Trade-offs**:
-- ⊕ No migration needed for schema changes
-- ⊕ Queryable with PostgreSQL JSON functions
-- ⊖ Slightly slower than normalized tables for complex queries
+**Pros:** Fine-grained control; no browser dependency.
+**Cons:** Low-level API; templating the invoice layout is substantially more work to build and maintain.
+
+## Decision
+
+Use Puppeteer. It beat PDFKit because the invoice layout is fundamentally a styled document,
+and expressing it in HTML/CSS is far cheaper to build and change than positioning primitives.
+
+## Consequences
+
+- Flexible templating; styling changes are CSS changes.
+- Production must ship headless Chrome, which enlarges the deployment image.
+- Render cost per invoice is higher; batch generation needs a queue rather than inline requests.
+- Swapping renderers later means rewriting the templates, so this is hard to reverse.
 ```
 
 ### Example 3: README Update
@@ -265,7 +297,8 @@ BillScribe is an invoice generation and management system with PDF export capabi
 
 For each matched project:
 - `CLAUDE.md` - Developer onboarding guide
-- `ARCHITECTURE.md` - Architecture decisions and system overview
+- `ARCHITECTURE.md` - System overview, components, data flow, ADR index (regenerated each run)
+- `docs/adr/NNNN-slug.md` - One file per decision (append-only; existing files never rewritten)
 - `README.md` (updated) - Features, tech stack, project structure
 
 ### Mapping Cache
@@ -387,7 +420,7 @@ Only regenerates changed sections:
 [EXTRACTED]
 
 ## Architecture Decision Records
-[EXTRACTED]
+[ADR_INDEX]          ← links to docs/adr/ only; never ADR bodies
 
 ## Key Design Patterns
 [EXTRACTED]
@@ -395,6 +428,8 @@ Only regenerates changed sections:
 ## Data Flow
 [EXTRACTED]
 ```
+
+Every section here is regenerated on each run, which is exactly why ADR bodies are excluded.
 
 ## Integration Points
 
@@ -411,6 +446,8 @@ Only regenerates changed sections:
 
 ## Related Skills
 
+- **adr-standard**: The house ADR format and the supersede-don't-edit rule this skill writes against
+- **domain-modeling**: Shapes scaffolded ADRs into the house sections; maintains `CONTEXT.md`
 - **code-to-docs-sync**: Ongoing synchronization
 - **/sync**: Vault synchronization
 - **inbox-gradient-accelerator**: Organize project notes

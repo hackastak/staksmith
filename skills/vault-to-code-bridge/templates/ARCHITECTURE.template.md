@@ -23,29 +23,13 @@
 
 ## Architecture Decision Records
 
-### ADR Template
+ADRs are **not** stored in this file. This document is regenerated from vault notes, and
+regeneration would overwrite them — ADRs are immutable once accepted.
 
-**Status**: [Proposed | Accepted | Deprecated | Superseded]
-**Date**: YYYY-MM-DD
-**Deciders**: [Names]
+Each decision lives in its own file at `docs/adr/NNNN-slug.md`, following the house standard
+(see the `adr-standard` skill). This section is an index only; it is safe to regenerate.
 
-**Context**: [What is the issue we're addressing?]
-
-**Decision**: [What is the change we're making?]
-
-**Rationale**: [Why are we making this decision?]
-
-**Alternatives Considered**:
-- [Option 1]: [Why not this?]
-- [Option 2]: [Why not this?]
-
-**Consequences**:
-- ⊕ [Positive consequence]
-- ⊖ [Negative consequence]
-
----
-
-[ADR_RECORDS]
+[ADR_INDEX]
 
 ## Key Design Patterns
 
