@@ -73,7 +73,26 @@ For each dimension, surface findings tagged **Critical / Major / Minor / Nit** w
 
 If a dimension has nothing material to report, say so explicitly in the report — silence is not the same as a clean bill of health.
 
-## 5. Output
+## 5. Attribute every finding before assigning severity
+
+You are reviewing **a diff**, not a codebase. A file appearing in the PR does not make everything in it this PR's responsibility. Before a finding gets a severity, establish which of three states it is in by checking the base:
+
+- `git show <baseRefOid>:<path> | grep -n '<symbol>'` — does the problem already exist at base?
+- `git diff <baseRefOid> <headRefOid> -- <path>` — did these specific lines actually change?
+
+| Attribution | Meaning | Severity treatment |
+|---|---|---|
+| **introduced** | New code, or existing code this PR changed into a defect | Full severity ladder. These are the only findings that can be Critical or block a merge. |
+| **improved-but-incomplete** | The PR makes this area better but leaves a gap (added partial auth, partial redaction, partial validation) | Cap at Minor. Frame as "the new guard doesn't cover X", never as "this PR leaks X". |
+| **pre-existing** | Identical at base; the PR is merely adjacent | Never blocking, however severe the underlying issue. Move to a separate "Pre-existing — worth filing separately" section below the findings. |
+
+A pre-existing critical vulnerability is still a real vulnerability worth surfacing — but it is not a reason to request changes on a PR that didn't cause it and doesn't worsen it. Blocking an author on debt they inherited is how a review loses credibility.
+
+The most common failure mode is reading *files* instead of the *diff*, producing a competent audit of the wrong unit of work. Watch for it especially when the PR is large, when it merges other branches in, or when you are reading whole files at `<headRefOid>` for context.
+
+**When delegating any part of a review to subagents**, this section is the part that must be in their brief verbatim. Require every returned finding to carry its attribution tag and the base-check command that established it. Then spot-check the attribution on each Critical and Major before promoting it into your report — the one verification you always owe, even when you otherwise commit to a delegation. An unattributed finding is not usable: send it back or verify it yourself.
+
+## 6. Output
 
 Emit a single inline markdown report. **Do not** post comments to GitHub. **Do not** save the report to a file. Use this structure:
 
@@ -100,6 +119,8 @@ Each finding is its own `####` subsection — **never** a bullet list item. This
 The `####` header is the file/line location (backtick-wrapped). The body is the review comment as natural prose covering what the issue is, why it matters, and the suggested fix — written the way you would write it directly to the author. Do not prefix the body with `**Comment:**` or split it into separate Issue/Why/Fix labels; the header already labels the finding.
 
 Always leave a blank line after every `####` header and a blank line after the comment body before the next `####`. Multiple file:line references for one logical finding can be combined in the header (e.g., `#### \`path/file.py:271, :280\``).
+
+Findings in this section are **introduced** or **improved-but-incomplete** only (see §5). Append ` — improved-but-incomplete` to the header of the latter so the author can see the PR gets credit for the direction. Pre-existing findings never appear here; they go in their own section below.
 
 ### Critical
 
@@ -133,6 +154,9 @@ Always leave a blank line after every `####` header and a blank line after the c
 
 <...>
 
+## Pre-existing — worth filing separately
+- <`file:line` — one line each. Real issues you hit while reading, identical at base. Not this PR's to fix; name them so they can become their own issues.>
+
 ## What looks good
 - <1–3 bullets — call out genuinely good choices, not filler.>
 
@@ -140,7 +164,7 @@ Always leave a blank line after every `####` header and a blank line after the c
 - <questions to raise with the author, if any.>
 ```
 
-Omit any subsection (Critical / Major / Minor / Nits / What looks good / Open questions) that would be empty, rather than printing "(none)".
+Omit any subsection (Critical / Major / Minor / Nits / Pre-existing / What looks good / Open questions) that would be empty, rather than printing "(none)".
 
 ## Guardrails
 
@@ -148,5 +172,6 @@ Omit any subsection (Critical / Major / Minor / Nits / What looks good / Open qu
 - Read-only git operations are fine: `git fetch origin pull/<num>/head` (writes only to the object database and `FETCH_HEAD`, not to the working tree or any local branch), `git show <ref>:<path>`, `git log`, `git diff <ref1>..<ref2>`, `git rev-parse`, `git cat-file`, `git ls-tree`.
 - **Never** call `gh pr review`, `gh pr comment`, `gh pr merge`, `gh pr close`, `gh pr edit`, `gh pr ready`, or any other `gh` subcommand that writes to GitHub. Inspection only.
 - **Never** invent file paths or line numbers. Every `file:line` reference must be a **file line number** (the line number in the post-change file), not a patch line number (a position within the diff text). Derive it from the `@@ -X,Y +N,M @@` hunk header per §3, or verify with `git show <headRefOid>:<path> | grep -n '<symbol>'` before citing. If you can't pin the exact line, cite the nearest symbol name with `~` (e.g., `path/file.py (near bad_debts)`) rather than guess a number.
-- If the diff is too large to review thoroughly (rule of thumb: >2000 changed lines or >40 files), say so at the top of the report and review the highest-risk files first rather than skimming everything shallowly. Name the files you skipped so the user can ask for a follow-up pass.
+- **Never** assign a severity without establishing attribution per §5. A Critical or Major that turns out to be identical at base is a false blocker, and false blockers cost more credibility than missed nits. When in doubt, run the base check — it is one `git show` away.
+- If the diff is too large to review thoroughly (rule of thumb: >2000 changed lines or >40 files), say so at the top of the report and review the highest-risk files first rather than skimming everything shallowly. Name the files you skipped so the user can ask for a follow-up pass. If the PR merges other branches in, say which commits are genuinely new versus inherited (`git log --oneline <baseRefOid>..<headRefOid>`) — inherited commits are `pre-existing` for attribution purposes even though they appear in the diff.
 - If `gh` is not authenticated or the PR number does not exist, surface the error verbatim and stop.
