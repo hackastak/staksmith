@@ -61,6 +61,8 @@ Check the article against The HackaStak guidelines:
 | Emoji count | 2-3 total (🛠️ 💡 ✨) | ✓ or ✗ |
 | Tone | Conversational, not corporate | ✓ or ✗ |
 | No em dashes | Zero `—` in the body (see rule below) | ✓ or ✗ |
+| Colon restraint | 1-2 stylistic prose colons max (see rule below) | ✓ or ✗ |
+| No reflexive antithesis | 1 "It's not X, it's Y" max (see rule below) | ✓ or ✗ |
 | No banned phrases | See list below | ✓ or ✗ |
 
 **Structure Check:**
@@ -106,6 +108,43 @@ No em dashes (`—`) in the article body. They read as AI-generated and aren't p
 Only the em dash (`—`) is banned. Leave these alone:
 - **Hyphens (`-`) in compound words and modifiers** stay (no-fluff, open-source, early-to-mid, terminal-native, ex-Microsoft). Never strip or rewrite these.
 - **En dashes (`–`) in numeric ranges** stay (`$3–$5`, `7–12`).
+
+**Colon Rule (always flag and fix):**
+
+Keep **stylistic prose colons to 1-2 per article, max**. Overused mid-sentence colons read as AI-generated, the same tell as em dashes. Count the colons that sit inside prose sentences, keep the 1-2 strongest, and rewrite the rest:
+
+- **Elaboration / setup-then-payoff:** split into two sentences, or use a comma + coordinating conjunction.
+  - Before: `MCP servers give it hands: it can read your files and run your terminal.`
+  - After: `MCP servers give it hands. It can read your files and run your terminal.`
+- **Inline list after a clause:** use parentheses or fold the list into the sentence.
+  - Before: `Full filesystem operations: read, write, move, search.`
+  - After: `Full filesystem operations (read, write, move, search).`
+- **Reason / because clause:** use `, because` or `, so`.
+  - Before: `It's a great teacher: you read what it generates and learn the patterns.`
+  - After: `It's a great teacher, because you read what it generates and learn the patterns.`
+
+**Do NOT count these against the cap (they are structural, not prose):**
+- The **headline colon** in the "Topic: The Subtitle" title pattern.
+- **Listicle scaffold labels** (`**Description:**`, `**Key Features:**`, `**Why You Should Use It:**`, `**Reality check:**`).
+- Colons inside **code blocks, JSON, tables, or frontmatter**.
+
+Note: the Em-Dash Rule above sometimes suggests a colon as a replacement. When you're already at the 1-2 colon cap, prefer splitting into two sentences or a comma + conjunction instead, so fixing an em dash doesn't blow the colon budget.
+
+**Antithesis Rule (always flag and fix):**
+
+The negation-contrast construction "It's not X, it's Y" (and its variants: "That's not A, that's B," "not just X but Y," "X isn't about A, it's about B") is an AI-writing tell, the same family as em dashes and mid-sentence colons. Used once it lands, but sprinkled through a piece it reads as a tic. **Keep it to 1 per article, max.** Find every instance, keep the single strongest, and rewrite the rest as a direct positive claim:
+
+- **Filler emphasis (most common):** cut the negation and state what it *is*.
+  - Before: `That's not memory, that's a museum.`
+  - After: `That's a museum.`
+- **"Not just X, but Y" escalation:** state Y directly, or lead with it.
+  - Before: `It's not just faster, it's a different way of working.`
+  - After: `It's a different way of working.`
+- **"X isn't about A. It's about B."** drop the setup and make the claim.
+  - Before: `A second brain isn't about storing. It's about thinking.`
+  - After: `A second brain earns its keep when it helps you think.`
+
+Do NOT flag genuine factual contrasts that carry information the reader needs (e.g., "`fc` edits the last command, not the current line," "this is Postgres, not MySQL"). The target is rhetorical antithesis used for rhythm, not literal either/or distinctions.
 
 ### Step 4: Present Findings
 

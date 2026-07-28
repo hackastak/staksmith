@@ -33,9 +33,9 @@ cat "$VAULT_PATH/$BLOG_PATH/Blog_Strategy.md"
 
 Key filters to internalize before generating ideas:
 - **Target reader:** Early-to-mid career devs (18–35) looking to level up their toolkit
-- **Content pillars:** (1) Developer Tooling Roundups, (2) Engineering Best Practices, (3) Career & Growth, (4) AI x Developer Workflow
-- **Off-limits:** Generic marketing content, doom-and-gloom takes, enterprise-only tools
-- **Current priority:** AI x developer workflow is the biggest underexploited vein
+- **Content pillars:** (1) Developer Tooling Roundups, (2) Engineering Best Practices, (3) Career & Growth, (4) AI x Developer Workflow, (5) Personal Knowledge Systems (PKM)
+- **Off-limits:** Generic marketing content, doom-and-gloom takes, enterprise-only tools, abstract AI think-pieces, career-advice essays with no concrete tool or system attached
+- **Current priority (from July 2026 data):** Concrete tools and personal-system pieces, first-person and actionable, win by a wide margin. Tool-specific roundups (esp. CLI) and PKM / second-brain content are the proven veins. AI content only works when it's personal and tool-specific, never as commentary.
 
 ## Step 2: Inventory Your Knowledge Base
 
@@ -106,7 +106,7 @@ Read these to identify gaps and avoid repetition.
 For each idea, assess against The HackaStak's criteria:
 
 **Fit Check:**
-1. **Pillar alignment**: Does it fit one of the four pillars? (Tooling, Best Practices, Career, AI x Dev)
+1. **Pillar alignment**: Does it fit one of the five pillars? (Tooling, Best Practices, Career, AI x Dev, PKM)
 2. **Reader match**: Would an early-to-mid career dev searching to level up care about this?
 3. **Filtration value**: Does recommending this earn trust, or is it obvious/commodity info?
 
@@ -115,11 +115,12 @@ For each idea, assess against The HackaStak's criteria:
 5. **Evidence**: Can you support claims with real experience?
 6. **Actionability**: Can readers install/do something today?
 
-**Format Check:**
-7. **Listicle potential**: Can this become a numbered list (10 items is the sweet spot)?
-8. **Scaffold fit**: Can each item follow Description → Key Features → Why You Should Use It?
+**Winning-pattern Check (the real driver — weight this heavily):**
+7. **Concrete subject**: Is it about specific named tools or a specific personal system, not an abstract theme or opinion?
+8. **First-person / lived**: Can it be written as "the tools/system I actually use," "how I built X"?
+9. **Format fit**: If it's a roundup, can it follow Description → Key Features → Why You Should Use It? (Format is secondary — a listicle about an abstract topic still flops.)
 
-**Priority Boost:** Ideas in the AI x Developer Workflow pillar get extra weight — it's the biggest strategic gap.
+**Priority Boost (from July 2026 data):** Give extra weight to (a) tool-specific roundups, especially CLI/terminal, and (b) PKM / second-brain / personal-workflow ideas — these are the proven top performers. Down-weight abstract AI think-pieces and standalone career-advice essays; they get throttled by Medium's distribution.
 
 ## Step 6: Generate the Ideas Report
 
@@ -137,7 +138,7 @@ Present findings in this format:
 Ideas with strong expertise and clear angle.
 
 ### 1. [Working Title]
-**Pillar:** [Tooling / Best Practices / Career / AI x Dev]
+**Pillar:** [Tooling / Best Practices / Career / AI x Dev / PKM]
 **Core Argument:** [One sentence thesis]
 **Your Angle:** [Why you specifically can write this]
 **Evidence Available:** [[Note 1]], [[Note 2]]
@@ -215,7 +216,7 @@ After presenting the report, ask:
 **Strong ideas have:**
 - Clear thesis in one sentence
 - Evidence from actual experience
-- Fit within one of the four pillars
+- Fit within one of the five pillars
 - Appeal to early-to-mid career devs leveling up
 - Listicle potential with the scaffold (Description → Features → Why You Should Use It)
 - Mix of well-known anchors + lesser-known finds

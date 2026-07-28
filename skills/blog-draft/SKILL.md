@@ -35,7 +35,7 @@ cat "$VAULT_PATH/$BLOG_PATH/Blog_Strategy.md"
 Key constraints to apply throughout drafting:
 - **Reader:** Early-to-mid career devs (18–35) leveling up their toolkit
 - **Voice:** Conversational, practical, encouraging, opinionated-but-fair, no-fluff
-- **Format:** Listicles win. Item scaffold: Description → Key Features → Why You Should Use It
+- **Format:** Concrete tools or a personal system, first-person and actionable, is what wins (format is secondary). For roundups, use the item scaffold: Description → Key Features → Why You Should Use It
 - **Emoji budget:** 2–3 per piece (🚀 💡 🛠️ ✨)
 - **Headline pattern:** "Topic: The Subtitle That Sells It"
 
@@ -150,6 +150,7 @@ For each item, use the scaffold:
 - **Bold product names** on first mention
 - Opinionated but fair, because readers trust your filter
 - **No em dashes (`—`).** They read as AI-generated. Join two clauses with a comma + coordinating conjunction (and, but, or, so) to make a compound sentence, use commas (or parentheses) for an aside, a colon for an elaboration or list, or just split into two sentences. Only the em dash (`—`) is banned. Hyphens (`-`) in compound words and modifiers are fine and should stay (no-fluff, open-source, early-to-mid, terminal-native). En dashes (`–`) in numeric ranges (`7–12`, `$3–$5`) are also fine.
+- **No reflexive antithesis.** Avoid the "It's not X, it's Y" negation-contrast construction and its variants ("That's not A, that's B," "not just X but Y," "X isn't about A, it's about B"). It's an AI-writing tell, the same family as em dashes. Used once it lands, but sprinkled through a piece it reads as a tic, so cap it at one per article and state the positive claim directly instead. Genuine factual either/or distinctions the reader needs (e.g., "`fc` edits the last command, not the current line") are fine and don't count.
 
 **Structure Rules:**
 - Lead each section with concrete thing: example, number, anecdote
@@ -173,6 +174,7 @@ For each item, use the scaffold:
 - Doom-and-gloom framing (flip to opportunity angle)
 - Excessive hype or exclamation points
 - Em dashes (`—`), per the no-em-dash voice rule above
+- Reflexive antithesis ("It's not X, it's Y," "not just X but Y," "X isn't about A, it's about B") used for rhythm, per the antithesis voice rule above; state the point directly, one per article max
 
 **Emoji Usage:**
 - Budget: 2–3 per article
@@ -209,6 +211,7 @@ Before delivering, verify against The HackaStak standards:
 - [ ] Contractions used throughout
 - [ ] Short paragraphs (1–3 sentences)
 - [ ] No em dashes (`—`) anywhere in the body
+- [ ] Reflexive antithesis ("It's not X, it's Y") kept to one per article, max
 - [ ] No banned phrases
 - [ ] No corporate/formal tone
 - [ ] Opinionated but fair, not preachy
@@ -239,7 +242,7 @@ Output format:
 
 **Word count:** [X] words
 **Estimated read time:** [X] minutes
-**Pillar:** [Tooling / Best Practices / Career / AI x Dev]
+**Pillar:** [Tooling / Best Practices / Career / AI x Dev / PKM]
 
 **Suggested Medium tags:**
 - [Tag 1], [Tag 2], [Tag 3], [Tag 4], [Tag 5]
@@ -277,7 +280,7 @@ Include proper frontmatter:
 ```yaml
 ---
 status: drafting
-pillar: [Tooling / Best Practices / Career / AI x Dev]
+pillar: [Tooling / Best Practices / Career / AI x Dev / PKM]
 read_time: [estimated minutes]
 word_count: [approximate]
 tags:
