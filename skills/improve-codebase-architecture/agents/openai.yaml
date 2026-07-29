@@ -1,0 +1,5 @@
+interface:
+  display_name: "Improve Codebase Architecture"
+  short_description: "Scan for deepening opportunities and grill through the chosen one"
+policy:
+  allow_implicit_invocation: false
