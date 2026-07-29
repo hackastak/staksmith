@@ -1,0 +1,5 @@
+interface:
+  display_name: "Grill With Docs"
+  short_description: "A relentless interview that writes the glossary and ADRs as it goes"
+policy:
+  allow_implicit_invocation: false
