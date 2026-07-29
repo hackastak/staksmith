@@ -1,0 +1,3 @@
+interface:
+  display_name: "Source Research"
+  short_description: "Primary-source technical investigation, delegated to a background agent"
