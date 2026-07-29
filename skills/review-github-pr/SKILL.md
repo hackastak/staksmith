@@ -68,12 +68,37 @@ For each dimension, surface findings tagged **Critical / Major / Minor / Nit** w
 
 1. **Correctness & logic** — bugs, edge cases, off-by-one, race conditions, missing or wrong error handling, incorrect null/None handling, broken control flow, misuse of async/await, leaked resources, type mismatches.
 2. **Security** — injection (SQL/command/template/HTML), unsafe deserialization, secrets or credentials in code, authn/authz gaps, SSRF, path traversal, insecure defaults, unvalidated user input crossing trust boundaries, risky dependency additions.
-3. **Style & conventions** — adherence to the project conventions identified in step 3. Call out anything that would fail the project's configured linters/formatters, or that diverges from patterns established elsewhere in the same module.
+3. **Style & conventions** — adherence to the project conventions identified in step 3. Call out anything that would fail the project's configured linters/formatters, or that diverges from patterns established elsewhere in the same module. Apply the smell baseline below.
 4. **Test coverage** — for each non-trivial code path the PR adds or changes, is there a corresponding test? Flag changed behavior with no new or updated tests. Flag tests that exist but assert weakly (e.g., only that a call did not throw).
-5. **Architecture** — does the change respect existing module boundaries? Are new abstractions justified by current need rather than speculation? Are cross-cutting concerns (logging, tracing, error handling, auth) placed in the right layer? Does anything violate an invariant established elsewhere in the codebase?
+5. **Architecture** — does the change respect existing module boundaries? Are new abstractions justified by current need rather than speculation? Are cross-cutting concerns (logging, tracing, error handling, auth) placed in the right layer? Does anything violate an invariant established elsewhere in the codebase? Apply the smell baseline below.
 6. **Performance** — N+1 queries, unbounded loops or recursion, blocking I/O on async paths, missing pagination on potentially large result sets, hot-path allocations, missing caching where neighboring code caches similar work, retry storms, unnecessary serialization round-trips.
 
 If a dimension has nothing material to report, say so explicitly in the report — silence is not the same as a clean bill of health.
+
+### The smell baseline
+
+Under Style and Architecture, carry this fixed set of twelve code smells (Fowler, *Refactoring*, ch. 3) as a structural lens. It applies even when the repo documents no standards of its own. Three rules bind it:
+
+- **The repo overrides.** A documented repo standard always wins; where it endorses something the baseline would flag, suppress the smell.
+- **Always a judgement call.** Each smell is a labelled heuristic ("possible Feature Envy"), never a hard violation. Report at Minor or Nit unless the smell is the *cause* of a correctness or security finding — then report that finding instead and name the smell as the underlying shape.
+- **Skip anything tooling enforces.** If the linter catches it, the linter will say so.
+
+Each reads *what it is* → *how to fix*; match against the diff:
+
+- **Mysterious Name** — a function, variable, or type whose name doesn't reveal what it does or holds. → Rename it; if no honest name comes, the design is murky and that's the real finding.
+- **Duplicated Code** — the same logic shape appears in more than one hunk or file in the change. → Extract the shared shape, call it from both.
+- **Feature Envy** — a method that reaches into another object's data more than its own. → Move the method onto the data it envies.
+- **Data Clumps** — the same few fields or params keep travelling together; a type wanting to be born. → Bundle them into one type, pass that.
+- **Primitive Obsession** — a primitive or string standing in for a domain concept that deserves its own type. → Give the concept its own small type.
+- **Repeated Switches** — the same `switch`/`if`-cascade on the same type recurs across the change. → Replace with polymorphism, or one map both sites share.
+- **Shotgun Surgery** — one logical change forces scattered edits across many files in the diff. → Gather what changes together into one module.
+- **Divergent Change** — one file or module is edited for several unrelated reasons. → Split so each module changes for one reason.
+- **Speculative Generality** — abstraction, parameters, or hooks added for needs the PR doesn't have. → Delete it; inline back until a real need shows.
+- **Message Chains** — long `a.b().c().d()` navigation the caller shouldn't depend on. → Hide the walk behind one method on the first object.
+- **Middle Man** — a class or function that mostly just delegates onward. → Cut it, call the real target directly.
+- **Refused Bequest** — a subclass or implementer that ignores or overrides most of what it inherits. → Drop the inheritance, use composition.
+
+When a smell recurs across the PR, say so once at the architectural level rather than filing it a dozen times — that is the finding worth having. Smells are subject to §5 attribution like anything else: a smell identical at base is pre-existing, however loud.
 
 ## 5. Attribute every finding before assigning severity
 
@@ -94,7 +119,7 @@ The most common failure mode is reading *files* instead of the *diff*, producing
 
 **Attribution work is a gate, not report content.** Run the base checks on every finding, but keep the commands, the SHAs, the extraction method, and the counts-of-counts *out* of the report body — the attribution tag in the header is the whole visible result. The reader is deciding what to fix, not auditing how you decided. Two exceptions, both narrow: state the method once at the top when the diff is large enough that coverage itself is in question (§ Guardrails), and produce the full evidence chain if the author or user challenges a finding. Verification that leaks into finding bodies is the main way a review turns from a work order into a legal brief.
 
-**When delegating any part of a review to subagents**, this section is the part that must be in their brief verbatim. Require every returned finding to carry its attribution tag and the base-check command that established it. Then spot-check the attribution on each Critical and Major before promoting it into your report — the one verification you always owe, even when you otherwise commit to a delegation. An unattributed finding is not usable: send it back or verify it yourself.
+**When delegating any part of a review to subagents**, this section is the part that must be in their brief verbatim — along with the smell baseline from §4 pasted in full for the Style and Architecture agents, since a subagent has no other access to it. Require every returned finding to carry its attribution tag and the base-check command that established it. Then spot-check the attribution on each Critical and Major before promoting it into your report — the one verification you always owe, even when you otherwise commit to a delegation. An unattributed finding is not usable: send it back or verify it yourself.
 
 ## 6. Output
 
@@ -198,3 +223,11 @@ Omit any subsection (Critical / Major / Minor / Nits / Pre-existing / What looks
 - **Never** assign a severity without establishing attribution per §5. A Critical or Major that turns out to be identical at base is a false blocker, and false blockers cost more credibility than missed nits. When in doubt, run the base check — it is one `git show` away.
 - If the diff is too large to review thoroughly (rule of thumb: >2000 changed lines or >40 files), say so at the top of the report and review the highest-risk files first rather than skimming everything shallowly. Name the files you skipped so the user can ask for a follow-up pass. If the PR merges other branches in, say which commits are genuinely new versus inherited (`git log --oneline <baseRefOid>..<headRefOid>`) — inherited commits are `pre-existing` for attribution purposes even though they appear in the diff.
 - If `gh` is not authenticated or the PR number does not exist, surface the error verbatim and stop.
+
+## Related skills
+
+This is the PR tier of a three-tier review family, all sharing the severity ladder, the output format, and the smell baseline:
+
+- **`review-changes`** — the working-tree / staged diff against `HEAD`, with the same attribution model. The tight in-dev loop.
+- **`code-review`** — all the code on the current branch, read broadly and architecturally, no attribution. Run before opening the PR.
+- **`security-review`** — a deeper single-dimension pass when the Security findings warrant one.
