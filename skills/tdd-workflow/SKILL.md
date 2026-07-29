@@ -8,6 +8,8 @@ origin: staksmith
 
 This skill ensures all code development follows TDD principles with comprehensive test coverage.
 
+TDD is the red → green loop. The discipline below is what makes that loop produce tests worth keeping: where tests go, what a good one is, and the rules that bind the cycle. It applies on every cycle — consult it before and during the loop, not after.
+
 ## When to Activate
 
 - Writing new features or functionality
@@ -15,6 +17,30 @@ This skill ensures all code development follows TDD principles with comprehensiv
 - Refactoring existing code
 - Adding API endpoints
 - Creating new components
+
+## Seams — where tests go
+
+A **seam** is the public interface you test at: the place where you observe behaviour without reaching inside. Tests live at seams, never against internals. (`codebase-design` has the full vocabulary — module, interface, seam, adapter.)
+
+**Test only at pre-agreed seams.** Before writing any test, write down the seams under test and confirm them with the user. No test is written at an unconfirmed seam. You can't test everything — agreeing the seams up front is how testing effort lands on critical paths and complex logic instead of on every edge case.
+
+Ask: "What's the public interface here, and which seams should we test?"
+
+When the repo has a `CONTEXT.md`, read it first so test names and interface vocabulary match the project's domain language, and respect any ADRs in `docs/adr/` covering the area you're touching.
+
+## Anti-patterns
+
+- **Implementation-coupled** — mocks internal collaborators, tests private methods, or verifies through a side channel (querying the database instead of using the interface). The tell: the test breaks when you refactor but behaviour hasn't changed.
+- **Tautological** — the assertion recomputes the expected value the way the code does (`expect(add(a, b)).toBe(a + b)`, a snapshot derived by hand the same way, a constant asserted equal to itself), so it passes by construction and can never disagree with the code. Expected values must come from an independent source of truth — a known-good literal, a worked example, the spec.
+- **Horizontal slicing** — writing all the tests first, then all the implementation. Bulk tests verify *imagined* behaviour: you test the *shape* of things rather than what a user sees, the tests go insensitive to real changes, and you commit to test structure before understanding the implementation.
+
+## Vertical slicing — one tracer bullet at a time
+
+Work in **vertical slices**: one test → one implementation → repeat. Each test is a **tracer bullet** that responds to what the last cycle taught you. One seam, one test, one minimal implementation per cycle.
+
+**Red before green.** Write the failing test first, then only enough code to pass it. Don't anticipate future tests or add speculative features.
+
+**Refactoring is not part of the red → green loop.** It belongs to the review stage — see `review-changes` and `code-review`. Keeping it out of the loop is what stops "refactor" from quietly becoming "write the rest of the feature".
 
 ## Core Principles
 
@@ -103,12 +129,14 @@ npm test
 # Tests should now pass
 ```
 
-### Step 6: Refactor
-Improve code quality while keeping tests green:
+### Step 6: Refactor (at the review stage, not inside the loop)
+Once the slice is green, improving it is review work, not loop work — see `review-changes`. Keep tests green while you:
 - Remove duplication
 - Improve naming
 - Optimize performance
 - Enhance readability
+
+Resist doing this between red and green. The next tracer bullet comes first.
 
 ### Step 7: Verify Coverage
 ```bash
@@ -252,7 +280,51 @@ src/
     └── auth.spec.ts
 ```
 
-## Mocking External Services
+## Mocking — at system boundaries only
+
+Mock at **system boundaries**, and nowhere else:
+
+- External APIs (payment, email, LLM providers)
+- Databases — *sometimes*; prefer a real test database
+- Time and randomness
+- The file system — sometimes
+
+**Don't mock** your own classes and modules, internal collaborators, or anything you control. Prefer a real local stand-in (an in-memory adapter, a test database, a fake that actually behaves) over a mock: a stand-in exercises real behaviour, a mock only asserts that you called something. Mocking an internal collaborator couples the test to the implementation, which is the first anti-pattern above.
+
+Where a boundary genuinely needs mocking, design for it:
+
+**Use dependency injection.** Pass external dependencies in rather than constructing them internally:
+
+```typescript
+// Easy to substitute
+function processPayment(order, paymentClient) {
+  return paymentClient.charge(order.total);
+}
+
+// Hard to substitute
+function processPayment(order) {
+  const client = new StripeClient(process.env.STRIPE_KEY);
+  return client.charge(order.total);
+}
+```
+
+**Prefer SDK-style interfaces over generic fetchers.** One specific function per external operation, instead of one generic function with conditional logic:
+
+```typescript
+// GOOD: each function is independently substitutable
+const api = {
+  getUser: (id) => fetch(`/users/${id}`),
+  getOrders: (userId) => fetch(`/users/${userId}/orders`),
+  createOrder: (data) => fetch('/orders', { method: 'POST', body: data }),
+};
+
+// BAD: substituting requires conditional logic inside the stand-in
+const api = {
+  fetch: (endpoint, options) => fetch(endpoint, options),
+};
+```
+
+The examples below are all genuine boundaries — a database, a cache, a third-party API.
 
 ### Supabase Mock
 ```typescript
@@ -326,6 +398,43 @@ expect(component.state.count).toBe(5)
 expect(screen.getByText('Count: 5')).toBeInTheDocument()
 ```
 
+### ❌ WRONG: Tautological Assertions
+```typescript
+// Expected value is recomputed the way the code computes it — passes by construction
+test('calculateTotal sums line items', () => {
+  const items = [{ price: 10 }, { price: 5 }]
+  const expected = items.reduce((sum, i) => sum + i.price, 0)
+  expect(calculateTotal(items)).toBe(expected)
+})
+```
+
+### ✅ CORRECT: Independently Known Expected Values
+```typescript
+// The literal comes from a worked example, not from the implementation
+test('calculateTotal sums line items', () => {
+  expect(calculateTotal([{ price: 10 }, { price: 5 }])).toBe(15)
+})
+```
+
+### ❌ WRONG: Verifying Through a Side Channel
+```typescript
+// Bypasses the interface under test
+test('createUser saves to database', async () => {
+  await createUser({ name: 'Alice' })
+  const row = await db.query('SELECT * FROM users WHERE name = ?', ['Alice'])
+  expect(row).toBeDefined()
+})
+```
+
+### ✅ CORRECT: Verifying Through the Interface
+```typescript
+test('createUser makes user retrievable', async () => {
+  const user = await createUser({ name: 'Alice' })
+  const retrieved = await getUser(user.id)
+  expect(retrieved.name).toBe('Alice')
+})
+```
+
 ### ❌ WRONG: Brittle Selectors
 ```typescript
 // Breaks easily
@@ -389,7 +498,7 @@ npm test && npm run lint
 2. **One Assert Per Test** - Focus on single behavior
 3. **Descriptive Test Names** - Explain what's tested
 4. **Arrange-Act-Assert** - Clear test structure
-5. **Mock External Dependencies** - Isolate unit tests
+5. **Mock at Boundaries Only** - Real stand-ins over mocks; never mock internal collaborators
 6. **Test Edge Cases** - Null, undefined, empty, large
 7. **Test Error Paths** - Not just happy paths
 8. **Keep Tests Fast** - Unit tests < 50ms each
@@ -404,6 +513,14 @@ npm test && npm run lint
 - Fast test execution (< 30s for unit tests)
 - E2E tests cover critical user flows
 - Tests catch bugs before production
+
+## Related skills
+
+- **`codebase-design`** — the seam, module, and interface vocabulary this skill tests at.
+- **`implement`** — drives this skill at pre-agreed seams when building a spec or ticket.
+- **`review-changes` / `code-review`** — where refactoring belongs, once the slice is green.
+- **`domain-modeling`** — maintains the `CONTEXT.md` glossary that test names should match.
+- Language-specific variants inherit this discipline: `django-tdd`, `laravel-tdd`, `cpp-testing`, `golang-testing`, `python-testing`, `rust-testing`.
 
 ---
 
