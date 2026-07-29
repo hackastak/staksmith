@@ -89,7 +89,7 @@ For manual install instructions see the README in the `rules/` folder.
 /plugin list staksmith@staksmith
 ```
 
-✨ **That's it!** You now have access to 21 agents, 110 skills, and 53 commands.
+✨ **That's it!** You now have access to 21 agents, 144 skills, and 53 commands.
 
 ---
 
