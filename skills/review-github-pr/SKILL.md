@@ -60,6 +60,8 @@ A diff hunk header looks like `@@ -331,205 +331,271 @@`. The `+331,271` half is 
 
 The line numbers `cat -n` or your viewer shows for the diff text itself are **patch line numbers** — positions within the diff blob. They are not file line numbers and must never appear in a `file:line` citation. If you're unsure, verify with `git show <headRefOid>:<path> | grep -n '<symbol>'` before writing the citation.
 
+A hunk header's starting line is where the hunk *begins*, not where the statement you care about sits. Counting forward from it in your head is the most common source of an off-by-several citation. Run the `grep -n` and use what it returns.
+
 ## 4. Review across six dimensions
 
 For each dimension, surface findings tagged **Critical / Major / Minor / Nit** with concrete `file:line` references drawn from the diff or files you read. Never invent paths or line numbers.
@@ -90,6 +92,8 @@ A pre-existing critical vulnerability is still a real vulnerability worth surfac
 
 The most common failure mode is reading *files* instead of the *diff*, producing a competent audit of the wrong unit of work. Watch for it especially when the PR is large, when it merges other branches in, or when you are reading whole files at `<headRefOid>` for context.
 
+**Attribution work is a gate, not report content.** Run the base checks on every finding, but keep the commands, the SHAs, the extraction method, and the counts-of-counts *out* of the report body — the attribution tag in the header is the whole visible result. The reader is deciding what to fix, not auditing how you decided. Two exceptions, both narrow: state the method once at the top when the diff is large enough that coverage itself is in question (§ Guardrails), and produce the full evidence chain if the author or user challenges a finding. Verification that leaks into finding bodies is the main way a review turns from a work order into a legal brief.
+
 **When delegating any part of a review to subagents**, this section is the part that must be in their brief verbatim. Require every returned finding to carry its attribution tag and the base-check command that established it. Then spot-check the attribution on each Critical and Major before promoting it into your report — the one verification you always owe, even when you otherwise commit to a delegation. An unattributed finding is not usable: send it back or verify it yourself.
 
 ## 6. Output
@@ -118,15 +122,29 @@ Each finding is its own `####` subsection — **never** a bullet list item. This
 
 The `####` header is the file/line location (backtick-wrapped). The body is the review comment as natural prose covering what the issue is, why it matters, and the suggested fix — written the way you would write it directly to the author. Do not prefix the body with `**Comment:**` or split it into separate Issue/Why/Fix labels; the header already labels the finding.
 
+**Hard length budget: one paragraph, 2–4 sentences, per finding — Critical included.** Severity buys attention, not words; the most severe finding is the one that most needs to be read in full. If a finding will not compress to a paragraph, that is a signal it is really two findings with different anchors — split it. Specifically, do **not** spend body text on: the base-check commands or verification method (see §5), a defense of the severity you assigned, an inventory of every affected file when a count and the two or three worst examples carry the same weight, or a restatement of what the PR's own commit messages already say. A reader who wants the evidence will ask; a reader who wants the fix should not have to dig for it.
+
 Always leave a blank line after every `####` header and a blank line after the comment body before the next `####`. Multiple file:line references for one logical finding can be combined in the header (e.g., `#### \`path/file.py:271, :280\``).
 
 Findings in this section are **introduced** or **improved-but-incomplete** only (see §5). Append ` — improved-but-incomplete` to the header of the latter so the author can see the PR gets credit for the direction. Pre-existing findings never appear here; they go in their own section below.
+
+### Findings with no file:line anchor
+
+Some real findings have no code location because their subject is the pull request itself: a description that misstates what the diff does, commits that bundle unrelated work, a base branch chosen wrong, behavior changed with no test file to point at, a decision record the project's own conventions require and the PR omits. These are legitimate and sometimes blocking — a description that hides the largest change in the diff can be the single most important thing in a review.
+
+Give them the same severity tiers, the same attribution tag, and the same 2–4 sentence budget as any other finding. The only difference is the header, which names the subject instead of a location:
+
+- `#### PR description vs. the diff` — the body is inaccurate, incomplete, or points away from the real change
+- `#### Commit \`<short-sha>\`` — when one commit is the subject (scope creep, a message that misdescribes its own diff, unrelated work bundled in)
+- `#### PR-level: <short subject>` — anything else (base branch, missing decision record, no tests added for changed behavior)
+
+Two rules keep this from becoming an escape hatch. **If it can be anchored, anchor it** — a finding is not location-free merely because it spans many files; anchor to the worst example and give a count (`#### \`path/worst.ts:14\`` … "and 251 others"). And **never invent a plausible-looking `file:line` to satisfy the template** — an anchorless header is always correct where a fabricated citation is always fatal.
 
 ### Critical
 
 #### `path/file.py:42`
 
-<Self-contained review comment covering issue, impact, and suggested fix in natural prose. Reference other code locations as `file:line` when helpful.>
+<Self-contained review comment covering issue, impact, and suggested fix — one paragraph, 2–4 sentences. Reference other code locations as `file:line` when helpful.>
 
 #### `path/other.py:88`
 
@@ -137,6 +155,10 @@ Findings in this section are **introduced** or **improved-but-incomplete** only 
 #### `path/foo.py:12`
 
 <...>
+
+#### PR description vs. the diff
+
+<Anchorless finding — same severity tier, same attribution, same 2–4 sentences. Use only when the subject is the PR itself, not a location in it.>
 
 #### `path/bar.py:34`
 
@@ -172,6 +194,7 @@ Omit any subsection (Critical / Major / Minor / Nits / Pre-existing / What looks
 - Read-only git operations are fine: `git fetch origin pull/<num>/head` (writes only to the object database and `FETCH_HEAD`, not to the working tree or any local branch), `git show <ref>:<path>`, `git log`, `git diff <ref1>..<ref2>`, `git rev-parse`, `git cat-file`, `git ls-tree`.
 - **Never** call `gh pr review`, `gh pr comment`, `gh pr merge`, `gh pr close`, `gh pr edit`, `gh pr ready`, or any other `gh` subcommand that writes to GitHub. Inspection only.
 - **Never** invent file paths or line numbers. Every `file:line` reference must be a **file line number** (the line number in the post-change file), not a patch line number (a position within the diff text). Derive it from the `@@ -X,Y +N,M @@` hunk header per §3, or verify with `git show <headRefOid>:<path> | grep -n '<symbol>'` before citing. If you can't pin the exact line, cite the nearest symbol name with `~` (e.g., `path/file.py (near bad_debts)`) rather than guess a number.
+- **Every citation must anchor to a line the PR actually changed.** A correct file line number is not sufficient — an `introduced` finding pointing at code that is byte-identical at base reads as a false blocker even when the underlying defect is real. When a change breaks code it did not touch (a key format changes and an untouched query stops matching; a signature changes and an untouched caller goes stale), anchor to the **changed line that causes it** and describe the unchanged site in prose. Verify with `git diff <baseRefOid> <headRefOid> -- <path>` that your cited line appears as `+` before writing the citation. If a finding resists this — the defect is a genuine omission with no changed line to point at, like a guard added to two of three handlers — anchor to the lines that *were* added and name the gap.
 - **Never** assign a severity without establishing attribution per §5. A Critical or Major that turns out to be identical at base is a false blocker, and false blockers cost more credibility than missed nits. When in doubt, run the base check — it is one `git show` away.
 - If the diff is too large to review thoroughly (rule of thumb: >2000 changed lines or >40 files), say so at the top of the report and review the highest-risk files first rather than skimming everything shallowly. Name the files you skipped so the user can ask for a follow-up pass. If the PR merges other branches in, say which commits are genuinely new versus inherited (`git log --oneline <baseRefOid>..<headRefOid>`) — inherited commits are `pre-existing` for attribution purposes even though they appear in the diff.
 - If `gh` is not authenticated or the PR number does not exist, surface the error verbatim and stop.
