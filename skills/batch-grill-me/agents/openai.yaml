@@ -1,0 +1,5 @@
+interface:
+  display_name: "Batch Grill Me"
+  short_description: "A relentless interview asking the whole frontier each round"
+policy:
+  allow_implicit_invocation: false
