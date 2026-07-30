@@ -1,0 +1,5 @@
+interface:
+  display_name: "Design Workflow"
+  short_description: "Grill the recurring loops in your life into workflow specs"
+policy:
+  allow_implicit_invocation: false

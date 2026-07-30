@@ -1,0 +1,5 @@
+interface:
+  display_name: "To Questionnaire"
+  short_description: "Package a decision you can't answer into questions for someone else"
+policy:
+  allow_implicit_invocation: false
