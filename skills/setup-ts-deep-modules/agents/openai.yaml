@@ -1,0 +1,5 @@
+interface:
+  display_name: "Setup TS Deep Modules"
+  short_description: "Enforce package deep-module boundaries with dependency-cruiser"
+policy:
+  allow_implicit_invocation: false

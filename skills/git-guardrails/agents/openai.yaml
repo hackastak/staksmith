@@ -1,0 +1,5 @@
+# Stub kept for collection consistency. This skill installs a Claude Code
+# PreToolUse hook, which has no OpenAI-compatible equivalent — it does not port.
+interface:
+  display_name: "Git Guardrails"
+  short_description: "Block destructive git commands before they execute (Claude Code only)"
