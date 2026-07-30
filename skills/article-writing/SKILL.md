@@ -8,6 +8,15 @@ origin: staksmith
 
 Write long-form content that sounds like a real person or brand, not generic AI output.
 
+## Vault Configuration
+
+```
+VAULT_PATH=~/Developer/My_Notes
+BLOG_PATH=2. Areas/Hackastak_Brand/Medium_Blog
+```
+
+This is the shared blog location used by every writing skill — `blog-ideas`, `blog-draft`, `polish`, `content`, and the `writing-fragments`/`writing-beats`/`writing-shape` craft track. Articles are read from and written to `$VAULT_PATH/$BLOG_PATH`. Always reference it as `$VAULT_PATH/$BLOG_PATH`, never as a literal path. If the user names a different location, use theirs and remember it for the session.
+
 ## When to Activate
 
 - drafting blog posts, essays, launch posts, guides, tutorials, or newsletter issues
@@ -57,6 +66,8 @@ Delete and rewrite any of these:
 3. Start each section with evidence, example, or scene.
 4. Expand only where the next sentence earns its place.
 5. Remove anything that sounds templated or self-congratulatory.
+
+**Before editing an existing article, confirm a dependency-respecting section plan with the user** — see the `writing-grounding` reference. A section that leans on a concept a later section introduces is the defect to look for, and reordering is a bigger change than the user may expect from an editing pass.
 
 ## Structure Guidance
 
