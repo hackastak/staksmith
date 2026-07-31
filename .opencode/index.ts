@@ -41,7 +41,7 @@ export { StaksmithHooksPlugin, default } from "./plugins/index.js"
 export * from "./plugins/index.js"
 
 // Version export
-export const VERSION = "1.6.0"
+export const VERSION = "1.8.0"
 
 // Plugin metadata
 export const metadata = {

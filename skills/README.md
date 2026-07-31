@@ -1,6 +1,6 @@
 # Staksmith Skills
 
-This directory holds **156 skills** — reusable workflow definitions and codified domain knowledge that Claude Code (and compatible harnesses) load on demand.
+This directory is the catalog of every staksmith skill — reusable workflow definitions and codified domain knowledge that Claude Code (and compatible harnesses) load on demand.
 
 A skill is a folder with a `SKILL.md` inside. The frontmatter `description` is what a model reads when deciding whether to load the skill; the body is the instructions it follows once loaded.
 

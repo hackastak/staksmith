@@ -9,7 +9,7 @@ ROOT_PACKAGE_JSON="package.json"
 PLUGIN_JSON=".claude-plugin/plugin.json"
 MARKETPLACE_JSON=".claude-plugin/marketplace.json"
 OPENCODE_PACKAGE_JSON=".opencode/package.json"
-VERSION_FILE="VERSION"
+OPENCODE_INDEX_TS=".opencode/index.ts"
 
 # Function to show usage
 usage() {
@@ -44,7 +44,7 @@ if ! git diff --quiet || ! git diff --cached --quiet; then
 fi
 
 # Verify versioned manifests exist
-for FILE in "$ROOT_PACKAGE_JSON" "$PLUGIN_JSON" "$MARKETPLACE_JSON" "$OPENCODE_PACKAGE_JSON" "$VERSION_FILE"; do
+for FILE in "$ROOT_PACKAGE_JSON" "$PLUGIN_JSON" "$MARKETPLACE_JSON" "$OPENCODE_PACKAGE_JSON" "$OPENCODE_INDEX_TS"; do
   if [[ ! -f "$FILE" ]]; then
     echo "Error: $FILE not found"
     exit 1
@@ -89,11 +89,11 @@ update_version "$PLUGIN_JSON" "s|\"version\": *\"[^\"]*\"|\"version\": \"$VERSIO
 update_first_version "$MARKETPLACE_JSON"
 update_version "$OPENCODE_PACKAGE_JSON" "s|\"version\": *\"[^\"]*\"|\"version\": \"$VERSION\"|"
 
-# The root VERSION file is plain text, not JSON
-echo "$VERSION" > "$VERSION_FILE"
+# The OpenCode plugin advertises its version from a source literal, not JSON
+update_version "$OPENCODE_INDEX_TS" "s|export const VERSION = \"[^\"]*\"|export const VERSION = \"$VERSION\"|"
 
 # Stage, commit, tag, and push
-git add "$ROOT_PACKAGE_JSON" "$PLUGIN_JSON" "$MARKETPLACE_JSON" "$OPENCODE_PACKAGE_JSON" "$VERSION_FILE"
+git add "$ROOT_PACKAGE_JSON" "$PLUGIN_JSON" "$MARKETPLACE_JSON" "$OPENCODE_PACKAGE_JSON" "$OPENCODE_INDEX_TS"
 git commit -m "chore: bump plugin version to $VERSION"
 git tag "v$VERSION"
 git push origin main "v$VERSION"

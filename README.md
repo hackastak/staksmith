@@ -24,9 +24,9 @@ staksmith is organized into independent components — install the whole thing o
 
 | Component | What it is |
 |-----------|------------|
-| **Agents** (21) | Specialized subagents for delegated work — planner, architect, code-reviewer, security-reviewer, tdd-guide, chief-of-staff, loop-operator, harness-optimizer, plus language-specific reviewers and build resolvers. |
-| **Skills** (156) | Reusable workflow definitions and domain knowledge — TDD, code review, security, framework patterns (Django, Laravel, Next.js, Go, Swift, Rust, C++), spec-to-build (`to-spec` → `to-tickets` → `implement`), ADRs and domain modeling, research, writing/publishing, and knowledge-base workflows. |
-| **Commands** (53) | Slash commands for quick execution (`/plan`, `/tdd`, `/code-review`, `/e2e`, `/build-fix`, `/refactor-clean`, `/harness-audit`, `/quality-gate`, and many more). |
+| **Agents** | Specialized subagents for delegated work — planner, architect, code-reviewer, security-reviewer, tdd-guide, chief-of-staff, loop-operator, harness-optimizer, plus language-specific reviewers and build resolvers. |
+| **Skills** | Reusable workflow definitions and domain knowledge — TDD, code review, security, framework patterns (Django, Laravel, Next.js, Go, Swift, Rust, C++), spec-to-build (`to-spec` → `to-tickets` → `implement`), ADRs and domain modeling, research, writing/publishing, and knowledge-base workflows. |
+| **Commands** | Slash commands for quick execution (`/plan`, `/tdd`, `/code-review`, `/e2e`, `/build-fix`, `/refactor-clean`, `/harness-audit`, `/quality-gate`, and many more). |
 | **Rules** | Always-follow guidelines split into `common/` plus per-language directories. Install only the stacks you use. |
 | **Hooks** | Trigger-based automations for session persistence, formatting, type checks, cost tracking, quality gates, and secret detection. |
 | **Contexts** | Dynamic system-prompt contexts for dev, review, and research modes. |
@@ -162,7 +162,7 @@ staksmith/
 |   |-- plugin.json         # Plugin metadata and component paths
 |   |-- marketplace.json    # Marketplace catalog for /plugin marketplace add
 |
-|-- agents/           # 21 specialized subagents for delegation
+|-- agents/           # Specialized subagents for delegation
 |   |-- planner.md            # Feature implementation planning
 |   |-- architect.md          # System design decisions
 |   |-- tdd-guide.md          # Test-driven development
@@ -183,7 +183,7 @@ staksmith/
 |   |-- database-reviewer.md  # Database/Supabase review
 |   |-- ...                   # plus go/rust/cpp build resolvers
 |
-|-- skills/           # 156 workflow definitions and domain knowledge
+|-- skills/           # Workflow definitions and domain knowledge
 |   |-- coding-standards/      # Language best practices
 |   |-- backend-patterns/      # API, database, caching patterns
 |   |-- frontend-patterns/     # React, Next.js patterns
@@ -199,7 +199,7 @@ staksmith/
 |   |-- deep-research/         # Multi-source, fact-checked research
 |   |-- ...                    # engineering, research, writing, and product skills
 |
-|-- commands/         # 53 slash commands for quick execution
+|-- commands/         # Slash commands for quick execution
 |   |-- plan.md               # /plan  - Implementation planning
 |   |-- tdd.md                # /tdd   - Test-driven development
 |   |-- code-review.md        # /code-review - Quality review
