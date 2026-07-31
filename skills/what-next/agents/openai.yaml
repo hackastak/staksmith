@@ -1,0 +1,5 @@
+interface:
+  display_name: "What Next"
+  short_description: "Index a project's open todos, prioritize them, return the top 3"
+policy:
+  allow_implicit_invocation: false

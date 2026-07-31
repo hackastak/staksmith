@@ -210,6 +210,7 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | `ideas` | Scan for emerging patterns — what to build, investigate, or write |
 | `ghost` | Answer a question in the user's own voice, drawn from their writing |
 | `backlog-review` | Verify open backlog items against repo evidence, close the done ones |
+| `what-next` | Index a project's open todos, prioritize them, return the top 3 next tasks |
 | `weekly-momentum-report` | Aggregate git, vault tasks, and GitHub into a weekly review |
 | `vault-to-code-bridge` | Turn vault project notes into ADRs, specs, and CLAUDE.md files |
 | `money` | Mine the vault for monetization opportunities, then go beyond it |
