@@ -1,496 +1,314 @@
-# Staksmith Skills - Workflow Automation Suite
+# Staksmith Skills
 
-This directory contains 5 custom AI skills designed to automate workflows across your Obsidian vault (My_Notes) and 25+ development repositories, plus additional planning and design skills.
+This directory holds **155 skills** — reusable workflow definitions and codified domain knowledge that Claude Code (and compatible harnesses) load on demand.
 
-## Custom Workflow Automation Skills
+A skill is a folder with a `SKILL.md` inside. The frontmatter `description` is what a model reads when deciding whether to load the skill; the body is the instructions it follows once loaded.
 
-### 1. Inbox Gradient Accelerator
-**Location**: `inbox-gradient-accelerator/`
-
-Auto-classify and organize vault inbox items based on AI content analysis.
-
-**Use Cases:**
-- Nightly automation for continuous inbox maintenance
-- On-demand when inbox has 10+ unprocessed items
-- Post-capture to immediately organize new notes
-- Weekly review prep
-
-**Key Features:**
-- Scans `0. Inbox/` for unprocessed notes
-- AI classification into PARA categories (Projects/Areas/Resources)
-- Auto-moves high-confidence items (≥70%)
-- Tags uncertain items with `#needs-review`
-
-**Quick Start:**
-```bash
-cd inbox-gradient-accelerator
-./scripts/scan-inbox.sh
-./scripts/classify.sh
-./scripts/organize.sh
-```
+- **Authoring guidance:** [`DESIGN_NOTES.md`](DESIGN_NOTES.md)
+- **Skill format and contribution rules:** [`../CONTRIBUTING.md`](../CONTRIBUTING.md)
+- **Repo overview:** [`../README.md`](../README.md)
 
 ---
 
-### 2. Weekly Momentum Report Generator
-**Location**: `weekly-momentum-report/`
+## Using a skill
 
-Aggregate project status from git repos, vault tasks, and GitHub for weekly reviews.
+Skills are discovered by name and description — you rarely need to invoke one explicitly:
 
-**Use Cases:**
-- Friday EOD weekly review ritual
-- Sunday planning sessions
-- Monthly roll-ups
-- Standup prep
-
-**Key Features:**
-- Scans all repos for commits (last 7 days)
-- Parses completed/pending tasks from vault backlogs
-- Tracks uncommitted changes
-- Generates markdown report in `_Weekly/{YYYY}/{YYYY-WXX.md}`
-
-**Quick Start:**
-```bash
-cd weekly-momentum-report
-./scripts/scan-repos.sh
-./scripts/scan-vault-tasks.sh
-./scripts/generate-report.sh
 ```
+User: "Review the changes on this branch"
+Claude: [loads review-changes]
 
----
-
-### 3. Code-to-Docs Sync
-**Location**: `code-to-docs-sync/`
-
-Detect and fix documentation drift between code and docs.
-
-**Use Cases:**
-- Post-merge checks (git hook integration)
-- Weekly documentation audits
-- Pre-release verification
-- CI/CD pipeline integration
-
-**Key Features:**
-- Detects README tech stack vs package.json mismatches
-- Verifies CLAUDE.md build commands vs actual scripts
-- Checks API docs vs route files
-- Flags stale documentation (configurable threshold)
-
-**Quick Start:**
-```bash
-cd code-to-docs-sync
-./scripts/detect-drift.sh
-./scripts/analyze-drift.sh
-./scripts/sync-docs.sh
-```
-
----
-
-### 4. Vault-to-Code Bridge
-**Location**: `vault-to-code-bridge/`
-
-Convert Obsidian vault project notes into CLAUDE.md and ARCHITECTURE.md files in code repos.
-
-**Use Cases:**
-- New project setup from vault notes
-- Documentation initialization
-- Major refactor documentation
-- Onboarding prep
-- Handoff preparation
-
-**Key Features:**
-- Maps vault projects to code repos (fuzzy matching)
-- Generates CLAUDE.md from backlog + architecture notes
-- Creates ARCHITECTURE.md with ADRs from vault
-- Updates README with features from tasks
-- Template-based generation (customizable)
-
-**Quick Start:**
-```bash
-cd vault-to-code-bridge
-./scripts/scan-vault-projects.sh
-./scripts/generate-docs.sh
-```
-
----
-
-### 5. Skill Auto-Extractor
-**Location**: `skill-auto-extractor/`
-
-Mine git history to automatically create reusable skill definitions from repeated workflows.
-
-**Use Cases:**
-- Monthly pattern discovery
-- Automatic when pattern detected 3+ times
-- Post-sprint knowledge capture
-- Team knowledge transfer
-- Continuous learning integration
-
-**Key Features:**
-- Analyzes git commit patterns across all repos
-- Detects repeated workflows (framework setup, CI/CD, auth, etc.)
-- Generates formal SKILL.md files
-- Includes code examples from actual usage
-- Saves to `~/.claude/homunculus/evolved/skills/` for review
-
-**Quick Start:**
-```bash
-cd skill-auto-extractor
-./scripts/scan-history.sh
-./scripts/detect-patterns.sh
-./scripts/generate-skill.sh
-```
-
----
-
-## Planning & Design Skills
-
-### 6. Grill Me
-**Location**: `grill-me/`
-
-Interactive interview-style skill that stress-tests plans and designs through relentless questioning.
-
-**Use Cases:**
-- Stress-testing a new feature plan before implementation
-- Design review sessions
-- Exploring edge cases and dependencies
-- Validating architectural decisions
-- When you want critical feedback on a proposal
-
-**Key Features:**
-- One question at a time for focused discussion
-- Explores codebase when questions can be answered through code inspection
-- Walks through decision tree branches systematically
-- Provides recommended answers for each question
-- Resolves dependencies between decisions
-
-**Quick Start:**
-Simply invoke the skill with your plan or design:
-```
 User: "Grill me on adding OAuth to the app"
-Claude: [Invokes grill-me skill and begins systematic questioning]
+Claude: [loads grill-me]
 ```
+
+You can also name one directly with `/skill-name`, or `/staksmith:skill-name` when installed as a plugin.
 
 ---
 
-## Architecture
+## Anatomy of a skill
 
-All skills follow a consistent 3-phase pattern inspired by `continuous-learning-v2`:
+The only required file is `SKILL.md` with YAML frontmatter:
 
+```markdown
+---
+name: review-changes
+description: Review only the changes in the working tree — the staged and unstaged
+  diff against HEAD. Read-only, with attribution so inherited debt doesn't block
+  your own work.
+origin: staksmith
+---
+
+# Review Changes
+
+## When to use
+...
 ```
-skills/{skill-name}/
-├── SKILL.md              # User-facing documentation
-├── config.json           # Tunable parameters
-└── scripts/
-    ├── scan.sh           # Phase 1: Inventory/detection
-    ├── analyze.sh        # Phase 2: AI analysis
-    └── execute.sh        # Phase 3: Implementation
-```
 
-### Configuration Philosophy
+Most skills are prompt-only. A minority ship supporting files:
 
-Each skill has a `config.json` that allows customization without code changes:
-- File paths (vault location, repo roots)
-- Thresholds (confidence, frequency, staleness)
-- Behavior flags (dry_run, auto_commit)
-- Exclusion lists (ignored repos, folders)
+| Optional file | Used by | Purpose |
+|---------------|---------|---------|
+| `scripts/` | 14 skills | Deterministic shell/Node steps the model shells out to (scan → analyze → execute) |
+| `config.json` | 9 skills | Tunable paths, thresholds, and dry-run flags so behavior changes without editing prose |
 
-### Caching Strategy
+Skills with a `scripts/` phase pipeline cache intermediate results under `~/.claude/homunculus/{skill-name}/`, which makes long runs resumable and inspectable.
 
-All skills cache intermediate results in `~/.claude/homunculus/{skill-name}/`:
-- Enables resume capability for long-running operations
-- Incremental re-evaluation
-- Debugging and inspection
-- Performance optimization
-
-### Integration Points
-
-#### Obsidian Vault
-- **Read from**: `1. Projects/*/Backlog.md`, `0. Inbox/`, `_Weekly/`
-- **Write to**: `_Weekly/{YYYY}/{YYYY-WXX.md}`, organized project folders
-
-#### Git Repositories
-- **Scans**: `~/Developer/PROJECTS/`, `~/Developer/SMILESTACKLABS/`
-- **Reads**: Commit logs, file changes, package.json
-- **Writes**: CLAUDE.md, ARCHITECTURE.md, README.md (when approved)
-
-#### Continuous Learning
-- **Evolved skills**: `~/.claude/homunculus/evolved/skills/`
-- **Observations**: `~/.claude/homunculus/observations.jsonl` (optional)
+> **Vault-dependent skills:** the knowledge-base, writing, and business skills below assume an Obsidian vault and local repo roots. Point them at your own paths (in `config.json` where present, or in the skill body) before first use.
 
 ---
 
-## Usage
+## Catalog
 
-### Invoking via Claude Code
+### Build & ship
 
-Skills are discoverable through the Skill tool when using Claude Code. Simply reference them by name:
+| Skill | What it does |
+|-------|--------------|
+| `implement` | Implement work described by a spec, tickets, an issue, or the conversation |
+| `prototype` | Throwaway prototype to answer a design question |
+| `tdd-workflow` | Seams-first TDD with boundary-only mocking and 80%+ coverage |
+| `diagnosing-bugs` | Diagnosis loop for hard bugs and performance regressions |
+| `resolving-merge-conflicts` | Resolve an in-progress merge/rebase by reading the intent behind each side |
+| `draft-commit` | Stage relevant changes and draft a one-line conventional commit |
+| `e2e-testing` | Playwright patterns, Page Object Model, CI integration, flaky-test strategy |
+| `ai-regression-testing` | Regression strategies for AI-assisted development, sandbox-mode API tests |
+| `verification-loop` | Comprehensive verification pass over a session's work |
+| `search-first` | Research existing tools and libraries before writing custom code |
+| `git-guardrails` | Hook that blocks dangerous git commands before they execute |
+| `setup-pre-commit` | Husky + lint-staged pre-commit hooks with type checks and tests |
 
-```
-User: "Run the inbox gradient accelerator"
-Claude: [Invokes inbox-gradient-accelerator skill]
-```
+### Review & security
 
-### Direct Script Execution
+| Skill | What it does |
+|-------|--------------|
+| `code-review` | Review the whole branch architecturally, read-only |
+| `review-changes` | Review only the working-tree diff, with debt attribution |
+| `review-github-pr` | Review a GitHub PR by number across six dimensions |
+| `security-review` | Checklist for auth, user input, secrets, endpoints, payments |
+| `security-scan` | Audit your `.claude/` config for injection risks via AgentShield |
+| `plankton-code-quality` | Write-time formatting, linting, and Claude-powered fixes on every edit |
 
-All scripts can be run directly from the command line:
+### Design, decisions & planning
+
+| Skill | What it does |
+|-------|--------------|
+| `grill-me` | Relentless one-question-at-a-time interview until a plan holds up |
+| `batch-grill-me` | Same interview, but every frontier question at once, round by round |
+| `grill-with-docs` | Grilling that leaves a paper trail — glossary and ADRs as decisions land |
+| `challenge` | Pressure-test a belief by hunting contradictions and hidden assumptions |
+| `blueprint` | Turn a one-line objective into a multi-session construction plan |
+| `wayfinder` | Map work too big for one session as decision tickets, resolved one at a time |
+| `to-spec` | Turn the conversation into a PRD and publish it to the issue tracker |
+| `to-tickets` | Break a plan into tracer-bullet tickets with declared blocking edges |
+| `to-questionnaire` | Turn a decision you can't answer alone into a questionnaire for someone else |
+| `triage` | Move issues and external PRs through a triage state machine |
+| `adr-standard` | The house ADR format — mandatory sections, supersede-don't-edit |
+| `domain-modeling` | Pin down ubiquitous language and record architectural decisions |
+| `codebase-design` | Vocabulary for designing deep modules |
+| `improve-codebase-architecture` | Scan for deepening opportunities, report them, then grill the one you pick |
+| `setup-ts-deep-modules` | Wire dependency-cruiser so each TS package is a deep module |
+| `design-workflow` | Grill the user's recurring loops and turn each into a workflow spec |
+
+### Languages & frameworks
+
+| Skill | What it does |
+|-------|--------------|
+| `coding-standards` | Universal standards for TypeScript, JavaScript, React, Node |
+| `api-design` | REST resource naming, status codes, pagination, versioning, rate limits |
+| `backend-patterns` | Backend architecture, API design, DB optimization for Node/Express/Next |
+| `frontend-patterns` | React/Next state management, performance, UI practices |
+| `nextjs-turbopack` | Next.js 16+ and Turbopack — when to use it over webpack |
+| `bun-runtime` | Bun as runtime, package manager, bundler, test runner |
+| `python-patterns` / `python-testing` | Pythonic idioms and PEP 8; pytest, fixtures, coverage |
+| `golang-patterns` / `golang-testing` | Idiomatic Go; table-driven tests, subtests, benchmarks, fuzzing |
+| `rust-patterns` / `rust-testing` | Ownership, traits, concurrency; unit/integration/property tests |
+| `cpp-coding-standards` / `cpp-testing` | C++ Core Guidelines; GoogleTest/CTest, sanitizers, coverage |
+| `django-patterns` / `django-security` / `django-tdd` / `django-verification` | DRF architecture, ORM, security, pytest-django, pre-release checks |
+| `laravel-patterns` / `laravel-security` / `laravel-tdd` / `laravel-verification` | Eloquent, service layers, queues; PHPUnit/Pest; deployment readiness |
+| `swiftui-patterns` | SwiftUI architecture, `@Observable` state, navigation, performance |
+| `swift-concurrency-6-2` | Swift 6.2 Approachable Concurrency and `@concurrent` offloading |
+| `swift-actor-persistence` | Thread-safe persistence with actors and file-backed caches |
+| `swift-protocol-di-testing` | Protocol-based DI for mocking file system, network, and APIs |
+| `foundation-models-on-device` | Apple FoundationModels — guided generation, tool calling, iOS 26+ |
+| `liquid-glass-design` | iOS 26 Liquid Glass material for SwiftUI, UIKit, WidgetKit |
+| `compose-multiplatform-patterns` | Compose Multiplatform / Jetpack Compose for KMP projects |
+
+### Data & infrastructure
+
+| Skill | What it does |
+|-------|--------------|
+| `postgres-patterns` | Query optimization, schema design, indexing, RLS (Supabase-informed) |
+| `clickhouse-io` | ClickHouse patterns for high-performance analytical workloads |
+| `database-migrations` | Schema/data migrations, rollbacks, zero-downtime deploys |
+| `docker-patterns` | Compose for local dev, container security, networking, volumes |
+| `deployment-patterns` | CI/CD pipelines, health checks, rollback, production readiness |
+| `content-hash-cache-pattern` | SHA-256 content-hash caching — path-independent, auto-invalidating |
+
+### Agent & AI engineering
+
+| Skill | What it does |
+|-------|--------------|
+| `agentic-engineering` | Eval-first execution, decomposition, cost-aware model routing |
+| `ai-first-engineering` | Operating model for teams where agents write most of the code |
+| `agent-harness-construction` | Design action spaces, tool definitions, and observation formatting |
+| `enterprise-agent-ops` | Observability, security boundaries, lifecycle for long-lived agents |
+| `continuous-agent-loop` | Continuous autonomous loops with quality gates and recovery controls |
+| `autonomous-loops` | Compatibility alias for `continuous-agent-loop` |
+| `ralphinho-rfc-pipeline` | RFC-driven multi-agent DAG with quality gates and merge queues |
+| `eval-harness` | Formal eval framework for eval-driven development |
+| `iterative-retrieval` | Progressive context refinement for the subagent context problem |
+| `cost-aware-llm-pipeline` | Model routing by complexity, budget tracking, prompt caching |
+| `regex-vs-llm-structured-text` | When to parse with regex and when to reach for an LLM |
+| `claude-api` | Messages API, streaming, tool use, vision, thinking, batches, caching |
+| `mcp-server-patterns` | Build MCP servers with the Node/TS SDK — tools, resources, prompts |
+| `claude-devfleet` | Dispatch parallel agents in isolated worktrees and read structured results |
+| `dmux-workflows` | Multi-agent orchestration across harnesses via tmux pane management |
+| `nanoclaw-repl` | Operate and extend NanoClaw v2, the session-aware `claude -p` REPL |
+| `team-builder` | Interactive picker for composing and dispatching parallel agent teams |
+| `prompt-optimizer` | Analyze a raw prompt, match staksmith components, emit an optimized one |
+| `continuous-learning` | Extract reusable patterns from sessions into learned skills |
+| `continuous-learning-v2` | Instinct-based learning with confidence scoring and skill evolution |
+
+### Skills & harness setup
+
+| Skill | What it does |
+|-------|--------------|
+| `skill-creator` | Scaffold a new skill with correct structure and frontmatter |
+| `skill-design` | Vocabulary and principles that make a skill predictable |
+| `skill-auto-extractor` | Mine git history and session logs for repeatable workflows |
+| `skill-stocktake` | Audit skills and commands for quality (Quick Scan or Full Stocktake) |
+| `configure-staksmith` | Interactive installer for skills and rules, user- or project-level |
+| `project-guidelines-example` | Template for a project-specific skill |
+| `strategic-compact` | Suggest `/compact` at logical breakpoints instead of arbitrary ones |
+| `wizard` | Generate an interactive bash wizard for a manual A→B procedure |
+| `teach` | Teach a concept across sessions with a stateful learning workspace |
+
+### Research & documentation
+
+| Skill | What it does |
+|-------|--------------|
+| `deep-research` | Multi-source research via firecrawl/exa with cited reports |
+| `source-research` | Investigate against primary sources — docs, source code, specs |
+| `market-research` | Competitive analysis and industry intel with source attribution |
+| `exa-search` | Neural search for web, code, company, and people lookup |
+| `documentation-lookup` | Current library docs via Context7 instead of training data |
+| `converting-web-to-markdown` | Fetch a URL and convert it to markdown (WebFetch or Playwright) |
+| `data-scraper-agent` | Automated scheduled scraper for any public source |
+| `code-to-docs-sync` | Detect drift between code and READMEs/CLAUDE.md/API docs |
+
+### Knowledge base (Obsidian vault)
+
+| Skill | What it does |
+|-------|--------------|
+| `inbox` | Process `0. Inbox/` into PARA directories with per-file confirmation |
+| `inbox-scan` / `inbox-classify` / `inbox-organize` | The scan → classify → move phases, usable standalone |
+| `sync` | Load full vault context — weeklies, active projects, tasks, recent edits |
+| `backlinks` | Find orphans and cluster bridges, then add links and stubs |
+| `connect` | Find connections between two topics through the wikilink graph |
+| `trace` | Build a chronological timeline of how an idea evolved |
+| `graduate` | Promote undeveloped ideas from weekly notes into seedling notes |
+| `ideas` | Scan for emerging patterns — what to build, investigate, or write |
+| `ghost` | Answer a question in the user's own voice, drawn from their writing |
+| `backlog-review` | Verify open backlog items against repo evidence, close the done ones |
+| `weekly-momentum-report` | Aggregate git, vault tasks, and GitHub into a weekly review |
+| `vault-to-code-bridge` | Turn vault project notes into ADRs, specs, and CLAUDE.md files |
+| `money` | Mine the vault for monetization opportunities, then go beyond it |
+
+### Writing & publishing
+
+| Skill | What it does |
+|-------|--------------|
+| `article-writing` | Long-form in a distinctive voice derived from examples or brand guides |
+| `writing-fragments` | Explore — mine raw fragments before any structure exists |
+| `writing-beats` | Exploit — assemble material into a journey of grounded beats |
+| `writing-shape` | Exploit — shape material into an argued article, paragraph by paragraph |
+| `writing-grounding` | The grounding system shared by the writing skills |
+| `blog-ideas` | Generate post ideas from vault expertise, filtered through strategy |
+| `blog-draft` | Draft a full post by mining the vault for evidence |
+| `polish` | Voice/structure/SEO audit, fixes, and a pre-publish checklist |
+| `content` | Content calendar and publishing pipeline — buffer health, pillar balance |
+| `content-engine` | Platform-native systems for X, LinkedIn, TikTok, YouTube, newsletters |
+| `crosspost` | Distribute across X, LinkedIn, Threads, Bluesky — adapted per platform |
+| `x-api` | X/Twitter posting, threads, timelines, search, analytics |
+| `frontend-slides` | Animation-rich HTML presentations, from scratch or from a PPTX |
+
+### Media
+
+| Skill | What it does |
+|-------|--------------|
+| `story-ideas` / `story-script` / `story-pipeline` | Ideas, narration scripts, and calendar for the TikTok story channel |
+| `video-editing` | AI-assisted editing pipeline — FFmpeg, Remotion, and beyond |
+| `videodb` | Ingest and act on video/audio from files, URLs, RTSP, or live capture |
+| `fal-ai-media` | Image, video, and audio generation via fal.ai MCP |
+
+### Product & fundraising
+
+| Skill | What it does |
+|-------|--------------|
+| `product-ideas` | Mine the vault for sellable digital products, with pricing guidance |
+| `product-pipeline` | Product calendar, launches, revenue tracking, what to build next |
+| `package-product` | Package guides, templates, and bundles for Gumroad with sales pages |
+| `investor-materials` | Decks, one-pagers, memos, accelerator applications, financial models |
+| `investor-outreach` | Cold emails, warm intros, follow-ups, and investor updates |
+| `nutrient-document-processing` | Convert, OCR, extract, redact, sign, and fill documents via Nutrient DWS |
+| `visa-doc-translate` | Translate visa documents and produce a bilingual PDF |
+
+### Operations (codified domain expertise)
+
+Each of these encodes 15+ years of practitioner judgment in a specific operational domain — frameworks, escalation protocols, and decision rules rather than software patterns.
+
+| Skill | Domain |
+|-------|--------|
+| `carrier-relationship-management` | Carrier portfolios, freight rate negotiation, scorecarding, RFPs |
+| `customs-trade-compliance` | HS classification, Incoterms, FTAs, restricted-party screening |
+| `energy-procurement` | Electricity/gas tariffs, demand charges, PPAs, hedging, load profiling |
+| `inventory-demand-planning` | Forecasting, safety stock, ABC/XYZ, promotional lift, replenishment |
+| `logistics-exception-management` | Delays, damages, losses, carrier disputes, freight claims |
+| `production-scheduling` | Job sequencing, line balancing, SMED, OEE, drum-buffer-rope |
+| `quality-nonconformance` | NCR lifecycle, CAPA, SPC, audits under FDA/IATF 16949/AS9100 |
+| `returns-reverse-logistics` | RMA, disposition economics, fraud detection, warranty recovery |
+
+---
+
+## Contributing a skill
 
 ```bash
-# Navigate to skill directory
-cd ~/Developer/Staksmith/skills/weekly-momentum-report
+# 1. Create the skill directory
+mkdir -p skills/my-skill
 
-# Run individual phases
-./scripts/scan-repos.sh
-./scripts/scan-vault-tasks.sh
-./scripts/generate-report.sh
+# 2. Write skills/my-skill/SKILL.md with `name` and `description` frontmatter
 
-# Or chain them
-./scripts/scan-repos.sh && \
-./scripts/scan-vault-tasks.sh && \
-./scripts/generate-report.sh
+# 3. Only if the skill needs deterministic steps, add scripts/ and config.json,
+#    then make the scripts executable (a missing exec bit is a silent failure)
+chmod +x skills/my-skill/scripts/*.sh
+
+# 4. Add the skill to the catalog above
 ```
 
-### Automation
-
-Set up weekly/monthly automation using launchd or cron:
+Then validate:
 
 ```bash
-# Example: Weekly momentum report every Friday at 5 PM
-0 17 * * 5 ~/Developer/Staksmith/skills/weekly-momentum-report/scripts/scan-repos.sh
-
-# Example: Inbox accelerator nightly at 11 PM
-0 23 * * * ~/Developer/Staksmith/skills/inbox-gradient-accelerator/scripts/scan-inbox.sh
+node scripts/ci/validate-skills.js   # frontmatter and structure
+node scripts/ci/catalog.js --text    # counts must match README.md and AGENTS.md
+npm test                             # everything
 ```
 
----
+Adding or removing a skill changes the catalog count, so update the totals in the [root README](../README.md) and [`AGENTS.md`](../AGENTS.md) — CI fails otherwise.
 
-## Configuration
+### Quality bar
 
-### Global Settings
+- Description written to trigger — undertriggering is the default failure mode
+- Concrete examples before abstract rules; example 1 is the minimal happy path
+- Dry-run mode for anything destructive
+- JSON output from scripts so skills compose
+- Meaningful error messages; scripts use `set -euo pipefail`
+- Resumable caching for long-running phases
+- Examples and troubleshooting in the skill body, not just rules
 
-Key paths configured across all skills:
-
-```json
-{
-  "vault_path": "/Users/hackastak/Developer/My_Notes",
-  "repos_root": [
-    "/Users/hackastak/Developer/PROJECTS",
-    "/Users/hackastak/Developer/SMILESTACKLABS"
-  ],
-  "author_name": "hackastak",
-  "cache_path": "~/.claude/homunculus/{skill-name}/"
-}
-```
-
-### Per-Skill Customization
-
-Each skill's `config.json` can be edited to adjust behavior:
-
-**inbox-gradient-accelerator/config.json:**
-```json
-{
-  "confidence_threshold": 0.7,  // Lower for more auto-moves
-  "dry_run": true               // Preview before moving
-}
-```
-
-**weekly-momentum-report/config.json:**
-```json
-{
-  "days_back": 7,              // Look back period
-  "output_format": "markdown"  // or "slide_deck"
-}
-```
-
-**code-to-docs-sync/config.json:**
-```json
-{
-  "staleness_threshold_days": 30,  // Flag old docs
-  "auto_commit": false              // Require manual approval
-}
-```
-
-**vault-to-code-bridge/config.json:**
-```json
-{
-  "auto_match_threshold": 0.8,  // Fuzzy match confidence
-  "dry_run": true,               // Preview before writing
-  "manual_mappings": {           // Override fuzzy matching
-    "OMS_Athena": "oms-athena"
-  }
-}
-```
-
-**skill-auto-extractor/config.json:**
-```json
-{
-  "min_frequency": 3,            // Pattern must occur 3+ times
-  "confidence_threshold": 0.8,   // AI confidence for generation
-  "days_back": 30                // History analysis window
-}
-```
-
----
-
-## Dependencies
-
-All skills require:
-- **jq**: JSON parsing (`brew install jq`)
-- **git**: Repository access
-- **bc**: Numerical calculations (usually pre-installed)
-- **Claude AI access**: For intelligent analysis
-
-Some skills have optional dependencies:
-- **ripgrep (rg)**: Fast content searching (recommended)
-- **GitHub CLI (gh)**: For enhanced PR/issue integration
-
----
-
-## Testing
-
-### Verification Checklist
-
-- [x] All 5 skills have complete SKILL.md files
-- [x] All supporting scripts are executable
-- [x] Config files present and valid JSON
-- [x] Cache directories created (`~/.claude/homunculus/`)
-- [x] Templates exist (vault-to-code-bridge)
-- [x] Scripts use proper error handling (set -euo pipefail)
-- [x] JSON outputs are valid
-
-### Manual Testing
-
-Test each skill individually:
-
-```bash
-# 1. Inbox Gradient Accelerator
-cd inbox-gradient-accelerator
-./scripts/scan-inbox.sh | jq '.'
-
-# 2. Weekly Momentum Report
-cd weekly-momentum-report
-./scripts/scan-repos.sh | jq '.'
-
-# 3. Code-to-Docs Sync
-cd code-to-docs-sync
-./scripts/detect-drift.sh | jq '.'
-
-# 4. Vault-to-Code Bridge
-cd vault-to-code-bridge
-./scripts/scan-vault-projects.sh | jq '.'
-
-# 5. Skill Auto-Extractor
-cd skill-auto-extractor
-./scripts/scan-history.sh | jq '.'
-```
-
----
-
-## Troubleshooting
-
-### Common Issues
-
-**Issue**: Skill scripts not found or not executable
-
-**Solution**:
-```bash
-chmod +x ~/Developer/Staksmith/skills/*/scripts/*.sh
-```
-
-**Issue**: JSON parsing errors
-
-**Solution**: Ensure `jq` is installed: `brew install jq`
-
-**Issue**: Vault path not found
-
-**Solution**: Verify paths in config.json use absolute paths (or correct `~` expansion)
-
-**Issue**: No patterns/repos detected
-
-**Solution**:
-- Check date range (increase `days_back`)
-- Verify git author name matches (`git config user.name`)
-- Lower thresholds (confidence, frequency)
-
----
-
-## Future Enhancements
-
-### Planned Features
-
-1. **AI-powered classification improvements** (inbox-gradient-accelerator)
-   - Learn from user corrections
-   - Contextual understanding from wikilinks
-
-2. **GitHub integration** (weekly-momentum-report)
-   - Pull request status
-   - Issue tracking
-   - Code review metrics
-
-3. **Incremental sync** (vault-to-code-bridge)
-   - Only update changed sections
-   - Preserve manual edits with markers
-
-4. **Pattern composition** (skill-auto-extractor)
-   - Combine atomic patterns into workflows
-   - Skill deprecation detection
-
-5. **Cross-skill intelligence**
-   - Share learned patterns between skills
-   - Unified continuous learning feedback loop
-
-### Integration Opportunities
-
-- **MCP Servers**: GitHub, Memory, File System
-- **Git Hooks**: Post-commit, pre-push automation
-- **CI/CD**: Documentation drift checks in pipelines
-- **Obsidian Plugins**: Direct vault integration
-
----
-
-## Contributing
-
-### Adding New Skills
-
-Follow the established pattern:
-
-```bash
-# 1. Create skill directory
-mkdir -p ~/Developer/Staksmith/skills/my-new-skill/scripts
-
-# 2. Add SKILL.md with frontmatter
-# 3. Create config.json
-# 4. Implement 3-phase scripts (scan → analyze → execute)
-# 5. Make scripts executable
-# 6. Add to this README
-```
-
-### Skill Quality Standards
-
-- ✅ Clear activation triggers in SKILL.md
-- ✅ Tunable parameters in config.json
-- ✅ Dry-run mode for destructive operations
-- ✅ JSON outputs for composability
-- ✅ Error handling with meaningful messages
-- ✅ Cache/resume capability for long operations
-- ✅ Examples and troubleshooting in docs
+See [`DESIGN_NOTES.md`](DESIGN_NOTES.md) for the full rationale.
 
 ---
 
 ## License
 
-These skills are part of the Staksmith project and follow the same license.
-
-## Acknowledgments
-
-Built on patterns from:
-- `continuous-learning-v2` - Learning framework
-- `skill-stocktake` - Caching patterns
-- `security-review` - Simple skill structure
-- Obsidian PARA methodology
-- Claude Code skill system
-
----
-
-**Last Updated**: 2026-04-08
-**Version**: 1.0.0
-**Author**: hackastak
+Part of the Staksmith project — MIT, same as the repo.

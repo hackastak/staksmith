@@ -24,13 +24,14 @@ staksmith is organized into independent components — install the whole thing o
 
 | Component | What it is |
 |-----------|------------|
-| **Agents** | Specialized subagents for delegated work (planner, architect, code-reviewer, security-reviewer, tdd-guide, and language-specific reviewers/build resolvers). |
-| **Skills** | Reusable workflow definitions and domain knowledge — TDD, security review, framework patterns (Django, Laravel, Next.js, Go, Swift, Rust, C++), continuous learning, research, and content/product workflows. |
-| **Commands** | Slash commands for quick execution (`/plan`, `/tdd`, `/code-review`, `/e2e`, `/build-fix`, `/refactor-clean`, and many more). |
+| **Agents** (21) | Specialized subagents for delegated work — planner, architect, code-reviewer, security-reviewer, tdd-guide, chief-of-staff, loop-operator, harness-optimizer, plus language-specific reviewers and build resolvers. |
+| **Skills** (155) | Reusable workflow definitions and domain knowledge — TDD, code review, security, framework patterns (Django, Laravel, Next.js, Go, Swift, Rust, C++), spec-to-build (`to-spec` → `to-tickets` → `implement`), ADRs and domain modeling, research, writing/publishing, and knowledge-base workflows. |
+| **Commands** (53) | Slash commands for quick execution (`/plan`, `/tdd`, `/code-review`, `/e2e`, `/build-fix`, `/refactor-clean`, `/harness-audit`, `/quality-gate`, and many more). |
 | **Rules** | Always-follow guidelines split into `common/` plus per-language directories. Install only the stacks you use. |
-| **Hooks** | Trigger-based automations for session persistence, formatting, type checks, and secret detection. |
+| **Hooks** | Trigger-based automations for session persistence, formatting, type checks, cost tracking, quality gates, and secret detection. |
 | **Contexts** | Dynamic system-prompt contexts for dev, review, and research modes. |
 | **MCP configs** | Ready-to-use MCP server configurations for common integrations. |
+| **CLI** | `staksmith` — selective install, `plan`, `doctor`, `repair`, `status`, `sessions`, `uninstall`. Driven by profile/module manifests in `manifests/`. |
 | **Examples** | Real-world `CLAUDE.md` templates for several stacks. |
 
 ---
@@ -74,6 +75,17 @@ npm install        # or: pnpm install | yarn install | bun install
 # .\install.ps1 --target cursor typescript
 ```
 
+`install.sh` / `install.ps1` are thin wrappers around the `staksmith` CLI — you can call it directly and install by profile instead of by language:
+
+```bash
+npx staksmith typescript                          # same as ./install.sh typescript
+npx staksmith install --profile developer --target claude
+npx staksmith plan --profile core --target cursor # preview without writing
+npx staksmith doctor                              # check for missing/drifted files
+```
+
+Profiles (`core`, `developer`, `security`, `research`, …) are defined in `manifests/install-profiles.json`.
+
 For manual install instructions see the README in the `rules/` folder.
 
 ### Step 3: Start using
@@ -89,7 +101,7 @@ For manual install instructions see the README in the `rules/` folder.
 /plugin list staksmith@staksmith
 ```
 
-✨ **That's it!** You now have access to 21 agents, 144 skills, and 53 commands.
+✨ **That's it!** You now have access to 21 agents, 155 skills, and 53 commands.
 
 ---
 
@@ -150,7 +162,7 @@ staksmith/
 |   |-- plugin.json         # Plugin metadata and component paths
 |   |-- marketplace.json    # Marketplace catalog for /plugin marketplace add
 |
-|-- agents/           # Specialized subagents for delegation
+|-- agents/           # 21 specialized subagents for delegation
 |   |-- planner.md            # Feature implementation planning
 |   |-- architect.md          # System design decisions
 |   |-- tdd-guide.md          # Test-driven development
@@ -160,27 +172,34 @@ staksmith/
 |   |-- e2e-runner.md         # Playwright E2E testing
 |   |-- refactor-cleaner.md   # Dead code cleanup
 |   |-- doc-updater.md        # Documentation sync
+|   |-- docs-lookup.md        # Library/API documentation lookup
+|   |-- chief-of-staff.md     # Multi-channel communication triage
+|   |-- loop-operator.md      # Autonomous loop execution and monitoring
+|   |-- harness-optimizer.md  # Harness config reliability/cost tuning
 |   |-- python-reviewer.md    # Python code review
 |   |-- go-reviewer.md        # Go code review
 |   |-- rust-reviewer.md      # Rust code review
 |   |-- cpp-reviewer.md       # C++ code review
 |   |-- database-reviewer.md  # Database/Supabase review
-|   |-- ...                   # plus build resolvers and orchestration agents
+|   |-- ...                   # plus go/rust/cpp build resolvers
 |
-|-- skills/           # Workflow definitions and domain knowledge
+|-- skills/           # 155 workflow definitions and domain knowledge
 |   |-- coding-standards/      # Language best practices
 |   |-- backend-patterns/      # API, database, caching patterns
 |   |-- frontend-patterns/     # React, Next.js patterns
 |   |-- tdd-workflow/          # TDD methodology
+|   |-- code-review/           # Tiered review with the Fowler smell baseline
 |   |-- security-review/       # Security checklist
 |   |-- verification-loop/     # Continuous verification
-|   |-- continuous-learning/   # Auto-extract patterns from sessions
+|   |-- continuous-learning-v2/ # Auto-extract patterns from sessions
+|   |-- to-spec/ to-tickets/ implement/  # Spec-to-build flow
+|   |-- adr-standard/ domain-modeling/   # Decision records and glossaries
 |   |-- django-* / laravel-*   # Framework patterns, security, TDD, verification
 |   |-- python-* / golang-* / rust-* / cpp-* / swift-*  # Per-language patterns & testing
 |   |-- deep-research/         # Multi-source, fact-checked research
-|   |-- ...                    # 100+ skills across engineering, content, and product
+|   |-- ...                    # engineering, research, writing, and product skills
 |
-|-- commands/         # Slash commands for quick execution
+|-- commands/         # 53 slash commands for quick execution
 |   |-- plan.md               # /plan  - Implementation planning
 |   |-- tdd.md                # /tdd   - Test-driven development
 |   |-- code-review.md        # /code-review - Quality review
@@ -188,6 +207,9 @@ staksmith/
 |   |-- build-fix.md          # /build-fix - Fix build errors
 |   |-- refactor-clean.md     # /refactor-clean - Dead code removal
 |   |-- verify.md             # /verify - Run verification loop
+|   |-- quality-gate.md       # /quality-gate - Pre-commit quality bar
+|   |-- harness-audit.md      # /harness-audit - Audit harness config
+|   |-- loop-start.md         # /loop-start - Autonomous loop runs
 |   |-- setup-pm.md           # /setup-pm - Configure package manager
 |   |-- ...                   # plus language reviews, multi-agent, and session commands
 |
@@ -212,15 +234,19 @@ staksmith/
 |-- hooks/            # Trigger-based automations
 |   |-- README.md             # Hook documentation, recipes, and customization guide
 |   |-- hooks.json            # All hooks config (PreToolUse, PostToolUse, Stop, etc.)
-|   |-- memory-persistence/   # Session lifecycle hooks
-|   |-- strategic-compact/    # Compaction suggestions
 |
 |-- scripts/          # Cross-platform Node.js scripts
+|   |-- staksmith.js          # `staksmith` CLI entrypoint
 |   |-- lib/                  # Shared utilities (file/path/system, package-manager detection)
 |   |-- hooks/                # Hook implementations
+|   |-- ci/                   # Catalog + agent/command/skill/rule/hook validators
+|   |-- install-plan.js / install-apply.js / doctor.js / repair.js / uninstall.js
 |   |-- setup-package-manager.js
 |
-|-- tests/            # Test suite for scripts and utilities
+|-- manifests/        # Selective-install profiles, modules, and components
+|-- schemas/          # JSON Schemas for hooks, plugin, install manifests, state
+|
+|-- tests/            # Test suite for scripts, hooks, and platform configs
 |
 |-- contexts/         # Dynamic system prompt injection contexts
 |   |-- dev.md                # Development mode context
@@ -228,6 +254,8 @@ staksmith/
 |   |-- research.md           # Research/exploration mode context
 |
 |-- examples/         # Example CLAUDE.md configs for real-world stacks
+|-- docs/             # Architecture notes, command↔agent map, release notes
+|-- plugins/          # Guide to Claude Code plugins and marketplaces
 |
 |-- mcp-configs/      # MCP server configurations
 |   |-- mcp-servers.json      # GitHub, Supabase, Vercel, Railway, etc.
@@ -261,6 +289,30 @@ The instinct-based learning system captures your patterns over time:
 
 See `skills/continuous-learning-v2/` for full documentation.
 
+### Harness and Loop Operations
+
+Tune the harness itself and run long-lived autonomous work:
+
+```bash
+/harness-audit          # Audit hooks, MCPs, and settings for reliability and cost
+/quality-gate           # Run the pre-commit quality bar
+/model-route            # Pick the right model per task type
+/loop-start             # Start an autonomous loop run
+/loop-status            # Check loop progress and stalls
+/skill-health           # Report on skill frontmatter and coverage
+```
+
+### Install Maintenance
+
+The `staksmith` CLI tracks what it installed, so it can verify and roll back:
+
+```bash
+npx staksmith list-installed --json   # What's installed in this context
+npx staksmith doctor --target cursor  # Find missing or drifted managed files
+npx staksmith repair --dry-run        # Preview restoring drifted files
+npx staksmith uninstall --dry-run     # Preview removing managed files
+```
+
 ### Write-Time Quality (Plankton)
 
 Plankton (credit: [@alxfazio](https://github.com/alxfazio)) is a recommended companion for write-time code quality enforcement. It runs formatters and linters on every file edit via PostToolUse hooks, then delegates remaining fixes to Claude subprocesses. Supports Python, TypeScript, Shell, YAML, JSON, TOML, Markdown, and Dockerfile. See `skills/plankton-code-quality/` for the integration guide.
@@ -268,6 +320,14 @@ Plankton (credit: [@alxfazio](https://github.com/alxfazio)) is a recommended com
 ---
 
 ## 📋 Requirements
+
+### Node.js 18+
+
+Hooks, the installer, and the `staksmith` CLI are Node.js scripts:
+
+```bash
+node --version   # must be >= 18
+```
 
 ### Claude Code CLI
 
@@ -462,12 +522,18 @@ Not sure where to start? Use this quick reference:
 | Review code I just wrote | `/code-review` | code-reviewer |
 | Fix a failing build | `/build-fix` | build-error-resolver |
 | Run end-to-end tests | `/e2e` | e2e-runner |
-| Find security vulnerabilities | `/security-scan` | security-reviewer |
+| Find vulnerabilities in my code | *(auto-delegated)* | security-reviewer |
+| Audit my Claude Code config for risks | `/security-scan` *(skill)* | — (runs AgentShield) |
 | Remove dead code | `/refactor-clean` | refactor-cleaner |
 | Update documentation | `/update-docs` | doc-updater |
 | Review Go code | `/go-review` | go-reviewer |
 | Review Python code | `/python-review` | python-reviewer |
 | Audit database queries | *(auto-delegated)* | database-reviewer |
+| Tune hooks, MCPs, and settings | `/harness-audit` | harness-optimizer |
+| Run and monitor an autonomous loop | `/loop-start`, `/loop-status` | loop-operator |
+| Triage email/Slack and draft replies | *(auto-delegated)* | chief-of-staff |
+
+See [`docs/COMMAND-AGENT-MAP.md`](docs/COMMAND-AGENT-MAP.md) for the full command ↔ agent mapping.
 
 ### Common Workflows
 
@@ -488,9 +554,10 @@ Not sure where to start? Use this quick reference:
 
 **Preparing for production:**
 ```
-/security-scan                                → security-reviewer: OWASP Top 10 audit
+/code-review                                  → security-reviewer: OWASP Top 10 audit
 /e2e                                          → e2e-runner: critical user flow tests
 /test-coverage                                → verify coverage thresholds
+/quality-gate                                 → final pre-commit quality bar
 ```
 
 ---
@@ -594,17 +661,29 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). The short version:
 
 ## 🧪 Running Tests
 
-staksmith includes a test suite for its scripts and utilities:
+staksmith includes a test suite for its scripts, hooks, and platform configs:
 
 ```bash
-# Run all tests
+# Full CI check: validators (agents/commands/rules/skills/hooks/manifests),
+# catalog count check, then the test suite
+npm test
+
+# Test suite only
 node tests/run-all.js
 
 # Run individual test files
-node tests/lib/utils.test.js
-node tests/lib/package-manager.test.js
 node tests/hooks/hooks.test.js
+node tests/scripts/install-plan.test.js
+node tests/ci/validators.test.js
+
+# Lint (ESLint + markdownlint)
+npm run lint
+
+# Coverage (80% lines/functions/branches/statements)
+npm run coverage
 ```
+
+> The catalog validator (`scripts/ci/catalog.js`) checks that the agent/skill/command counts in this README and `AGENTS.md` match the repository. Update those numbers when you add or remove components.
 
 ---
 
@@ -752,7 +831,6 @@ OpenCode's plugin system maps cleanly onto Claude Code's hooks, with additional 
 - **Migration Guide**: `.opencode/MIGRATION.md`
 - **OpenCode Plugin README**: `.opencode/README.md`
 - **Consolidated Rules**: `.opencode/instructions/INSTRUCTIONS.md`
-- **LLM Documentation**: `llms.txt`
 
 ---
 
@@ -854,7 +932,19 @@ These configs reflect one opinionated workflow. You should:
 
 - **Repository:** [github.com/hackastak/staksmith](https://github.com/hackastak/staksmith)
 - **Contributing:** [CONTRIBUTING.md](CONTRIBUTING.md)
+- **Changelog:** [CHANGELOG.md](CHANGELOG.md)
+- **Troubleshooting:** [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
 - **Rules guide:** [rules/README.md](rules/README.md)
+- **Hooks guide:** [hooks/README.md](hooks/README.md)
+- **Plugins & marketplaces:** [plugins/README.md](plugins/README.md)
+- **Command ↔ agent map:** [docs/COMMAND-AGENT-MAP.md](docs/COMMAND-AGENT-MAP.md)
+- **Token optimization:** [docs/token-optimization.md](docs/token-optimization.md)
+
+### Long-form guides
+
+- [The OpenClaw Guide](the-openclaw-guide.md) — autonomous/agentic operation
+- [The Security Guide](the-security-guide.md) — securing your agent setup
+- [The Longform Guide](the-longform-guide.md) / [The Shortform Guide](the-shortform-guide.md) — writing workflows
 
 ---
 
