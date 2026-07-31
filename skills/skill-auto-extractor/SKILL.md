@@ -34,6 +34,8 @@ Skill Auto-Extractor analyzes your development patterns across all repositories 
 2. **Detect Patterns Phase**: AI-powered analysis to identify reusable workflows
 3. **Generate Skill Phase**: Create formal SKILL.md files with step-by-step guides
 
+Generated skills follow the vocabulary and structure in the **`skill-design`** skill — especially the `description` trigger rule and the information-hierarchy ladder. An auto-extracted skill is the most likely of all to arrive as **sprawl** or a **no-op**, so check it against those failure modes before keeping it.
+
 ## Configuration
 
 Edit `config.json` to customize behavior:

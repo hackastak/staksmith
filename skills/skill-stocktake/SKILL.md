@@ -7,6 +7,8 @@ origin: staksmith
 
 Slash command (`/skill-stocktake`) that audits all Claude skills and commands using a quality checklist + AI holistic judgment. Supports two modes: Quick Scan for recently changed skills, and Full Stocktake for a complete review.
 
+Diagnose against the named failure modes in the **`skill-design`** skill — **premature completion**, **sediment**, **sprawl**, **no-op**, and **negation** — rather than inventing ad-hoc criticisms. A verdict that names the failure mode tells the author what to fix; "this could be better" doesn't. `skill-design` is the vocabulary layer for this whole family.
+
 ## Scope
 
 The command targets the following paths **relative to the directory where it is invoked**:
@@ -91,6 +93,8 @@ Return JSON for each skill:
 "
 )
 ```
+
+Paste the relevant `skill-design` failure-mode definitions into the subagent's prompt — it has no other access to them — and require each non-`Keep` verdict to name the failure mode it found.
 
 The subagent reads each skill, applies the checklist, and returns per-skill JSON:
 

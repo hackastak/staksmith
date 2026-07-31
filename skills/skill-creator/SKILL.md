@@ -17,6 +17,8 @@ A skill is not documentation. It is a runbook that a model will follow literally
 
 Everything else in skill design is in service of those two things.
 
+For the vocabulary behind them — the two-loads model, the information-hierarchy ladder, leading words, and the named failure modes (premature completion, sediment, sprawl, no-op, negation) — see the **`skill-design`** skill. It's the reference layer this skill draws on, the way engineering skills draw on `codebase-design`.
+
 ## Instructions
 
 When creating a new skill, follow these steps:
