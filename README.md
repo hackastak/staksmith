@@ -25,7 +25,7 @@ staksmith is organized into independent components — install the whole thing o
 | Component | What it is |
 |-----------|------------|
 | **Agents** (21) | Specialized subagents for delegated work — planner, architect, code-reviewer, security-reviewer, tdd-guide, chief-of-staff, loop-operator, harness-optimizer, plus language-specific reviewers and build resolvers. |
-| **Skills** (155) | Reusable workflow definitions and domain knowledge — TDD, code review, security, framework patterns (Django, Laravel, Next.js, Go, Swift, Rust, C++), spec-to-build (`to-spec` → `to-tickets` → `implement`), ADRs and domain modeling, research, writing/publishing, and knowledge-base workflows. |
+| **Skills** (156) | Reusable workflow definitions and domain knowledge — TDD, code review, security, framework patterns (Django, Laravel, Next.js, Go, Swift, Rust, C++), spec-to-build (`to-spec` → `to-tickets` → `implement`), ADRs and domain modeling, research, writing/publishing, and knowledge-base workflows. |
 | **Commands** (53) | Slash commands for quick execution (`/plan`, `/tdd`, `/code-review`, `/e2e`, `/build-fix`, `/refactor-clean`, `/harness-audit`, `/quality-gate`, and many more). |
 | **Rules** | Always-follow guidelines split into `common/` plus per-language directories. Install only the stacks you use. |
 | **Hooks** | Trigger-based automations for session persistence, formatting, type checks, cost tracking, quality gates, and secret detection. |
@@ -101,7 +101,7 @@ For manual install instructions see the README in the `rules/` folder.
 /plugin list staksmith@staksmith
 ```
 
-✨ **That's it!** You now have access to 21 agents, 155 skills, and 53 commands.
+✨ **That's it!** You now have access to 21 agents, 156 skills, and 53 commands.
 
 ---
 
@@ -183,7 +183,7 @@ staksmith/
 |   |-- database-reviewer.md  # Database/Supabase review
 |   |-- ...                   # plus go/rust/cpp build resolvers
 |
-|-- skills/           # 155 workflow definitions and domain knowledge
+|-- skills/           # 156 workflow definitions and domain knowledge
 |   |-- coding-standards/      # Language best practices
 |   |-- backend-patterns/      # API, database, caching patterns
 |   |-- frontend-patterns/     # React, Next.js patterns
