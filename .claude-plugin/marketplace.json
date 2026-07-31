@@ -12,6 +12,7 @@
   "plugins": [
     {
       "name": "staksmith",
+      "version": "1.8.0",
       "source": "./",
       "description": "A collection of skills and configs for Claude Code — agents, skills, commands, and production-ready hooks for TDD, security scanning, code review, and continuous learning",
       "author": {
