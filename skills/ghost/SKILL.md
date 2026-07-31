@@ -19,9 +19,10 @@ Answer a question the way the user would, based on their writing style and state
 
 ```
 VAULT_PATH=~/Developer/My_Notes
+BLOG_PATH=2. Areas/Hackastak_Brand/Medium_Blog
 ```
 
-Paths below are relative to the vault root. Input: the question to answer (required).
+Paths below are relative to the vault root. `$BLOG_PATH` is the shared blog location used by every writing skill — always reference it as `$VAULT_PATH/$BLOG_PATH`, never as a literal path. Input: the question to answer (required).
 
 ## Instructions
 
@@ -158,7 +159,7 @@ After presenting the answer, ask:
 - Don't extrapolate into areas without evidence
 - Focus on stated beliefs, not inferred ones
 
-**For Medium blog drafts** (check `2. Areas/Hackastak_Brand/Medium_Blog/`):
+**For Medium blog drafts** (check `$VAULT_PATH/$BLOG_PATH/`):
 - Match the style of existing published or drafted articles
 - Use similar structure and formatting
 - Maintain consistent voice with other blog content

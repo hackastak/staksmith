@@ -8,6 +8,15 @@ origin: staksmith
 
 Distribute content across multiple social platforms with platform-native adaptation.
 
+## Vault Configuration
+
+```
+VAULT_PATH=~/Developer/My_Notes
+BLOG_PATH=2. Areas/Hackastak_Brand/Medium_Blog
+```
+
+The shared blog location used by every writing skill. When the source being crossposted is a published article, it lives at `$VAULT_PATH/$BLOG_PATH` — read it from there rather than asking the user to paste it. Always reference it as `$VAULT_PATH/$BLOG_PATH`, never as a literal path.
+
 ## When to Activate
 
 - User wants to post content to multiple platforms

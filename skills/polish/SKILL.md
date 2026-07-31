@@ -22,7 +22,9 @@ VAULT_PATH=~/Developer/My_Notes
 BLOG_PATH=2. Areas/Hackastak_Brand/Medium_Blog
 ```
 
-Paths below are relative to the vault root. Input: the article filename or title to polish. If empty, show articles in "ready" or "scheduled" status and ask which to polish.
+This is the shared blog location used by every writing skill — `blog-ideas`, `blog-draft`, `article-writing`, the `writing-fragments`/`writing-beats`/`writing-shape` craft track, and this one. Always reference it as `$VAULT_PATH/$BLOG_PATH`, never as a literal path.
+
+Input: the article filename or title to polish. If empty, show articles in "ready" or "scheduled" status and ask which to polish.
 
 ## Instructions
 
@@ -31,12 +33,12 @@ Paths below are relative to the vault root. Input: the article filename or title
 Read the blog strategy and identify the article:
 
 ```bash
-cat "2. Areas/Hackastak_Brand/Medium_Blog/Blog_Strategy.md"
+cat "$VAULT_PATH/$BLOG_PATH/Blog_Strategy.md"
 ```
 
 If no article was specified, list articles ready for polish:
 ```bash
-ls "2. Areas/Hackastak_Brand/Medium_Blog/"*.md
+ls "$VAULT_PATH/$BLOG_PATH/"*.md
 ```
 
 Look for articles with `status: ready` or `status: scheduled` in frontmatter.
@@ -238,11 +240,11 @@ After adding the checklist:
 2. Drop the `DRAFT` suffix from the filename (the article is now publication-ready):
    - If the filename ends in `_DRAFT.md`, before renaming, find any wikilinks that point at the draft name so they don't break:
      ```bash
-     grep -rl "<BaseName>_DRAFT" --include="*.md" "VAULT_PATH"
+     grep -rl "<BaseName>_DRAFT" --include="*.md" "$VAULT_PATH"
      ```
    - Rename the file, stripping the suffix:
      ```bash
-     mv "BLOG_PATH/<BaseName>_DRAFT.md" "BLOG_PATH/<BaseName>.md"
+     mv "$VAULT_PATH/$BLOG_PATH/<BaseName>_DRAFT.md" "$VAULT_PATH/$BLOG_PATH/<BaseName>.md"
      ```
    - Update any `[[<BaseName>_DRAFT]]` wikilinks found above to `[[<BaseName>]]`.
    - If the filename has no `_DRAFT` suffix, skip this step.

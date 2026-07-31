@@ -19,9 +19,10 @@ Scan the vault for emerging patterns and generate fresh ideas grounded in actual
 
 ```
 VAULT_PATH=~/Developer/My_Notes
+BLOG_PATH=2. Areas/Hackastak_Brand/Medium_Blog
 ```
 
-Paths below are relative to the vault root.
+Paths below are relative to the vault root. `$BLOG_PATH` is the shared blog location used by every writing skill — always reference it as `$VAULT_PATH/$BLOG_PATH`, never as a literal path.
 
 ## Instructions
 
@@ -125,7 +126,7 @@ Find potential content to create:
 
 Check existing blog drafts and backlog:
 ```bash
-find "2. Areas/Hackastak_Brand/Medium_Blog" -name "*.md" -type f 2>/dev/null
+find "$VAULT_PATH/$BLOG_PATH" -name "*.md" -type f 2>/dev/null
 ```
 
 ### Step 7: Generate the Ideas Report

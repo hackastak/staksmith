@@ -22,7 +22,9 @@ VAULT_PATH=~/Developer/My_Notes
 BLOG_PATH=2. Areas/Hackastak_Brand/Medium_Blog
 ```
 
-Paths below are relative to the vault root. Input: "status", "schedule [article] [date]", "publish [article]", "next", or an article name to update.
+This is the shared blog location used by every writing skill. Always reference it as `$VAULT_PATH/$BLOG_PATH`, never as a literal path.
+
+Input: "status", "schedule [article] [date]", "publish [article]", "next", or an article name to update.
 
 ## Instructions
 
@@ -31,7 +33,7 @@ Paths below are relative to the vault root. Input: "status", "schedule [article]
 Scan all blog content to understand current state:
 
 ```bash
-ls -la "2. Areas/Hackastak_Brand/Medium_Blog/"*.md 2>/dev/null
+ls -la "$VAULT_PATH/$BLOG_PATH/"*.md 2>/dev/null
 ```
 
 Read frontmatter from each file to extract status, pillar, scheduled dates, etc.
