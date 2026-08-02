@@ -6,7 +6,7 @@ origin: staksmith
 
 # Continuous Agent Loop
 
-This is the v1.8+ canonical loop skill name. It supersedes `autonomous-loops` while keeping compatibility for one release.
+This is the canonical loop skill.
 
 ## Loop Selection Flow
 
@@ -25,10 +25,10 @@ Start
 ## Combined Pattern
 
 Recommended production stack:
-1. RFC decomposition (`ralphinho-rfc-pipeline`)
+1. RFC decomposition
 2. quality gates (`/quality-gate`)
 3. eval loop (`eval-harness`)
-4. session persistence (`nanoclaw-repl`)
+4. session persistence (Stop / SessionStart hooks)
 
 ## Failure Modes
 

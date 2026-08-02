@@ -15,7 +15,7 @@ The destination varies per effort, and naming it is the first act of charting �
 
 Wayfinder is **planning** by default: each ticket resolves a decision, and the map is done when the way is clear — nothing left to decide before someone goes and does the thing. The pull to just do the work is usually the signal you've reached the edge of the map and it's time to hand off. An effort can override this in its **Notes** — carrying execution into the map itself — but absent that, produce decisions, not deliverables.
 
-Downstream, a finished map hands off to `to-spec` → `to-tickets` → `implement` (or `claude-devfleet` for a parallel build). Wayfinder plans the fog away; those skills execute.
+Downstream, a finished map hands off to `to-spec` → `to-tickets` → `implement`. Wayfinder plans the fog away; those skills execute.
 
 ## Refer by name
 
@@ -147,4 +147,3 @@ The user may run unblocked tickets in parallel, so expect other sessions to be e
 - **`source-research`** — resolves research tickets as a background subagent.
 - **`prototype`** — resolves prototype tickets.
 - **`to-spec` → `to-tickets` → `implement`** — the handoff once the way is clear.
-- **`claude-devfleet` / `autonomous-loops`** — parallel execution of the tickets a finished map produced. They dispatch; wayfinder plans.

@@ -122,7 +122,6 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | `golang-patterns` / `golang-testing` | Idiomatic Go; table-driven tests, subtests, benchmarks, fuzzing |
 | `rust-patterns` / `rust-testing` | Ownership, traits, concurrency; unit/integration/property tests |
 | `cpp-coding-standards` / `cpp-testing` | C++ Core Guidelines; GoogleTest/CTest, sanitizers, coverage |
-| `django-patterns` / `django-security` / `django-tdd` / `django-verification` | DRF architecture, ORM, security, pytest-django, pre-release checks |
 | `laravel-patterns` / `laravel-security` / `laravel-tdd` / `laravel-verification` | Eloquent, service layers, queues; PHPUnit/Pest; deployment readiness |
 | `swiftui-patterns` | SwiftUI architecture, `@Observable` state, navigation, performance |
 | `swift-concurrency-6-2` | Swift 6.2 Approachable Concurrency and `@concurrent` offloading |
@@ -130,7 +129,6 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | `swift-protocol-di-testing` | Protocol-based DI for mocking file system, network, and APIs |
 | `foundation-models-on-device` | Apple FoundationModels — guided generation, tool calling, iOS 26+ |
 | `liquid-glass-design` | iOS 26 Liquid Glass material for SwiftUI, UIKit, WidgetKit |
-| `compose-multiplatform-patterns` | Compose Multiplatform / Jetpack Compose for KMP projects |
 
 ### Data & infrastructure
 
@@ -148,21 +146,15 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | Skill | What it does |
 |-------|--------------|
 | `agentic-engineering` | Eval-first execution, decomposition, cost-aware model routing |
-| `ai-first-engineering` | Operating model for teams where agents write most of the code |
 | `agent-harness-construction` | Design action spaces, tool definitions, and observation formatting |
 | `enterprise-agent-ops` | Observability, security boundaries, lifecycle for long-lived agents |
 | `continuous-agent-loop` | Continuous autonomous loops with quality gates and recovery controls |
-| `autonomous-loops` | Compatibility alias for `continuous-agent-loop` |
-| `ralphinho-rfc-pipeline` | RFC-driven multi-agent DAG with quality gates and merge queues |
 | `eval-harness` | Formal eval framework for eval-driven development |
 | `iterative-retrieval` | Progressive context refinement for the subagent context problem |
 | `cost-aware-llm-pipeline` | Model routing by complexity, budget tracking, prompt caching |
 | `regex-vs-llm-structured-text` | When to parse with regex and when to reach for an LLM |
 | `claude-api` | Messages API, streaming, tool use, vision, thinking, batches, caching |
 | `mcp-server-patterns` | Build MCP servers with the Node/TS SDK — tools, resources, prompts |
-| `claude-devfleet` | Dispatch parallel agents in isolated worktrees and read structured results |
-| `dmux-workflows` | Multi-agent orchestration across harnesses via tmux pane management |
-| `nanoclaw-repl` | Operate and extend NanoClaw v2, the session-aware `claude -p` REPL |
 | `team-builder` | Interactive picker for composing and dispatching parallel agent teams |
 | `prompt-optimizer` | Analyze a raw prompt, match staksmith components, emit an optimized one |
 | `continuous-learning` | Extract reusable patterns from sessions into learned skills |
@@ -230,16 +222,12 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | `content-engine` | Platform-native systems for X, LinkedIn, TikTok, YouTube, newsletters |
 | `crosspost` | Distribute across X, LinkedIn, Threads, Bluesky — adapted per platform |
 | `x-api` | X/Twitter posting, threads, timelines, search, analytics |
-| `frontend-slides` | Animation-rich HTML presentations, from scratch or from a PPTX |
 
 ### Media
 
 | Skill | What it does |
 |-------|--------------|
 | `story-ideas` / `story-script` / `story-pipeline` | Ideas, narration scripts, and calendar for the TikTok story channel |
-| `video-editing` | AI-assisted editing pipeline — FFmpeg, Remotion, and beyond |
-| `videodb` | Ingest and act on video/audio from files, URLs, RTSP, or live capture |
-| `fal-ai-media` | Image, video, and audio generation via fal.ai MCP |
 
 ### Product & fundraising
 
@@ -250,7 +238,6 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | `package-product` | Package guides, templates, and bundles for Gumroad with sales pages |
 | `investor-materials` | Decks, one-pagers, memos, accelerator applications, financial models |
 | `investor-outreach` | Cold emails, warm intros, follow-ups, and investor updates |
-| `nutrient-document-processing` | Convert, OCR, extract, redact, sign, and fill documents via Nutrient DWS |
 | `visa-doc-translate` | Translate visa documents and produce a bilingual PDF |
 
 ### Operations (codified domain expertise)
@@ -259,14 +246,6 @@ Each of these encodes 15+ years of practitioner judgment in a specific operation
 
 | Skill | Domain |
 |-------|--------|
-| `carrier-relationship-management` | Carrier portfolios, freight rate negotiation, scorecarding, RFPs |
-| `customs-trade-compliance` | HS classification, Incoterms, FTAs, restricted-party screening |
-| `energy-procurement` | Electricity/gas tariffs, demand charges, PPAs, hedging, load profiling |
-| `inventory-demand-planning` | Forecasting, safety stock, ABC/XYZ, promotional lift, replenishment |
-| `logistics-exception-management` | Delays, damages, losses, carrier disputes, freight claims |
-| `production-scheduling` | Job sequencing, line balancing, SMED, OEE, drum-buffer-rope |
-| `quality-nonconformance` | NCR lifecycle, CAPA, SPC, audits under FDA/IATF 16949/AS9100 |
-| `returns-reverse-logistics` | RMA, disposition economics, fraud detection, warranty recovery |
 
 ---
 

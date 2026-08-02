@@ -60,7 +60,7 @@
     {
       "id": "lang:python",
       "family": "language",
-      "description": "Python and Django-oriented engineering guidance. Currently resolves through the shared framework-language module.",
+      "description": "Python-oriented engineering guidance. Currently resolves through the shared framework-language module.",
       "modules": [
         "framework-language"
       ]
@@ -85,14 +85,6 @@
       "id": "framework:nextjs",
       "family": "framework",
       "description": "Next.js-focused engineering guidance. Currently resolves through the shared framework-language module.",
-      "modules": [
-        "framework-language"
-      ]
-    },
-    {
-      "id": "framework:django",
-      "family": "framework",
-      "description": "Django-focused engineering guidance. Currently resolves through the shared framework-language module.",
       "modules": [
         "framework-language"
       ]
@@ -135,14 +127,6 @@
       "description": "Social publishing and distribution skills.",
       "modules": [
         "social-distribution"
-      ]
-    },
-    {
-      "id": "capability:media",
-      "family": "capability",
-      "description": "Media generation and AI-assisted editing skills.",
-      "modules": [
-        "media-generation"
       ]
     },
     {
@@ -200,14 +184,6 @@
       "description": "Deployment, Docker, and infrastructure patterns.",
       "modules": [
         "devops-infra"
-      ]
-    },
-    {
-      "id": "capability:supply-chain",
-      "family": "capability",
-      "description": "Supply chain, logistics, procurement, and manufacturing domain skills.",
-      "modules": [
-        "supply-chain-domain"
       ]
     },
     {

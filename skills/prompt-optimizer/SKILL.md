@@ -130,7 +130,7 @@ Map intent + scope + tech stack (from Phase 0) to specific staksmith components.
 
 | Tech Stack | Skills to Add | Agent |
 |------------|--------------|-------|
-| Python / Django | django-patterns, django-tdd, django-security, django-verification, python-patterns, python-testing | python-reviewer |
+| Python | python-patterns, python-testing | python-reviewer |
 | Go | golang-patterns, golang-testing | go-reviewer, go-build-resolver |
 | TypeScript / React | frontend-patterns, backend-patterns, coding-standards | code-reviewer |
 | Swift / iOS | swiftui-patterns, swift-concurrency-6-2, swift-actor-persistence, swift-protocol-di-testing | code-reviewer |

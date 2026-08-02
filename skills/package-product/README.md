@@ -34,7 +34,7 @@ cp SKILL.md /path/to/vault/.claude/skills/package-product/
 
 ```bash
 # Package an individual skill
-/package-product django-patterns
+/package-product python-patterns
 
 # Package a guide
 /package-product adhd-guide

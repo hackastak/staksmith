@@ -109,7 +109,7 @@ ls ~/Developer/Staksmith/skills/[product-name]/SKILL.md
 What should be included in this bundle?
 
 Enter product names (comma-separated):
-Example: django-patterns, tdd-workflow, claude-api
+Example: python-patterns, tdd-workflow, claude-api
 ```
 
 **Validation:**
@@ -907,7 +907,7 @@ Generate appropriate summary based on product type.
 1. **Create cover image** (1600x1200px)
    - Show main benefit
    - Include page count
-   - Use Canva, Figma, or `/fal-ai-media`
+   - Use Canva, Figma, or another design tool
 
 2. **Upload to Gumroad:**
    - See `Gumroad_Listing_Instructions.md` for complete guide
@@ -1066,7 +1066,7 @@ Product is READY TO LAUNCH! 🚀
 ### Example 2: Package New Skill
 
 ```
-User: /package-product django-patterns --type=skill
+User: /package-product python-patterns --type=skill
 
 Claude: I'll package the Django Patterns skill for Gumroad.
 

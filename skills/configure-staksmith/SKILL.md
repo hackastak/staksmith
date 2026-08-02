@@ -66,7 +66,7 @@ mkdir -p $TARGET/skills $TARGET/rules
 
 ### 2a: Choose Scope (Core vs Niche)
 
-Default to **Core (recommended for new users)** — copy `.agents/skills/*` plus `skills/search-first/` for research-first workflows. This bundle covers engineering, evals, verification, security, strategic compaction, frontend design, and Anthropic cross-functional skills (article-writing, content-engine, market-research, frontend-slides).
+Default to **Core (recommended for new users)** — copy `.agents/skills/*` plus `skills/search-first/` for research-first workflows. This bundle covers engineering, evals, verification, security, strategic compaction, frontend design, and Anthropic cross-functional skills (article-writing, content-engine, market-research).
 
 Use `AskUserQuestion` (single select):
 ```
@@ -107,16 +107,11 @@ For each selected category, print the full list of skills below and ask the user
 |-------|-------------|
 | `backend-patterns` | Backend architecture, API design, server-side best practices for Node.js/Express/Next.js |
 | `coding-standards` | Universal coding standards for TypeScript, JavaScript, React, Node.js |
-| `django-patterns` | Django architecture, REST API with DRF, ORM, caching, signals, middleware |
-| `django-security` | Django security: auth, CSRF, SQL injection, XSS prevention |
-| `django-tdd` | Django testing with pytest-django, factory_boy, mocking, coverage |
-| `django-verification` | Django verification loop: migrations, linting, tests, security scans |
 | `laravel-patterns` | Laravel architecture patterns: routing, controllers, Eloquent, queues, caching |
 | `laravel-security` | Laravel security: auth, policies, CSRF, mass assignment, rate limiting |
 | `laravel-tdd` | Laravel testing with PHPUnit and Pest, factories, fakes, coverage |
 | `laravel-verification` | Laravel verification: linting, static analysis, tests, security scans |
 | `frontend-patterns` | React, Next.js, state management, performance, UI patterns |
-| `frontend-slides` | Zero-dependency HTML presentations, style previews, and PPTX-to-web conversion |
 | `golang-patterns` | Idiomatic Go patterns, conventions for robust Go applications |
 | `golang-testing` | Go testing: table-driven tests, subtests, benchmarks, fuzzing |
 | `python-patterns` | Pythonic idioms, PEP 8, type hints, best practices |
@@ -166,19 +161,6 @@ For each selected category, print the full list of skills below and ask the user
 |-------|-------------|
 | `x-api` | X/Twitter API integration for posting, threads, search, and analytics |
 | `crosspost` | Multi-platform content distribution with platform-native adaptation |
-
-**Category: Media Generation (2 skills)**
-
-| Skill | Description |
-|-------|-------------|
-| `fal-ai-media` | Unified AI media generation (image, video, audio) via fal.ai MCP |
-| `video-editing` | AI-assisted video editing for cutting, structuring, and augmenting real footage |
-
-**Category: Orchestration (1 skill)**
-
-| Skill | Description |
-|-------|-------------|
-| `dmux-workflows` | Multi-agent orchestration using dmux for parallel agent sessions |
 
 **Standalone**
 
@@ -255,14 +237,12 @@ grep -rn "skills/" $TARGET/skills/
 ### 4c: Check Cross-References Between Skills
 
 Some skills reference others. Verify these dependencies:
-- `django-tdd` may reference `django-patterns`
 - `laravel-tdd` may reference `laravel-patterns`
 - `continuous-learning-v2` references `~/.claude/homunculus/` directory
 - `python-testing` may reference `python-patterns`
 - `golang-testing` may reference `golang-patterns`
 - `crosspost` references `content-engine` and `x-api`
 - `deep-research` references `exa-search` (complementary MCP tools)
-- `fal-ai-media` references `videodb` (complementary media skill)
 - `x-api` references `content-engine` and `crosspost`
 - Language-specific rules reference `common/` counterparts
 

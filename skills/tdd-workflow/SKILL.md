@@ -520,7 +520,7 @@ npm test && npm run lint
 - **`implement`** — drives this skill at pre-agreed seams when building a spec or ticket.
 - **`review-changes` / `code-review`** — where refactoring belongs, once the slice is green.
 - **`domain-modeling`** — maintains the `CONTEXT.md` glossary that test names should match.
-- Language-specific variants inherit this discipline: `django-tdd`, `laravel-tdd`, `cpp-testing`, `golang-testing`, `python-testing`, `rust-testing`.
+- Language-specific variants inherit this discipline: `laravel-tdd`, `cpp-testing`, `golang-testing`, `python-testing`, `rust-testing`.
 
 ---
 

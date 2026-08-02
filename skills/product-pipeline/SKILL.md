@@ -767,7 +767,7 @@ Example: 2026-05-15
 Usage: /product-pipeline publish [product-name] [gumroad-url] [price]
 
 Example:
-/product-pipeline publish Django-Patterns-Guide https://gumroad.com/l/django-patterns 7.00
+/product-pipeline publish Python-Patterns-Guide https://gumroad.com/l/python-patterns 7.00
 ```
 
 ---
@@ -890,7 +890,7 @@ Generated: 2026-05-06 14:35
 **Impact:** Fills critical category gap, adds high-margin product, enables Django bundle
 
 **Next Steps:**
-1. Use `/package-product django-patterns` (automated packaging)
+1. Use `/package-product python-patterns` (automated packaging)
 2. Generate PDF from markdown (1 hour)
 3. Create cover image (1 hour)
 4. Review and finalize (1 hour)
@@ -953,7 +953,7 @@ Healthy schedule. Maintain by packaging 1 product per week.
 - Complete BREAK Method
 - Begin work on Developer Productivity Bundle
 
-Use `/product-pipeline schedule django-patterns [date]` when ready to launch.
+Use `/product-pipeline schedule python-patterns [date]` when ready to launch.
 ```
 
 ---
@@ -961,7 +961,7 @@ Use `/product-pipeline schedule django-patterns [date]` when ready to launch.
 ### Example 3: Schedule a Launch
 
 ```
-User: /product-pipeline schedule django-patterns 2026-05-22
+User: /product-pipeline schedule python-patterns 2026-05-22
 
 Claude: I'll schedule Django Patterns Guide for launch.
 
@@ -996,7 +996,7 @@ Launch Date: 2026-05-22 (16 days from now)
 - [ ] Post on X/Twitter
 - [ ] Share in relevant communities
 - [ ] Update Product_Info.md with Gumroad URL
-- [ ] Use `/product-pipeline publish django-patterns [url] 7.00`
+- [ ] Use `/product-pipeline publish python-patterns [url] 7.00`
 
 **Week After:**
 - [ ] Monitor sales and feedback
@@ -1020,7 +1020,7 @@ View updated calendar: `2. Areas/Hackastak_Brand/Gumroad/Product_Calendar.md`
 ### Example 4: Mark as Published
 
 ```
-User: /product-pipeline publish django-patterns https://gumroad.com/l/django-patterns 7.00
+User: /product-pipeline publish python-patterns https://gumroad.com/l/python-patterns 7.00
 
 Claude: I'll mark Django Patterns as published and start revenue tracking.
 
@@ -1034,7 +1034,7 @@ Claude: I'll mark Django Patterns as published and start revenue tracking.
 - **Product:** Django Patterns Guide
 - **Category:** Skills
 - **Price:** $7.00
-- **Gumroad URL:** https://gumroad.com/l/django-patterns
+- **Gumroad URL:** https://gumroad.com/l/python-patterns
 - **Launch Date:** 2026-05-22
 
 ---
