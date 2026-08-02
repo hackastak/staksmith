@@ -101,7 +101,7 @@ For manual install instructions see the README in the `rules/` folder.
 /plugin list staksmith@staksmith
 ```
 
-✨ **That's it!** You now have access to 21 agents, 156 skills, and 53 commands.
+✨ **That's it!** You now have access to 21 agents, 155 skills, and 53 commands.
 
 ---
 
@@ -312,10 +312,6 @@ npx staksmith doctor --target cursor  # Find missing or drifted managed files
 npx staksmith repair --dry-run        # Preview restoring drifted files
 npx staksmith uninstall --dry-run     # Preview removing managed files
 ```
-
-### Write-Time Quality (Plankton)
-
-Plankton (credit: [@alxfazio](https://github.com/alxfazio)) is a recommended companion for write-time code quality enforcement. It runs formatters and linters on every file edit via PostToolUse hooks, then delegates remaining fixes to Claude subprocesses. Supports Python, TypeScript, Shell, YAML, JSON, TOML, Markdown, and Dockerfile. See `skills/plankton-code-quality/` for the integration guide.
 
 ---
 
