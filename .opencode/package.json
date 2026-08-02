@@ -1,6 +1,6 @@
 {
   "name": "staksmith",
-  "version": "1.8.0",
+  "version": "1.0.0",
   "description": "staksmith plugin for OpenCode - agents, commands, hooks, and skills",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

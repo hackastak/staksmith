@@ -332,7 +332,7 @@ export const StaksmithHooksPlugin = async ({
      */
     "shell.env": async () => {
       const env: Record<string, string> = {
-        STAKSMITH_VERSION: "1.8.0",
+        STAKSMITH_VERSION: "1.0.0",
         STAKSMITH_PLUGIN: "true",
         STAKSMITH_HOOK_PROFILE: currentProfile,
         STAKSMITH_DISABLED_HOOKS: process.env.STAKSMITH_DISABLED_HOOKS || "",
@@ -392,7 +392,7 @@ export const StaksmithHooksPlugin = async ({
       const contextBlock = [
         "# staksmith Context (preserve across compaction)",
         "",
-        "## Active Plugin: staksmith v1.8.0",
+        "## Active Plugin: staksmith v1.0.0",
         "- Hooks: file.edited, tool.execute.before/after, session.created/idle/deleted, shell.env, compacting, permission.ask",
         "- Tools: run-tests, check-coverage, security-audit, format-code, lint-check, git-summary",
         "- Agents: 13 specialized (planner, architect, tdd-guide, code-reviewer, security-reviewer, build-error-resolver, e2e-runner, refactor-cleaner, doc-updater, go-reviewer, go-build-resolver, database-reviewer, python-reviewer)",
