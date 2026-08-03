@@ -1,6 +1,6 @@
 # staksmith — Agent Instructions
 
-This is a **production-ready AI coding plugin** providing 21 specialized agents, 131 skills, 51 commands, and automated hook workflows for software development.
+This is a **production-ready AI coding plugin** providing 21 specialized agents, 132 skills, 51 commands, and automated hook workflows for software development.
 
 ## Core Principles
 
@@ -131,7 +131,7 @@ Troubleshoot failures: check test isolation → verify mocks → fix implementat
 
 ```
 agents/          — 21 specialized subagents
-skills/          — 131 workflow skills and domain knowledge
+skills/          — 132 workflow skills and domain knowledge
 commands/        — 51 slash commands
 hooks/           — Trigger-based automations
 rules/           — Always-follow guidelines (common + per-language)
