@@ -81,8 +81,10 @@ function validateCommands() {
       const lineRefs = line.matchAll(/`\/([a-z][-a-z0-9]*)`/g);
       for (const match of lineRefs) {
         const refName = match[1];
-        if (!validCommands.has(refName)) {
-          console.error(`ERROR: ${file} - references non-existent command /${refName}`);
+        // A /slash reference is valid if it resolves to either a command or a
+        // skill — skills are slash-invocable too (e.g. /code-review is a skill).
+        if (!validCommands.has(refName) && !validSkills.has(refName)) {
+          console.error(`ERROR: ${file} - references non-existent command or skill /${refName}`);
           hasErrors = true;
         }
       }

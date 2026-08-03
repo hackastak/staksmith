@@ -101,7 +101,7 @@ For manual install instructions see the README in the `rules/` folder.
 /plugin list staksmith@staksmith
 ```
 
-✨ **That's it!** You now have access to 21 agents, 132 skills, and 51 commands.
+✨ **That's it!** You now have access to 21 agents, 132 skills, and 50 commands.
 
 ---
 
@@ -202,7 +202,6 @@ staksmith/
 |-- commands/         # Slash commands for quick execution
 |   |-- plan.md               # /plan  - Implementation planning
 |   |-- tdd.md                # /tdd   - Test-driven development
-|   |-- code-review.md        # /code-review - Quality review
 |   |-- e2e.md                # /e2e   - E2E test generation
 |   |-- build-fix.md          # /build-fix - Fix build errors
 |   |-- refactor-clean.md     # /refactor-clean - Dead code removal

@@ -344,7 +344,6 @@ What the user receives.
 | Command | Purpose |
 |---------|---------|
 | `commit.md` | Create git commits |
-| `code-review.md` | Review code changes |
 | `tdd.md` | TDD workflow |
 | `e2e.md` | E2E testing |
 
