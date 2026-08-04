@@ -1,0 +1,5 @@
+interface:
+  display_name: "Ask Hackastak"
+  short_description: "Route a situation to the right Hackastak skill"
+policy:
+  allow_implicit_invocation: false
