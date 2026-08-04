@@ -53,6 +53,10 @@ Always save. Never launch.
 
 Follow the vault's **draft → confirm → write** gate: show the user the document and the exact path before writing. Report the path when done, and state plainly that nothing was launched — resuming is their next step.
 
+## Log a weekly-note breadcrumb
+
+After the handoff document is written, chain the `quick-note` skill (see [[quick-note]]) to drop a one-line record of this session's completed work into the current week's weekly note, under today, in the right section. Run it **silently** here — the handoff gate already covered the write, so do not prompt again. This leaves a scannable breadcrumb in the weekly note alongside the durable handoff. Skip it only if nothing was actually completed this session.
+
 ## Document structure
 
 ```markdown
