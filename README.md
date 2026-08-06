@@ -936,6 +936,12 @@ These configs reflect one opinionated workflow. You should:
 
 ---
 
+## 🙏 Acknowledgments
+
+The content of this repo is heavily influenced by the work of industry leaders like [Matt Pocock](https://github.com/mattpocock), [Affaan Mustafa](https://github.com/affaan-m), [Andrej Karpathy](https://github.com/karpathy), [Boris Cherny](https://github.com/bcherny), and [Addy Osmani](https://github.com/addyosmani).
+
+---
+
 ## 📄 License
 
 MIT — use freely, modify as needed, contribute back if you can.
