@@ -101,7 +101,7 @@ For manual install instructions see the README in the `rules/` folder.
 /plugin list staksmith@staksmith
 ```
 
-✨ **That's it!** You now have access to 21 agents, 135 skills, and 50 commands.
+✨ **That's it!** You now have access to 21 agents, 134 skills, and 50 commands.
 
 ---
 
@@ -518,7 +518,6 @@ Not sure where to start? Use this quick reference:
 | Fix a failing build | `/build-fix` | build-error-resolver |
 | Run end-to-end tests | `/e2e` | e2e-runner |
 | Find vulnerabilities in my code | *(auto-delegated)* | security-reviewer |
-| Audit my Claude Code config for risks | `/security-scan` *(skill)* | — (runs AgentShield) |
 | Remove dead code | `/refactor-clean` | refactor-cleaner |
 | Update documentation | `/update-docs` | doc-updater |
 | Review Go code | `/go-review` | go-reviewer |

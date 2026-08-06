@@ -151,7 +151,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 # Before committing
 /code-review
-/security-scan
+/security-review
 
 # Before release
 /e2e

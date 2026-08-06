@@ -43,14 +43,12 @@ This document lists each slash command and the primary agent(s) or skills it inv
 | `/sessions` | — | Session history |
 | `/setup-pm` | — | Package manager setup script |
 | `/pm2` | — | PM2 service lifecycle |
-| `/security-scan` | security-reviewer (skill) | AgentShield via security-scan skill |
 
 ## Skills referenced by commands
 
 - **continuous-learning**, **continuous-learning-v2**: `/learn`, `/learn-eval`, `/instinct-*`, `/evolve`, `/promote`, `/projects`
 - **verification-loop**: `/checkpoint`, `/verify`
 - **eval-harness**: `/eval`
-- **security-scan**: `/security-scan` (runs AgentShield)
 - **strategic-compact**: suggested at compaction points (hooks)
 
 ## How to use this map

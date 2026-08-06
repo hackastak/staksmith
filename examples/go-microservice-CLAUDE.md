@@ -252,7 +252,7 @@ go test ./... -race -count=1
 
 # Review
 /go-review                # Go idioms, error handling, concurrency
-/security-scan            # Secrets and vulnerabilities
+/security-review          # Secrets and vulnerabilities
 
 # Before merge
 go vet ./...

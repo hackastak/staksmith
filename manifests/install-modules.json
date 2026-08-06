@@ -199,8 +199,7 @@
       "description": "Security review and security-focused framework guidance.",
       "paths": [
         "skills/laravel-security",
-        "skills/security-review",
-        "skills/security-scan"
+        "skills/security-review"
       ],
       "targets": [
         "claude",

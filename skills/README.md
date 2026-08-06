@@ -85,7 +85,6 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | `review-changes` | Review only the working-tree diff, with debt attribution |
 | `review-github-pr` | Review a GitHub PR by number across six dimensions |
 | `security-review` | Checklist for auth, user input, secrets, endpoints, payments |
-| `security-scan` | Audit your `.claude/` config for injection risks via AgentShield |
 
 ### Design, decisions & planning
 

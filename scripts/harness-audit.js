@@ -5,15 +5,7 @@ const path = require('path');
 
 const REPO_ROOT = path.join(__dirname, '..');
 
-const CATEGORIES = [
-  'Tool Coverage',
-  'Context Efficiency',
-  'Quality Gates',
-  'Memory Persistence',
-  'Eval Coverage',
-  'Security Guardrails',
-  'Cost Efficiency',
-];
+const CATEGORIES = ['Tool Coverage', 'Context Efficiency', 'Quality Gates', 'Memory Persistence', 'Eval Coverage', 'Security Guardrails', 'Cost Efficiency'];
 
 function normalizeScope(scope) {
   const value = (scope || 'repo').toLowerCase();
@@ -28,7 +20,7 @@ function parseArgs(argv) {
   const parsed = {
     scope: 'repo',
     format: 'text',
-    help: false,
+    help: false
   };
 
   for (let index = 0; index < args.length; index += 1) {
@@ -132,7 +124,7 @@ function getChecks() {
       path: 'hooks/hooks.json',
       description: 'Hook configuration file exists',
       pass: fileExists('hooks/hooks.json'),
-      fix: 'Create hooks/hooks.json and define baseline hook events.',
+      fix: 'Create hooks/hooks.json and define baseline hook events.'
     },
     {
       id: 'tool-hooks-impl-count',
@@ -142,7 +134,7 @@ function getChecks() {
       path: 'scripts/hooks/',
       description: 'At least 8 hook implementation scripts exist',
       pass: countFiles('scripts/hooks', '.js') >= 8,
-      fix: 'Add missing hook implementations in scripts/hooks/.',
+      fix: 'Add missing hook implementations in scripts/hooks/.'
     },
     {
       id: 'tool-agent-count',
@@ -152,7 +144,7 @@ function getChecks() {
       path: 'agents/',
       description: 'At least 10 agent definitions exist',
       pass: countFiles('agents', '.md') >= 10,
-      fix: 'Add or restore agent definitions under agents/.',
+      fix: 'Add or restore agent definitions under agents/.'
     },
     {
       id: 'tool-skill-count',
@@ -162,7 +154,7 @@ function getChecks() {
       path: 'skills/',
       description: 'At least 20 skill definitions exist',
       pass: countFiles('skills', 'SKILL.md') >= 20,
-      fix: 'Add missing skill directories with SKILL.md definitions.',
+      fix: 'Add missing skill directories with SKILL.md definitions.'
     },
     {
       id: 'tool-command-parity',
@@ -172,7 +164,7 @@ function getChecks() {
       path: '.opencode/commands/harness-audit.md',
       description: 'Harness-audit command parity exists between primary and OpenCode command docs',
       pass: commandPrimary.length > 0 && commandPrimary === commandParity,
-      fix: 'Sync commands/harness-audit.md and .opencode/commands/harness-audit.md.',
+      fix: 'Sync commands/harness-audit.md and .opencode/commands/harness-audit.md.'
     },
     {
       id: 'context-strategic-compact',
@@ -182,7 +174,7 @@ function getChecks() {
       path: 'skills/strategic-compact/SKILL.md',
       description: 'Strategic compaction guidance is present',
       pass: fileExists('skills/strategic-compact/SKILL.md'),
-      fix: 'Add strategic context compaction guidance at skills/strategic-compact/SKILL.md.',
+      fix: 'Add strategic context compaction guidance at skills/strategic-compact/SKILL.md.'
     },
     {
       id: 'context-suggest-compact-hook',
@@ -192,7 +184,7 @@ function getChecks() {
       path: 'scripts/hooks/suggest-compact.js',
       description: 'Suggest-compact automation hook exists',
       pass: fileExists('scripts/hooks/suggest-compact.js'),
-      fix: 'Implement scripts/hooks/suggest-compact.js for context pressure hints.',
+      fix: 'Implement scripts/hooks/suggest-compact.js for context pressure hints.'
     },
     {
       id: 'context-model-route',
@@ -202,7 +194,7 @@ function getChecks() {
       path: 'commands/model-route.md',
       description: 'Model routing command exists',
       pass: fileExists('commands/model-route.md'),
-      fix: 'Add model-route command guidance in commands/model-route.md.',
+      fix: 'Add model-route command guidance in commands/model-route.md.'
     },
     {
       id: 'context-token-doc',
@@ -212,7 +204,7 @@ function getChecks() {
       path: 'docs/token-optimization.md',
       description: 'Token optimization documentation exists',
       pass: fileExists('docs/token-optimization.md'),
-      fix: 'Add docs/token-optimization.md with concrete context-cost controls.',
+      fix: 'Add docs/token-optimization.md with concrete context-cost controls.'
     },
     {
       id: 'quality-test-runner',
@@ -222,7 +214,7 @@ function getChecks() {
       path: 'tests/run-all.js',
       description: 'Central test runner exists',
       pass: fileExists('tests/run-all.js'),
-      fix: 'Add tests/run-all.js to enforce complete suite execution.',
+      fix: 'Add tests/run-all.js to enforce complete suite execution.'
     },
     {
       id: 'quality-ci-validations',
@@ -232,7 +224,7 @@ function getChecks() {
       path: 'package.json',
       description: 'Test script runs validator chain before tests',
       pass: typeof packageJson.scripts?.test === 'string' && packageJson.scripts.test.includes('validate-commands.js') && packageJson.scripts.test.includes('tests/run-all.js'),
-      fix: 'Update package.json test script to run validators plus tests/run-all.js.',
+      fix: 'Update package.json test script to run validators plus tests/run-all.js.'
     },
     {
       id: 'quality-hook-tests',
@@ -242,7 +234,7 @@ function getChecks() {
       path: 'tests/hooks/hooks.test.js',
       description: 'Hook coverage test file exists',
       pass: fileExists('tests/hooks/hooks.test.js'),
-      fix: 'Add tests/hooks/hooks.test.js for hook behavior validation.',
+      fix: 'Add tests/hooks/hooks.test.js for hook behavior validation.'
     },
     {
       id: 'quality-doctor-script',
@@ -252,7 +244,7 @@ function getChecks() {
       path: 'scripts/doctor.js',
       description: 'Installation drift doctor script exists',
       pass: fileExists('scripts/doctor.js'),
-      fix: 'Add scripts/doctor.js for install-state integrity checks.',
+      fix: 'Add scripts/doctor.js for install-state integrity checks.'
     },
     {
       id: 'memory-hooks-dir',
@@ -262,7 +254,7 @@ function getChecks() {
       path: 'hooks/memory-persistence/',
       description: 'Memory persistence hooks directory exists',
       pass: fileExists('hooks/memory-persistence'),
-      fix: 'Add hooks/memory-persistence with lifecycle hook definitions.',
+      fix: 'Add hooks/memory-persistence with lifecycle hook definitions.'
     },
     {
       id: 'memory-session-hooks',
@@ -272,7 +264,7 @@ function getChecks() {
       path: 'scripts/hooks/session-start.js',
       description: 'Session start/end persistence scripts exist',
       pass: fileExists('scripts/hooks/session-start.js') && fileExists('scripts/hooks/session-end.js'),
-      fix: 'Implement scripts/hooks/session-start.js and scripts/hooks/session-end.js.',
+      fix: 'Implement scripts/hooks/session-start.js and scripts/hooks/session-end.js.'
     },
     {
       id: 'memory-learning-skill',
@@ -282,7 +274,7 @@ function getChecks() {
       path: 'skills/continuous-learning-v2/SKILL.md',
       description: 'Continuous learning v2 skill exists',
       pass: fileExists('skills/continuous-learning-v2/SKILL.md'),
-      fix: 'Add skills/continuous-learning-v2/SKILL.md for memory evolution flow.',
+      fix: 'Add skills/continuous-learning-v2/SKILL.md for memory evolution flow.'
     },
     {
       id: 'eval-skill',
@@ -292,7 +284,7 @@ function getChecks() {
       path: 'skills/eval-harness/SKILL.md',
       description: 'Eval harness skill exists',
       pass: fileExists('skills/eval-harness/SKILL.md'),
-      fix: 'Add skills/eval-harness/SKILL.md for pass/fail regression evaluation.',
+      fix: 'Add skills/eval-harness/SKILL.md for pass/fail regression evaluation.'
     },
     {
       id: 'eval-commands',
@@ -302,7 +294,7 @@ function getChecks() {
       path: 'commands/eval.md',
       description: 'Eval and verification commands exist',
       pass: fileExists('commands/eval.md') && fileExists('commands/verify.md') && fileExists('commands/checkpoint.md'),
-      fix: 'Add eval/checkpoint/verify commands to standardize verification loops.',
+      fix: 'Add eval/checkpoint/verify commands to standardize verification loops.'
     },
     {
       id: 'eval-tests-presence',
@@ -312,7 +304,7 @@ function getChecks() {
       path: 'tests/',
       description: 'At least 10 test files exist',
       pass: countFiles('tests', '.test.js') >= 10,
-      fix: 'Increase automated test coverage across scripts/hooks/lib.',
+      fix: 'Increase automated test coverage across scripts/hooks/lib.'
     },
     {
       id: 'security-review-skill',
@@ -322,7 +314,7 @@ function getChecks() {
       path: 'skills/security-review/SKILL.md',
       description: 'Security review skill exists',
       pass: fileExists('skills/security-review/SKILL.md'),
-      fix: 'Add skills/security-review/SKILL.md for security checklist coverage.',
+      fix: 'Add skills/security-review/SKILL.md for security checklist coverage.'
     },
     {
       id: 'security-agent',
@@ -332,7 +324,7 @@ function getChecks() {
       path: 'agents/security-reviewer.md',
       description: 'Security reviewer agent exists',
       pass: fileExists('agents/security-reviewer.md'),
-      fix: 'Add agents/security-reviewer.md for delegated security audits.',
+      fix: 'Add agents/security-reviewer.md for delegated security audits.'
     },
     {
       id: 'security-prompt-hook',
@@ -342,17 +334,7 @@ function getChecks() {
       path: 'hooks/hooks.json',
       description: 'Hooks include prompt submission guardrail event references',
       pass: hooksJson.includes('beforeSubmitPrompt') || hooksJson.includes('PreToolUse'),
-      fix: 'Add prompt/tool preflight security guards in hooks/hooks.json.',
-    },
-    {
-      id: 'security-scan-command',
-      category: 'Security Guardrails',
-      points: 2,
-      scopes: ['repo', 'commands'],
-      path: 'commands/security-scan.md',
-      description: 'Security scan command exists',
-      pass: fileExists('commands/security-scan.md'),
-      fix: 'Add commands/security-scan.md with scan and remediation workflow.',
+      fix: 'Add prompt/tool preflight security guards in hooks/hooks.json.'
     },
     {
       id: 'cost-skill',
@@ -362,7 +344,7 @@ function getChecks() {
       path: 'skills/cost-aware-llm-pipeline/SKILL.md',
       description: 'Cost-aware LLM skill exists',
       pass: fileExists('skills/cost-aware-llm-pipeline/SKILL.md'),
-      fix: 'Add skills/cost-aware-llm-pipeline/SKILL.md for budget-aware routing.',
+      fix: 'Add skills/cost-aware-llm-pipeline/SKILL.md for budget-aware routing.'
     },
     {
       id: 'cost-doc',
@@ -372,7 +354,7 @@ function getChecks() {
       path: 'docs/token-optimization.md',
       description: 'Cost optimization documentation exists',
       pass: fileExists('docs/token-optimization.md'),
-      fix: 'Create docs/token-optimization.md with target settings and tradeoffs.',
+      fix: 'Create docs/token-optimization.md with target settings and tradeoffs.'
     },
     {
       id: 'cost-model-route-command',
@@ -382,8 +364,8 @@ function getChecks() {
       path: 'commands/model-route.md',
       description: 'Model route command exists for complexity-aware routing',
       pass: fileExists('commands/model-route.md'),
-      fix: 'Add commands/model-route.md and route policies for cheap-default execution.',
-    },
+      fix: 'Add commands/model-route.md and route policies for cheap-default execution.'
+    }
   ];
 }
 
@@ -392,15 +374,13 @@ function summarizeCategoryScores(checks) {
   for (const category of CATEGORIES) {
     const inCategory = checks.filter(check => check.category === category);
     const max = inCategory.reduce((sum, check) => sum + check.points, 0);
-    const earned = inCategory
-      .filter(check => check.pass)
-      .reduce((sum, check) => sum + check.points, 0);
+    const earned = inCategory.filter(check => check.pass).reduce((sum, check) => sum + check.points, 0);
 
     const normalized = max === 0 ? 0 : Math.round((earned / max) * 10);
     scores[category] = {
       score: normalized,
       earned,
-      max,
+      max
     };
   }
 
@@ -411,9 +391,7 @@ function buildReport(scope) {
   const checks = getChecks().filter(check => check.scopes.includes(scope));
   const categoryScores = summarizeCategoryScores(checks);
   const maxScore = checks.reduce((sum, check) => sum + check.points, 0);
-  const overallScore = checks
-    .filter(check => check.pass)
-    .reduce((sum, check) => sum + check.points, 0);
+  const overallScore = checks.filter(check => check.pass).reduce((sum, check) => sum + check.points, 0);
 
   const failedChecks = checks.filter(check => !check.pass);
   const topActions = failedChecks
@@ -423,7 +401,7 @@ function buildReport(scope) {
       action: check.fix,
       path: check.path,
       category: check.category,
-      points: check.points,
+      points: check.points
     }));
 
   return {
@@ -439,9 +417,9 @@ function buildReport(scope) {
       points: check.points,
       path: check.path,
       description: check.description,
-      pass: check.pass,
+      pass: check.pass
     })),
-    top_actions: topActions,
+    top_actions: topActions
   };
 }
 
@@ -508,5 +486,5 @@ if (require.main === module) {
 
 module.exports = {
   buildReport,
-  parseArgs,
+  parseArgs
 };

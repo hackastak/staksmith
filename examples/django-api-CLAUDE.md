@@ -293,7 +293,7 @@ pytest --lf
 
 # Review
 /python-review          # Python-specific code review
-/security-scan          # Django security audit
+/security-review        # Django security audit
 /code-review            # General quality check
 
 # Verification

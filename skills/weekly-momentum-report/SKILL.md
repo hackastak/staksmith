@@ -113,7 +113,6 @@ Generated: 2026-04-19 17:00
 **RepoG**: Released v0.2.3 with GitHub PAT rotation support and fixed the SYNC command chunk_type constraint error for partitioned repositories.
 
 ## Learning & New Ideas
-- **OpenClaw**: Deep-diving into computer-use automation. Considering use cases for sales/marketing automation and potentially running vault skills autonomously. Set up AgentMail account and bought Udemy course.
 - **Design services accessibility**: Realized design-only plans may be more sellable than full manufacturing services due to lower barrier to entry for customers
 - **Agent context management**: Context variables in Joule are more fragile than expected - need to think through state management patterns for multi-step agent workflows
 

@@ -24,7 +24,7 @@ These are practical starting points and can be adjusted for partnership scope.
 
 Metrics shared monthly can include:
 
-- npm downloads (`staksmith`, `ecc-agentshield`)
+- npm downloads (`staksmith`)
 - Repository adoption (stars, forks, contributors)
 - GitHub App install trend
 - Release cadence and reliability milestones

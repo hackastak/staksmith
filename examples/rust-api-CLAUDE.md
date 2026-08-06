@@ -271,7 +271,7 @@ cargo fmt -- --check
 
 # Review
 /code-review            # Rust-specific code review
-/security-scan          # Dependency audit + unsafe scan
+/security-review        # Dependency audit + unsafe scan
 
 # Verification
 /verify                 # Build, clippy, test, security scan
