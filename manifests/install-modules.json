@@ -200,8 +200,7 @@
       "paths": [
         "skills/laravel-security",
         "skills/security-review",
-        "skills/security-scan",
-        "the-security-guide.md"
+        "skills/security-scan"
       ],
       "targets": [
         "claude",

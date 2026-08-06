@@ -935,12 +935,6 @@ These configs reflect one opinionated workflow. You should:
 - **Command ↔ agent map:** [docs/COMMAND-AGENT-MAP.md](docs/COMMAND-AGENT-MAP.md)
 - **Token optimization:** [docs/token-optimization.md](docs/token-optimization.md)
 
-### Long-form guides
-
-- [The OpenClaw Guide](the-openclaw-guide.md) — autonomous/agentic operation
-- [The Security Guide](the-security-guide.md) — securing your agent setup
-- [The Longform Guide](the-longform-guide.md) / [The Shortform Guide](the-shortform-guide.md) — writing workflows
-
 ---
 
 ## 📄 License
