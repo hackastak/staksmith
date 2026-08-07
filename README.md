@@ -101,7 +101,7 @@ For manual install instructions see the README in the `rules/` folder.
 /plugin list staksmith@staksmith
 ```
 
-✨ **That's it!** You now have access to 21 agents, 134 skills, and 50 commands.
+✨ **That's it!** You now have access to 21 agents, 134 skills, and 51 commands.
 
 ---
 
@@ -311,6 +311,41 @@ npx staksmith doctor --target cursor  # Find missing or drifted managed files
 npx staksmith repair --dry-run        # Preview restoring drifted files
 npx staksmith uninstall --dry-run     # Preview removing managed files
 ```
+
+### Status Line
+
+A cross-platform, zero-dependency Claude Code status line — directory, git branch, package
+manager, model, context %, session cost, duration, and lines changed — rendered from the data
+Claude Code pipes to a `statusLine` command:
+
+```text
+~/Developer/staksmith  main  npm  Opus  ctx:6%  $0.05  2m/3s  +156/-23
+```
+
+It is **opt-in**: installing the plugin does not touch your `settings.json`. Enable it with the
+`/statusline` command (or the script directly):
+
+```bash
+/statusline                                    # or:
+node scripts/statusline-setup.js --install     # user scope (~/.claude/settings.json)
+node scripts/statusline-setup.js --install --project   # this project only
+node scripts/statusline-setup.js --status      # what's configured
+node scripts/statusline-setup.js --uninstall   # remove it (leaves a statusLine you set alone)
+```
+
+Install is idempotent and never overwrites a `statusLine` you configured yourself without
+`--force`. Choose which segments show, and their order, highest precedence first:
+
+```bash
+# 1. Env var — comma/space-separated segment names
+export STAKSMITH_STATUSLINE_SEGMENTS="model,context,cost"
+
+# 2. ~/.claude/statusline.json  →  { "segments": ["directory", "branch", "model", "context"] }
+
+# 3. Built-in default order
+```
+
+Segment names: `directory`, `branch`, `pm`, `model`, `context`, `cost`, `duration`, `activity`.
 
 ---
 
