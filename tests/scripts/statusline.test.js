@@ -24,12 +24,19 @@ const {
   parseSegmentList,
   loadConfiguredOrder,
   resolveSegmentOrder,
+  colorize,
+  colorsEnabled,
+  meter,
+  meterColor,
+  SEGMENT_COLORS,
+  ACTIVITY_COLORS,
   DEFAULT_ORDER,
   directorySegment,
   branchSegment,
   pmSegment,
   modelSegment,
   contextSegment,
+  usageSegment,
   costSegment,
   durationSegment,
   activitySegment
@@ -51,10 +58,12 @@ function test(name, fn) {
 }
 
 /** Run the script as a real CLI with the given stdin, return trimmed stdout. */
+// NO_COLOR keeps content assertions deterministic; color has its own dedicated tests.
 function runCli(input) {
   return execFileSync('node', [SCRIPT], {
     input: typeof input === 'string' ? input : JSON.stringify(input),
-    encoding: 'utf8'
+    encoding: 'utf8',
+    env: { ...process.env, NO_COLOR: '1' }
   }).replace(/\n$/, '');
 }
 
@@ -104,20 +113,35 @@ test('missing directory omits the directory segment', () => {
   assert.strictEqual(render({ model: { display_name: 'Opus' } }), 'Opus');
 });
 
-// --- contextSegment() ---
-test('uses pre-computed used_percentage', () => {
-  assert.strictEqual(contextSegment({ context_window: { used_percentage: 6 } }), 'ctx:6%');
+// --- meter() ---
+test('meter fills proportionally and is always `width` cells wide', () => {
+  assert.strictEqual(meter(0), '░'.repeat(10));
+  assert.strictEqual(meter(100), '█'.repeat(10));
+  assert.strictEqual(meter(30), '███░░░░░░░');
+  assert.strictEqual(meter(6), '█░░░░░░░░░');
+  assert.strictEqual(meter(50, 4), '██░░');
 });
 
-test('rounds a fractional used_percentage', () => {
-  assert.strictEqual(contextSegment({ context_window: { used_percentage: 23.5 } }), 'ctx:24%');
+test('meter clamps out-of-range and non-numeric input', () => {
+  assert.strictEqual(meter(-20), '░'.repeat(10));
+  assert.strictEqual(meter(250), '█'.repeat(10));
+  assert.strictEqual(meter(NaN), '░'.repeat(10));
+});
+
+// --- contextSegment() ---
+test('uses pre-computed used_percentage with a meter', () => {
+  assert.strictEqual(contextSegment({ context_window: { used_percentage: 6 } }), `ctx:6% ${meter(6)}`);
+});
+
+test('rounds the displayed percentage; meter uses the raw value', () => {
+  assert.strictEqual(contextSegment({ context_window: { used_percentage: 23.5 } }), `ctx:24% ${meter(23.5)}`);
 });
 
 test('derives percentage from tokens when used_percentage is null', () => {
   const seg = contextSegment({
     context_window: { used_percentage: null, total_input_tokens: 50000, context_window_size: 200000 }
   });
-  assert.strictEqual(seg, 'ctx:25%');
+  assert.strictEqual(seg, `ctx:25% ${meter(25)}`);
 });
 
 test('omits the segment when no usable context data is present', () => {
@@ -126,9 +150,24 @@ test('omits the segment when no usable context data is present', () => {
   assert.strictEqual(contextSegment({ context_window: { total_input_tokens: 1, context_window_size: 0 } }), '');
 });
 
-test('appends ! when exceeds_200k_tokens is true', () => {
-  assert.strictEqual(contextSegment({ context_window: { used_percentage: 30 }, exceeds_200k_tokens: true }), 'ctx:30%!');
-  assert.strictEqual(contextSegment({ context_window: { used_percentage: 30 }, exceeds_200k_tokens: false }), 'ctx:30%');
+test('exceeds_200k_tokens no longer changes the output', () => {
+  assert.strictEqual(contextSegment({ context_window: { used_percentage: 30 }, exceeds_200k_tokens: true }), `ctx:30% ${meter(30)}`);
+});
+
+test('meterColor grades green → amber (35%) → red (50%)', () => {
+  assert.strictEqual(meterColor(10), 71); // green
+  assert.strictEqual(meterColor(34), 71);
+  assert.strictEqual(meterColor(35), 179); // amber
+  assert.strictEqual(meterColor(49), 179);
+  assert.strictEqual(meterColor(50), 167); // red
+  assert.strictEqual(meterColor(100), 167);
+});
+
+test('context is plain by default; whole segment (text + bar) gradient-colored when color is on', () => {
+  const data = { context_window: { used_percentage: 90 } };
+  assert.strictEqual(contextSegment(data), `ctx:90% ${meter(90)}`);
+  // The entire "ctx:90% <bar>" string carries one gradient color — not just the bar.
+  assert.strictEqual(contextSegment(data, { color: true }), colorize(`ctx:90% ${meter(90)}`, meterColor(90)));
 });
 
 test('context appears after directory and model in the full line', () => {
@@ -137,7 +176,28 @@ test('context appears after directory and model in the full line', () => {
     model: { display_name: 'Opus' },
     context_window: { used_percentage: 6 }
   });
-  assert.strictEqual(line, '/tmp/x  Opus  ctx:6%');
+  assert.strictEqual(line, `/tmp/x  Opus  ctx:6% ${meter(6)}`);
+});
+
+// --- usageSegment() (7-day rate limit) ---
+test('usage renders 7D label, percentage, and meter', () => {
+  assert.strictEqual(usageSegment({ rate_limits: { seven_day: { used_percentage: 41 } } }), `7D:41% ${meter(41)}`);
+});
+
+test('usage rounds the percentage', () => {
+  assert.strictEqual(usageSegment({ rate_limits: { seven_day: { used_percentage: 41.6 } } }), `7D:42% ${meter(41.6)}`);
+});
+
+test('usage is omitted when the rate-limit data is absent', () => {
+  assert.strictEqual(usageSegment({}), '');
+  assert.strictEqual(usageSegment({ rate_limits: {} }), '');
+  assert.strictEqual(usageSegment({ rate_limits: { seven_day: {} } }), '');
+});
+
+test('usage is a single flat blue via render (whole segment one color)', () => {
+  const data = { rate_limits: { seven_day: { used_percentage: 41 } } };
+  assert.strictEqual(render(data, ['usage']), `7D:41% ${meter(41)}`); // plain
+  assert.strictEqual(render(data, ['usage'], { color: true }), colorize(`7D:41% ${meter(41)}`, SEGMENT_COLORS.usage));
 });
 
 // --- costSegment() ---
@@ -186,11 +246,19 @@ test('activity is quiet when both counts are absent or zero', () => {
   assert.strictEqual(activitySegment({ cost: { total_lines_added: 0, total_lines_removed: 0 } }), '');
 });
 
-test('full line composes all six segments in order', () => {
-  const line = render({
+test('activity colors additions green and deletions red when color is on', () => {
+  const data = { cost: { total_lines_added: 156, total_lines_removed: 23 } };
+  assert.strictEqual(activitySegment(data), '+156/-23'); // plain by default
+  assert.strictEqual(activitySegment(data, { color: true }), `${colorize('+156', ACTIVITY_COLORS.added)}/${colorize('-23', ACTIVITY_COLORS.removed)}`);
+});
+
+test('default order composes the visible segments (pm/cost/duration off by default)', () => {
+  const data = {
     workspace: { current_dir: '/tmp/x' },
+    package_manager: 'npm',
     model: { display_name: 'Opus' },
     context_window: { used_percentage: 6 },
+    rate_limits: { seven_day: { used_percentage: 41 } },
     cost: {
       total_cost_usd: 0.05,
       total_duration_ms: 120000,
@@ -198,8 +266,11 @@ test('full line composes all six segments in order', () => {
       total_lines_added: 156,
       total_lines_removed: 23
     }
-  });
-  assert.strictEqual(line, '/tmp/x  Opus  ctx:6%  $0.05  2m/3s  +156/-23');
+  };
+  // pm, cost, and duration are registered but not in DEFAULT_ORDER, so they don't show by default.
+  assert.strictEqual(render(data), `/tmp/x  Opus  ctx:6% ${meter(6)}  7D:41% ${meter(41)}  +156/-23`);
+  // ...but they still render when explicitly configured.
+  assert.strictEqual(render(data, ['pm', 'cost', 'duration']), 'npm  $0.05  2m/3s');
 });
 
 // --- branchSegment() / pmSegment() (pure — read main()-injected fields) ---
@@ -211,14 +282,17 @@ test('branch and pm segments read injected fields', () => {
   assert.strictEqual(pmSegment({}), '');
 });
 
-test('branch and pm sit between directory and model', () => {
-  const line = render({
+test('branch shows by default after directory; pm slots in when configured', () => {
+  const data = {
     workspace: { current_dir: '/tmp/x' },
     git_branch: 'main',
     package_manager: 'npm',
     model: { display_name: 'Opus' }
-  });
-  assert.strictEqual(line, '/tmp/x  main  npm  Opus');
+  };
+  // Default: branch after directory, pm hidden.
+  assert.strictEqual(render(data), '/tmp/x  main  Opus');
+  // Explicitly ordered: pm sits between branch and model.
+  assert.strictEqual(render(data, ['directory', 'branch', 'pm', 'model']), '/tmp/x  main  npm  Opus');
 });
 
 // --- resolveGitBranch() / resolvePackageManager() (impure boundary) ---
@@ -262,7 +336,7 @@ test('render honors an explicit subset and order', () => {
     git_branch: 'main'
   };
   assert.strictEqual(render(data, ['model', 'directory']), 'Opus  /tmp/x');
-  assert.strictEqual(render(data, ['context']), 'ctx:6%');
+  assert.strictEqual(render(data, ['context']), `ctx:6% ${meter(6)}`);
   assert.strictEqual(render(data, ['branch', 'model']), 'main  Opus');
 });
 
@@ -321,9 +395,44 @@ test('CLI honors STAKSMITH_STATUSLINE_SEGMENTS env override', () => {
   const out = execFileSync('node', [SCRIPT], {
     input: JSON.stringify({ workspace: { current_dir: '/tmp/x' }, model: { display_name: 'Opus' } }),
     encoding: 'utf8',
-    env: { ...process.env, STAKSMITH_STATUSLINE_SEGMENTS: 'model,directory' }
+    env: { ...process.env, NO_COLOR: '1', STAKSMITH_STATUSLINE_SEGMENTS: 'model,directory' }
   }).replace(/\n$/, '');
   assert.strictEqual(out, 'Opus  /tmp/x');
+});
+
+// --- color ---
+test('colorize wraps text in an xterm-256 code and resets', () => {
+  assert.strictEqual(colorize('main', 114), '\x1b[38;5;114mmain\x1b[0m');
+});
+
+test('render is plain by default and colored when asked', () => {
+  const data = { workspace: { current_dir: '/tmp/x' }, model: { display_name: 'Opus' } };
+  assert.strictEqual(render(data), '/tmp/x  Opus');
+  const colored = render(data, undefined, { color: true });
+  assert.ok(colored.includes('\x1b['), 'expected ANSI codes');
+  assert.ok(colored.includes(colorize('Opus', SEGMENT_COLORS.model)), 'model should carry its color');
+  // separator stays outside color codes
+  assert.ok(colored.includes(`\x1b[0m${'  '}\x1b[38;5;`));
+});
+
+test('colorsEnabled honors NO_COLOR and the Staksmith opt-out', () => {
+  assert.strictEqual(colorsEnabled({}), true);
+  assert.strictEqual(colorsEnabled({ NO_COLOR: '1' }), false);
+  assert.strictEqual(colorsEnabled({ STAKSMITH_STATUSLINE_COLOR: '0' }), false);
+  assert.strictEqual(colorsEnabled({ STAKSMITH_STATUSLINE_COLOR: 'off' }), false);
+  assert.strictEqual(colorsEnabled({ STAKSMITH_STATUSLINE_COLOR: '1' }), true);
+});
+
+test('CLI emits color by default and plain under NO_COLOR', () => {
+  const payload = JSON.stringify({ workspace: { current_dir: '/tmp/x' }, model: { display_name: 'Opus' } });
+  const colored = execFileSync('node', [SCRIPT], { input: payload, encoding: 'utf8' });
+  assert.ok(colored.includes('\x1b['), `expected color by default, got ${JSON.stringify(colored)}`);
+  const plain = execFileSync('node', [SCRIPT], {
+    input: payload,
+    encoding: 'utf8',
+    env: { ...process.env, NO_COLOR: '1' }
+  }).replace(/\n$/, '');
+  assert.strictEqual(plain, '/tmp/x  Opus');
 });
 
 // --- parseInput() ---
@@ -368,9 +477,12 @@ test('CLI prints the rendered line for a realistic payload', () => {
   const out = runCli({
     workspace: { current_dir: '/tmp/x' },
     model: { display_name: 'Opus', id: 'claude-opus-4-8' },
+    context_window: { used_percentage: 6 },
+    rate_limits: { seven_day: { used_percentage: 41 } },
     cost: { total_cost_usd: 0.01 }
   });
-  assert.strictEqual(out, '/tmp/x  Opus  $0.01');
+  // cost is off by default; context and 7-day usage show.
+  assert.strictEqual(out, `/tmp/x  Opus  ctx:6% ${meter(6)}  7D:41% ${meter(41)}`);
 });
 
 test('CLI prints an empty line for empty stdin, exit 0', () => {
@@ -383,11 +495,20 @@ test('CLI does not crash on malformed stdin', () => {
   assert.strictEqual(out, '');
 });
 
-test('CLI injects live branch and pm when pointed at the repo', () => {
-  const out = runCli({ workspace: { current_dir: REPO_ROOT }, model: { display_name: 'Opus' } });
+test('CLI injects live branch (default) and pm (when configured) from the repo', () => {
   const branch = resolveGitBranch(REPO_ROOT);
-  assert.ok(out.includes(' npm'), `expected npm in "${out}"`);
-  assert.ok(out.includes(branch), `expected branch "${branch}" in "${out}"`);
+  // branch is in the default order; assert it's injected without any config.
+  const def = runCli({ workspace: { current_dir: REPO_ROOT }, model: { display_name: 'Opus' } });
+  assert.ok(def.includes(branch), `expected branch "${branch}" in "${def}"`);
+  assert.ok(!def.includes(' npm'), `pm should be off by default, got "${def}"`);
+  // pm still resolves and renders when the config asks for it.
+  const withPm = execFileSync('node', [SCRIPT], {
+    input: JSON.stringify({ workspace: { current_dir: REPO_ROOT }, model: { display_name: 'Opus' } }),
+    encoding: 'utf8',
+    env: { ...process.env, STAKSMITH_STATUSLINE_SEGMENTS: 'branch,pm,model' }
+  }).replace(/\n$/, '');
+  assert.ok(withPm.includes('npm'), `expected npm in "${withPm}"`);
+  assert.ok(withPm.includes(branch), `expected branch "${branch}" in "${withPm}"`);
 });
 
 console.log(`\nResults: Passed: ${passed}, Failed: ${failed}`);

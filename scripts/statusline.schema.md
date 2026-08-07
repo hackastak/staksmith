@@ -24,12 +24,13 @@ before use — Claude Code marks many as conditional, and a status line must nev
 | `context_window.used_percentage` | number \| null | Context segment — **pre-computed**, no transcript read needed |
 | `context_window.total_input_tokens` | number | Context segment — current (not cumulative) input tokens |
 | `context_window.context_window_size` | number | Context segment — window size (200000, or 1000000 extended) |
-| `exceeds_200k_tokens` | boolean | Context segment threshold flag |
+| `exceeds_200k_tokens` | boolean | Available; not currently rendered (the meter shows fill level instead) |
 | `cost.total_cost_usd` | number | Cost segment (resets to $0 on `/clear`) |
 | `cost.total_duration_ms` | number | Duration segment (wall clock) |
 | `cost.total_api_duration_ms` | number | Duration segment (API wait) |
 | `cost.total_lines_added` | number | Activity segment |
 | `cost.total_lines_removed` | number | Activity segment |
+| `rate_limits.seven_day.used_percentage` | number | Usage segment (`7D:n%`); absent before the first API response / non-subscription |
 
 ### Key finding — context usage is handed to us directly
 
@@ -50,7 +51,7 @@ re-discover them:
 - `effort.level` — `low` | `medium` | `high` | `xhigh` | `max` (absent if the model has no effort param)
 - `fast_mode` — boolean
 - `thinking.enabled` — boolean
-- `rate_limits.five_hour` / `rate_limits.seven_day` — `{ used_percentage, resets_at }` (Claude.ai subscribers; absent before the first API response)
+- `rate_limits.five_hour` — `{ used_percentage, resets_at }` (Claude.ai subscribers; absent before the first API response). The 7-day counterpart is now consumed by the `usage` segment; `five_hour` and both `resets_at` timestamps remain available for a future segment.
 - `output_style.name`, `vim.mode`, `agent.name`, `pr.{number,url,review_state}`, `session_name`, `prompt_id`, `version`
 
 ## Version dependencies to remember

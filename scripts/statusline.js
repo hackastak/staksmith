@@ -78,17 +78,36 @@ function modelSegment(data) {
   return typeof name === 'string' && name ? name : '';
 }
 
+/** A `width`-cell fill bar for a 0–100 percentage, e.g. `meter(30) → "███░░░░░░░"`. */
+function meter(pct, width = 10) {
+  const clamped = Math.max(0, Math.min(100, Number(pct) || 0));
+  const filled = Math.round((clamped / 100) * width);
+  return '█'.repeat(filled) + '░'.repeat(width - filled);
+}
+
+/** Gradient color for the context segment: green with room, amber from 35%, red from 50%. */
+function meterColor(pct) {
+  const p = Number(pct) || 0;
+  if (p >= 50) return 167; // red
+  if (p >= 35) return 179; // amber
+  return 71; // green
+}
+
 /**
- * Context-usage segment — e.g. `ctx:6%`.
+ * Context-usage segment — e.g. `ctx:6% █░░░░░░░░░`.
  *
  * Reads `context_window` straight from the payload (CC 2.1.132+; see statusline.schema.md); no
  * transcript parsing. Prefers the pre-computed `used_percentage`, which can be `null` early in a
  * session or after `/compact` — in that case it derives the percentage from
  * `total_input_tokens / context_window_size` when both are present, and otherwise omits the
- * segment entirely. A trailing `!` marks `exceeds_200k_tokens` (a fixed 200k threshold that is
- * independent of the actual window size, which may be 1M on extended-context models).
+ * segment entirely. A fill-bar meter follows the percentage; when color is on the whole segment
+ * (text and bar together) takes a green→amber→red gradient by fill level, so a filling context
+ * reads at a glance. It self-colors, so `context` is intentionally absent from SEGMENT_COLORS.
+ *
+ * @param {object} data parsed payload
+ * @param {{color?: boolean}} [opts] when `color`, the segment is wrapped in its gradient color.
  */
-function contextSegment(data) {
+function contextSegment(data, opts = {}) {
   const cw = data.context_window || {};
   let pct = null;
   if (typeof cw.used_percentage === 'number' && isFinite(cw.used_percentage)) {
@@ -97,9 +116,8 @@ function contextSegment(data) {
     pct = (cw.total_input_tokens / cw.context_window_size) * 100;
   }
   if (pct === null) return '';
-  let seg = `ctx:${Math.round(pct)}%`;
-  if (data.exceeds_200k_tokens === true) seg += '!';
-  return seg;
+  const seg = `ctx:${Math.round(pct)}% ${meter(pct)}`;
+  return opts.color ? colorize(seg, meterColor(pct)) : seg;
 }
 
 /**
@@ -124,6 +142,20 @@ function costSegment(data) {
 }
 
 /**
+ * 7-day usage segment — `7D:41% ████░░░░░░` from `rate_limits.seven_day.used_percentage`. Reflects
+ * how much of the rolling 7-day account limit is spent. Absent before the first API response and for
+ * non-subscription usage (the field simply isn't in the payload), in which case the segment is
+ * omitted. A single flat color (blue, via SEGMENT_COLORS) covers the whole segment, so it does not
+ * self-color.
+ */
+function usageSegment(data) {
+  const week = (data.rate_limits || {}).seven_day || {};
+  const pct = week.used_percentage;
+  if (typeof pct !== 'number' || !isFinite(pct)) return '';
+  return `7D:${Math.round(pct)}% ${meter(pct)}`;
+}
+
+/**
  * Duration segment — `wall/api`, e.g. `2m/3s`. Wall clock (`total_duration_ms`) is primary; the
  * API-wait time (`total_api_duration_ms`) is appended when present. Omitted if wall is absent.
  */
@@ -137,11 +169,18 @@ function durationSegment(data) {
   return seg;
 }
 
+// Diff-stat colors for the activity segment: additions green, deletions red.
+const ACTIVITY_COLORS = { added: 71, removed: 167 };
+
 /**
  * Activity segment — `+added/-removed`, e.g. `+156/-23`. Omitted when both counts are absent or
- * both are zero (no edits yet), to keep an idle status line quiet.
+ * both are zero (no edits yet), to keep an idle status line quiet. Self-colors like a diff stat
+ * when color is on (additions green, deletions red), so it is absent from SEGMENT_COLORS.
+ *
+ * @param {object} data parsed payload
+ * @param {{color?: boolean}} [opts] when `color`, additions/deletions take their diff-stat colors.
  */
-function activitySegment(data) {
+function activitySegment(data, opts = {}) {
   const cost = data.cost || {};
   const added = cost.total_lines_added;
   const removed = cost.total_lines_removed;
@@ -149,7 +188,10 @@ function activitySegment(data) {
   const r = typeof removed === 'number' && isFinite(removed) ? removed : null;
   if (a === null && r === null) return '';
   if ((a || 0) === 0 && (r || 0) === 0) return '';
-  return `+${a || 0}/-${r || 0}`;
+  const plus = `+${a || 0}`;
+  const minus = `-${r || 0}`;
+  if (!opts.color) return `${plus}/${minus}`;
+  return `${colorize(plus, ACTIVITY_COLORS.added)}/${colorize(minus, ACTIVITY_COLORS.removed)}`;
 }
 
 /**
@@ -194,13 +236,45 @@ const SEGMENT_REGISTRY = {
   pm: pmSegment,
   model: modelSegment,
   context: contextSegment,
+  usage: usageSegment,
   cost: costSegment,
   duration: durationSegment,
   activity: activitySegment
 };
 
-// Default order: location info (dir/branch/pm) leads, then session state.
-const DEFAULT_ORDER = ['directory', 'branch', 'pm', 'model', 'context', 'cost', 'duration', 'activity'];
+// Default order: location (dir/branch) leads, then session state. `pm`, `cost`, and `duration` are
+// registered and available via config, but off by default to keep the line uncluttered.
+const DEFAULT_ORDER = ['directory', 'branch', 'model', 'context', 'usage', 'activity'];
+
+// Per-segment xterm-256 colors. Muted, distinct tones that read on a dark background: location in
+// cool blues/greens, model dimmed as secondary, session state in warmer accents. `context` is
+// deliberately absent — it self-colors with a green→amber→red fill gradient (see contextSegment).
+const SEGMENT_COLORS = {
+  directory: 75, // blue
+  branch: 114, // green
+  pm: 108, // teal
+  model: 245, // gray (secondary)
+  usage: 39, // blue (7-day usage)
+  cost: 179, // gold
+  duration: 244 // gray
+  // `activity` self-colors like a diff stat (green/red) — see activitySegment.
+};
+
+/** Wrap text in an xterm-256 foreground color, resetting after. */
+function colorize(text, code) {
+  return `\x1b[38;5;${code}m${text}\x1b[0m`;
+}
+
+/**
+ * Whether to emit ANSI color. Honors the NO_COLOR standard (any non-empty value disables) and a
+ * Staksmith opt-out (`STAKSMITH_STATUSLINE_COLOR=0|false|off`).
+ */
+function colorsEnabled(env = process.env) {
+  if (env.NO_COLOR) return false;
+  const flag = env.STAKSMITH_STATUSLINE_COLOR;
+  if (flag === '0' || flag === 'false' || flag === 'off') return false;
+  return true;
+}
 
 const ENV_VAR = 'STAKSMITH_STATUSLINE_SEGMENTS';
 
@@ -255,22 +329,26 @@ function resolveSegmentOrder(env = process.env, file = configPath()) {
  * @param {object} data parsed stdin JSON (or {} when absent/invalid)
  * @param {string[]} [order] segment names to render, in order; defaults to DEFAULT_ORDER.
  *   Unknown names are skipped.
+ * @param {{color?: boolean}} [opts] when `color` is true, each segment is wrapped in its
+ *   xterm-256 color; default is plain text.
  * @returns {string} the single status line (no trailing newline)
  */
-function render(data, order) {
+function render(data, order, opts = {}) {
   const safe = data && typeof data === 'object' ? data : {};
   const names = Array.isArray(order) && order.length ? order : DEFAULT_ORDER;
+  const useColor = opts.color === true;
   const parts = [];
   for (const name of names) {
     const segment = SEGMENT_REGISTRY[name];
     if (!segment) continue;
     let value = '';
     try {
-      value = segment(safe);
+      value = segment(safe, { color: useColor });
     } catch {
       value = '';
     }
-    if (value) parts.push(value);
+    if (!value) continue;
+    parts.push(useColor && SEGMENT_COLORS[name] ? colorize(value, SEGMENT_COLORS[name]) : value);
   }
   return parts.join(SEP);
 }
@@ -302,7 +380,7 @@ function main() {
       const dir = workspaceDir(data);
       if (dir && order.includes('branch')) data.git_branch = resolveGitBranch(dir);
       if (dir && order.includes('pm')) data.package_manager = resolvePackageManager(dir);
-      line = render(data, order);
+      line = render(data, order, { color: colorsEnabled() });
     } catch {
       line = '';
     }
@@ -326,13 +404,20 @@ module.exports = {
   loadConfiguredOrder,
   resolveSegmentOrder,
   configPath,
+  colorize,
+  colorsEnabled,
+  meter,
+  meterColor,
   DEFAULT_ORDER,
   SEGMENT_REGISTRY,
+  SEGMENT_COLORS,
+  ACTIVITY_COLORS,
   directorySegment,
   branchSegment,
   pmSegment,
   modelSegment,
   contextSegment,
+  usageSegment,
   costSegment,
   durationSegment,
   activitySegment

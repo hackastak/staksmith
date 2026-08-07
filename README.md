@@ -314,13 +314,16 @@ npx staksmith uninstall --dry-run     # Preview removing managed files
 
 ### Status Line
 
-A cross-platform, zero-dependency Claude Code status line — directory, git branch, package
-manager, model, context %, session cost, duration, and lines changed — rendered from the data
-Claude Code pipes to a `statusLine` command:
+A cross-platform, zero-dependency Claude Code status line — by default: directory, git branch,
+model, context %, 7-day usage, and lines changed — rendered from the data Claude Code pipes to a
+`statusLine` command:
 
 ```text
-~/Developer/staksmith  main  npm  Opus  ctx:6%  $0.05  2m/3s  +156/-23
+~/Developer/staksmith  main  Opus  ctx:6% █░░░░░░░░░  7D:41% ████░░░░░░  +156/-23
 ```
+
+Three more segments, `pm` (package manager), `cost` (session USD), and `duration` (session
+wall/API time), are available but off by default — enable them via the config below.
 
 It is **opt-in**: installing the plugin does not touch your `settings.json`. Enable it with the
 `/statusline` command (or the script directly):
@@ -345,7 +348,12 @@ export STAKSMITH_STATUSLINE_SEGMENTS="model,context,cost"
 # 3. Built-in default order
 ```
 
-Segment names: `directory`, `branch`, `pm`, `model`, `context`, `cost`, `duration`, `activity`.
+Segment names: `directory`, `branch`, `pm`, `model`, `context`, `usage`, `cost`, `duration`,
+`activity`.
+
+Each segment is color-coded by default: the context meter grades green → amber → red as it fills,
+`usage` (7-day limit) is blue, and `activity` shows additions green / deletions red. Turn color off
+with the standard `NO_COLOR` env var, or `STAKSMITH_STATUSLINE_COLOR=0`.
 
 ---
 
