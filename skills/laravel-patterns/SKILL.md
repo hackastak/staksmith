@@ -1,6 +1,7 @@
 ---
 name: laravel-patterns
 description: Laravel architecture patterns, routing/controllers, Eloquent ORM, service layers, queues, events, caching, and API resources for production apps.
+category: "Language & Framework Patterns"
 origin: staksmith
 ---
 

@@ -1,6 +1,7 @@
 ---
 name: teach
 description: Teach the user a new skill or concept over multiple sessions, building a stateful learning workspace of missions, interactive lessons, references, and learning records. Use when the user wants to learn something, or invokes /teach.
+category: "Workflow & Meta"
 origin: Hackastak
 disable-model-invocation: true
 argument-hint: "What would you like to learn about?"

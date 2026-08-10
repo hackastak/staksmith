@@ -1,6 +1,7 @@
 ---
 name: to-tickets
 description: Break a plan, spec, or the current conversation into a set of tracer-bullet tickets, each declaring its blocking edges, published to the configured tracker. Use when the user says "break this into tickets", "turn the spec into issues", or invokes /to-tickets.
+category: "Workflow & Meta"
 origin: Hackastak
 disable-model-invocation: true
 ---

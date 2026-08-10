@@ -1,6 +1,7 @@
 ---
 name: review-github-pr
 description: "Review a GitHub pull request for the current branch by PR number. Performs read-only inspection across correctness, security, style, test coverage, architecture, and performance. Use when the user says things like 'review PR 186', 'review this pull request', or invokes '/review-github-pr <number>'."
+category: "Code Review & Quality"
 ---
 
 You are reviewing a GitHub pull request that targets the **current branch**. This is **read-only inspection**: never `git checkout` the PR branch, never modify files, never push, never post to GitHub. Use `gh` and direct file reads only.

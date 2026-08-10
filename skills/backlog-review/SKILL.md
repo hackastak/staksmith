@@ -1,6 +1,7 @@
 ---
 name: backlog-review
 description: Review backlog and todo notes across the Obsidian vault, verify whether open items are actually already done using evidence from the associated code repos and other notes, and mark the confirmed ones complete. Review only — never writes code or does the work. Use to reconcile stale backlogs with reality.
+category: "Code Review & Quality"
 origin: Hackastak
 ---
 

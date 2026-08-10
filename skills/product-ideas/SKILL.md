@@ -1,6 +1,7 @@
 ---
 name: product-ideas
 description: Mine your Obsidian vault for sellable digital products - guides, templates, frameworks, and skill bundles. Evaluates market fit, recommends pricing, and identifies bundle opportunities.
+category: "Business & Research"
 origin: Hackastak
 ---
 

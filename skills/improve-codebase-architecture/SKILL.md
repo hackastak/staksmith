@@ -1,6 +1,7 @@
 ---
 name: improve-codebase-architecture
 description: Scan a codebase for deepening opportunities, present them as a visual Markdown report in the vault, then grill through whichever one you pick. Use when the user wants an architecture review, asks where the codebase is getting hard to change, or invokes /improve-codebase-architecture.
+category: "Code Review & Quality"
 origin: Hackastak
 disable-model-invocation: true
 ---

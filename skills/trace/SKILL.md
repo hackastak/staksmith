@@ -1,6 +1,7 @@
 ---
 name: trace
 description: Track how a specific idea has evolved across the Obsidian vault over time — find all mentions, follow wikilinks, and build a chronological timeline with connections. Use to see the history of a concept.
+category: "Second Brain & Vault"
 origin: Hackastak
 ---
 

@@ -34,6 +34,8 @@ staksmith is organized into independent components — install the whole thing o
 | **CLI** | `staksmith` — selective install, `plan`, `doctor`, `repair`, `status`, `sessions`, `uninstall`. Driven by profile/module manifests in `manifests/`. |
 | **Examples** | Real-world `CLAUDE.md` templates for several stacks. |
 
+**Browse the full catalog:** [`SKILLS.md`](SKILLS.md) indexes every skill (grouped by category), command, and agent with a one-line description and location. It is auto-generated from frontmatter by `node scripts/ci/skills-catalog.js`.
+
 ---
 
 ## 🚀 Quick Start

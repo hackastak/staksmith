@@ -1,6 +1,7 @@
 ---
 name: what-next
 description: Index a project's open todos from the Obsidian vault, prioritize them, and hand back the top 3 next tasks.
+category: "Second Brain & Vault"
 origin: Hackastak
 disable-model-invocation: true
 argument-hint: "A project name, or nothing to infer it from the current directory"

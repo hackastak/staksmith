@@ -1,6 +1,7 @@
 ---
 name: adr-standard
 description: The house standard for Architecture Decision Records — when a decision earns an ADR, the mandatory sections, and the supersede-don't-edit rule. Use when writing, updating, or superseding an ADR, when deciding whether a decision is worth recording, or when another skill needs the ADR format.
+category: "Workflow & Meta"
 origin: Hackastak
 ---
 

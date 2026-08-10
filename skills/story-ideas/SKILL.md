@@ -1,6 +1,7 @@
 ---
 name: story-ideas
 description: Generate ranked, documented story ideas for the "Stories You Won't Believe" TikTok channel — unbelievable-but-true historical events. Use when you need fresh ideas for the content pipeline, grounded in real sources and filtered through the channel's pillars.
+category: "Writing & Content"
 origin: Hackastak
 ---
 

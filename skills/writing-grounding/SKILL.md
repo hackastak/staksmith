@@ -1,6 +1,7 @@
 ---
 name: writing-grounding
 description: The grounding system shared by the writing skills — every concept is either a prerequisite the reader brings or is introduced by an earlier move.
+category: "Writing & Content"
 disable-model-invocation: true
 origin: Hackastak
 ---

@@ -1,6 +1,7 @@
 ---
 name: configure-staksmith
 description: Interactive installer for staksmith — guides users through selecting and installing skills and rules to user-level or project-level directories, verifies paths, and optionally optimizes installed files.
+category: "Workflow & Meta"
 origin: staksmith
 ---
 

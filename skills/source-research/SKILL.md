@@ -1,6 +1,7 @@
 ---
 name: source-research
 description: Investigate a question against high-trust primary sources — official docs, source code, specs, first-party APIs — and capture the findings as a single cited Markdown file. Delegated to a background agent. Use when the user wants a technical topic researched, docs or API facts gathered, or reading legwork delegated.
+category: "Business & Research"
 origin: Hackastak
 ---
 

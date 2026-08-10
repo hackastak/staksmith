@@ -1,6 +1,7 @@
 ---
 name: content
 description: Manage The HackaStak content calendar and publishing pipeline — buffer health, pillar balance, scheduling, and publish tracking. Use to see status or move articles through the pipeline.
+category: "Writing & Content"
 origin: Hackastak
 ---
 

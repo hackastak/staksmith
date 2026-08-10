@@ -1,6 +1,7 @@
 ---
 name: prompt-optimizer
 description: >-
+category: "Workflow & Meta"
   Analyze raw prompts, identify intent and gaps, match staksmith components
   (skills/commands/agents/hooks), and output a ready-to-paste optimized
   prompt. Advisory role only — never executes the task itself.

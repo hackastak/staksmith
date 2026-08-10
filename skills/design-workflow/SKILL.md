@@ -1,6 +1,7 @@
 ---
 name: design-workflow
 description: Grill the user about the recurring loops in their life and work, and turn each one worth delegating into a workflow spec. Use when the user wants to design an automation, says "help me spec a workflow", or invokes /design-workflow.
+category: "Workflow & Meta"
 origin: Hackastak
 disable-model-invocation: true
 argument-hint: "A workflow to design, or nothing to go find one"

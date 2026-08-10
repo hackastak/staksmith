@@ -1,6 +1,7 @@
 ---
 name: grill-with-docs
 description: A relentless interview that also leaves a paper trail — the glossary and ADRs get written as the decisions crystallise. Use when the user wants to be grilled on a design and have the domain model captured at the same time.
+category: "Workflow & Meta"
 origin: Hackastak
 disable-model-invocation: true
 ---

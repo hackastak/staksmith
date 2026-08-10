@@ -1,6 +1,7 @@
 ---
 name: resolving-merge-conflicts
 description: "Resolve an in-progress git merge or rebase conflict — read the intent behind each side, resolve the hunks, run the project's checks, then hand back for the final commit. Use when a merge or rebase has stopped with conflicts."
+category: "Build, Debug & Merge"
 origin: Hackastak
 ---
 

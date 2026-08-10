@@ -1,6 +1,7 @@
 ---
 name: blog-ideas
 description: Generate blog post ideas for The HackaStak by mining your Obsidian vault for expertise, filtered through the blog strategy, pillars, and audience. Use when planning the content calendar or deciding what to write next.
+category: "Writing & Content"
 origin: Hackastak
 ---
 

@@ -1,6 +1,7 @@
 ---
 name: verification-loop
 description: "A comprehensive verification system for Claude Code sessions."
+category: "Testing & TDD"
 origin: staksmith
 ---
 

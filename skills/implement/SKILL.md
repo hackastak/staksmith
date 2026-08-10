@@ -1,6 +1,7 @@
 ---
 name: implement
 description: Implement a piece of work described by a spec, a set of tickets, a GitHub issue, or a task stated in the conversation. Use when the user says "implement this", "build ticket 03", or invokes /implement.
+category: "Workflow & Meta"
 origin: Hackastak
 disable-model-invocation: true
 ---

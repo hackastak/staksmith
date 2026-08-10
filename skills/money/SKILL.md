@@ -1,6 +1,7 @@
 ---
 name: money
 description: Act as a revenue advisor that mines your Obsidian vault for monetization opportunities, then goes beyond it to surface what you can't see from inside your own perspective. Diagnoses the revenue system first (conversion, recurring vs. one-time, sales infrastructure, pricing model, product vs. service), then recommends prioritized opportunities and the artifacts to build right now. Use when you want to make dramatically more money from assets you already have.
+category: "Business & Research"
 origin: Hackastak
 ---
 

@@ -1,6 +1,7 @@
 ---
 name: wayfinder
 description: Plan a huge chunk of work — more than one agent session can hold — as a shared map of decision tickets, and resolve them one at a time until the way to the destination is clear. Use when an effort is too big and too foggy to spec yet, or when the user invokes /wayfinder.
+category: "Workflow & Meta"
 origin: Hackastak
 disable-model-invocation: true
 ---

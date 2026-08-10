@@ -1,6 +1,7 @@
 ---
 name: polish
 description: Polish a blog draft against The HackaStak style guidelines — voice/structure/SEO audit, apply fixes, and generate a pre-publish checklist with meta description. Use after drafting, before scheduling.
+category: "Writing & Content"
 origin: Hackastak
 ---
 

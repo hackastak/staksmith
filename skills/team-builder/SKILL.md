@@ -1,6 +1,7 @@
 ---
 name: team-builder
 description: Interactive agent picker for composing and dispatching parallel teams
+category: "Workflow & Meta"
 origin: community
 ---
 

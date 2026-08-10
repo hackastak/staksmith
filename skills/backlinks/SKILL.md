@@ -1,6 +1,7 @@
 ---
 name: backlinks
 description: Wire the vault graph — find orphans, missing connections, and cluster bridges, score them, and add links/stubs. Connects notes without generating content. Optional cluster focus.
+category: "Second Brain & Vault"
 origin: Hackastak
 ---
 

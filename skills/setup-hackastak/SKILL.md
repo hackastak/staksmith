@@ -1,6 +1,7 @@
 ---
 name: setup-hackastak
 description: Configure a target repo for the Hackastak engineering flow — write the issue-tracker backend, triage labels, and domain-model layout that the ticketing and design skills read. Use when a repo has no docs/agents/ config, when to-spec/to-tickets/triage/wayfinder report a missing tracker, or when the user says "set up this repo", "configure staksmith here", or invokes /setup-hackastak.
+category: "Workflow & Meta"
 origin: Hackastak
 ---
 

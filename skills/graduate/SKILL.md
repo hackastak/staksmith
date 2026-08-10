@@ -1,6 +1,7 @@
 ---
 name: graduate
 description: Extract undeveloped ideas from weekly notes and promote them into standalone seedling notes in 0. Inbox/Graduates/. Use to capture half-formed thoughts before they're lost.
+category: "Second Brain & Vault"
 origin: Hackastak
 ---
 

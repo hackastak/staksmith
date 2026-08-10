@@ -1,6 +1,7 @@
 ---
 name: triage
 description: Move issues and external PRs through a state machine of triage roles — categorise, verify, grill if needed, and write agent-ready briefs. Use when the user says "triage this", "what needs my attention", "move #42 to ready-for-agent", or invokes /triage.
+category: "Workflow & Meta"
 origin: Hackastak
 disable-model-invocation: true
 ---

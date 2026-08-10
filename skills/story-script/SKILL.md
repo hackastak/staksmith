@@ -1,6 +1,7 @@
 ---
 name: story-script
 description: Draft a publication-ready TikTok narration script for the "Stories You Won't Believe" channel, matching the owner's four canonical scripts for tone and structure. Use when turning a story idea into a finished, calm, documented script.
+category: "Writing & Content"
 origin: Hackastak
 ---
 

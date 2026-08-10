@@ -1,6 +1,7 @@
 ---
 name: challenge
 description: Pressure-test a belief or decision by finding contradictions, hidden assumptions, weak reasoning, and missing perspectives across vault notes. Use before big decisions.
+category: "Second Brain & Vault"
 origin: Hackastak
 ---
 

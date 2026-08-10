@@ -1,6 +1,7 @@
 ---
 name: coding-standards
 description: Universal coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.
+category: "Language & Framework Patterns"
 origin: staksmith
 ---
 

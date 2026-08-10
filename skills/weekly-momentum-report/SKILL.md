@@ -1,6 +1,7 @@
 ---
 name: weekly-momentum-report
 description: Aggregate project status from git repos, vault tasks, and GitHub for comprehensive weekly reviews.
+category: "Second Brain & Vault"
 origin: Hackastak
 ---
 

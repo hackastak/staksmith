@@ -1,3 +1,7 @@
+---
+description: "Run a deterministic repository harness audit and return a prioritized scorecard across hooks, skills, commands, and agents."
+---
+
 # Harness Audit Command
 
 Run a deterministic repository harness audit and return a prioritized scorecard.

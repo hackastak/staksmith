@@ -1,6 +1,7 @@
 ---
 name: writing-shape
 description: Writing, exploit — shape raw material into an argued article, paragraph by paragraph, with deliberate format choices. Use for technical or brand long-form where the piece argues a thesis.
+category: "Writing & Content"
 origin: Hackastak
 disable-model-invocation: true
 ---

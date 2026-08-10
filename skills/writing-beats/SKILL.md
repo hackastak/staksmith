@@ -1,6 +1,7 @@
 ---
 name: writing-beats
 description: Writing, exploit — assemble raw material into a journey of beats, grounding each concept before a beat leans on it. Use for narrative, personal-essay, or discovery-style pieces whose structure isn't known up front.
+category: "Writing & Content"
 origin: Hackastak
 disable-model-invocation: true
 ---

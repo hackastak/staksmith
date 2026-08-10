@@ -1,3 +1,7 @@
+---
+description: "Inspect an active autonomous loop — pattern, current phase, last checkpoint, failing checks, and recommended intervention."
+---
+
 # Loop Status Command
 
 Inspect active loop state, progress, and failure signals.

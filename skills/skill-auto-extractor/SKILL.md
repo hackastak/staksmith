@@ -1,6 +1,7 @@
 ---
 name: skill-auto-extractor
 description: Mine git history and session logs to automatically create reusable skill definitions from repeated workflows.
+category: "Workflow & Meta"
 origin: Hackastak
 ---
 

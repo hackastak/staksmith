@@ -1,6 +1,7 @@
 ---
 name: batch-grill-me
 description: A relentless interview that asks every frontier question at once, round by round. Use when the user wants to answer a batch of design questions in one pass rather than one at a time, or invokes /batch-grill-me.
+category: "Workflow & Meta"
 origin: Hackastak
 disable-model-invocation: true
 ---

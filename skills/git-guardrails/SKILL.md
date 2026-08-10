@@ -1,6 +1,7 @@
 ---
 name: git-guardrails
 description: Set up a Claude Code hook that blocks dangerous git commands (push, reset --hard, clean -f, branch -D, checkout .) before they execute. Use when the user wants to prevent destructive git operations or add git safety hooks.
+category: "Build, Debug & Merge"
 origin: Hackastak
 ---
 

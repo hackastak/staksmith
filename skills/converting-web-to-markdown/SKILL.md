@@ -1,6 +1,7 @@
 ---
 name: converting-web-to-markdown
 description: Fetches content from a specified website URL and converts it to markdown format using WebFetch or Playwright for JavaScript-heavy sites. Use when the user wants to extract web page content, convert HTML to markdown, scrape dynamic websites, or save web content locally as markdown files.
+category: "Writing & Content"
 ---
 
 # Converting Web to Markdown

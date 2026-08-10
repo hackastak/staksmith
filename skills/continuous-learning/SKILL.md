@@ -1,6 +1,7 @@
 ---
 name: continuous-learning
 description: Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.
+category: "Workflow & Meta"
 origin: staksmith
 ---
 

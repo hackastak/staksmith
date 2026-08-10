@@ -1,3 +1,7 @@
+---
+description: "Start a managed autonomous loop (sequential, continuous-pr, rfc-dag, or infinite) with safe or fast quality-gate defaults."
+---
+
 # Loop Start Command
 
 Start a managed autonomous loop pattern with safety defaults.

@@ -1,6 +1,7 @@
 ---
 name: ask-hackastak
 description: Route a situation to the right Hackastak skill — the map over everything you can invoke, with the engineering idea-to-ship flow as its spine. Use when you know there's a skill for this but not which one, when you want the lay of the land, or when the user invokes /ask-hackastak.
+category: "Workflow & Meta"
 origin: Hackastak
 disable-model-invocation: true
 argument-hint: "What you're trying to do, or nothing to see the whole map"

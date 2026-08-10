@@ -1,6 +1,7 @@
 ---
 name: vault-to-code-bridge
 description: Convert Obsidian vault project notes into architectural decisions, specifications, and CLAUDE.md files in code repositories.
+category: "Second Brain & Vault"
 origin: Hackastak
 ---
 

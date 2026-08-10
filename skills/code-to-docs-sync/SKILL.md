@@ -1,6 +1,7 @@
 ---
 name: code-to-docs-sync
 description: Detect drift between code and documentation (READMEs, CLAUDE.md, API docs), propose automated fixes.
+category: "Docs & Lookup"
 origin: Hackastak
 ---
 

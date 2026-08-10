@@ -1,6 +1,7 @@
 ---
 name: skill-design
 description: Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable.
+category: "Workflow & Meta"
 disable-model-invocation: true
 origin: Hackastak
 ---

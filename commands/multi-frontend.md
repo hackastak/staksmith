@@ -1,3 +1,7 @@
+---
+description: "Frontend-focused multi-model workflow (Research, Plan, Execute, Review), Gemini-led with Codex as reference."
+---
+
 # Frontend - Frontend-Focused Development
 
 Frontend-focused workflow (Research → Ideation → Plan → Execute → Optimize → Review), Gemini-led.

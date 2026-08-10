@@ -1,6 +1,7 @@
 ---
 name: to-spec
 description: Turn the current conversation into a spec (a PRD) and publish it to the project's issue tracker — no interview, just synthesis of what has already been discussed. Use when the user says "turn this into a spec", "write the PRD", or invokes /to-spec.
+category: "Workflow & Meta"
 origin: Hackastak
 disable-model-invocation: true
 ---

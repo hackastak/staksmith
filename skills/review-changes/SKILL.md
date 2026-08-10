@@ -1,6 +1,7 @@
 ---
 name: review-changes
 description: "Review only the changes in the working tree — the staged and unstaged diff against HEAD. Read-only, with attribution so inherited debt doesn't block your own work. Use as the tight in-dev loop, or when the user says 'review my changes', 'review the diff', or invokes '/review-changes'."
+category: "Code Review & Quality"
 origin: Hackastak
 ---
 

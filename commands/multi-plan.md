@@ -1,3 +1,7 @@
+---
+description: "Multi-model collaborative planning — dual-model analysis produces a step-by-step implementation plan without touching production code."
+---
+
 # Plan - Multi-Model Collaborative Planning
 
 Multi-model collaborative planning - Context retrieval + Dual-model analysis → Generate step-by-step implementation plan.

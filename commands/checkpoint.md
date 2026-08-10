@@ -1,3 +1,7 @@
+---
+description: "Create, verify, or list workflow checkpoints — clean-state git snapshots logged to .claude/checkpoints.log for safe rollback."
+---
+
 # Checkpoint Command
 
 Create or verify a checkpoint in your workflow.

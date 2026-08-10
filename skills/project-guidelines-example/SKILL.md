@@ -1,6 +1,7 @@
 ---
 name: project-guidelines-example
 description: "Example project-specific skill template based on a real production application."
+category: "Workflow & Meta"
 origin: staksmith
 ---
 

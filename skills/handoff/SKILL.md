@@ -1,6 +1,7 @@
 ---
 name: handoff
 description: Write a durable handoff document so a fresh agent — or you in a new session — can continue this work: what was done, the current state, the next moves, and which skills to reach for, with secrets redacted. Save-only, never launches. Use at a session boundary, before /clear or /compact, when handing work to another agent, or when the user invokes /handoff.
+category: "Workflow & Meta"
 origin: Hackastak
 disable-model-invocation: true
 argument-hint: "What the next session should focus on, or nothing"

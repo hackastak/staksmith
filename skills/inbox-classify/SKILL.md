@@ -1,6 +1,7 @@
 ---
 name: inbox-classify
 description: AI-powered classification of inbox items into PARA categories.
+category: "Second Brain & Vault"
 origin: Hackastak
 ---
 

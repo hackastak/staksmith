@@ -1,6 +1,7 @@
 ---
 name: writing-fragments
 description: Writing, explore — mine raw fragments for a piece, with no structure yet. Use when the user wants to gather material for something they're going to write, or invokes /writing-fragments.
+category: "Writing & Content"
 origin: Hackastak
 disable-model-invocation: true
 ---

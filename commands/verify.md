@@ -1,3 +1,7 @@
+---
+description: "Run comprehensive verification — build, type, lint, and test checks — in strict order, stopping at the first failure."
+---
+
 # Verification Command
 
 Run comprehensive verification on current codebase state.

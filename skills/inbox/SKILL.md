@@ -1,6 +1,7 @@
 ---
 name: inbox
 description: Process notes in 0. Inbox/ and organize them into PARA directories with per-file confirmation. Multi-relevance notes go to Resources and are linked from relevant Projects/Areas. Use to clear the inbox.
+category: "Second Brain & Vault"
 origin: Hackastak
 ---
 

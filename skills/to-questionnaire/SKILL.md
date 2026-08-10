@@ -1,6 +1,7 @@
 ---
 name: to-questionnaire
 description: Turn a decision you can't answer alone into a questionnaire for someone else to fill in — async or over a meeting. Use when the user needs knowledge a third party holds, or invokes /to-questionnaire.
+category: "Workflow & Meta"
 origin: Hackastak
 disable-model-invocation: true
 ---

@@ -1,6 +1,7 @@
 ---
 name: connect
 description: Find connections between two topics through the vault's wikilink graph, or analyze the whole vault for unlinked-but-related notes. Use to discover unexpected relationships between ideas.
+category: "Second Brain & Vault"
 origin: Hackastak
 ---
 

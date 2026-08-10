@@ -1,6 +1,7 @@
 ---
 name: ideas
 description: Scan the vault for emerging patterns and generate an ideas report — tools to build, people to reach out to, topics to investigate, and things to write. Use when seeking grounded inspiration.
+category: "Second Brain & Vault"
 origin: Hackastak
 ---
 

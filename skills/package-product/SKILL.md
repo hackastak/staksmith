@@ -1,6 +1,7 @@
 ---
 name: package-product
 description: Automate product packaging for Gumroad - handles guides, templates, skills, frameworks, and bundles. Generates appropriate documentation and sales pages based on product type.
+category: "DevOps & Deployment"
 origin: Hackastak
 ---
 

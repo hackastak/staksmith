@@ -1,3 +1,7 @@
+---
+description: "Run the staksmith quality pipeline (format, lint, type checks) on demand for a file or project scope, with optional --fix and --strict."
+---
+
 # Quality Gate Command
 
 Run the staksmith quality pipeline on demand for a file or project scope.

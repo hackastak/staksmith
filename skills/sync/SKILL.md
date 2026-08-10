@@ -1,6 +1,7 @@
 ---
 name: sync
 description: Load full vault context into Claude Code — recent weekly notes, active projects, master task list, recent inbox, and notes modified in the last 7 days — and output a structured state summary. Use at the start of a work session.
+category: "Second Brain & Vault"
 origin: Hackastak
 ---
 

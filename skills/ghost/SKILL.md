@@ -1,6 +1,7 @@
 ---
 name: ghost
 description: Answer a question in the user's own voice, drawn from their writing style and stated beliefs in the vault. Use to externalize thinking or draft authentic responses.
+category: "Second Brain & Vault"
 origin: Hackastak
 ---
 

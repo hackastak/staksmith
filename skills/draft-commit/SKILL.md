@@ -1,6 +1,7 @@
 ---
 name: draft-commit
 description: Stage the relevant changes and draft a tight, one-line commit message in the user's preferred conventional-commit format (e.g. "feat: add user auth integration using Supabase auth"). Never commits — staging and message drafting only. Use when the user says "draft a commit", "stage and write a commit message", or "/draft-commit".
+category: "Build, Debug & Merge"
 origin: Hackastak
 ---
 

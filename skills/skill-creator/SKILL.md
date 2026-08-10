@@ -1,6 +1,7 @@
 ---
 name: skill-creator
 description: Creates new Claude Agent Skills with proper structure, YAML frontmatter, instructions, and templates. Use when the user wants to create a new skill, generate a SKILL.md file, or scaffold a skill directory.
+category: "Workflow & Meta"
 ---
 
 # Skill Creator

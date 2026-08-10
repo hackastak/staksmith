@@ -1,6 +1,7 @@
 ---
 name: quick-note
 description: Summarize the work done in this chat into one tight reference line and append it to the current week's weekly note, under today, in the right section (Hackastak or SAP Business Network) with a project label. Minimal reference points, not detailed notes. Use when work wraps up, when the user invokes /quick-note, or as the final logging step of /handoff.
+category: "Second Brain & Vault"
 origin: Hackastak
 argument-hint: "Section/project hint, or nothing"
 ---

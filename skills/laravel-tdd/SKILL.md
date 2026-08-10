@@ -1,6 +1,7 @@
 ---
 name: laravel-tdd
 description: Test-driven development for Laravel with PHPUnit and Pest, factories, database testing, fakes, and coverage targets.
+category: "Testing & TDD"
 origin: staksmith
 ---
 

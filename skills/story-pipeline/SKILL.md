@@ -1,6 +1,7 @@
 ---
 name: story-pipeline
 description: Manage the "Stories You Won't Believe" TikTok content calendar — buffer health, pillar balance, scheduling to the Mon/Wed/Fri cadence, and publish tracking via script frontmatter. Use to see pipeline status or move scripts through the pipeline.
+category: "Writing & Content"
 origin: Hackastak
 ---
 

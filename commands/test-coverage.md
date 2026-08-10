@@ -1,3 +1,7 @@
+---
+description: "Analyze test coverage, identify gaps, and generate missing tests to reach 80%+ across Jest, Vitest, pytest, Cargo, JaCoCo, and Go."
+---
+
 # Test Coverage
 
 Analyze test coverage, identify gaps, and generate missing tests to reach 80%+ coverage.

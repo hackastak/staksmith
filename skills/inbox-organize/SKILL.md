@@ -1,6 +1,7 @@
 ---
 name: inbox-organize
 description: Move inbox files to their classified destinations.
+category: "Second Brain & Vault"
 origin: Hackastak
 ---
 

@@ -1,3 +1,7 @@
+---
+description: "Safely identify and remove dead code (knip, depcheck, ts-prune, vulture, deadcode, cargo-udeps) with test verification at every step."
+---
+
 # Refactor Clean
 
 Safely identify and remove dead code with test verification at every step.

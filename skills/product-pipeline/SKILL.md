@@ -1,6 +1,7 @@
 ---
 name: product-pipeline
 description: Manage product calendar and launches - view pipeline status, schedule releases, track revenue, and get recommendations on what to work on next.
+category: "Business & Research"
 origin: Hackastak
 ---
 

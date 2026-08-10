@@ -1,6 +1,7 @@
 ---
 name: blog-draft
 description: Draft a complete blog post for The HackaStak by mining the vault for evidence and writing in the established brand voice. Use when you have a topic ready and want a full first draft.
+category: "Writing & Content"
 origin: Hackastak
 ---
 

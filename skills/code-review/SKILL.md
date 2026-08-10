@@ -1,6 +1,7 @@
 ---
 name: code-review
 description: "Review all the code on the current branch — the whole state of what this branch has built, read broadly and architecturally. Read-only. Use before pushing or opening a PR, or when the user says 'review this branch', 'review my work', or invokes '/code-review'."
+category: "Code Review & Quality"
 origin: Hackastak
 ---
 

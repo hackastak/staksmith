@@ -1,6 +1,7 @@
 ---
 name: inbox-scan
 description: Inventory markdown files in your Obsidian vault inbox with basic metadata.
+category: "Second Brain & Vault"
 origin: Hackastak
 ---
 
