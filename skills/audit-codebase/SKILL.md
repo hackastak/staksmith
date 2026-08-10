@@ -55,7 +55,7 @@ Pick the passes that match the stack, then **dispatch them all in a single messa
 | Dead code, duplication, cleanliness | `refactor-cleaner` | always; **read-only brief required** |
 | Database (queries, schema, migrations) | `database-reviewer` | only if a DB layer was detected; **read-only brief required**; **engine-fit caveat required** (see below) |
 | Language-idiomatic | `python-reviewer` / `go-reviewer` / `rust-reviewer` / `cpp-reviewer` | one per detected language |
-| Performance | `general-purpose` (briefed for perf) | until a `performance-reviewer` agent exists; cover N+1, complexity, bundle size, blocking I/O, missing pagination/caching |
+| Performance | `performance-reviewer` | N+1, complexity, blocking I/O on async paths, unbounded work, missing pagination/caching, retry storms, bundle/render cost |
 
 **Every brief must contain**, pasted in full (sub-agents can't read your context or these files):
 
