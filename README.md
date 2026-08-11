@@ -103,7 +103,7 @@ For manual install instructions see the README in the `rules/` folder.
 /plugin list staksmith@staksmith
 ```
 
-✨ **That's it!** You now have access to 22 agents, 139 skills, and 56 commands.
+✨ **That's it!** You now have access to all the agents, skills, and commands that Staksmith has to offer.
 
 ---
 
