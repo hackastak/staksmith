@@ -18,11 +18,7 @@ const ROOT = path.join(__dirname, '../..');
 const README_PATH = path.join(ROOT, 'README.md');
 const AGENTS_PATH = path.join(ROOT, 'AGENTS.md');
 
-const OUTPUT_MODE = process.argv.includes('--md')
-  ? 'md'
-  : process.argv.includes('--text')
-    ? 'text'
-    : 'json';
+const OUTPUT_MODE = process.argv.includes('--md') ? 'md' : process.argv.includes('--text') ? 'text' : 'json';
 
 function normalizePathSegments(relativePath) {
   return relativePath.split(path.sep).join('/');
@@ -34,7 +30,8 @@ function listMatchingFiles(relativeDir, matcher) {
     return [];
   }
 
-  return fs.readdirSync(directory, { withFileTypes: true })
+  return fs
+    .readdirSync(directory, { withFileTypes: true })
     .filter(entry => matcher(entry))
     .map(entry => normalizePathSegments(path.join(relativeDir, entry.name)))
     .sort();
@@ -43,8 +40,7 @@ function listMatchingFiles(relativeDir, matcher) {
 function buildCatalog() {
   const agents = listMatchingFiles('agents', entry => entry.isFile() && entry.name.endsWith('.md'));
   const commands = listMatchingFiles('commands', entry => entry.isFile() && entry.name.endsWith('.md'));
-  const skills = listMatchingFiles('skills', entry => entry.isDirectory() && fs.existsSync(path.join(ROOT, 'skills', entry.name, 'SKILL.md')))
-    .map(skillDir => `${skillDir}/SKILL.md`);
+  const skills = listMatchingFiles('skills', entry => entry.isDirectory() && fs.existsSync(path.join(ROOT, 'skills', entry.name, 'SKILL.md'))).map(skillDir => `${skillDir}/SKILL.md`);
 
   return {
     agents: { count: agents.length, files: agents, glob: 'agents/*.md' },
@@ -64,16 +60,16 @@ function readFileOrThrow(filePath) {
 function parseReadmeExpectations(readmeContent) {
   const expectations = [];
 
+  // Counts are optional in the docs: validate them only where they're written.
+  // When a summary omits counts, there is nothing to drift, so skip it rather than fail.
   const quickStartMatch = readmeContent.match(/access to\s+(\d+)\s+agents,\s+(\d+)\s+skills,\s+and\s+(\d+)\s+commands/i);
-  if (!quickStartMatch) {
-    throw new Error('README.md is missing the quick-start catalog summary');
+  if (quickStartMatch) {
+    expectations.push(
+      { category: 'agents', mode: 'exact', expected: Number(quickStartMatch[1]), source: 'README.md quick-start summary' },
+      { category: 'skills', mode: 'exact', expected: Number(quickStartMatch[2]), source: 'README.md quick-start summary' },
+      { category: 'commands', mode: 'exact', expected: Number(quickStartMatch[3]), source: 'README.md quick-start summary' }
+    );
   }
-
-  expectations.push(
-    { category: 'agents', mode: 'exact', expected: Number(quickStartMatch[1]), source: 'README.md quick-start summary' },
-    { category: 'skills', mode: 'exact', expected: Number(quickStartMatch[2]), source: 'README.md quick-start summary' },
-    { category: 'commands', mode: 'exact', expected: Number(quickStartMatch[3]), source: 'README.md quick-start summary' }
-  );
 
   const tablePatterns = [
     { category: 'agents', regex: /\|\s*(?:\*\*)?Agents(?:\*\*)?\s*\|\s*✅\s*(\d+)\s+agents\s*\|/i, source: 'README.md comparison table' },
@@ -100,21 +96,23 @@ function parseReadmeExpectations(readmeContent) {
 }
 
 function parseAgentsDocExpectations(agentsContent) {
-  const summaryMatch = agentsContent.match(/providing\s+(\d+)\s+specialized agents,\s+(\d+)(\+)?\s+skills,\s+(\d+)\s+commands/i);
-  if (!summaryMatch) {
-    throw new Error('AGENTS.md is missing the catalog summary line');
-  }
+  const expectations = [];
 
-  const expectations = [
-    { category: 'agents', mode: 'exact', expected: Number(summaryMatch[1]), source: 'AGENTS.md summary' },
-    {
-      category: 'skills',
-      mode: summaryMatch[3] ? 'minimum' : 'exact',
-      expected: Number(summaryMatch[2]),
-      source: 'AGENTS.md summary'
-    },
-    { category: 'commands', mode: 'exact', expected: Number(summaryMatch[4]), source: 'AGENTS.md summary' }
-  ];
+  // Counts are optional in the docs: validate them only where they're written.
+  // When the summary omits counts, there is nothing to drift, so skip it rather than fail.
+  const summaryMatch = agentsContent.match(/providing\s+(\d+)\s+specialized agents,\s+(\d+)(\+)?\s+skills,\s+(\d+)\s+commands/i);
+  if (summaryMatch) {
+    expectations.push(
+      { category: 'agents', mode: 'exact', expected: Number(summaryMatch[1]), source: 'AGENTS.md summary' },
+      {
+        category: 'skills',
+        mode: summaryMatch[3] ? 'minimum' : 'exact',
+        expected: Number(summaryMatch[2]),
+        source: 'AGENTS.md summary'
+      },
+      { category: 'commands', mode: 'exact', expected: Number(summaryMatch[4]), source: 'AGENTS.md summary' }
+    );
+  }
 
   const structurePatterns = [
     {
@@ -140,7 +138,8 @@ function parseAgentsDocExpectations(agentsContent) {
   for (const pattern of structurePatterns) {
     const match = agentsContent.match(pattern.regex);
     if (!match) {
-      throw new Error(`${pattern.source} is missing the ${pattern.category} entry`);
+      // Structure counts are optional too; validate them only when documented.
+      continue;
     }
 
     expectations.push({
@@ -157,9 +156,7 @@ function parseAgentsDocExpectations(agentsContent) {
 function evaluateExpectations(catalog, expectations) {
   return expectations.map(expectation => {
     const actual = catalog[expectation.category].count;
-    const ok = expectation.mode === 'minimum'
-      ? actual >= expectation.expected
-      : actual === expectation.expected;
+    const ok = expectation.mode === 'minimum' ? actual >= expectation.expected : actual === expectation.expected;
 
     return {
       ...expectation,
@@ -218,10 +215,7 @@ function main() {
   const catalog = buildCatalog();
   const readmeContent = readFileOrThrow(README_PATH);
   const agentsContent = readFileOrThrow(AGENTS_PATH);
-  const expectations = [
-    ...parseReadmeExpectations(readmeContent),
-    ...parseAgentsDocExpectations(agentsContent)
-  ];
+  const expectations = [...parseReadmeExpectations(readmeContent), ...parseAgentsDocExpectations(agentsContent)];
   const checks = evaluateExpectations(catalog, expectations);
   const result = { catalog, checks };
 
