@@ -56,6 +56,7 @@ Pick the passes that match the stack, then **dispatch them all in a single messa
 | Database (queries, schema, migrations) | `database-reviewer` | only if a DB layer was detected; **read-only brief required**; **engine-fit caveat required** (see below) |
 | Language-idiomatic | `python-reviewer` / `go-reviewer` / `rust-reviewer` / `cpp-reviewer` | one per detected language |
 | Performance | `performance-reviewer` | N+1, complexity, blocking I/O on async paths, unbounded work, missing pagination/caching, retry storms, bundle/render cost |
+| Test coverage & quality | `general-purpose` (briefed with the `test-audit` dimensions) | optional — when the repo has a test suite worth assessing or the user asks; untested critical paths, weak/tautological tests, mock-the-internals |
 
 **Every brief must contain**, pasted in full (sub-agents can't read your context or these files):
 
