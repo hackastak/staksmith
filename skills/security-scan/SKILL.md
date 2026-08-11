@@ -1,6 +1,6 @@
 ---
 name: security-scan
-description: "Audit a whole codebase for security vulnerabilities inline, without delegating to an agent — secrets, injection, authn/authz, SSRF, unsafe crypto, dependency CVEs, and the OWASP Top 10. Read-only. Use to security-review an unfamiliar repo, or when the user says 'security scan', 'audit this for security', or invokes '/security-scan'."
+description: "Audit a whole codebase for security vulnerabilities inline, without delegating to an agent — secrets, injection, authn/authz, SSRF, unsafe crypto, dependency CVEs, license/SBOM compliance, and the OWASP Top 10. Read-only. Use to security-review an unfamiliar repo, or when the user says 'security scan', 'audit this for security', 'check licenses', or invokes '/security-scan'."
 category: "Code Review & Quality"
 origin: Hackastak
 ---
@@ -62,6 +62,8 @@ Run what's installed; **skip cleanly and say so** when a tool is absent — neve
 
 **SAST** (if present): `semgrep --config auto`, `eslint --plugin security`, `bandit -r .`. Report only findings you can confirm by reading the cited line — treat tool output as leads, not verdicts.
 
+**License / SBOM** — resolve the dependency tree's licenses and, when asked, emit an SBOM. Pick by ecosystem: `license-checker`/`license-checker-rseidelsohn` or `npm sbom` (npm), `pip-licenses` (Python), `cargo license`/`cargo-deny check licenses` (Rust), `go-licenses report ./...` (Go), `licensee`/`bundle exec license_finder` (Ruby), `composer licenses` (PHP). For a portable SBOM across any stack, `syrft`/`syft . -o cyclonedx-json` (or `cdxgen`) — CycloneDX or SPDX. If none is installed, fall back to reading the declared license fields in the manifest/lockfile and the `LICENSE` files of vendored deps, and say the resolution was manual and partial. The project's own intended license is the baseline: find it in `LICENSE`/`package.json`/`Cargo.toml` first, since compatibility is judged against it.
+
 State clearly at the top of the report which tools ran and which were unavailable. "No secret scanner installed" is a coverage gap the user must know about, not a clean result.
 
 ## 4. Walk the security surface
@@ -78,6 +80,7 @@ Read the high-risk files in full and walk these dimensions. Surface findings tag
 8. **Configuration & headers** — debug mode on in prod, default credentials, permissive CORS (`*` with credentials), missing security headers (CSP, HSTS, X-Content-Type-Options), open cloud storage/DB, `.env` served statically.
 9. **Dependencies & supply chain** — the CVEs from step 3, plus unpinned or abandoned dependencies, install scripts, and typosquat-shaped names. Rank by exploitability in *this* codebase, not raw CVSS.
 10. **Rate limiting & abuse** — no rate limiting on auth/expensive endpoints, no lockout on repeated failures, unbounded resource use, missing idempotency on payment paths, race conditions on balance/inventory (needs `FOR UPDATE`/locking).
+11. **License & SBOM compliance** — dependency licenses incompatible with the project's own license (copyleft — GPL/AGPL/LGPL — or `SSPL`/`BUSL`/`CC-BY-NC` pulled into code intended to ship closed-source or under a permissive license), missing or `UNKNOWN`/unlicensed dependencies, a license that changed on a version bump, and — when the user asks for one — a generated SBOM (CycloneDX/SPDX). Judge every dependency license against the project's declared license from step 3; a copyleft transitive dep in a proprietary product is a real finding, not a nit. This is a legal/distribution risk dimension, so severity tracks *ship risk*: an AGPL dep in a closed-source product is Critical, an unknown license on a build-only dev tool is Minor.
 
 If a dimension has nothing material, say so — silence is not a clean bill of health.
 
@@ -127,6 +130,12 @@ One paragraph, 2–4 sentences.>
 - <CVE / advisory id — package@version — severity — is it reachable in this code?
   Omit the section if the audit was clean or no auditor was available (say which).>
 
+## License & SBOM
+- <Incompatible / unknown / changed licenses — package@version — the license, why it
+  conflicts with the project's <declared license>, and the ship risk. Note if an SBOM
+  was generated (format + where). Omit the section if the project has no third-party
+  deps or license resolution wasn't possible (say which in Coverage gaps).>
+
 ## Coverage gaps
 - <What this scan could NOT see: no secret scanner installed, git history not scanned,
   a service excluded from scope, a tool that failed. Silent truncation reads as
@@ -148,7 +157,7 @@ One paragraph, 2–4 sentences.>
 
 ## Guardrails
 
-- **Never** run a command that mutates the working tree, index, or refs, or that reaches the network to *change* state. Read-only audit tooling and read-only git only. `npm audit`, `pip-audit`, `gitleaks detect`, `semgrep`, `govulncheck` are fine; `npm audit fix`, `cargo update`, installs, and `git` write commands are not.
+- **Never** run a command that mutates the working tree, index, or refs, or that reaches the network to *change* state. Read-only audit tooling and read-only git only. `npm audit`, `pip-audit`, `gitleaks detect`, `semgrep`, `govulncheck`, and the license/SBOM readers (`license-checker`, `pip-licenses`, `cargo license`, `go-licenses`, `syft`) are fine; `npm audit fix`, `cargo update`, installs, and `git` write commands are not. Note that some license tools resolve dependencies — prefer ones that read the existing lockfile over ones that would fetch or modify it.
 - **Never** invent file paths, line numbers, CVE ids, or tool output. Verify every citation. If a tool isn't installed, report it as a coverage gap — do not fabricate its result.
 - **Findings are the deliverable; fixes are not.** Don't edit code as part of this skill — hand the report back and let the user decide what to remediate. (`simplify` applies quality fixes; remediation of a security finding is a deliberate, separately-reviewed change.)
 - A repo too large to audit thoroughly gets a note at the top and a highest-risk-first pass over the surface from step 1. **Name what you skipped** so the user can ask for a follow-up.

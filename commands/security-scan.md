@@ -1,5 +1,5 @@
 ---
-description: Audit a whole codebase for security vulnerabilities inline — secrets, injection, authn/authz, SSRF, unsafe crypto, dependency CVEs, and the OWASP Top 10. Read-only, runs in the main context without spawning an agent.
+description: Audit a whole codebase for security vulnerabilities inline — secrets, injection, authn/authz, SSRF, unsafe crypto, dependency CVEs, license/SBOM compliance, and the OWASP Top 10. Read-only, runs in the main context without spawning an agent.
 ---
 
 # Security Scan
@@ -10,7 +10,7 @@ Invoke the **`security-scan`** skill to run a read-only security audit of the co
 
 1. **Scope** the whole repo (or a directory/diff you name) and locate the high-risk surface: auth, API routes, DB access, uploads, payments, webhooks, deserialization, shell calls.
 2. **Read the posture** — existing security config, `.gitignore` coverage, validation/auth conventions, and any security-tradeoff ADRs.
-3. **Run read-only tooling** — dependency/CVE audit per ecosystem (`npm audit`, `pip-audit`, `cargo audit`, `govulncheck`, `bundle audit`, `composer audit`), secret scanning (`gitleaks`/`trufflehog`), and SAST (`semgrep`/`eslint-plugin-security`/`bandit`) when installed. Missing tools are reported as coverage gaps, never faked.
+3. **Run read-only tooling** — dependency/CVE audit per ecosystem (`npm audit`, `pip-audit`, `cargo audit`, `govulncheck`, `bundle audit`, `composer audit`), secret scanning (`gitleaks`/`trufflehog`), SAST (`semgrep`/`eslint-plugin-security`/`bandit`), and license/SBOM resolution (`license-checker`/`pip-licenses`/`cargo license`/`go-licenses`/`syft`) when installed. Missing tools are reported as coverage gaps, never faked.
 4. **Walk the surface** across ten security dimensions and emit an anchored, severity-ranked report.
 
 ## When to Use

@@ -20,7 +20,7 @@ Everything below is **plugin-distributed**: it installs with the plugin (`/plugi
 | ⭐ `review-changes` | Review only the changes in the working tree — the staged and unstaged diff against HEAD. | `skills/review-changes/SKILL.md` |
 | `review-github-pr` | Review a GitHub pull request for the current branch by PR number. | `skills/review-github-pr/SKILL.md` |
 | ⭐ `security-review` | Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. | `skills/security-review/SKILL.md` |
-| ⭐ `security-scan` | Audit a whole codebase for security vulnerabilities inline, without delegating to an agent — secrets, injection, authn/authz, SSRF, unsafe crypto, dependency CVEs, and the OWASP Top 10. | `skills/security-scan/SKILL.md` |
+| ⭐ `security-scan` | Audit a whole codebase for security vulnerabilities inline, without delegating to an agent — secrets, injection, authn/authz, SSRF, unsafe crypto, dependency CVEs, license/SBOM compliance, and the OWASP Top 10. | `skills/security-scan/SKILL.md` |
 
 ### Testing & TDD (12)
 
@@ -253,7 +253,7 @@ Everything below is **plugin-distributed**: it installs with the plugin (`/plugi
 | `/rust-review` | Comprehensive Rust code review for ownership, lifetimes, error handling, unsafe usage, and idiomatic patterns. | `commands/rust-review.md` |
 | `/rust-test` | Enforce TDD workflow for Rust. | `commands/rust-test.md` |
 | `/save-session` | Save current session state to a dated file in ~/.claude/sessions/ so work can be resumed in a future session with full context. | `commands/save-session.md` |
-| `/security-scan` | Audit a whole codebase for security vulnerabilities inline — secrets, injection, authn/authz, SSRF, unsafe crypto, dependency CVEs, and the OWASP Top 10. | `commands/security-scan.md` |
+| `/security-scan` | Audit a whole codebase for security vulnerabilities inline — secrets, injection, authn/authz, SSRF, unsafe crypto, dependency CVEs, license/SBOM compliance, and the OWASP Top 10. | `commands/security-scan.md` |
 | `/sessions` | Manage Claude Code session history, aliases, and session metadata. | `commands/sessions.md` |
 | `/setup-pm` | Configure your preferred package manager (npm/pnpm/yarn/bun) | `commands/setup-pm.md` |
 | `/skill-create` | Analyze local git history to extract coding patterns and generate SKILL.md files. | `commands/skill-create.md` |
