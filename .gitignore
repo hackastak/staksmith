@@ -87,3 +87,6 @@ temp/
 # Generated lock files in tool subdirectories
 .opencode/package-lock.json
 .opencode/node_modules/
+
+# Local eval-driven-development artifacts (definitions, fixtures, graders, logs)
+.claude/evals/
