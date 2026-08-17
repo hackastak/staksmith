@@ -63,7 +63,7 @@ Tuesday
 
 4. **Place it under today.** Locate the chosen section, its `#### Daily Journal`, then today's day line. Append the new bullet as the **last** bullet for that day, immediately before the blank line preceding the next day heading. If today's day line has no bullets yet, add it directly beneath the day line.
 
-5. **Draft → confirm → write (standalone only).** When run directly, show the drafted line, the resolved section + day, and the note path, and wait for the yes before editing. **When chained from `/handoff`, write silently** — handoff owns the gate; do not prompt again. Report the path and the line written.
+5. **Write it.** Apply the edit directly — don't ask for approval first. In manual mode the harness already stops for approval before the edit lands, so an explicit confirmation step just adds a redundant round-trip. Report the resolved section + day, the note path, and the line written.
 
 ## Writing style
 
@@ -77,7 +77,7 @@ Tuesday
 - Compute the week and day from `date`; never assume last session's week.
 - If the weekly note is missing, stop and ask — do not scaffold it silently.
 - Never write a filler entry when nothing was completed.
-- Silent inside `/handoff`; confirm when run standalone.
+- Write the entry directly rather than asking for approval first; manual mode already gates the edit itself.
 
 ## Related skills
 
