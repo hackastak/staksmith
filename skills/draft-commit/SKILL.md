@@ -55,7 +55,7 @@ A **tight, one-line** message. No body, no wrapping paragraph, no trailers unles
 | `ci`       | CI/CD pipeline changes |
 | `build`    | build system or external dependency changes |
 
-Optionally scope with `type(scope): summary` (e.g. `fix(api): handle null session token`) when the change is clearly confined to one area and the scope adds clarity. Omit the scope when it would just repeat the summary.
+**Never add a scope.** The message is always `type: summary`, never `type(scope): summary`. Do not put a parenthetical area, package, or component next to the type. Where the change lives belongs in the summary text when it clarifies (e.g. `fix: handle null session token in the auth API`), not in a `(scope)`.
 
 ## Instructions
 
