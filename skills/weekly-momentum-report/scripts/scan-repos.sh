@@ -18,8 +18,13 @@ if [[ ! -f "$CONFIG_FILE" ]]; then
     exit 1
 fi
 
-REPOS_ROOT=($(jq -r '.repos_root[]' "$CONFIG_FILE"))
-AUTHOR_NAME=$(jq -r '.author_name' "$CONFIG_FILE")
+# search_roots (new) with fallback to repos_root (legacy)
+mapfile -t REPOS_ROOT < <(jq -r '(.search_roots // .repos_root // [])[]' "$CONFIG_FILE")
+# author_names (array, new) with fallback to author_name (legacy string)
+mapfile -t AUTHOR_NAMES < <(jq -r 'if .author_names then .author_names[] elif .author_name then .author_name else empty end' "$CONFIG_FILE")
+AUTHOR_ARGS=()
+for a in "${AUTHOR_NAMES[@]}"; do AUTHOR_ARGS+=(--author="$a"); done
+AUTHOR_DISPLAY=$(IFS='|'; echo "${AUTHOR_NAMES[*]}")
 DAYS_BACK=$(jq -r '.days_back' "$CONFIG_FILE")
 EXCLUDE_REPOS=$(jq -r '.exclude_repos[]' "$CONFIG_FILE" 2>/dev/null || echo "")
 CACHE_PATH=$(jq -r '.cache_path' "$CONFIG_FILE" | sed "s|~|$HOME|")
@@ -65,6 +70,7 @@ calc_week_dates() {
 SINCE_DATE=""
 UNTIL_DATE=""
 WEEK_ARG=""
+FROM_NOTES=""   # when set to a week, scan only repos discovered in that week's note
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -80,6 +86,16 @@ while [[ $# -gt 0 ]]; do
             WEEK_ARG="$2"
             shift 2
             ;;
+        --from-notes)
+            # Derive the repo set from the weekly note. Takes an optional week
+            # value; if the next token is another flag (or absent), defaults to
+            # whatever --week resolves to.
+            if [[ ${2:-} =~ ^--?[^-] || -z ${2:-} || ${2:-} == --* ]]; then
+                FROM_NOTES="__WEEK__"; shift 1
+            else
+                FROM_NOTES="$2"; shift 2
+            fi
+            ;;
         *)
             echo "Unknown option: $1" >&2
             echo "Usage: $0 [--week YYYY-WXX] [--since YYYY-MM-DD --until YYYY-MM-DD]" >&2
@@ -87,6 +103,20 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
+# Couple --from-notes with the date window so note discovery and the git-log
+# window always cover the same week.
+if [[ "$FROM_NOTES" == "__WEEK__" ]]; then
+    FROM_NOTES="${WEEK_ARG:-current}"
+fi
+if [[ -n "$FROM_NOTES" && -z "$WEEK_ARG" && -z "$SINCE_DATE" && -z "$UNTIL_DATE" ]]; then
+    if [[ "$FROM_NOTES" == "current" ]]; then
+        WEEK_ARG=$(date +%G-W%V)
+    else
+        WEEK_ARG="$FROM_NOTES"
+    fi
+    FROM_NOTES="$WEEK_ARG"
+fi
 
 # Function to normalize week input to YYYY-WXX format
 normalize_week() {
@@ -143,7 +173,7 @@ if [[ -n "$UNTIL_DATE" ]]; then
 else
     echo "Scanning repositories since: $SINCE_DATE" >&2
 fi
-echo "Author filter: $AUTHOR_NAME" >&2
+echo "Author filter: $AUTHOR_DISPLAY" >&2
 
 # Initialize results array
 results="[]"
@@ -181,7 +211,7 @@ scan_repo() {
     local git_log_args=(
         -C "$repo_path" log
         --since="$SINCE_DATE"
-        --author="$AUTHOR_NAME"
+        "${AUTHOR_ARGS[@]}"
         --regexp-ignore-case
         --pretty=format:'{"hash":"%h","date":"%ad","message":"%s"}'
         --date=short
@@ -251,22 +281,44 @@ scan_repo() {
     fi
 }
 
-# Scan all repositories in each root directory
-for root in "${REPOS_ROOT[@]}"; do
-    root="${root/#\~/$HOME}"
+if [[ -n "$FROM_NOTES" ]]; then
+    # Note-driven: scan only the repos the weekly note actually mentions.
+    # WEEK_ARG is normalized (YYYY-WXX) by the date-calc block above.
+    echo "Discovering repos from note for week: ${WEEK_ARG:-current}" >&2
+    disc_args=()
+    [[ -n "$WEEK_ARG" ]] && disc_args=(--week "$WEEK_ARG")
+    "$SCRIPT_DIR/discover-repos.sh" "${disc_args[@]}" >/dev/null
 
-    if [[ ! -d "$root" ]]; then
-        echo "Warning: Repos root not found: $root" >&2
-        continue
-    fi
+    discovered_file="$CACHE_PATH/discovered-repos.json"
+    # Local repos we can pull commits from
+    while IFS= read -r repo_path; do
+        [[ -n "$repo_path" ]] && scan_repo "$repo_path"
+    done < <(jq -r '.[] | select(.resolved) | .path' "$discovered_file")
 
-    echo "Scanning repos in: $root" >&2
+    # Mentioned-but-not-local repos: record so the report can name them without
+    # inventing commits (e.g. SAP repos checked out on another machine).
+    unresolved=$(jq -c '[.[] | select(.resolved|not) | {name: .repo_name}]' "$discovered_file")
+    echo "$unresolved" | jq '.' > "$CACHE_PATH/mentioned-remote.json"
+else
+    # Legacy/full scan: walk every repo under the search roots.
+    echo '[]' > "$CACHE_PATH/mentioned-remote.json"    # no note-driven remotes in this mode
+    echo '[]' > "$CACHE_PATH/discovered-repos.json"    # no note-driven ownership in this mode
+    for root in "${REPOS_ROOT[@]}"; do
+        root="${root/#\~/$HOME}"
 
-    # Find all directories that are git repositories
-    while IFS= read -r -d '' repo_path; do
-        scan_repo "$repo_path"
-    done < <(find "$root" -mindepth 1 -maxdepth 1 -type d -print0)
-done
+        if [[ ! -d "$root" ]]; then
+            echo "Warning: Repos root not found: $root" >&2
+            continue
+        fi
+
+        echo "Scanning repos in: $root" >&2
+
+        # Find all directories that are git repositories
+        while IFS= read -r -d '' repo_path; do
+            scan_repo "$repo_path"
+        done < <(find "$root" -mindepth 1 -maxdepth 1 -type d -print0)
+    done
+fi
 
 # Save results to cache
 cache_file="$CACHE_PATH/repos-scan.json"

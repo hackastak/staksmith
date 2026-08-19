@@ -1,13 +1,27 @@
 {
-  "repos_root": [
+  "search_roots": [
+    "/Users/hackastak/Developer",
     "/Users/hackastak/Developer/PROJECTS",
-    "/Users/hackastak/Developer/SMILESTACKLABS"
+    "/Users/hackastak/Developer/SMILESTACKLABS",
+    "/Users/hackastak/Developer/LORIEN"
   ],
   "vault_path": "/Users/hackastak/Developer/My_Notes",
-  "author_name": "hackastak",
+  "author_names": ["Hackastak", "hackastak", "Hunter Wiginton"],
   "days_back": 7,
   "output_format": "markdown",
   "exclude_repos": [],
+  "ignore_labels": [
+    "Blog",
+    "Interview",
+    "Interviews",
+    "Job search",
+    "Onboarding",
+    "Prep",
+    "Notes",
+    "TODO",
+    "TODOs"
+  ],
+  "repo_aliases": {},
   "include_uncommitted": true,
   "include_branches": true,
   "cache_path": "~/.claude/homunculus/weekly-momentum-report/"
