@@ -1,6 +1,6 @@
 {
   "name": "staksmith",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A collection of skills and configs for Claude Code and compatible AI agent harnesses - agents, skills, hooks, commands, and rules",
   "author": {
     "name": "hackastak",

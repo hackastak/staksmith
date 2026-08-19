@@ -1,6 +1,6 @@
 {
   "name": "staksmith",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Complete collection of battle-tested Claude Code configs — agents, skills, hooks, commands, and rules for software development across Claude Code and compatible AI agent harnesses",
   "keywords": [
     "claude-code",
