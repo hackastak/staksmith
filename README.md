@@ -36,6 +36,8 @@ staksmith is organized into independent components — install the whole thing o
 
 **Browse the full catalog:** [`SKILLS.md`](SKILLS.md) indexes every skill (grouped by category), command, and agent with a one-line description and location. It is auto-generated from frontmatter by `node scripts/ci/skills-catalog.js`.
 
+**Go deeper on the custom skills:** [`CUSTOM_SKILLS.md`](CUSTOM_SKILLS.md) is a hand-authored reference for the 69 skills built for Staksmith (⭐ in the catalog), documenting how each one works, its inputs and outputs, and the vault structure it assumes, so they stay usable without the Obsidian vault they were designed around.
+
 ---
 
 ## 🚀 Quick Start
