@@ -6,6 +6,8 @@ description: "Run comprehensive verification — build, type, lint, and test che
 
 Run comprehensive verification on current codebase state.
 
+> **Iron Law — evidence before claims.** No "done / fixed / passing" claim without fresh verification evidence from *this* run. Run the full command, read the exit code and failure count, and state the claim only *with* its evidence. Confidence is not evidence; a previous run is not this run. See [rules/common/development-workflow.md](../rules/common/development-workflow.md).
+
 ## Instructions
 
 Execute verification in this exact order:
