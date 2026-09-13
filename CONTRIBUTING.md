@@ -6,6 +6,7 @@ Thanks for wanting to contribute! This repo is a community resource for Claude C
 
 - [What We're Looking For](#what-were-looking-for)
 - [Quick Start](#quick-start)
+- [Running Tests](#running-tests)
 - [Contributing Skills](#contributing-skills)
 - [Contributing Agents](#contributing-agents)
 - [Contributing Hooks](#contributing-hooks)
@@ -66,6 +67,32 @@ cp -r skills/my-skill ~/.claude/skills/  # for skills
 # 5. Submit PR
 git add . && git commit -m "feat: add my-skill" && git push -u origin feat/my-contribution
 ```
+
+---
+
+## Running Tests
+
+The repo ships a Node test suite covering scripts, hooks, libraries, and CI validators. It runs on plain Node, no extra setup.
+
+```bash
+# Full check (frontmatter/format validators + catalog check + unit tests) — this is what CI runs
+npm test
+
+# Just the unit tests
+node tests/run-all.js
+
+# A single test file
+node tests/lib/utils.test.js
+node tests/hooks/hooks.test.js
+
+# Coverage (enforces 80% lines/functions/branches/statements)
+npm run coverage
+
+# Lint (eslint + markdownlint)
+npm run lint
+```
+
+`npm test` also runs the skill/command/agent/hook validators and the personal-path check, so a green run means your frontmatter and formatting are valid too. Keep the suite green before opening a PR, and note that it passes in the "Testing" field of the PR description.
 
 ---
 
