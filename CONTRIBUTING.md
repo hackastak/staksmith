@@ -100,6 +100,8 @@ npm run lint
 
 Skills are knowledge modules that Claude Code loads based on context.
 
+> **Every skill needs a matching slash command.** In Claude Code skills auto-activate, but in OpenCode a skill is only loaded as passive context and can't be invoked on demand — a same-named command is the portable way to invoke it in either harness. After adding or renaming a skill, run `npm run generate:commands` to create the matching command in both `commands/` (Claude Code) and `.opencode/commands/` + `.opencode/opencode.json` (OpenCode), then commit the generated files. The generator never overwrites hand-authored commands. `npm test` runs `generate-commands.js --check` and fails if any skill is missing its command.
+
 ### Directory Structure
 
 ```

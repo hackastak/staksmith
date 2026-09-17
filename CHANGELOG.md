@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.3 - 2026-09-17
+
+Every skill is now invocable as a slash command in both harnesses:
+
+- **Skill→command parity**: generated a same-named command for all 142 skills in `commands/` (Claude Code) and `.opencode/commands/` + `.opencode/opencode.json` (OpenCode). In OpenCode a skill is otherwise only loaded as passive context, so a command is the portable way to invoke it on demand.
+- **`generate-commands` script**: `scripts/ci/generate-commands.js` (`npm run generate:commands`) creates the matching command for any skill that lacks one, in either or both surfaces. It never overwrites hand-authored commands and is idempotent.
+- **CI enforcement**: `npm test` now runs `generate-commands.js --check` and fails if any skill is missing its command, so parity stays true as skills are added.
+
 ## 1.0.2 - 2026-09-11
 
 Ported two workflow-discipline skills from the superpowers plugin and added a verification gate:

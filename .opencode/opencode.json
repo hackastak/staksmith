@@ -311,6 +311,570 @@
     "projects": {
       "description": "List known projects and instinct stats",
       "template": "{file:commands/projects.md}\n\n$ARGUMENTS"
+    },
+    "a11y-review": {
+      "description": "Review frontend code for accessibility — semantic structure, keyboard and focus, ARIA correctness, text alternatives, forms, color/contrast, and dynamic-content announcements — ranked by WCAG severity and real user impact. Read-only, scoped to frontend files. Use for a web/React/Vue/Svelte UI, or when the user says 'accessibility review', 'a11y', 'is this WCAG compliant', or invokes '/a11y-review'.",
+      "template": "{file:commands/a11y-review.md}\n\n$ARGUMENTS"
+    },
+    "adr-standard": {
+      "description": "The house standard for Architecture Decision Records — when a decision earns an ADR, the mandatory sections, and the supersede-don't-edit rule. Use when writing, updating, or superseding an ADR, when deciding whether a decision is worth recording, or when another skill needs the ADR format.",
+      "template": "{file:commands/adr-standard.md}\n\n$ARGUMENTS"
+    },
+    "agent-harness-construction": {
+      "description": "Design and optimize AI agent action spaces, tool definitions, and observation formatting for higher completion rates.",
+      "template": "{file:commands/agent-harness-construction.md}\n\n$ARGUMENTS"
+    },
+    "agentic-engineering": {
+      "description": "Operate as an agentic engineer using eval-first execution, decomposition, and cost-aware model routing.",
+      "template": "{file:commands/agentic-engineering.md}\n\n$ARGUMENTS"
+    },
+    "ai-regression-testing": {
+      "description": "Regression testing strategies for AI-assisted development. Sandbox-mode API testing without database dependencies, automated bug-check workflows, and patterns to catch AI blind spots where the same model writes and reviews code.",
+      "template": "{file:commands/ai-regression-testing.md}\n\n$ARGUMENTS"
+    },
+    "api-design": {
+      "description": "REST API design patterns including resource naming, status codes, pagination, filtering, error responses, versioning, and rate limiting for production APIs.",
+      "template": "{file:commands/api-design.md}\n\n$ARGUMENTS"
+    },
+    "article-writing": {
+      "description": "Write articles, guides, blog posts, tutorials, newsletter issues, and other long-form content in a distinctive voice derived from supplied examples or brand guidance. Use when the user wants polished written content longer than a paragraph, especially when voice consistency, structure, and credibility matter.",
+      "template": "{file:commands/article-writing.md}\n\n$ARGUMENTS"
+    },
+    "ask-hackastak": {
+      "description": "Route a situation to the right Hackastak skill — the map over everything you can invoke, with the engineering idea-to-ship flow as its spine. Use when you know there's a skill for this but not which one, when you want the lay of the land, or when the user invokes /ask-hackastak.",
+      "template": "{file:commands/ask-hackastak.md}\n\n$ARGUMENTS"
+    },
+    "audit-codebase": {
+      "description": "Audit a whole codebase across every review dimension by fanning out the specialist reviewers and merging their findings into one ranked report — security, architecture, dead code, database, and language-idiomatic quality. Read-only, repo-scoped. Use to review an unfamiliar codebase end-to-end, or when the user says 'audit this repo', 'review the whole codebase', or invokes '/audit-codebase'.",
+      "template": "{file:commands/audit-codebase.md}\n\n$ARGUMENTS"
+    },
+    "backend-patterns": {
+      "description": "Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes.",
+      "template": "{file:commands/backend-patterns.md}\n\n$ARGUMENTS"
+    },
+    "backlinks": {
+      "description": "Wire the vault graph — find orphans, missing connections, and cluster bridges, score them, and add links/stubs. Connects notes without generating content. Optional cluster focus.",
+      "template": "{file:commands/backlinks.md}\n\n$ARGUMENTS"
+    },
+    "backlog-review": {
+      "description": "Review backlog and todo notes across the Obsidian vault, verify whether open items are actually already done using evidence from the associated code repos and other notes, and mark the confirmed ones complete. Review only — never writes code or does the work. Use to reconcile stale backlogs with reality.",
+      "template": "{file:commands/backlog-review.md}\n\n$ARGUMENTS"
+    },
+    "batch-grill-me": {
+      "description": "A relentless interview that asks every frontier question at once, round by round. Use when the user wants to answer a batch of design questions in one pass rather than one at a time, or invokes /batch-grill-me.",
+      "template": "{file:commands/batch-grill-me.md}\n\n$ARGUMENTS"
+    },
+    "blog-draft": {
+      "description": "Draft a complete blog post for The HackaStak by mining the vault for evidence and writing in the established brand voice. Use when you have a topic ready and want a full first draft.",
+      "template": "{file:commands/blog-draft.md}\n\n$ARGUMENTS"
+    },
+    "blog-ideas": {
+      "description": "Generate blog post ideas for The HackaStak by mining your Obsidian vault for expertise, filtered through the blog strategy, pillars, and audience. Use when planning the content calendar or deciding what to write next.",
+      "template": "{file:commands/blog-ideas.md}\n\n$ARGUMENTS"
+    },
+    "blueprint": {
+      "description": "category: \"Workflow & Meta\" Turn a one-line objective into a step-by-step construction plan for multi-session, multi-agent engineering projects. Each step has a self-contained context brief so a fresh agent can execute it cold. Includes adversarial review gate, dependency graph, parallel step detection, anti-pattern catalog, and plan mutation protocol. TRIGGER when: user requests a plan, blueprint, or roadmap for a complex multi-PR task, or describes work that needs multiple sessions. DO NOT TRIGGER when: task is completable in a single PR or fewer than 3 tool calls, or user says \"just do it\". origin: community",
+      "template": "{file:commands/blueprint.md}\n\n$ARGUMENTS"
+    },
+    "brainstorming": {
+      "description": "Use BEFORE any creative work — creating features, building components, adding functionality, or modifying behavior. Explores intent, requirements, and design, and gets explicit approval before implementation. Fires when the user asks to build/add/change something without a settled design.",
+      "template": "{file:commands/brainstorming.md}\n\n$ARGUMENTS"
+    },
+    "bun-runtime": {
+      "description": "Bun as runtime, package manager, bundler, and test runner. When to choose Bun vs Node, migration notes, and Vercel support.",
+      "template": "{file:commands/bun-runtime.md}\n\n$ARGUMENTS"
+    },
+    "challenge": {
+      "description": "Pressure-test a belief or decision by finding contradictions, hidden assumptions, weak reasoning, and missing perspectives across vault notes. Use before big decisions.",
+      "template": "{file:commands/challenge.md}\n\n$ARGUMENTS"
+    },
+    "claude-api": {
+      "description": "Anthropic Claude API patterns for Python and TypeScript. Covers Messages API, streaming, tool use, vision, extended thinking, batches, prompt caching, and Claude Agent SDK. Use when building applications with the Claude API or Anthropic SDKs.",
+      "template": "{file:commands/claude-api.md}\n\n$ARGUMENTS"
+    },
+    "clickhouse-io": {
+      "description": "ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.",
+      "template": "{file:commands/clickhouse-io.md}\n\n$ARGUMENTS"
+    },
+    "code-to-docs-sync": {
+      "description": "Detect drift between code and documentation (READMEs, CLAUDE.md, API docs), propose automated fixes.",
+      "template": "{file:commands/code-to-docs-sync.md}\n\n$ARGUMENTS"
+    },
+    "codebase-design": {
+      "description": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
+      "template": "{file:commands/codebase-design.md}\n\n$ARGUMENTS"
+    },
+    "coding-standards": {
+      "description": "Universal coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.",
+      "template": "{file:commands/coding-standards.md}\n\n$ARGUMENTS"
+    },
+    "configure-staksmith": {
+      "description": "Interactive installer for staksmith — guides users through selecting and installing skills and rules to user-level or project-level directories, verifies paths, and optionally optimizes installed files.",
+      "template": "{file:commands/configure-staksmith.md}\n\n$ARGUMENTS"
+    },
+    "connect": {
+      "description": "Find connections between two topics through the vault's wikilink graph, or analyze the whole vault for unlinked-but-related notes. Use to discover unexpected relationships between ideas.",
+      "template": "{file:commands/connect.md}\n\n$ARGUMENTS"
+    },
+    "content": {
+      "description": "Manage The HackaStak content calendar and publishing pipeline — buffer health, pillar balance, scheduling, and publish tracking. Use to see status or move articles through the pipeline.",
+      "template": "{file:commands/content.md}\n\n$ARGUMENTS"
+    },
+    "content-engine": {
+      "description": "Create platform-native content systems for X, LinkedIn, TikTok, YouTube, newsletters, and repurposed multi-platform campaigns. Use when the user wants social posts, threads, scripts, content calendars, or one source asset adapted cleanly across platforms.",
+      "template": "{file:commands/content-engine.md}\n\n$ARGUMENTS"
+    },
+    "content-hash-cache-pattern": {
+      "description": "Cache expensive file processing results using SHA-256 content hashes — path-independent, auto-invalidating, with service layer separation.",
+      "template": "{file:commands/content-hash-cache-pattern.md}\n\n$ARGUMENTS"
+    },
+    "continuous-agent-loop": {
+      "description": "Patterns for continuous autonomous agent loops with quality gates, evals, and recovery controls.",
+      "template": "{file:commands/continuous-agent-loop.md}\n\n$ARGUMENTS"
+    },
+    "continuous-learning": {
+      "description": "Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.",
+      "template": "{file:commands/continuous-learning.md}\n\n$ARGUMENTS"
+    },
+    "continuous-learning-v2": {
+      "description": "Instinct-based learning system that observes sessions via hooks, creates atomic instincts with confidence scoring, and evolves them into skills/commands/agents. v2.1 adds project-scoped instincts to prevent cross-project contamination.",
+      "template": "{file:commands/continuous-learning-v2.md}\n\n$ARGUMENTS"
+    },
+    "converting-web-to-markdown": {
+      "description": "Fetches content from a specified website URL and converts it to markdown format using WebFetch or Playwright for JavaScript-heavy sites. Use when the user wants to extract web page content, convert HTML to markdown, scrape dynamic websites, or save web content locally as markdown files.",
+      "template": "{file:commands/converting-web-to-markdown.md}\n\n$ARGUMENTS"
+    },
+    "cost-aware-llm-pipeline": {
+      "description": "Cost optimization patterns for LLM API usage — model routing by task complexity, budget tracking, retry logic, and prompt caching.",
+      "template": "{file:commands/cost-aware-llm-pipeline.md}\n\n$ARGUMENTS"
+    },
+    "cpp-coding-standards": {
+      "description": "C++ coding standards based on the C++ Core Guidelines (isocpp.github.io). Use when writing, reviewing, or refactoring C++ code to enforce modern, safe, and idiomatic practices.",
+      "template": "{file:commands/cpp-coding-standards.md}\n\n$ARGUMENTS"
+    },
+    "cpp-testing": {
+      "description": "Use only when writing/updating/fixing C++ tests, configuring GoogleTest/CTest, diagnosing failing or flaky tests, or adding coverage/sanitizers.",
+      "template": "{file:commands/cpp-testing.md}\n\n$ARGUMENTS"
+    },
+    "crosspost": {
+      "description": "Multi-platform content distribution across X, LinkedIn, Threads, and Bluesky. Adapts content per platform using content-engine patterns. Never posts identical content cross-platform. Use when the user wants to distribute content across social platforms.",
+      "template": "{file:commands/crosspost.md}\n\n$ARGUMENTS"
+    },
+    "data-scraper-agent": {
+      "description": "Build a fully automated AI-powered data collection agent for any public source — job boards, prices, news, GitHub, sports, anything. Scrapes on a schedule, enriches data with a free LLM (Gemini Flash), stores results in Notion/Sheets/Supabase, and learns from user feedback. Runs 100% free on GitHub Actions. Use when the user wants to monitor, collect, or track any public data automatically.",
+      "template": "{file:commands/data-scraper-agent.md}\n\n$ARGUMENTS"
+    },
+    "database-migrations": {
+      "description": "Database migration best practices for schema changes, data migrations, rollbacks, and zero-downtime deployments across PostgreSQL, MySQL, and common ORMs (Prisma, Drizzle, Django, TypeORM, golang-migrate).",
+      "template": "{file:commands/database-migrations.md}\n\n$ARGUMENTS"
+    },
+    "deep-research": {
+      "description": "Multi-source deep research using firecrawl and exa MCPs. Searches the web, synthesizes findings, and delivers cited reports with source attribution. Use when the user wants thorough research on any topic with evidence and citations.",
+      "template": "{file:commands/deep-research.md}\n\n$ARGUMENTS"
+    },
+    "deployment-patterns": {
+      "description": "Deployment workflows, CI/CD pipeline patterns, Docker containerization, health checks, rollback strategies, and production readiness checklists for web applications.",
+      "template": "{file:commands/deployment-patterns.md}\n\n$ARGUMENTS"
+    },
+    "design-workflow": {
+      "description": "Grill the user about the recurring loops in their life and work, and turn each one worth delegating into a workflow spec. Use when the user wants to design an automation, says \"help me spec a workflow\", or invokes /design-workflow.",
+      "template": "{file:commands/design-workflow.md}\n\n$ARGUMENTS"
+    },
+    "diagnosing-bugs": {
+      "description": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
+      "template": "{file:commands/diagnosing-bugs.md}\n\n$ARGUMENTS"
+    },
+    "docker-patterns": {
+      "description": "Docker and Docker Compose patterns for local development, container security, networking, volume strategies, and multi-service orchestration.",
+      "template": "{file:commands/docker-patterns.md}\n\n$ARGUMENTS"
+    },
+    "documentation-lookup": {
+      "description": "Use up-to-date library and framework docs via Context7 MCP instead of training data. Activates for setup questions, API references, code examples, or when the user names a framework (e.g. React, Next.js, Prisma).",
+      "template": "{file:commands/documentation-lookup.md}\n\n$ARGUMENTS"
+    },
+    "domain-modeling": {
+      "description": "Build and sharpen a project's domain model. Use when the user wants to pin down domain terminology or a ubiquitous language, record an architectural decision, or when another skill needs to maintain the domain model.",
+      "template": "{file:commands/domain-modeling.md}\n\n$ARGUMENTS"
+    },
+    "draft-commit": {
+      "description": "Stage the relevant changes and draft a tight, one-line commit message in the user's preferred conventional-commit format (e.g. \"feat: add user auth integration using Supabase auth\"). Never commits — staging and message drafting only. Use when the user says \"draft a commit\", \"stage and write a commit message\", or \"/draft-commit\".",
+      "template": "{file:commands/draft-commit.md}\n\n$ARGUMENTS"
+    },
+    "e2e-testing": {
+      "description": "Playwright E2E testing patterns, Page Object Model, configuration, CI/CD integration, artifact management, and flaky test strategies.",
+      "template": "{file:commands/e2e-testing.md}\n\n$ARGUMENTS"
+    },
+    "enterprise-agent-ops": {
+      "description": "Operate long-lived agent workloads with observability, security boundaries, and lifecycle management.",
+      "template": "{file:commands/enterprise-agent-ops.md}\n\n$ARGUMENTS"
+    },
+    "eval-harness": {
+      "description": "Formal evaluation framework for Claude Code sessions implementing eval-driven development (EDD) principles",
+      "template": "{file:commands/eval-harness.md}\n\n$ARGUMENTS"
+    },
+    "exa-search": {
+      "description": "Neural search via Exa MCP for web, code, and company research. Use when the user needs web search, code examples, company intel, people lookup, or AI-powered deep research with Exa's neural search engine.",
+      "template": "{file:commands/exa-search.md}\n\n$ARGUMENTS"
+    },
+    "foundation-models-on-device": {
+      "description": "Apple FoundationModels framework for on-device LLM — text generation, guided generation with @Generable, tool calling, and snapshot streaming in iOS 26+.",
+      "template": "{file:commands/foundation-models-on-device.md}\n\n$ARGUMENTS"
+    },
+    "frontend-patterns": {
+      "description": "Frontend development patterns for React, Next.js, state management, performance optimization, and UI best practices.",
+      "template": "{file:commands/frontend-patterns.md}\n\n$ARGUMENTS"
+    },
+    "ghost": {
+      "description": "Answer a question in the user's own voice, drawn from their writing style and stated beliefs in the vault. Use to externalize thinking or draft authentic responses.",
+      "template": "{file:commands/ghost.md}\n\n$ARGUMENTS"
+    },
+    "git-guardrails": {
+      "description": "Set up a Claude Code hook that blocks dangerous git commands (push, reset --hard, clean -f, branch -D, checkout .) before they execute. Use when the user wants to prevent destructive git operations or add git safety hooks.",
+      "template": "{file:commands/git-guardrails.md}\n\n$ARGUMENTS"
+    },
+    "golang-patterns": {
+      "description": "Idiomatic Go patterns, best practices, and conventions for building robust, efficient, and maintainable Go applications.",
+      "template": "{file:commands/golang-patterns.md}\n\n$ARGUMENTS"
+    },
+    "golang-testing": {
+      "description": "Go testing patterns including table-driven tests, subtests, benchmarks, fuzzing, and test coverage. Follows TDD methodology with idiomatic Go practices.",
+      "template": "{file:commands/golang-testing.md}\n\n$ARGUMENTS"
+    },
+    "graduate": {
+      "description": "Extract undeveloped ideas from weekly notes and promote them into standalone seedling notes in 0. Inbox/Graduates/. Use to capture half-formed thoughts before they're lost.",
+      "template": "{file:commands/graduate.md}\n\n$ARGUMENTS"
+    },
+    "grill-me": {
+      "description": "Interview the user relentlessly about a plan or design until reaching a shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, mentions \"grill me\".",
+      "template": "{file:commands/grill-me.md}\n\n$ARGUMENTS"
+    },
+    "grill-with-docs": {
+      "description": "A relentless interview that also leaves a paper trail — the glossary and ADRs get written as the decisions crystallise. Use when the user wants to be grilled on a design and have the domain model captured at the same time.",
+      "template": "{file:commands/grill-with-docs.md}\n\n$ARGUMENTS"
+    },
+    "handoff": {
+      "description": "Write a durable handoff document so a fresh agent — or you in a new session — can continue this work: what was done, the current state, the next moves, and which skills to reach for, with secrets redacted. Save-only, never launches. Use at a session boundary, before /clear or /compact, when handing work to another agent, or when the user invokes /handoff.",
+      "template": "{file:commands/handoff.md}\n\n$ARGUMENTS"
+    },
+    "ideas": {
+      "description": "Scan the vault for emerging patterns and generate an ideas report — tools to build, people to reach out to, topics to investigate, and things to write. Use when seeking grounded inspiration.",
+      "template": "{file:commands/ideas.md}\n\n$ARGUMENTS"
+    },
+    "implement": {
+      "description": "Implement a piece of work described by a spec, a set of tickets, a GitHub issue, or a task stated in the conversation. Use when the user says \"implement this\", \"build ticket 03\", or invokes /implement.",
+      "template": "{file:commands/implement.md}\n\n$ARGUMENTS"
+    },
+    "improve-codebase-architecture": {
+      "description": "Scan a codebase for deepening opportunities, present them as a visual Markdown report in the vault, then grill through whichever one you pick. Use when the user wants an architecture review, asks where the codebase is getting hard to change, or invokes /improve-codebase-architecture.",
+      "template": "{file:commands/improve-codebase-architecture.md}\n\n$ARGUMENTS"
+    },
+    "inbox": {
+      "description": "Process notes in 0. Inbox/ and organize them into PARA directories with per-file confirmation. Multi-relevance notes go to Resources and are linked from relevant Projects/Areas. Use to clear the inbox.",
+      "template": "{file:commands/inbox.md}\n\n$ARGUMENTS"
+    },
+    "inbox-classify": {
+      "description": "AI-powered classification of inbox items into PARA categories.",
+      "template": "{file:commands/inbox-classify.md}\n\n$ARGUMENTS"
+    },
+    "inbox-organize": {
+      "description": "Move inbox files to their classified destinations.",
+      "template": "{file:commands/inbox-organize.md}\n\n$ARGUMENTS"
+    },
+    "inbox-scan": {
+      "description": "Inventory markdown files in your Obsidian vault inbox with basic metadata.",
+      "template": "{file:commands/inbox-scan.md}\n\n$ARGUMENTS"
+    },
+    "investor-materials": {
+      "description": "Create and update pitch decks, one-pagers, investor memos, accelerator applications, financial models, and fundraising materials. Use when the user needs investor-facing documents, projections, use-of-funds tables, milestone plans, or materials that must stay internally consistent across multiple fundraising assets.",
+      "template": "{file:commands/investor-materials.md}\n\n$ARGUMENTS"
+    },
+    "investor-outreach": {
+      "description": "Draft cold emails, warm intro blurbs, follow-ups, update emails, and investor communications for fundraising. Use when the user wants outreach to angels, VCs, strategic investors, or accelerators and needs concise, personalized, investor-facing messaging.",
+      "template": "{file:commands/investor-outreach.md}\n\n$ARGUMENTS"
+    },
+    "iterative-retrieval": {
+      "description": "Pattern for progressively refining context retrieval to solve the subagent context problem",
+      "template": "{file:commands/iterative-retrieval.md}\n\n$ARGUMENTS"
+    },
+    "laravel-patterns": {
+      "description": "Laravel architecture patterns, routing/controllers, Eloquent ORM, service layers, queues, events, caching, and API resources for production apps.",
+      "template": "{file:commands/laravel-patterns.md}\n\n$ARGUMENTS"
+    },
+    "laravel-security": {
+      "description": "Laravel security best practices for authn/authz, validation, CSRF, mass assignment, file uploads, secrets, rate limiting, and secure deployment.",
+      "template": "{file:commands/laravel-security.md}\n\n$ARGUMENTS"
+    },
+    "laravel-tdd": {
+      "description": "Test-driven development for Laravel with PHPUnit and Pest, factories, database testing, fakes, and coverage targets.",
+      "template": "{file:commands/laravel-tdd.md}\n\n$ARGUMENTS"
+    },
+    "laravel-verification": {
+      "description": "Verification loop for Laravel projects: env checks, linting, static analysis, tests with coverage, security scans, and deployment readiness.",
+      "template": "{file:commands/laravel-verification.md}\n\n$ARGUMENTS"
+    },
+    "liquid-glass-design": {
+      "description": "iOS 26 Liquid Glass design system — dynamic glass material with blur, reflection, and interactive morphing for SwiftUI, UIKit, and WidgetKit.",
+      "template": "{file:commands/liquid-glass-design.md}\n\n$ARGUMENTS"
+    },
+    "market-research": {
+      "description": "Conduct market research, competitive analysis, investor due diligence, and industry intelligence with source attribution and decision-oriented summaries. Use when the user wants market sizing, competitor comparisons, fund research, technology scans, or research that informs business decisions.",
+      "template": "{file:commands/market-research.md}\n\n$ARGUMENTS"
+    },
+    "mcp-server-patterns": {
+      "description": "Build MCP servers with Node/TypeScript SDK — tools, resources, prompts, Zod validation, stdio vs Streamable HTTP. Use Context7 or official MCP docs for latest API.",
+      "template": "{file:commands/mcp-server-patterns.md}\n\n$ARGUMENTS"
+    },
+    "money": {
+      "description": "Act as a revenue advisor that mines your Obsidian vault for monetization opportunities, then goes beyond it to surface what you can't see from inside your own perspective. Diagnoses the revenue system first (conversion, recurring vs. one-time, sales infrastructure, pricing model, product vs. service), then recommends prioritized opportunities and the artifacts to build right now. Use when you want to make dramatically more money from assets you already have.",
+      "template": "{file:commands/money.md}\n\n$ARGUMENTS"
+    },
+    "nextjs-turbopack": {
+      "description": "Next.js 16+ and Turbopack — incremental bundling, FS caching, dev speed, and when to use Turbopack vs webpack.",
+      "template": "{file:commands/nextjs-turbopack.md}\n\n$ARGUMENTS"
+    },
+    "package-product": {
+      "description": "Automate product packaging for Gumroad - handles guides, templates, skills, frameworks, and bundles. Generates appropriate documentation and sales pages based on product type.",
+      "template": "{file:commands/package-product.md}\n\n$ARGUMENTS"
+    },
+    "perf-review": {
+      "description": "Review code for performance — latency, throughput, memory, scalability — across a whole repo or a diff. Flags N+1 queries, algorithmic complexity, blocking I/O on async paths, unbounded work, missing pagination/caching, retry storms, and bundle/render cost, ranked by real hot-path impact. Read-only. Use when the user says 'review performance', 'why is this slow', 'perf review', or invokes '/perf-review'.",
+      "template": "{file:commands/perf-review.md}\n\n$ARGUMENTS"
+    },
+    "polish": {
+      "description": "Polish a blog draft against The HackaStak style guidelines — voice/structure/SEO audit, apply fixes, and generate a pre-publish checklist with meta description. Use after drafting, before scheduling.",
+      "template": "{file:commands/polish.md}\n\n$ARGUMENTS"
+    },
+    "postgres-patterns": {
+      "description": "PostgreSQL database patterns for query optimization, schema design, indexing, and security. Based on Supabase best practices.",
+      "template": "{file:commands/postgres-patterns.md}\n\n$ARGUMENTS"
+    },
+    "product-ideas": {
+      "description": "Mine your Obsidian vault for sellable digital products - guides, templates, frameworks, and skill bundles. Evaluates market fit, recommends pricing, and identifies bundle opportunities.",
+      "template": "{file:commands/product-ideas.md}\n\n$ARGUMENTS"
+    },
+    "product-pipeline": {
+      "description": "Manage product calendar and launches - view pipeline status, schedule releases, track revenue, and get recommendations on what to work on next.",
+      "template": "{file:commands/product-pipeline.md}\n\n$ARGUMENTS"
+    },
+    "project-guidelines-example": {
+      "description": "Example project-specific skill template based on a real production application.",
+      "template": "{file:commands/project-guidelines-example.md}\n\n$ARGUMENTS"
+    },
+    "prompt-optimizer": {
+      "description": "category: \"Workflow & Meta\" Analyze raw prompts, identify intent and gaps, match staksmith components (skills/commands/agents/hooks), and output a ready-to-paste optimized prompt. Advisory role only — never executes the task itself. TRIGGER when: user says \"optimize prompt\", \"improve my prompt\", \"how to write a prompt for\", \"help me prompt\", \"rewrite this prompt\", or explicitly asks to enhance prompt quality. Also triggers on Chinese equivalents: \"优化prompt\", \"改进prompt\", \"怎么写prompt\", \"帮我优化这个指令\". DO NOT TRIGGER when: user wants the task executed directly, or says \"just do it\" / \"直接做\". DO NOT TRIGGER when user says \"优化代码\", \"优化性能\", \"optimize performance\", \"optimize this code\" — those are refactoring/performance tasks, not prompt optimization. origin: community metadata: author: YannJY02 version: \"1.0.0\"",
+      "template": "{file:commands/prompt-optimizer.md}\n\n$ARGUMENTS"
+    },
+    "prototype": {
+      "description": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
+      "template": "{file:commands/prototype.md}\n\n$ARGUMENTS"
+    },
+    "python-patterns": {
+      "description": "Pythonic idioms, PEP 8 standards, type hints, and best practices for building robust, efficient, and maintainable Python applications.",
+      "template": "{file:commands/python-patterns.md}\n\n$ARGUMENTS"
+    },
+    "python-testing": {
+      "description": "Python testing strategies using pytest, TDD methodology, fixtures, mocking, parametrization, and coverage requirements.",
+      "template": "{file:commands/python-testing.md}\n\n$ARGUMENTS"
+    },
+    "quick-note": {
+      "description": "Summarize the work done in this chat into one tight reference line and append it to the current week's weekly note, under today, in the right section (Hackastak or SAP Business Network) with a project label. Minimal reference points, not detailed notes. Use when work wraps up, when the user invokes /quick-note, or as the final logging step of /handoff.",
+      "template": "{file:commands/quick-note.md}\n\n$ARGUMENTS"
+    },
+    "receiving-code-review": {
+      "description": "Use when receiving code review feedback, before implementing suggestions — especially if feedback seems unclear or technically questionable. Requires technical rigor and verification, not performative agreement or blind implementation. The inbound counterpart to code-review / review-changes / review-github-pr.",
+      "template": "{file:commands/receiving-code-review.md}\n\n$ARGUMENTS"
+    },
+    "regex-vs-llm-structured-text": {
+      "description": "Decision framework for choosing between regex and LLM when parsing structured text — start with regex, add LLM only for low-confidence edge cases.",
+      "template": "{file:commands/regex-vs-llm-structured-text.md}\n\n$ARGUMENTS"
+    },
+    "resolving-merge-conflicts": {
+      "description": "Resolve an in-progress git merge or rebase conflict — read the intent behind each side, resolve the hunks, run the project's checks, then hand back for the final commit. Use when a merge or rebase has stopped with conflicts.",
+      "template": "{file:commands/resolving-merge-conflicts.md}\n\n$ARGUMENTS"
+    },
+    "review-changes": {
+      "description": "Review only the changes in the working tree — the staged and unstaged diff against HEAD. Read-only, with attribution so inherited debt doesn't block your own work. Use as the tight in-dev loop, or when the user says 'review my changes', 'review the diff', or invokes '/review-changes'.",
+      "template": "{file:commands/review-changes.md}\n\n$ARGUMENTS"
+    },
+    "review-github-pr": {
+      "description": "Review a GitHub pull request for the current branch by PR number. Performs read-only inspection across correctness, security, style, test coverage, architecture, and performance. Use when the user says things like 'review PR 186', 'review this pull request', or invokes '/review-github-pr <number>'.",
+      "template": "{file:commands/review-github-pr.md}\n\n$ARGUMENTS"
+    },
+    "rust-patterns": {
+      "description": "Idiomatic Rust patterns, ownership, error handling, traits, concurrency, and best practices for building safe, performant applications.",
+      "template": "{file:commands/rust-patterns.md}\n\n$ARGUMENTS"
+    },
+    "rust-testing": {
+      "description": "Rust testing patterns including unit tests, integration tests, async testing, property-based testing, mocking, and coverage. Follows TDD methodology.",
+      "template": "{file:commands/rust-testing.md}\n\n$ARGUMENTS"
+    },
+    "sdd-workflow": {
+      "description": "Enforce spec-driven development — settle the requirements, write the spec, break it into tickets, build each one test-first, then gate on the implementation matching the spec. Use when the user says \"let's do this spec-first\", \"spec-driven development\", or invokes /sdd.",
+      "template": "{file:commands/sdd-workflow.md}\n\n$ARGUMENTS"
+    },
+    "search-first": {
+      "description": "Research-before-coding workflow. Search for existing tools, libraries, and patterns before writing custom code. Invokes the researcher agent.",
+      "template": "{file:commands/search-first.md}\n\n$ARGUMENTS"
+    },
+    "security-review": {
+      "description": "Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. Provides comprehensive security checklist and patterns.",
+      "template": "{file:commands/security-review.md}\n\n$ARGUMENTS"
+    },
+    "security-scan": {
+      "description": "Audit a whole codebase for security vulnerabilities inline, without delegating to an agent — secrets, injection, authn/authz, SSRF, unsafe crypto, dependency CVEs, license/SBOM compliance, and the OWASP Top 10. Read-only. Use to security-review an unfamiliar repo, or when the user says 'security scan', 'audit this for security', 'check licenses', or invokes '/security-scan'.",
+      "template": "{file:commands/security-scan.md}\n\n$ARGUMENTS"
+    },
+    "setup-hackastak": {
+      "description": "Configure a target repo for the Hackastak engineering flow — write the issue-tracker backend, triage labels, and domain-model layout that the ticketing and design skills read. Use when a repo has no docs/agents/ config, when to-spec/to-tickets/triage/wayfinder report a missing tracker, or when the user says \"set up this repo\", \"configure staksmith here\", or invokes /setup-hackastak.",
+      "template": "{file:commands/setup-hackastak.md}\n\n$ARGUMENTS"
+    },
+    "setup-pre-commit": {
+      "description": "Set up Husky pre-commit hooks with lint-staged, type checking, and tests in the current repo. Use when the user wants to add pre-commit hooks, set up Husky, configure lint-staged, or add commit-time formatting/typechecking/testing.",
+      "template": "{file:commands/setup-pre-commit.md}\n\n$ARGUMENTS"
+    },
+    "setup-ts-deep-modules": {
+      "description": "Wire dependency-cruiser into a TypeScript repo so each package is a deep module — implementation hidden in subfolders, reachable only through its entry-point files. User-invoked.",
+      "template": "{file:commands/setup-ts-deep-modules.md}\n\n$ARGUMENTS"
+    },
+    "skill-auto-extractor": {
+      "description": "Mine git history and session logs to automatically create reusable skill definitions from repeated workflows.",
+      "template": "{file:commands/skill-auto-extractor.md}\n\n$ARGUMENTS"
+    },
+    "skill-creator": {
+      "description": "Creates new Claude Agent Skills with proper structure, YAML frontmatter, instructions, and templates. Use when the user wants to create a new skill, generate a SKILL.md file, or scaffold a skill directory.",
+      "template": "{file:commands/skill-creator.md}\n\n$ARGUMENTS"
+    },
+    "skill-design": {
+      "description": "Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable.",
+      "template": "{file:commands/skill-design.md}\n\n$ARGUMENTS"
+    },
+    "skill-stocktake": {
+      "description": "Use when auditing Claude skills and commands for quality. Supports Quick Scan (changed skills only) and Full Stocktake modes with sequential subagent batch evaluation.",
+      "template": "{file:commands/skill-stocktake.md}\n\n$ARGUMENTS"
+    },
+    "source-research": {
+      "description": "Investigate a question against high-trust primary sources — official docs, source code, specs, first-party APIs — and capture the findings as a single cited Markdown file. Delegated to a background agent. Use when the user wants a technical topic researched, docs or API facts gathered, or reading legwork delegated.",
+      "template": "{file:commands/source-research.md}\n\n$ARGUMENTS"
+    },
+    "story-ideas": {
+      "description": "Generate ranked, documented story ideas for the \"Stories You Won't Believe\" TikTok channel — unbelievable-but-true historical events. Use when you need fresh ideas for the content pipeline, grounded in real sources and filtered through the channel's pillars.",
+      "template": "{file:commands/story-ideas.md}\n\n$ARGUMENTS"
+    },
+    "story-pipeline": {
+      "description": "Manage the \"Stories You Won't Believe\" TikTok content calendar — buffer health, pillar balance, scheduling to the Mon/Wed/Fri cadence, and publish tracking via script frontmatter. Use to see pipeline status or move scripts through the pipeline.",
+      "template": "{file:commands/story-pipeline.md}\n\n$ARGUMENTS"
+    },
+    "story-script": {
+      "description": "Draft a publication-ready TikTok narration script for the \"Stories You Won't Believe\" channel, matching the owner's four canonical scripts for tone and structure. Use when turning a story idea into a finished, calm, documented script.",
+      "template": "{file:commands/story-script.md}\n\n$ARGUMENTS"
+    },
+    "strategic-compact": {
+      "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
+      "template": "{file:commands/strategic-compact.md}\n\n$ARGUMENTS"
+    },
+    "swift-actor-persistence": {
+      "description": "Thread-safe data persistence in Swift using actors — in-memory cache with file-backed storage, eliminating data races by design.",
+      "template": "{file:commands/swift-actor-persistence.md}\n\n$ARGUMENTS"
+    },
+    "swift-concurrency-6-2": {
+      "description": "Swift 6.2 Approachable Concurrency — single-threaded by default, @concurrent for explicit background offloading, isolated conformances for main actor types.",
+      "template": "{file:commands/swift-concurrency-6-2.md}\n\n$ARGUMENTS"
+    },
+    "swift-protocol-di-testing": {
+      "description": "Protocol-based dependency injection for testable Swift code — mock file system, network, and external APIs using focused protocols and Swift Testing.",
+      "template": "{file:commands/swift-protocol-di-testing.md}\n\n$ARGUMENTS"
+    },
+    "swiftui-patterns": {
+      "description": "SwiftUI architecture patterns, state management with @Observable, view composition, navigation, performance optimization, and modern iOS/macOS UI best practices.",
+      "template": "{file:commands/swiftui-patterns.md}\n\n$ARGUMENTS"
+    },
+    "sync": {
+      "description": "Load full vault context into Claude Code — recent weekly notes, active projects, master task list, recent inbox, and notes modified in the last 7 days — and output a structured state summary. Use at the start of a work session.",
+      "template": "{file:commands/sync.md}\n\n$ARGUMENTS"
+    },
+    "tdd-workflow": {
+      "description": "Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.",
+      "template": "{file:commands/tdd-workflow.md}\n\n$ARGUMENTS"
+    },
+    "teach": {
+      "description": "Teach the user a new skill or concept over multiple sessions, building a stateful learning workspace of missions, interactive lessons, references, and learning records. Use when the user wants to learn something, or invokes /teach.",
+      "template": "{file:commands/teach.md}\n\n$ARGUMENTS"
+    },
+    "team-builder": {
+      "description": "Interactive agent picker for composing and dispatching parallel teams",
+      "template": "{file:commands/team-builder.md}\n\n$ARGUMENTS"
+    },
+    "test-audit": {
+      "description": "Audit an existing test suite for coverage gaps and test quality — untested critical paths, weak assertions, tautological tests, and tests that mock internal collaborators instead of testing at a seam. Read-only, whole-repo or diff-scoped. Use to assess a codebase's tests, or when the user says 'audit the tests', 'are these tests any good', 'where are we under-tested', or invokes '/test-audit'.",
+      "template": "{file:commands/test-audit.md}\n\n$ARGUMENTS"
+    },
+    "to-questionnaire": {
+      "description": "Turn a decision you can't answer alone into a questionnaire for someone else to fill in — async or over a meeting. Use when the user needs knowledge a third party holds, or invokes /to-questionnaire.",
+      "template": "{file:commands/to-questionnaire.md}\n\n$ARGUMENTS"
+    },
+    "to-spec": {
+      "description": "Turn the current conversation into a spec (a PRD) and publish it to the project's issue tracker — no interview, just synthesis of what has already been discussed. Use when the user says \"turn this into a spec\", \"write the PRD\", or invokes /to-spec.",
+      "template": "{file:commands/to-spec.md}\n\n$ARGUMENTS"
+    },
+    "to-tickets": {
+      "description": "Break a plan, spec, or the current conversation into a set of tracer-bullet tickets, each declaring its blocking edges, published to the configured tracker. Use when the user says \"break this into tickets\", \"turn the spec into issues\", or invokes /to-tickets.",
+      "template": "{file:commands/to-tickets.md}\n\n$ARGUMENTS"
+    },
+    "trace": {
+      "description": "Track how a specific idea has evolved across the Obsidian vault over time — find all mentions, follow wikilinks, and build a chronological timeline with connections. Use to see the history of a concept.",
+      "template": "{file:commands/trace.md}\n\n$ARGUMENTS"
+    },
+    "triage": {
+      "description": "Move issues and external PRs through a state machine of triage roles — categorise, verify, grill if needed, and write agent-ready briefs. Use when the user says \"triage this\", \"what needs my attention\", \"move #42 to ready-for-agent\", or invokes /triage.",
+      "template": "{file:commands/triage.md}\n\n$ARGUMENTS"
+    },
+    "vault-to-code-bridge": {
+      "description": "Convert Obsidian vault project notes into architectural decisions, specifications, and CLAUDE.md files in code repositories.",
+      "template": "{file:commands/vault-to-code-bridge.md}\n\n$ARGUMENTS"
+    },
+    "verification-loop": {
+      "description": "A comprehensive verification system for Claude Code sessions.",
+      "template": "{file:commands/verification-loop.md}\n\n$ARGUMENTS"
+    },
+    "visa-doc-translate": {
+      "description": "Translate visa application documents (images) to English and create a bilingual PDF with original and translation",
+      "template": "{file:commands/visa-doc-translate.md}\n\n$ARGUMENTS"
+    },
+    "wayfinder": {
+      "description": "Plan a huge chunk of work — more than one agent session can hold — as a shared map of decision tickets, and resolve them one at a time until the way to the destination is clear. Use when an effort is too big and too foggy to spec yet, or when the user invokes /wayfinder.",
+      "template": "{file:commands/wayfinder.md}\n\n$ARGUMENTS"
+    },
+    "weekly-momentum-report": {
+      "description": "Aggregate project status from git repos, vault tasks, and GitHub for comprehensive weekly reviews.",
+      "template": "{file:commands/weekly-momentum-report.md}\n\n$ARGUMENTS"
+    },
+    "what-next": {
+      "description": "Index a project's open todos from the Obsidian vault, prioritize them, and hand back the top 3 next tasks.",
+      "template": "{file:commands/what-next.md}\n\n$ARGUMENTS"
+    },
+    "wizard": {
+      "description": "Generate an interactive bash wizard that walks a human through a manual procedure — third-party setup, a one-off migration, an A→B state transition — opening URLs, capturing values, confirming each step, and writing .env files and GitHub Actions secrets.",
+      "template": "{file:commands/wizard.md}\n\n$ARGUMENTS"
+    },
+    "writing-beats": {
+      "description": "Writing, exploit — assemble raw material into a journey of beats, grounding each concept before a beat leans on it. Use for narrative, personal-essay, or discovery-style pieces whose structure isn't known up front.",
+      "template": "{file:commands/writing-beats.md}\n\n$ARGUMENTS"
+    },
+    "writing-fragments": {
+      "description": "Writing, explore — mine raw fragments for a piece, with no structure yet. Use when the user wants to gather material for something they're going to write, or invokes /writing-fragments.",
+      "template": "{file:commands/writing-fragments.md}\n\n$ARGUMENTS"
+    },
+    "writing-grounding": {
+      "description": "The grounding system shared by the writing skills — every concept is either a prerequisite the reader brings or is introduced by an earlier move.",
+      "template": "{file:commands/writing-grounding.md}\n\n$ARGUMENTS"
+    },
+    "writing-shape": {
+      "description": "Writing, exploit — shape raw material into an argued article, paragraph by paragraph, with deliberate format choices. Use for technical or brand long-form where the piece argues a thesis.",
+      "template": "{file:commands/writing-shape.md}\n\n$ARGUMENTS"
+    },
+    "x-api": {
+      "description": "X/Twitter API integration for posting tweets, threads, reading timelines, search, and analytics. Covers OAuth auth patterns, rate limits, and platform-native content posting. Use when the user wants to interact with X programmatically.",
+      "template": "{file:commands/x-api.md}\n\n$ARGUMENTS"
     }
   },
   "permission": {
