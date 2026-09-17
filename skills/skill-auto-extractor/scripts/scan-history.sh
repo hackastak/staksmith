@@ -39,8 +39,9 @@ file_change_records=""
 # Function to check if repo should be excluded
 is_excluded() {
     local repo_name="$1"
+    [[ -z "$EXCLUDE_REPOS" ]] && return 1  # Nothing excluded if list is empty
     while IFS= read -r excluded; do
-        [[ "$repo_name" == *"$excluded"* ]] && return 0
+        [[ -n "$excluded" && "$repo_name" == *"$excluded"* ]] && return 0
     done <<< "$EXCLUDE_REPOS"
     return 1
 }
@@ -138,8 +139,12 @@ scan_repo() {
     done < <(git -C "$repo_path" log \
         --since="$SINCE_DATE" \
         --author="$AUTHOR_NAME" \
-        --pretty=format:'%h|%ad|%s' \
+        --pretty=tformat:'%h|%ad|%s' \
         --date=short 2>/dev/null)
+    # NOTE: tformat (terminator) newline-terminates the last commit too;
+    # plain "format" (separator) omits the final newline, so `while read`
+    # silently drops the newest commit (and drops all of them when there is
+    # exactly one).
 }
 
 # Scan all repositories
@@ -156,7 +161,7 @@ for root in "${REPOS_ROOT[@]}"; do
 
     while IFS= read -r -d '' repo_path; do
         scan_repo "$repo_path"
-        ((total_repos++))
+        total_repos=$((total_repos + 1))
     done < <(find "$root" -mindepth 1 -maxdepth 1 -type d -print0)
 done
 
