@@ -33,7 +33,7 @@ The spine. Most work is somewhere on this line; find where you are and take the 
 5. **Stress-test before building** — `/grill-me` interviews you relentlessly until the plan holds; `/grill-with-docs` does the same and leaves the glossary and ADRs behind; `/batch-grill-me` asks a whole frontier of questions per round when you'd rather answer in batches.
 6. **Build it** — `/implement` executes a planned unit (spec, tickets, or issue); `/tdd-workflow` drives it test-first when the change wants that discipline.
 7. **When it fights back** — `/diagnosing-bugs` is the loop for hard bugs and performance regressions: build a red-capable feedback loop before hypothesizing.
-8. **Review, in three tiers** — `/review-changes` is the tight in-dev loop over the working-tree diff (with introduced/pre-existing attribution); `/code-review` reads the whole branch broadly before you push; `/review-github-pr` reviews an actual PR by number.
+8. **Review, in three tiers** — `/review-changes` is the tight in-dev loop over the working-tree diff (with introduced/pre-existing attribution); `/code-review` reads the whole branch broadly before you push; `/review-github-pr` reviews an actual PR by number. For a multi-model adversarial pass over a diff, `/interrogate`. It does not edit code, and it is not a substitute for the three tiers.
 9. **Ship** — `/draft-commit` stages the relevant changes and writes the one-line message; you run the commit.
 
 ### On-ramps — joining work mid-stream

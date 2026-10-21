@@ -875,6 +875,10 @@
     "x-api": {
       "description": "X/Twitter API integration for posting tweets, threads, reading timelines, search, and analytics. Covers OAuth auth patterns, rate limits, and platform-native content posting. Use when the user wants to interact with X programmatically.",
       "template": "{file:commands/x-api.md}\n\n$ARGUMENTS"
+    },
+    "interrogate": {
+      "description": "Adversarial review of a diff by one readonly reviewer per model, then a lead verdict. Does not edit code. Use when the user says interrogate, adversarial review, multi-model review, stress-test this code, or tear this apart.",
+      "template": "{file:commands/interrogate.md}\n\n$ARGUMENTS"
     }
   },
   "permission": {
