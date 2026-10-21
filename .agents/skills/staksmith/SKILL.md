@@ -1,3 +1,7 @@
+---
+description: "Core Staksmith development agent suite"
+---
+
 # Staksmith
 
 Use this skill when working inside the `staksmith` repository and you need repo-specific guidance instead of generic coding advice.
