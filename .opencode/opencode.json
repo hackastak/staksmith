@@ -879,6 +879,26 @@
     "interrogate": {
       "description": "Adversarial review of a diff by one readonly reviewer per model, then a lead verdict. Does not edit code. Use when the user says interrogate, adversarial review, multi-model review, stress-test this code, or tear this apart.",
       "template": "{file:commands/interrogate.md}\n\n$ARGUMENTS"
+    },
+    "why": {
+      "description": "Investigate why code is shaped the way it is. Discovers available evidence sources and queries source control, tickets, docs, chat, observability, error tracking, and analytics, then returns a cited read. Use how for runtime behavior.",
+      "template": "{file:commands/why.md}\n\n$ARGUMENTS"
+    },
+    "unslop": {
+      "description": "Cut AI tells from any writing. Scan for known patterns, then rewrite. Preserve meaning and match the intended tone.",
+      "template": "{file:commands/unslop.md}\n\n$ARGUMENTS"
+    },
+    "how": {
+      "description": "Explain how code works and where it should live. Use for how does X work, code walkthroughs before a change, and placement or layering questions. Use why for motivation.",
+      "template": "{file:commands/how.md}\n\n$ARGUMENTS"
+    },
+    "blast-radius": {
+      "description": "Find what a change could break somewhere else before it ships, beyond the diff, and prove the one fact it is safe because of by running real code instead of writing it up. Use for blast radius of a change, what could this break, or reviewing a small diff you do not trust.",
+      "template": "{file:commands/blast-radius.md}\n\n$ARGUMENTS"
+    },
+    "arena": {
+      "description": "Spawn parallel candidates at the same task, pick a base, and graft the strongest parts of the losers into it. Use when one attempt at a non-trivial artifact would lock in the wrong shape.",
+      "template": "{file:commands/arena.md}\n\n$ARGUMENTS"
     }
   },
   "permission": {
