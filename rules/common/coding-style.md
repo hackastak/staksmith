@@ -35,6 +35,20 @@ ALWAYS validate at system boundaries:
 - Use schema-based validation where available
 - Fail fast with clear error messages
 - Never trust external data (API responses, user input, file content)
+- Do not re-validate data that a boundary already parsed into a domain type
+- Keep business logic in pure functions. Framework, CLI, and transport adapters stay a thin shell
+- Do not re-export transport, storage, or framework types through the public surface
+
+## Type System Discipline
+
+In any statically typed language, make the compiler reject impossible states:
+- Brand semantic primitives that share an underlying type but mean different things. Validate once at creation, then trust the type
+- Treat external data as untyped until a boundary parse returns the domain type
+- Derive types from the authoritative schema (protobuf, OpenAPI, GraphQL, migrations, design tokens) instead of hand-rolling a parallel definition
+- Exhaust variants so adding a case fails compilation
+- If the lesson can be a lint, a schema, or a type, encode it there. Extra prose is only for checks that need judgment
+
+TypeScript syntax for these rules is in [typescript/coding-style.md](../typescript/coding-style.md) and the `coding-standards` skill.
 
 ## Code Quality Checklist
 

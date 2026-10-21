@@ -192,8 +192,23 @@ type UserInput = z.infer<typeof userSchema>
 const validated: UserInput = userSchema.parse(input)
 ```
 
+## Type system discipline
+
+Apply on every `.ts` or `.tsx` edit, before local style nits. The `coding-standards` skill is the procedure and the examples (`skills/coding-standards/references/typescript-patterns.md`). These rules are the on-edit checklist.
+
+- Model variants as discriminated unions with one shared literal discriminant. Do not use a boolean plus optional fields when those fields cannot all be set at once
+- Brand semantic primitives (`UserId` vs `OrderId`) at the boundary. A brand comes from a verifying type guard, never from `as`
+- Make illegal values unconstructable (`[T, ...T[]]`, start plus duration) instead of repeating a runtime check. Keep `T[]` when every operation on it is total
+- External data is `unknown` until parsed. Prefer the repository's schema library and an inferred type (`z.infer` or the local equivalent) over a hand-written guard plus a parallel interface
+- No `as` except after validation. Prefer `satisfies` when checking a value without widening its literals
+- Exhaust `switch` arms with `const _exhaustive: never = value`
+- Parse once at the boundary into a named domain type. Do not re-validate inside. Do not leak wire types through the public surface
+- Derive from generated schema types (`Pick`, `Omit`, `Parameters`, `ReturnType`, `Awaited`, `typeof`) before declaring a new interface
+- Pass an object instead of positional arguments, except on hot paths (per-frame render, tokenizers, parsers)
+- Do not mock what you can run. Verify UI against a running build
+
 ## Console.log
 
 - No `console.log` statements in production code
-- Use proper logging libraries instead
+- Use a structured logger with enough context to debug from an id
 - See hooks for automatic detection
