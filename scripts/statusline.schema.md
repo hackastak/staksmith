@@ -1,6 +1,6 @@
 # statusLine stdin schema (pinned)
 
-Reference for `scripts/statusline.js`. Claude Code invokes a `statusLine` command of type
+Reference for `scripts/statusline-stoplight/statusline.sh`. Claude Code invokes a `statusLine` command of type
 `command` and pipes a single JSON object to it on **stdin**; the command prints one line to
 **stdout**. This file pins the field names so the parser can't silently drift when Claude Code
 changes its payload.

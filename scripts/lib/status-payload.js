@@ -1,21 +1,21 @@
 /**
  * status-payload — normalize a provider-agnostic session snapshot into the JSON payload that
- * `scripts/statusline.js` reads on stdin.
+ * `scripts/statusline-stoplight/statusline.sh` reads on stdin.
  *
  * The status line is deliberately provider-agnostic: it renders a model name, a token count, and a
  * dollar figure without any concept of "Anthropic" vs "OpenAI" vs "xAI". This module is where the
  * per-provider knowledge lives — a `MODELS` registry (display name, context-window size, per-token
  * pricing) plus `buildStatusPayload()`, which maps one harness session into the exact schema pinned
  * in `scripts/statusline.schema.md`. A harness (e.g. the Pi agent harness) feeds a `StatusSession`,
- * gets back an object it can `JSON.stringify` and pipe into `statusline.js`.
+ * gets back an object it can `JSON.stringify` and pipe into `statusline.sh`.
  *
- * Two segments — git branch and package manager — are NOT emitted here: `statusline.js` resolves
+ * Two segments — git branch and package manager — are NOT emitted here: the status line resolves
  * those itself from `workspace.current_dir` (git spawn / lockfile probe). Supply `cwd` and they
  * render for free.
  *
  * Guarantee: total and side-effect-free. Every field is treated as possibly-absent; a key is only
  * emitted when it carries real data, so a missing input simply drops that segment (mirroring how
- * `statusline.js` guards each field) rather than rendering a wrong or zero value.
+ * the renderer guards each field) rather than rendering a wrong or zero value.
  *
  * PRICING NOTE — the `inMTok`/`outMTok` figures below are USD **per million tokens**, best-effort
  * defaults as of 2026-01. Model pricing drifts; verify against each provider's pricing page and
@@ -133,7 +133,7 @@ function estimateCostUsd(session, model) {
  * @param {StatusSessionLike} session
  * @param {{models?: Record<string, object>}} [opts] `models` overrides the registry (for tests or a
  *   harness that ships its own price table).
- * @returns {object} an object ready to `JSON.stringify` and pipe into `statusline.js`.
+ * @returns {object} an object ready to `JSON.stringify` and pipe into `statusline.sh`.
  */
 function buildStatusPayload(session, opts = {}) {
   const s = session && typeof session === 'object' ? session : {};
@@ -154,7 +154,7 @@ function buildStatusPayload(session, opts = {}) {
   }
 
   // context_window — prefer a pre-computed percentage; else hand over tokens + window size and let
-  // statusline.js derive the fill. A session may override the model's default window (e.g. Claude
+  // the renderer derive the fill. A session may override the model's default window (e.g. Claude
   // extended context at 1M).
   const windowSize = num(s.contextWindowSize) || model.window;
   const contextTokens = num(s.contextTokens) !== null ? num(s.contextTokens) : num(s.inputTokens);
@@ -206,7 +206,7 @@ function readStream(stream) {
 
 /**
  * CLI: read a StatusSession JSON on stdin, write the statusline payload JSON on stdout. Lets a
- * harness chain the two scripts: `pi-session-json | node status-payload.js | node statusline.js`.
+ * harness chain the two scripts: `pi-session-json | node status-payload.js | statusline.sh`.
  */
 async function main() {
   const raw = await readStream(process.stdin);

@@ -3,11 +3,12 @@
  * Staksmith status line — setup / teardown
  *
  * Wires (or unwires) the Staksmith status line into a Claude Code `settings.json`. The status line
- * itself is `scripts/statusline.js`; nothing runs it until a `statusLine` block in settings points
- * at it, and plugins don't touch settings.json on install — so this is the opt-in step.
+ * itself is `scripts/statusline-stoplight/statusline.sh`; nothing runs it until a `statusLine`
+ * block in settings points at it, and plugins don't touch settings.json on install — so this is
+ * the opt-in step.
  *
- * The command path is resolved from THIS file's location (`statusline.js` is its sibling), so it
- * points at wherever the script actually lives — the dev repo or the installed plugin cache alike.
+ * The command path is resolved from THIS file's location, so it points at wherever the script
+ * actually lives — the dev repo or the installed plugin cache alike.
  *
  * Idempotent and non-destructive: re-running install is a no-op once configured; a foreign
  * `statusLine` you set yourself is never clobbered without `--force`; uninstall only removes a
@@ -24,12 +25,13 @@ const fs = require('fs');
 const path = require('path');
 const { getClaudeDir, ensureDir } = require('./lib/utils');
 
-// A statusLine block is "ours" when its command references the status-line script by name.
-const MARKER = 'statusline.js';
+// A statusLine block is "ours" when its command references the stoplight script, or the
+// retired Node renderer (`statusline.js`) so an old install refreshes instead of conflicting.
+const MARKERS = ['statusline-stoplight/statusline.sh', 'statusline.js'];
 
-/** Absolute path to the status-line script (sibling of this file). */
+/** Absolute path to the status-line script. */
 function getScriptPath() {
-  return path.join(__dirname, 'statusline.js');
+  return path.join(__dirname, 'statusline-stoplight', 'statusline.sh');
 }
 
 /** The settings.json for the given scope: 'project' → ./.claude, else user → ~/.claude. */
@@ -40,11 +42,13 @@ function resolveSettingsPath(scope, cwd = process.cwd()) {
 
 /** Build the statusLine block. The path is quoted so spaces in it survive the shell. */
 function buildBlock(scriptPath) {
-  return { type: 'command', command: `node "${scriptPath}"` };
+  return { type: 'command', command: `"${scriptPath}"`, refreshInterval: 1 };
 }
 
 function isOurs(block) {
-  return Boolean(block && typeof block.command === 'string' && block.command.includes(MARKER));
+  return Boolean(
+    block && typeof block.command === 'string' && MARKERS.some(marker => block.command.includes(marker))
+  );
 }
 
 /** Read settings.json → object. Missing/empty → {}. Malformed JSON throws (never clobbered blind). */
@@ -198,7 +202,7 @@ if (require.main === module) {
 }
 
 module.exports = {
-  MARKER,
+  MARKERS,
   getScriptPath,
   resolveSettingsPath,
   buildBlock,

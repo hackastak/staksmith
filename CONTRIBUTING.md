@@ -378,17 +378,15 @@ What the user receives.
 
 ### Status line
 
-The status line is a script pair, not a skill: `scripts/statusline.js` renders the line and
-`scripts/statusline-setup.js` (behind the `/statusline` command) wires it into `settings.json`.
-Two conventions when changing it:
+The status line is a script pair, not a skill: `scripts/statusline-stoplight/statusline.sh`
+renders the line and `scripts/statusline-setup.js` (behind the `/statusline` command) wires it
+into `settings.json`. The session hook beside the renderer (`statusline-hook.sh`) owns tab icons
+and the working/ready state file.
 
-- **The stdin payload schema is pinned** in `scripts/statusline.schema.md`, verified against a
-  specific Claude Code version. If Claude Code changes the `statusLine` payload, update that file
-  and the segment parsers together, and bump the "verified against" version.
-- **Segments are pure and total** — each reads the parsed payload and must never throw; live git /
-  filesystem lookups happen at the `main()` boundary and are injected in. Add a segment by
-  registering it in `SEGMENT_REGISTRY` and `DEFAULT_ORDER`, then cover it in
-  `tests/scripts/statusline.test.js`.
+The stdin payload schema is pinned in `scripts/statusline.schema.md`, verified against a specific
+Claude Code version. If Claude Code changes the `statusLine` payload, update that file and the
+renderer together, and bump the "verified against" version. The renderer must never exit non-zero;
+a crash clobbers the status line. Cover gauge changes in `tests/scripts/statusline-stoplight.test.js`.
 
 ---
 

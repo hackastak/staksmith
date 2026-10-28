@@ -384,7 +384,7 @@ Everything below is **plugin-distributed**: it installs with the plugin (`/plugi
 | `/skill-health` | Show skill portfolio health dashboard with charts and analytics | `commands/skill-health.md` |
 | `/skill-stocktake` | Use when auditing Claude skills and commands for quality. | `commands/skill-stocktake.md` |
 | `/source-research` | Investigate a question against high-trust primary sources — official docs, source code, specs, first-party APIs — and capture the findings as a single cited Markdown file. | `commands/source-research.md` |
-| `/statusline` | Install, remove, or check the Staksmith status line (model, context %, cost, git branch) | `commands/statusline.md` |
+| `/statusline` | Install, remove, or check the Staksmith status line (repo, branch, context gauge, model, 7-day limit) | `commands/statusline.md` |
 | `/story-ideas` | Generate ranked, documented story ideas for the \"Stories You Won't Believe\" TikTok channel — unbelievable-but-true historical events. | `commands/story-ideas.md` |
 | `/story-pipeline` | Manage the \"Stories You Won't Believe\" TikTok content calendar — buffer health, pillar balance, scheduling to the Mon/Wed/Fri cadence, and publish tracking via script frontmatter. | `commands/story-pipeline.md` |
 | `/story-script` | Draft a publication-ready TikTok narration script for the \"Stories You Won't Believe\" channel, matching the owner's four canonical scripts for tone and structure. | `commands/story-script.md` |

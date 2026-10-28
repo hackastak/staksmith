@@ -57,7 +57,6 @@
     "contexts/",
     "examples/CLAUDE.md",
     "examples/user-CLAUDE.md",
-    "examples/statusline.json",
     "hooks/",
     "manifests/",
     "mcp-configs/",

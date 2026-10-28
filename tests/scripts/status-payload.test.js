@@ -3,7 +3,7 @@
  *
  * Covers model resolution (exact / date-stripped / prefix / unknown), cost estimation across
  * providers, the "only emit populated keys" contract, session overrides, and the round-trip through
- * the real statusline.js CLI.
+ * the stoplight statusline.sh CLI.
  */
 
 const assert = require('assert');
@@ -11,7 +11,7 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 
 const PAYLOAD_SCRIPT = path.join(__dirname, '..', '..', 'scripts', 'lib', 'status-payload.js');
-const STATUSLINE_SCRIPT = path.join(__dirname, '..', '..', 'scripts', 'statusline.js');
+const STATUSLINE_SCRIPT = path.join(__dirname, '..', '..', 'scripts', 'statusline-stoplight', 'statusline.sh');
 const {
   MODELS,
   PER_MILLION,
@@ -192,7 +192,7 @@ test('models override registry is honored', () => {
   assert.strictEqual(p.model.display_name, 'X-One');
 });
 
-// ── CLI + round-trip through statusline.js ────────────────────────────────────────────────────
+// ── CLI + round-trip through statusline.sh ───────────────────────────────────────────────────
 test('CLI reads a session on stdin and writes payload JSON', () => {
   const out = pipe(PAYLOAD_SCRIPT, { modelId: 'grok-code-fast-1', inputTokens: 1000, outputTokens: 500 });
   const parsed = JSON.parse(out);
@@ -203,20 +203,20 @@ test('CLI tolerates malformed stdin', () => {
   assert.deepStrictEqual(JSON.parse(pipe(PAYLOAD_SCRIPT, '{not json')), {});
 });
 
-test('payload round-trips into statusline.js rendering', () => {
+test('payload round-trips into statusline.sh rendering', () => {
   const payload = pipe(PAYLOAD_SCRIPT, {
     modelId: 'gpt-5.1-codex',
     cwd: '/tmp/proj',
+    usedPercentage: 61,
     inputTokens: 44800,
-    contextWindowSize: 400_000,
-    linesAdded: 10,
-    linesRemoved: 2
+    contextWindowSize: 400_000
   });
-  const line = pipe(STATUSLINE_SCRIPT, payload, { NO_COLOR: '1' });
-  assert.ok(line.includes('/tmp/proj'), `dir in "${line}"`);
+  const line = execFileSync(STATUSLINE_SCRIPT, [], {
+    input: payload,
+    encoding: 'utf8'
+  }).replace(/\x1b\[[0-9;]*m/g, '');
   assert.ok(line.includes('GPT-5.1 Codex'), `model in "${line}"`);
-  assert.ok(line.includes('ctx:'), `context meter in "${line}"`);
-  assert.ok(line.includes('+10/-2'), `activity in "${line}"`);
+  assert.ok(line.includes('ctx '), `context meter in "${line}"`);
 });
 
 console.log(`\nResults: Passed: ${passed}, Failed: ${failed}`);

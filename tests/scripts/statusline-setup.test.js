@@ -52,10 +52,12 @@ console.log('statusline-setup.js');
 
 // --- buildBlock / isOurs ---
 test('buildBlock produces a quoted command; isOurs recognizes it', () => {
-  const block = buildBlock('/a b/scripts/statusline.js');
+  const block = buildBlock('/a b/scripts/statusline-stoplight/statusline.sh');
   assert.strictEqual(block.type, 'command');
-  assert.strictEqual(block.command, 'node "/a b/scripts/statusline.js"');
+  assert.strictEqual(block.command, '"/a b/scripts/statusline-stoplight/statusline.sh"');
+  assert.strictEqual(block.refreshInterval, 1);
   assert.ok(isOurs(block));
+  assert.ok(isOurs({ type: 'command', command: 'node "/old/statusline.js"' }));
   assert.ok(!isOurs({ type: 'command', command: 'node other.js' }));
   assert.ok(!isOurs(undefined));
 });
@@ -107,7 +109,7 @@ test('install refreshes the path when ours but stale', () => {
     );
     const r = installStatusLine(file, SCRIPT);
     assert.strictEqual(r.action, 'updated');
-    assert.strictEqual(readSettings(file).statusLine.command, `node "${SCRIPT}"`);
+    assert.strictEqual(readSettings(file).statusLine.command, `"${SCRIPT}"`);
   } finally {
     cleanup(dir);
   }

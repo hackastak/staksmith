@@ -318,16 +318,12 @@ npx staksmith uninstall --dry-run     # Preview removing managed files
 
 ### Status Line
 
-A cross-platform, zero-dependency Claude Code status line — by default: directory, git branch,
-model, context %, 7-day usage, and lines changed — rendered from the data Claude Code pipes to a
-`statusLine` command:
+A Claude Code status line — repo, branch, PR, session state, context gauge, model, and 7-day token
+limit — rendered from the data Claude Code pipes to a `statusLine` command:
 
 ```text
-~/Developer/staksmith  main  Opus  ctx:6% █░░░░░░░░░  7D:41% ████░░░░░░  +156/-23
+staksmith 🌿 main  |  ctx ▓░░░░░░░ 6%  🧠 Opus  7d ▓▓▓░░░░░ 41%
 ```
-
-Three more segments, `pm` (package manager), `cost` (session USD), and `duration` (session
-wall/API time), are available but off by default — enable them via the config below.
 
 It is **opt-in**: installing the plugin does not touch your `settings.json`. Enable it with the
 `/statusline` command (or the script directly):
@@ -341,23 +337,9 @@ node scripts/statusline-setup.js --uninstall   # remove it (leaves a statusLine 
 ```
 
 Install is idempotent and never overwrites a `statusLine` you configured yourself without
-`--force`. Choose which segments show, and their order, highest precedence first:
-
-```bash
-# 1. Env var — comma/space-separated segment names
-export STAKSMITH_STATUSLINE_SEGMENTS="model,context,cost"
-
-# 2. ~/.claude/statusline.json  →  { "segments": ["directory", "branch", "model", "context"] }
-
-# 3. Built-in default order
-```
-
-Segment names: `directory`, `branch`, `pm`, `model`, `context`, `usage`, `cost`, `duration`,
-`activity`.
-
-Each segment is color-coded by default: the context meter grades green → amber → red as it fills,
-`usage` (7-day limit) is blue, and `activity` shows additions green / deletions red. Turn color off
-with the standard `NO_COLOR` env var, or `STAKSMITH_STATUSLINE_COLOR=0`.
+`--force`. The renderer is `scripts/statusline-stoplight/statusline.sh`. Context and the 7-day
+gauge use the same 8-cell bar: green under 60, yellow from 60, red at the compact budget (context)
+or at 80 (7-day). The 7-day gauge is omitted when the payload has no weekly limit.
 
 ---
 

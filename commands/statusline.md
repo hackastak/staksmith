@@ -1,13 +1,13 @@
 ---
-description: Install, remove, or check the Staksmith status line (model, context %, cost, git branch)
+description: Install, remove, or check the Staksmith status line (repo, branch, context gauge, model, 7-day limit)
 disable-model-invocation: true
 ---
 
 # Status Line Setup
 
-Wire the Staksmith status line into your Claude Code `settings.json`. It renders one line —
-directory, git branch, package manager, model, context %, session cost, duration, and lines
-changed — from the payload Claude Code pipes to a `statusLine` command.
+Wire the Staksmith status line into your Claude Code `settings.json`. It renders the stoplight bar —
+repo, branch, PR, session state, context gauge, model, and the 7-day token limit — from the payload
+Claude Code pipes to a `statusLine` command.
 
 Nothing runs it until it is wired into settings, and installing the plugin does **not** do that for
 you (a status line is personal), so this is the opt-in step.
@@ -34,24 +34,20 @@ node scripts/statusline-setup.js --uninstall
 ## Behavior
 
 - **Idempotent** — re-running `--install` is a no-op once configured; if the script path changed,
-  it refreshes it.
+  it refreshes it. An install that still points at the retired `statusline.js` is refreshed too.
 - **Non-destructive** — a `statusLine` you set yourself is never overwritten without `--force`, and
   every other key in `settings.json` is preserved.
-- **Path-correct** — the command points at wherever `statusline.js` actually lives (dev repo or
-  installed plugin cache), resolved from the setup script's own location.
-- **Refresh** — after any change, the status line updates on the next activity, not instantly.
+- **Path-correct** — the command points at wherever `scripts/statusline-stoplight/statusline.sh`
+  actually lives (dev repo or installed plugin cache), resolved from the setup script's own location.
+- **Refresh** — the installed block sets `refreshInterval: 1`. After any change, restart Claude Code;
+  already-open sessions keep the line they loaded at startup.
 
-## Customizing which segments show
+Session state (`⏳ working` / `✏️ ready`) and the tab icons need `statusline-hook.sh` wired to
+Claude Code lifecycle events. `--install` wires the bar only.
 
-Order and visibility follow this precedence (highest first):
+## Pi
 
-1. `STAKSMITH_STATUSLINE_SEGMENTS` env var — comma/space-separated segment names
-2. `~/.claude/statusline.json` — `{ "segments": ["directory", "model", "context"] }`
-3. Built-in default order
-
-Segment names: `directory`, `branch`, `pm`, `model`, `context`, `cost`, `duration`, `activity`.
-
-```bash
-# Show only model, context %, and cost — in that order
-export STAKSMITH_STATUSLINE_SEGMENTS="model,context,cost"
-```
+Pi does not run a `statusLine` command. Load `scripts/statusline-stoplight/pi-statusline.ts`
+as an extension (`~/.pi/agent/extensions/` or `pi -e` that file). It draws the same bar. The
+7-day gauge counts tokens this extension has seen, divided by `PI_WEEKLY_TOKEN_BUDGET`, and
+stays hidden when that variable is unset. Restart Pi after changing the extension.

@@ -1,6 +1,6 @@
 /**
  * status-payload — normalize a provider-agnostic session snapshot into the JSON payload that
- * `scripts/statusline.js` reads on stdin. See the `.js` for behavior and the pricing note.
+ * `scripts/statusline-stoplight/statusline.sh` reads on stdin. See the `.js` for the pricing note.
  */
 
 /** Provider a model belongs to. */
