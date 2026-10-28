@@ -51,6 +51,7 @@ Not everything starts from your own idea. When you're picking up existing work:
 ### Codebase health — ongoing, not tied to one feature
 
 - `/improve-codebase-architecture` scans for deepening opportunities, presents them as a report, and grills through which are worth doing.
+- `/correct` makes a repeated agent mistake impossible: architecture, then types, then a lint whose error names the fix, then a test. Docs last. It is not `learn` or `evolve` (those extract a pattern; this hardens a mistake).
 
 ### The vocabulary underneath
 

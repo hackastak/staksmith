@@ -899,6 +899,10 @@
     "arena": {
       "description": "Spawn parallel candidates at the same task, pick a base, and graft the strongest parts of the losers into it. Use when one attempt at a non-trivial artifact would lock in the wrong shape.",
       "template": "{file:commands/arena.md}\n\n$ARGUMENTS"
+    },
+    "correct": {
+      "description": "Find the mistakes agents keep repeating in this repo and make each one impossible. Try architecture first, then types, then a lint whose error names the fix, then a test, and write docs last. Prove each check fails on a real past mistake. Repeat this each time the operator corrects you. Use for /correct.",
+      "template": "{file:commands/correct.md}\n\n$ARGUMENTS"
     }
   },
   "permission": {
