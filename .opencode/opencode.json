@@ -357,7 +357,7 @@
       "template": "{file:commands/backlinks.md}\n\n$ARGUMENTS"
     },
     "backlog-review": {
-      "description": "Review backlog and todo notes across the Obsidian vault, verify whether open items are actually already done using evidence from the associated code repos and other notes, and mark the confirmed ones complete. Review only — never writes code or does the work. Use to reconcile stale backlogs with reality.",
+      "description": "Review a project's open backlog tasks in Notion, verify whether each open item is actually already done using evidence from the associated code repos and vault notes, and mark the confirmed ones Done in Notion. Review only — never writes code or does the work. Reads the Obsidian vault for evidence, not as the task list. Use to reconcile a stale Notion backlog with reality.",
       "template": "{file:commands/backlog-review.md}\n\n$ARGUMENTS"
     },
     "batch-grill-me": {
@@ -849,7 +849,7 @@
       "template": "{file:commands/weekly-momentum-report.md}\n\n$ARGUMENTS"
     },
     "what-next": {
-      "description": "Index a project's open todos from the Obsidian vault, prioritize them, and hand back the top 3 next tasks.",
+      "description": "Read a project's open backlog and status from Notion, prioritize the open tasks, and hand back the top 3 next tasks.",
       "template": "{file:commands/what-next.md}\n\n$ARGUMENTS"
     },
     "wizard": {
