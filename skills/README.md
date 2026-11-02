@@ -201,8 +201,8 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | `ghost` | Answer a question in the user's own voice, drawn from their writing |
 | `reflect` | Mirror goals vs. attention vs. beliefs — how you think, and where behavior drifts from your goals |
 | `book-notes` | Distill a non-fiction book into a source-grounded vault note: thesis, frameworks, evidence, and an execution blueprint |
-| `backlog-review` | Verify open Notion backlog tasks against repo and vault evidence, mark the done ones Done |
-| `what-next` | Read a project's open Notion backlog and status, prioritize, return the top 3 |
+| `backlog-review` | Verify open backlog items against repo evidence, close the done ones |
+| `what-next` | Index a project's open todos, prioritize them, return the top 3 next tasks |
 | `weekly-momentum-report` | Aggregate git, vault tasks, and GitHub into a weekly review |
 | `vault-to-code-bridge` | Turn vault project notes into ADRs, specs, and CLAUDE.md files |
 | `money` | Mine the vault for monetization opportunities, then go beyond it |

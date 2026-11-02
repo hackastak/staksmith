@@ -14,7 +14,7 @@ Everything below is **plugin-distributed**: it installs with the plugin (`/plugi
 | --- | --- | --- |
 | ⭐ `a11y-review` | Review frontend code for accessibility — semantic structure, keyboard and focus, ARIA correctness, text alternatives, forms, color/contrast, and dynamic-content announcements — ranked by WCAG severity and real user impact. | `skills/a11y-review/SKILL.md` |
 | ⭐ `audit-codebase` | Audit a whole codebase across every review dimension by fanning out the specialist reviewers and merging their findings into one ranked report — security, architecture, dead code, database, and language-idiomatic quality. | `skills/audit-codebase/SKILL.md` |
-| ⭐ `backlog-review` | Review a project's open backlog tasks in Notion, verify whether each open item is actually already done using evidence from the associated code repos and vault notes, and mark the confirmed ones Done in Notion. | `skills/backlog-review/SKILL.md` |
+| ⭐ `backlog-review` | Review backlog and todo notes across the Obsidian vault, verify whether open items are actually already done using evidence from the associated code repos and other notes, and mark the confirmed ones complete. | `skills/backlog-review/SKILL.md` |
 | `blast-radius` | Find what a change could break somewhere else before it ships, beyond the diff, and prove the one fact it is safe because of by running real code instead of writing it up. | `skills/blast-radius/SKILL.md` |
 | ⭐ `code-review` | Review all the code on the current branch — the whole state of what this branch has built, read broadly and architecturally. | `skills/code-review/SKILL.md` |
 | `correct` | Find the mistakes agents keep repeating in this repo and make each one impossible. | `skills/correct/SKILL.md` |
@@ -132,7 +132,7 @@ Everything below is **plugin-distributed**: it installs with the plugin (`/plugi
 | ⭐ `trace` | Track how a specific idea has evolved across the Obsidian vault over time — find all mentions, follow wikilinks, and build a chronological timeline with connections. | `skills/trace/SKILL.md` |
 | ⭐ `vault-to-code-bridge` | Convert Obsidian vault project notes into architectural decisions, specifications, and CLAUDE.md files in code repositories. | `skills/vault-to-code-bridge/SKILL.md` |
 | ⭐ `weekly-momentum-report` | Aggregate project status from git repos, vault tasks, and GitHub for comprehensive weekly reviews. | `skills/weekly-momentum-report/SKILL.md` |
-| ⭐ `what-next` | Read a project's open backlog and status from Notion, prioritize the open tasks, and hand back the top 3 next tasks. | `skills/what-next/SKILL.md` |
+| ⭐ `what-next` | Index a project's open todos from the Obsidian vault, prioritize them, and hand back the top 3 next tasks. | `skills/what-next/SKILL.md` |
 
 ### Writing & Content (17)
 
@@ -236,7 +236,7 @@ Everything below is **plugin-distributed**: it installs with the plugin (`/plugi
 | `/audit-codebase` | Audit a whole codebase across every review dimension by fanning out the specialist reviewers and merging their findings into one ranked report — correctness, security, architecture, dead code, database, and language-idiomatic quality. | `commands/audit-codebase.md` |
 | `/backend-patterns` | Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes. | `commands/backend-patterns.md` |
 | `/backlinks` | Wire the vault graph — find orphans, missing connections, and cluster bridges, score them, and add links/stubs. | `commands/backlinks.md` |
-| `/backlog-review` | Review a project's open backlog tasks in Notion, verify whether each open item is actually already done using evidence from the associated code repos and vault notes, and mark the confirmed ones Done in Notion. | `commands/backlog-review.md` |
+| `/backlog-review` | Review backlog and todo notes across the Obsidian vault, verify whether open items are actually already done using evidence from the associated code repos and other notes, and mark the confirmed ones complete. | `commands/backlog-review.md` |
 | `/batch-grill-me` | A relentless interview that asks every frontier question at once, round by round. | `commands/batch-grill-me.md` |
 | `/blast-radius` | Find what a change could break somewhere else before it ships, beyond the diff, and prove the one fact it is safe because of by running real code instead of writing it up. | `commands/blast-radius.md` |
 | `/blog-draft` | Draft a complete blog post for The HackaStak by mining the vault for evidence and writing in the established brand voice. | `commands/blog-draft.md` |
@@ -418,7 +418,7 @@ Everything below is **plugin-distributed**: it installs with the plugin (`/plugi
 | `/visa-doc-translate` | Translate visa application documents (images) to English and create a bilingual PDF with original and translation | `commands/visa-doc-translate.md` |
 | `/wayfinder` | Plan a huge chunk of work — more than one agent session can hold — as a shared map of decision tickets, and resolve them one at a time until the way to the destination is clear. | `commands/wayfinder.md` |
 | `/weekly-momentum-report` | Aggregate project status from git repos, vault tasks, and GitHub for comprehensive weekly reviews. | `commands/weekly-momentum-report.md` |
-| `/what-next` | Read a project's open backlog and status from Notion, prioritize the open tasks, and hand back the top 3 next tasks. | `commands/what-next.md` |
+| `/what-next` | Index a project's open todos from the Obsidian vault, prioritize them, and hand back the top 3 next tasks. | `commands/what-next.md` |
 | `/why` | Investigate why code is shaped the way it is. | `commands/why.md` |
 | `/wizard` | Generate an interactive bash wizard that walks a human through a manual procedure — third-party setup, a one-off migration, an A→B state transition — opening URLs, capturing values, confirming each step, and writing .env files and GitHub Actions secrets. | `commands/wizard.md` |
 | `/writing-beats` | Writing, exploit — assemble raw material into a journey of beats, grounding each concept before a beat leans on it. | `commands/writing-beats.md` |
