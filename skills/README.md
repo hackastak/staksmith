@@ -199,6 +199,8 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | `graduate` | Promote undeveloped ideas from weekly notes into seedling notes |
 | `ideas` | Scan for emerging patterns — what to build, investigate, or write |
 | `ghost` | Answer a question in the user's own voice, drawn from their writing |
+| `reflect` | Mirror goals vs. attention vs. beliefs — how you think, and where behavior drifts from your goals |
+| `book-notes` | Distill a non-fiction book into a source-grounded vault note: thesis, frameworks, evidence, and an execution blueprint |
 | `backlog-review` | Verify open Notion backlog tasks against repo and vault evidence, mark the done ones Done |
 | `what-next` | Read a project's open Notion backlog and status, prioritize, return the top 3 |
 | `weekly-momentum-report` | Aggregate git, vault tasks, and GitHub into a weekly review |

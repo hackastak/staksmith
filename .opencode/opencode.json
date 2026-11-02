@@ -903,6 +903,14 @@
     "correct": {
       "description": "Find the mistakes agents keep repeating in this repo and make each one impossible. Try architecture first, then types, then a lint whose error names the fix, then a test, and write docs last. Prove each check fails on a real past mistake. Repeat this each time the operator corrects you. Use for /correct.",
       "template": "{file:commands/correct.md}\n\n$ARGUMENTS"
+    },
+    "reflect": {
+      "description": "Hold a mirror to the second brain — read the vault's stated goals, the attention it actually spends, and the beliefs it keeps returning to, then report how the thinking reflects the person, what it reveals about how they reason, and where behavior pulls toward or away from their goals. Tracks drift across reruns. Use for a periodic self-review of the vault's direction.",
+      "template": "{file:commands/reflect.md}\n\n$ARGUMENTS"
+    },
+    "book-notes": {
+      "description": "Turn a non-fiction book into an actionable, hyper-factual knowledge asset — a single vault note with the core thesis and mental models, deep-dive takeaways grounded to their source chapter, and a concrete execution blueprint. Reads a file (PDF/EPUB/txt) or an existing vault note, chunks long sources by chapter so nothing is lost, and operates under a zero-hallucination mandate. Use when the user wants structured, source-grounded notes from a book.",
+      "template": "{file:commands/book-notes.md}\n\n$ARGUMENTS"
     }
   },
   "permission": {
