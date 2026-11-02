@@ -740,9 +740,9 @@
       "description": "Mine git history and session logs to automatically create reusable skill definitions from repeated workflows.",
       "template": "{file:commands/skill-auto-extractor.md}\n\n$ARGUMENTS"
     },
-    "skill-creator": {
+    "skill-builder": {
       "description": "Creates new Claude Agent Skills with proper structure, YAML frontmatter, instructions, and templates. Use when the user wants to create a new skill, generate a SKILL.md file, or scaffold a skill directory.",
-      "template": "{file:commands/skill-creator.md}\n\n$ARGUMENTS"
+      "template": "{file:commands/skill-builder.md}\n\n$ARGUMENTS"
     },
     "skill-design": {
       "description": "Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable.",

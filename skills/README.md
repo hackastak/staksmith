@@ -163,7 +163,7 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 
 | Skill | What it does |
 |-------|--------------|
-| `skill-creator` | Scaffold a new skill with correct structure and frontmatter |
+| `skill-builder` | Scaffold a new skill with correct structure and frontmatter |
 | `skill-design` | Vocabulary and principles that make a skill predictable |
 | `skill-auto-extractor` | Mine git history and session logs for repeatable workflows |
 | `skill-stocktake` | Audit skills and commands for quality (Quick Scan or Full Stocktake) |

@@ -317,7 +317,7 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Inputs.** `config.json` keys: `repos_root`, `days_back`, `min_frequency`, `confidence_threshold`, `output_path`, `session_logs_path`, `exclude_repos`, `author_name`, `pattern_types`, `cache_path`. It reads git repos under `repos_root` and optional session logs at `session_logs_path`.
 **Outputs.** A pattern report at `~/.claude/homunculus/evolved/patterns-report.json` and generated skills under `~/.claude/homunculus/evolved/skills/{pattern-id}/` (SKILL.md, metadata.json, examples/), pending review before promotion to `~/.claude/skills/` or the Staksmith skills dir.
 **Vault dependencies.** None. Operates on code repos and the `~/.claude/homunculus/` workspace.
-**Related.** `skill-design`, `skill-creator`, `skill-stocktake`, `continuous-learning-v2`, `weekly-momentum-report`, `vault-to-code-bridge`, `code-to-docs-sync`.
+**Related.** `skill-design`, `skill-builder`, `skill-stocktake`, `continuous-learning-v2`, `weekly-momentum-report`, `vault-to-code-bridge`, `code-to-docs-sync`.
 
 ### `skill-design`
 
@@ -327,7 +327,7 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Inputs.** No config.json or arguments. Reads its sibling `GLOSSARY.md` for bolded term definitions.
 **Outputs.** None. It is a knowledge reference consulted while working on other skills.
 **Vault dependencies.** None. Pure reference, no filesystem writes.
-**Related.** `skill-creator` (authors a new skill), `skill-stocktake` (audits skills), `skill-auto-extractor` (mines patterns), `writing-fragments` (shares the leading-word concept).
+**Related.** `skill-builder` (authors a new skill), `skill-stocktake` (audits skills), `skill-auto-extractor` (mines patterns), `writing-fragments` (shares the leading-word concept).
 
 ### `teach`
 

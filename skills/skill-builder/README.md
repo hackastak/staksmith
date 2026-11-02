@@ -1,10 +1,10 @@
-# Skill Creator
+# Skill Builder
 
 A Claude Agent Skill for creating new Claude Agent Skills with proper structure, templates, and best practices.
 
 ## What This Skill Does
 
-The Skill Creator helps you:
+The Skill Builder helps you:
 - Generate new skills with correct YAML frontmatter
 - Follow Claude Agent Skills best practices
 - Create proper directory structures
@@ -45,13 +45,13 @@ You can also use the generation script directly:
 
 ```bash
 # Create a basic skill
-python .claude/skills/skill-creator/scripts/generate-skill.py my-skill-name
+python .claude/skills/skill-builder/scripts/generate-skill.py my-skill-name
 
 # Create an advanced skill with full structure
-python .claude/skills/skill-creator/scripts/generate-skill.py my-skill-name --template advanced
+python .claude/skills/skill-builder/scripts/generate-skill.py my-skill-name --template advanced
 
 # Specify a custom output directory
-python .claude/skills/skill-creator/scripts/generate-skill.py my-skill-name --output-dir ~/custom/path
+python .claude/skills/skill-builder/scripts/generate-skill.py my-skill-name --output-dir ~/custom/path
 ```
 
 ## Files Included

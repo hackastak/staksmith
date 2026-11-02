@@ -89,7 +89,7 @@ One line each; open the skill for the detail.
 
 ### Skill authoring
 - `/skill-design` — the vocabulary and principles for writing a skill that behaves predictably. Read it first.
-- `/skill-creator` scaffolds a new skill; `/skill-stocktake` audits skills for quality; `/skill-auto-extractor` mines git history and session logs for repeated workflows worth capturing.
+- `/skill-builder` scaffolds a new skill; `/skill-stocktake` audits skills for quality; `/skill-auto-extractor` mines git history and session logs for repeated workflows worth capturing.
 
 ## What this skill does not do
 

@@ -88,7 +88,7 @@ Use these to diagnose issues the user may be having with the skill.
 
 This is the reference layer; the `skill-*` family does the tasks and draws on this vocabulary.
 
-- **`skill-creator`** — authors a new skill. Design it against **invocation**, the **information hierarchy**, and **completion criteria** before writing.
+- **`skill-builder`** — authors a new skill. Design it against **invocation**, the **information hierarchy**, and **completion criteria** before writing.
 - **`skill-stocktake`** — audits existing skills. Diagnose against the named **failure modes** above rather than by vibe.
 - **`skill-auto-extractor`** — mines sessions for skill-worthy patterns. What it extracts still has to be shaped by the ladder.
 - **`writing-fragments`** — shares the **leading word** concept, pointed the other way: there it is a coinage the *article* hangs on, here it is a behavioural anchor for the *agent*.

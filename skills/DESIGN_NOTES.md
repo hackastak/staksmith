@@ -56,6 +56,6 @@ Meta-skill that learns from git history. Feeds into the continuous learning syst
 | 2026-04-22 | Merged Quick Start into Example 1 | Reduces redundancy; Example 1 serves same purpose |
 | 2026-04-22 | Added "When NOT to Use" as required section | Prevents skill misfires on adjacent cases |
 | 2026-04-22 | Adopted Troubleshooting format over Pitfalls | More actionable structure for diagnosis |
-| 2026-04-22 | Moved Philosophy to skill-creator | Template should be structure, not tutorial |
+| 2026-04-22 | Moved Philosophy to skill-builder | Template should be structure, not tutorial |
 | 2026-04-22 | Removed "Why:" annotations from workflow steps | Design rationale belongs in DESIGN_NOTES.md, not SKILL.md |
 | 2026-04-22 | Created centralized DESIGN_NOTES.md | Better than per-skill files for cross-cutting decisions |

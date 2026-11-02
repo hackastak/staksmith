@@ -206,7 +206,7 @@ Everything below is **plugin-distributed**: it installs with the plugin (`/plugi
 | ⭐ `search-first` | Research-before-coding workflow. | `skills/search-first/SKILL.md` |
 | ⭐ `setup-hackastak` | Configure a target repo for the Hackastak engineering flow — write the issue-tracker backend, triage labels, and domain-model layout that the ticketing and design skills read. | `skills/setup-hackastak/SKILL.md` |
 | ⭐ `skill-auto-extractor` | Mine git history and session logs to automatically create reusable skill definitions from repeated workflows. | `skills/skill-auto-extractor/SKILL.md` |
-| `skill-creator` | Creates new Claude Agent Skills with proper structure, YAML frontmatter, instructions, and templates. | `skills/skill-creator/SKILL.md` |
+| `skill-builder` | Creates new Claude Agent Skills with proper structure, YAML frontmatter, instructions, and templates. | `skills/skill-builder/SKILL.md` |
 | ⭐ `skill-design` | Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable. | `skills/skill-design/SKILL.md` |
 | ⭐ `skill-stocktake` | Use when auditing Claude skills and commands for quality. | `skills/skill-stocktake/SKILL.md` |
 | ⭐ `strategic-compact` | Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction. | `skills/strategic-compact/SKILL.md` |
@@ -382,8 +382,8 @@ Everything below is **plugin-distributed**: it installs with the plugin (`/plugi
 | `/setup-pre-commit` | Set up Husky pre-commit hooks with lint-staged, type checking, and tests in the current repo. | `commands/setup-pre-commit.md` |
 | `/setup-ts-deep-modules` | Wire dependency-cruiser into a TypeScript repo so each package is a deep module — implementation hidden in subfolders, reachable only through its entry-point files. | `commands/setup-ts-deep-modules.md` |
 | `/skill-auto-extractor` | Mine git history and session logs to automatically create reusable skill definitions from repeated workflows. | `commands/skill-auto-extractor.md` |
+| `/skill-builder` | Creates new Claude Agent Skills with proper structure, YAML frontmatter, instructions, and templates. | `commands/skill-builder.md` |
 | `/skill-create` | Analyze local git history to extract coding patterns and generate SKILL.md files. | `commands/skill-create.md` |
-| `/skill-creator` | Creates new Claude Agent Skills with proper structure, YAML frontmatter, instructions, and templates. | `commands/skill-creator.md` |
 | `/skill-design` | Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable. | `commands/skill-design.md` |
 | `/skill-health` | Show skill portfolio health dashboard with charts and analytics | `commands/skill-health.md` |
 | `/skill-stocktake` | Use when auditing Claude skills and commands for quality. | `commands/skill-stocktake.md` |
