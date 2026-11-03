@@ -911,6 +911,10 @@
     "book-notes": {
       "description": "Turn a non-fiction book into an actionable, hyper-factual knowledge asset — a single vault note with the core thesis and mental models, deep-dive takeaways grounded to their source chapter, and a concrete execution blueprint. Reads a file (PDF/EPUB/txt) or an existing vault note, chunks long sources by chapter so nothing is lost, and operates under a zero-hallucination mandate. Use when the user wants structured, source-grounded notes from a book.",
       "template": "{file:commands/book-notes.md}\n\n$ARGUMENTS"
+    },
+    "technical-writing": {
+      "description": "Layered technical-writing standard: Diátaxis structure, Google developer style sentences, STE instruction rules, and Global English syntax. Use for /technical-writing, or when writing or reviewing docs, RFCs, READMEs, PR descriptions, or commit messages.",
+      "template": "{file:commands/technical-writing.md}\n\n$ARGUMENTS"
     }
   },
   "permission": {

@@ -78,6 +78,7 @@ One line each; open the skill for the detail.
 - `/writing-beats` and `/writing-shape` — exploit: assemble the material into a journey of beats, or shape it into an argued article.
 - `/article-writing` — write long-form content in the house voice.
 - `/polish` — audit and fix a draft against the HackaStak style guidelines.
+- `/technical-writing` — Diátaxis, sentence rules, and Global English for docs, RFCs, READMEs, PR descriptions, and commit messages. Not the blog voice pass, and not `unslop` (that owns the AI-tell catalog).
 - (`writing-grounding` is the shared reference the writing skills lean on, not invoked directly.)
 
 ### Personal / productivity
