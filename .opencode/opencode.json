@@ -919,6 +919,10 @@
     "create-verification-skill": {
       "description": "Generate a project-local skill that drives the app the way a user does and proves behavior with evidence. Use for /create-verification-skill, or when a project has no scripted way to prove UI, CLI, or service behavior.",
       "template": "{file:commands/create-verification-skill.md}\n\n$ARGUMENTS"
+    },
+    "show-me-your-work": {
+      "description": "Keep a reviewable TSV decision trail for long or unattended work, one row per decision with evidence a reviewer can check. Use for /show-me-your-work, autonomous or multi-phase runs, or work a human reviews after stepping away. Not /checkpoint.",
+      "template": "{file:commands/show-me-your-work.md}\n\n$ARGUMENTS"
     }
   },
   "permission": {
