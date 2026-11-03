@@ -243,7 +243,7 @@ Output format:
 
 **Word count:** [X] words
 **Estimated read time:** [X] minutes
-**Pillar:** [Tooling / Best Practices / Career / AI x Dev / PKM]
+**Pillar:** [Tooling / Best Practices / Career / AI x Dev / PKM / Engineering Leadership]
 
 **Suggested Medium tags:**
 - [Tag 1], [Tag 2], [Tag 3], [Tag 4], [Tag 5]
@@ -260,7 +260,7 @@ Output format:
 - [Topic: Alternative Subtitle]
 - [Different Angle: Subtitle]
 
-**Cross-post reminder:** Publish to Dev.to and Hashnode with canonical URL pointing to Medium
+**Distribution reminder:** Medium only. Cross-posting to Dev.to and Hashnode is paused as of June 2026 (no meaningful traction).
 ```
 
 ## Step 11: Save Draft and Archive Outline
@@ -281,7 +281,7 @@ Include proper frontmatter:
 ```yaml
 ---
 status: drafting
-pillar: [Tooling / Best Practices / Career / AI x Dev / PKM]
+pillar: [Tooling / Best Practices / Career / AI x Dev / PKM / Engineering Leadership]
 read_time: [estimated minutes]
 word_count: [approximate]
 tags:

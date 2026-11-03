@@ -223,8 +223,7 @@ After polishing, append a checklist to the article:
 - [ ] Schedule or publish
 
 ### After Publishing
-- [ ] Cross-post to Dev.to (set canonical URL → Medium)
-- [ ] Cross-post to Hashnode (set canonical URL → Medium)
+- Medium only. Cross-posting to Dev.to/Hashnode is paused as of June 2026 (no meaningful traction).
 - [ ] Update frontmatter: `status: published`, `published: [date]`
 - [ ] Update `cross_posted` in frontmatter
 - [ ] Share on social (if applicable)

@@ -64,7 +64,7 @@ Confirm the change.
 Update the article's frontmatter:
 - Set `status: published`
 - Set `published: [today's date]`
-- Remind about cross-posting to Dev.to and Hashnode
+- Medium only; cross-posting to Dev.to/Hashnode is paused as of June 2026
 Confirm the change.
 
 **If input matches an article name:**
@@ -152,11 +152,8 @@ idea → outline → drafting → ready → scheduled → published
 
 **When publishing:**
 - Set `published` to today's date
-- Remind about cross-posting checklist:
-  - [ ] Published to Medium
-  - [ ] Cross-posted to Dev.to (canonical URL to Medium)
-  - [ ] Cross-posted to Hashnode (canonical URL to Medium)
-  - [ ] Update `cross_posted` frontmatter
+- Publishing checklist:
+  - [ ] Published to Medium (Medium only; Dev.to/Hashnode cross-posting paused as of June 2026)
 
 ### Step 5: Offer Follow-Up Actions
 

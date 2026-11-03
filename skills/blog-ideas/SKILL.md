@@ -34,7 +34,7 @@ cat "$VAULT_PATH/$BLOG_PATH/Blog_Strategy.md"
 
 Key filters to internalize before generating ideas:
 - **Target reader:** Early-to-mid career devs (18–35) looking to level up their toolkit
-- **Content pillars:** (1) Developer Tooling Roundups, (2) Engineering Best Practices, (3) Career & Growth, (4) AI x Developer Workflow, (5) Personal Knowledge Systems (PKM)
+- **Content pillars:** (1) Developer Tooling Roundups, (2) Engineering Best Practices, (3) Career & Growth, (4) AI x Developer Workflow, (5) Personal Knowledge Systems (PKM), (6) Engineering Leadership (multiplying other engineers; added Nov 2026). Guardrail: Engineering Leadership earns a slot only as a concrete experiment or lived story with a result ("what I tried with my team and what happened"), never abstract leadership philosophy. No philosophy without a receipt.
 - **Off-limits:** Generic marketing content, doom-and-gloom takes, enterprise-only tools, abstract AI think-pieces, career-advice essays with no concrete tool or system attached
 - **Current priority (from July 2026 data):** Concrete tools and personal-system pieces, first-person and actionable, win by a wide margin. Tool-specific roundups (esp. CLI) and PKM / second-brain content are the proven veins. AI content only works when it's personal and tool-specific, never as commentary.
 
@@ -107,7 +107,7 @@ Read these to identify gaps and avoid repetition.
 For each idea, assess against The HackaStak's criteria:
 
 **Fit Check:**
-1. **Pillar alignment**: Does it fit one of the five pillars? (Tooling, Best Practices, Career, AI x Dev, PKM)
+1. **Pillar alignment**: Does it fit one of the six pillars? (Tooling, Best Practices, Career, AI x Dev, PKM, Engineering Leadership)
 2. **Reader match**: Would an early-to-mid career dev searching to level up care about this?
 3. **Filtration value**: Does recommending this earn trust, or is it obvious/commodity info?
 
@@ -139,7 +139,7 @@ Present findings in this format:
 Ideas with strong expertise and clear angle.
 
 ### 1. [Working Title]
-**Pillar:** [Tooling / Best Practices / Career / AI x Dev / PKM]
+**Pillar:** [Tooling / Best Practices / Career / AI x Dev / PKM / Engineering Leadership]
 **Core Argument:** [One sentence thesis]
 **Your Angle:** [Why you specifically can write this]
 **Evidence Available:** [[Note 1]], [[Note 2]]
@@ -217,7 +217,7 @@ After presenting the report, ask:
 **Strong ideas have:**
 - Clear thesis in one sentence
 - Evidence from actual experience
-- Fit within one of the five pillars
+- Fit within one of the six pillars
 - Appeal to early-to-mid career devs leveling up
 - Listicle potential with the scaffold (Description → Features → Why You Should Use It)
 - Mix of well-known anchors + lesser-known finds
