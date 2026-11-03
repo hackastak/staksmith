@@ -97,6 +97,8 @@ Troubleshoot failures: check test isolation → verify mocks → fix implementat
 
 ## Development Workflow
 
+**Prove it works** before any done claim. Check the real artifact: run the flow, read the stored value, or inspect the diff. A green build, a self-report, or "it compiles" is not proof. Never cite a `file:line` you did not open. Full rule: `rules/common/development-workflow.md` (Prove It Works). There is no `principle-prove-it-works` skill.
+
 1. **Plan** — Use planner agent, identify dependencies and risks, break into phases
 2. **TDD** — Use tdd-guide agent, write tests first, implement, refactor
 3. **Review** — Use code-reviewer agent immediately, address CRITICAL/HIGH issues

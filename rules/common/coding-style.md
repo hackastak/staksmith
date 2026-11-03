@@ -60,3 +60,5 @@ Before marking work complete:
 - [ ] Proper error handling
 - [ ] No hardcoded values (use constants or config)
 - [ ] No mutation (immutable patterns used)
+- [ ] The change was checked against the real artifact, not a proxy ([Prove It Works](./development-workflow.md#prove-it-works))
+- [ ] Every cited `file:line` was opened; none were fabricated

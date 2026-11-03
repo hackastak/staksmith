@@ -17,6 +17,8 @@ MANDATORY workflow:
 5. Refactor (IMPROVE)
 6. Verify coverage (80%+)
 
+A passing suite is not proof the change works. Before claiming done, follow [Prove It Works](./development-workflow.md#prove-it-works): check the real artifact, and do not fabricate a `file:line`.
+
 ## Troubleshooting Test Failures
 
 1. Use **tdd-guide** agent
