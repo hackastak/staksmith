@@ -52,6 +52,7 @@ Not everything starts from your own idea. When you're picking up existing work:
 
 - `/improve-codebase-architecture` scans for deepening opportunities, presents them as a report, and grills through which are worth doing.
 - `/correct` makes a repeated agent mistake impossible: architecture, then types, then a lint whose error names the fix, then a test. Docs last. It is not `learn` or `evolve` (those extract a pattern; this hardens a mistake).
+- `/create-verification-skill` writes a project-local skill that drives the app the way a user does and proves it with evidence. It is not `e2e-testing` (Playwright suite patterns) and not `verification-loop` or `/verify` (build, type, lint, and test gates).
 
 ### The vocabulary underneath
 

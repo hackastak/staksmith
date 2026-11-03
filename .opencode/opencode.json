@@ -915,6 +915,10 @@
     "technical-writing": {
       "description": "Layered technical-writing standard: Diátaxis structure, Google developer style sentences, STE instruction rules, and Global English syntax. Use for /technical-writing, or when writing or reviewing docs, RFCs, READMEs, PR descriptions, or commit messages.",
       "template": "{file:commands/technical-writing.md}\n\n$ARGUMENTS"
+    },
+    "create-verification-skill": {
+      "description": "Generate a project-local skill that drives the app the way a user does and proves behavior with evidence. Use for /create-verification-skill, or when a project has no scripted way to prove UI, CLI, or service behavior.",
+      "template": "{file:commands/create-verification-skill.md}\n\n$ARGUMENTS"
     }
   },
   "permission": {
