@@ -4,7 +4,7 @@ These are the operating rules `arena` used to pull from separate principle notes
 
 ## Separate
 
-When candidates might write the same file, branch, or state object, do not share it.
+When candidates might write the same file, branch, or state object, do not share it. The rule for all code, not only arenas, is [Separate Before Serializing Shared State](../../../rules/common/coding-style.md#separate-before-serializing-shared-state). It is a rule, not a skill. Do not look for `principle-separate-before-serializing-shared-state`.
 
 1. Name the shared mutable target (a file both would write, a branch both would push, a key both would set).
 2. Default: give each candidate its own directory or worktree. Merge only when you graft, in this session, after they have stopped writing.

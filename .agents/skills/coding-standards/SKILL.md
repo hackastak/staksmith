@@ -191,6 +191,12 @@ Scattered validation is noisy, redundant, and gives a false sense of safety. Log
 
 Ask: "Is this data crossing a system boundary right now?" If not, the check is redundant. "Can this be a pure function the shell just calls?" If yes, extract it.
 
+### Design the shape first
+
+The rest of that fold is a rule, not three skills. Do not look for `principle-model-the-domain`, `principle-foundational-thinking`, or `principle-separate-before-serializing-shared-state`. The canonical text is [Design the Shape First](../../rules/common/coding-style.md#design-the-shape-first).
+
+Before writing logic, name the domain structure, put scaffold that every later phase needs in place, and give concurrent writers their own mutable target. A new branch on an existing if/else, a second boolean that must stay in sync, or two workers writing one file are the tells. Authorization and an external payload (an API body, a loan file, a ULAD document) are boundary parses, not checks sprinkled through the domain.
+
 ### Rules
 
 | Rule | Summary |

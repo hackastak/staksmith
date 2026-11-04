@@ -9,6 +9,8 @@ origin: Hackastak
 
 Actively build and sharpen the project's domain model as you design. This is the *active* discipline — challenging terms, inventing edge-case scenarios, and writing the glossary and decisions down the moment they crystallise. (Merely *reading* `CONTEXT.md` for vocabulary is not this skill — that's a one-line habit any skill can do. This skill is for when you're changing the model, not just consuming it.)
 
+Encoding that domain in types and modules, instead of scattered conditionals, is [Model the Domain](../../rules/common/coding-style.md#model-the-domain). It is a rule, not a skill. Do not look for `principle-model-the-domain`. This skill records the glossary and the ADRs. It does not replace that rule.
+
 ## Where the model lives
 
 The domain model is **repo-native**. `CONTEXT.md` and `docs/adr/` sit in the repository they describe, not in the vault. The glossary has to evolve in the same commit as the code that renames a concept, and an ADR has to be readable by anyone who clones the repo. This is the deliberate exception to the vault-first habit of the other skills.

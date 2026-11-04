@@ -194,7 +194,7 @@ const validated: UserInput = userSchema.parse(input)
 
 ## Type system discipline
 
-Apply on every `.ts` or `.tsx` edit, before local style nits. The `coding-standards` skill is the procedure and the examples (`skills/coding-standards/references/typescript-patterns.md`). These rules are the on-edit checklist.
+Apply on every `.ts` or `.tsx` edit, before local style nits. The `coding-standards` skill is the procedure and the examples (`skills/coding-standards/references/typescript-patterns.md`). These rules are the on-edit checklist. Shape before logic: [Design the Shape First](../common/coding-style.md#design-the-shape-first). Not a skill.
 
 - Model variants as discriminated unions with one shared literal discriminant. Do not use a boolean plus optional fields when those fields cannot all be set at once
 - Brand semantic primitives (`UserId` vs `OrderId`) at the boundary. A brand comes from a verifying type guard, never from `as`

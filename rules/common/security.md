@@ -8,7 +8,7 @@ Before ANY commit:
 - [ ] SQL injection prevention (parameterized queries)
 - [ ] XSS prevention (sanitized HTML)
 - [ ] CSRF protection enabled
-- [ ] Authentication/authorization verified
+- [ ] Authentication/authorization verified at the boundary, not re-checked inside domain logic ([Input Validation](./coding-style.md#input-validation))
 - [ ] Rate limiting on all endpoints
 - [ ] Error messages don't leak sensitive data
 

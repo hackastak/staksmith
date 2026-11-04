@@ -128,6 +128,7 @@ This is not a redesign around a new requirement. It questions a fact the current
    - Generate planning docs before coding: PRD, architecture, system_design, tech_doc, task_list
    - Identify dependencies and risks
    - Break down into phases
+   - Name the data shape before the logic. Scaffold that every later phase needs comes first ([Foundational Thinking](./coding-style.md#foundational-thinking)). That is a rule, not a skill.
 
 2. **TDD Approach**
    - Use **tdd-guide** agent

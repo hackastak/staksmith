@@ -27,7 +27,7 @@ No user prompt needed:
 
 ## Parallel Task Execution
 
-ALWAYS use parallel Task execution for independent operations:
+ALWAYS use parallel Task execution for independent operations. One writer per worktree, branch, or file. Do not share a mutable target across parallel agents ([Separate Before Serializing Shared State](./coding-style.md#separate-before-serializing-shared-state)). That is a rule, not a skill.
 
 ```markdown
 # GOOD: Parallel execution

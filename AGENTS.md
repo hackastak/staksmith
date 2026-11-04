@@ -73,6 +73,8 @@ Use parallel execution for independent operations — launch multiple agents sim
 
 **Input validation:** Validate all user input at system boundaries. Use schema-based validation. Fail fast with clear messages. Never trust external data.
 
+**Shape before logic:** Encode the domain in one structure, lay scaffold before features, and do not share a mutable file or branch across writers. Full rule: `rules/common/coding-style.md` (Design the Shape First). There is no `principle-model-the-domain`, `principle-foundational-thinking`, or `principle-separate-before-serializing-shared-state` skill.
+
 **Code quality checklist:**
 - Functions small (<50 lines), files focused (<800 lines)
 - No deep nesting (>4 levels)
