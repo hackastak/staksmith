@@ -25,6 +25,7 @@ A passing suite is not proof the change works. Before claiming done, follow [Pro
 2. Check test isolation
 3. Verify mocks are correct
 4. Fix implementation, not tests (unless tests are wrong)
+5. Fix the fault, not the assertion or the symptom ([Fix Root Causes](./development-workflow.md#fix-root-causes)). After two or more fixes that share a premise and fail the same gate, [Attack the Premise](./development-workflow.md#attack-the-premise) before the next patch. Neither is a skill.
 
 ## Agent Support
 

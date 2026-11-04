@@ -9,6 +9,8 @@ origin: Hackastak
 
 A discipline for hard bugs. Skip phases only when explicitly justified.
 
+The fix bar is [Fix Root Causes](../../rules/common/development-workflow.md#fix-root-causes): a guard at the symptom is not a fix when that state should not exist. If two or more fixes that share a premise have failed the same gate, stop and [Attack the Premise](../../rules/common/development-workflow.md#attack-the-premise) before the next one. The tell is stop / still / again. Each is a rule, not a skill.
+
 When exploring the codebase, read `CONTEXT.md` (if it exists) to get a clear mental model of the relevant modules, and check `docs/adr/` for decisions in the area you're touching. Both are optional — proceed silently if they don't exist.
 
 ## Phase 1 — Build a feedback loop
@@ -119,7 +121,7 @@ If a correct seam exists:
 
 1. Turn the minimised repro into a failing test at that seam.
 2. Watch it fail.
-3. Apply the fix.
+3. Apply the fix at the first wrong decision, not at the symptom. If an earlier fix in this loop already assumed the same premise and failed this gate, do not apply another one until that premise is written down and tested.
 4. Watch it pass.
 5. Re-run the Phase 1 feedback loop against the original (un-minimised) scenario.
 

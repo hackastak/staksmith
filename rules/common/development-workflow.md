@@ -22,6 +22,8 @@ If you have not run the verifying command *in this message*, you cannot claim it
 | Linter clean | Linter output: 0 errors | Partial check, extrapolation |
 | Build succeeds | Build command: exit 0 | Linter passed, logs "look good" |
 | Bug fixed | Original symptom retested: passes | Code changed, assumed fixed |
+| Bug fixed at the cause | The first wrong decision was named, and the original symptom was retested | A guard, retry, clamp, or swallowed error at the symptom ([Fix Root Causes](#fix-root-causes)) |
+| Premise still holds | The shared premise of two or more failed fixes was written down and tested | Another patch after stop / still / again ([Attack the Premise](#attack-the-premise)) |
 | Regression test works | Red→green cycle verified (revert fix, confirm it fails, restore) | Test passes once |
 | Agent completed | VCS diff shows the changes | Agent reports "success" |
 | Requirements met | Line-by-line checklist against the spec | Tests passing |
@@ -74,6 +76,42 @@ Script the check when you will repeat it. The strongest proof is a deterministic
 Before you say it works, name the artifact, the command or observation, and the result. If you could not check the real artifact, say that. Do not upgrade a proxy into a pass.
 
 A speedup, regression, throughput, latency, or eval score is a number, not a completion claim. Vet it with [Explain the Number](./performance.md#explain-the-number) before you report it or act on it.
+
+## Fix Root Causes
+
+Fold of pstack `principle-fix-root-causes`. It is a rule, not a skill. Do not look for `skills/principle-fix-root-causes`.
+
+When debugging, fix the fault, not the place the symptom showed up. The symptom is where a wrong state became visible. The root cause is the first place the system did something it should not do, or failed to handle a state it should handle.
+
+A symptom fix hides the evidence and leaves the fault free to surface somewhere else. The code then carries a workaround for a bug nobody named.
+
+- Reproduce first. Do not change code from a guess.
+- Ask why at each step until the answer is a wrong decision in the code, not a consequence of an earlier one.
+- When stuck, instrument. Read the actual error and the actual state.
+- Ask whether the state that triggered the symptom is legitimate. If the system may be in that state, handling it there is the fix. If the state should never exist, a check where it broke hides the bug. Find what produced the state. Guards, retries, swallowed errors, clamped values, and discarded state are the usual hides.
+- When something fails only after a restart, suspect persisted state first: config, caches, lock files, serialized state.
+- Fix the pattern, not only the instance. Find every place with the same fault.
+- A workaround that needs a paragraph to justify is the wrong code. Fix the code, not the comment.
+- If the deciding fact took a deep dig, propose the cheap always-on signal that would have shown it at first look.
+
+`diagnosing-bugs` is the loop that builds the red signal. This section is the bar for what counts as the fix. [Prove It Works](#prove-it-works) still applies before you say the bug is gone.
+
+## Attack the Premise
+
+Fold of pstack `principle-attack-the-premise`. It is a rule, not a skill. Do not look for `skills/principle-attack-the-premise`.
+
+When two or more fixes that share one premise have failed the same gate, suspect the premise, not the next fix. The tell is stop / still / again: the same failure after another patch that assumed the same cause.
+
+Each failed fix is evidence against the belief it assumed. A third fix on that belief spends effort where the evidence already says the cause is not.
+
+- Write the premise down. It is the one sentence every failed fix assumed.
+- Test that premise before the next fix. Find an observation that would come out differently if the premise were false, and make it. Look at how the failures are distributed, not only how large they are. Make the check rerunnable. Do not block on an unported principle skill.
+- Follow the evidence. If it contradicts the premise, the cause is elsewhere. Look for what the failures have in common that the premise did not predict. If it confirms the premise, ask the next why under [Fix Root Causes](#fix-root-causes). The earlier fixes treated a consequence.
+- Remove the condition instead of compensating for it. If one part always lands on the losing side, change what puts it there. A cleanup that runs after it leaves the cause in place and adds work on every run.
+
+Stop. Do not start the next fix until the premise is written down and tested.
+
+This is not a redesign around a new requirement. It questions a fact the current fix loop assumes. It is also not [Prove It Works](#prove-it-works), which checks that a claimed fix is real. This checks that the next fix is aimed at the right fact.
 
 ## Feature Implementation Workflow
 

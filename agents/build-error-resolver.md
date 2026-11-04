@@ -71,6 +71,8 @@ For each error:
 - Add new features
 - Change logic flow (unless fixing error)
 - Optimize performance or style
+- Hide an impossible state with a null check, optional chain, retry, or default. That is a symptom fix ([Fix Root Causes](../rules/common/development-workflow.md#fix-root-causes))
+- Start a third patch after two failed fixes that share a premise. Write that premise down and test it first ([Attack the Premise](../rules/common/development-workflow.md#attack-the-premise))
 
 ## Priority Levels
 
@@ -111,4 +113,4 @@ npx eslint . --fix
 
 ---
 
-**Remember**: Fix the error, verify the build passes, move on. Speed and precision over perfection.
+**Remember**: Fix the fault, not the symptom, then verify the build passes. After stop / still / again, attack the premise before the next patch. Speed is not a license to hide the bug.

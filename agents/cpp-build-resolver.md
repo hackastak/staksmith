@@ -66,13 +66,13 @@ cmake --build build --clean-first
 - **Surgical fixes only** -- don't refactor, just fix the error
 - **Never** suppress warnings with `#pragma` without approval
 - **Never** change function signatures unless necessary
-- Fix root cause over suppressing symptoms
+- Fix the fault, not the symptom ([Fix Root Causes](../rules/common/development-workflow.md#fix-root-causes))
 - One fix at a time, verify after each
 
 ## Stop Conditions
 
 Stop and report if:
-- Same error persists after 3 fix attempts
+- Same error persists after 2 fix attempts that share a premise — do not start a third until that premise is written down and tested ([Attack the Premise](../rules/common/development-workflow.md#attack-the-premise))
 - Fix introduces more errors than it resolves
 - Error requires architectural changes beyond scope
 
