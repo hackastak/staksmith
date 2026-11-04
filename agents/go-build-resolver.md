@@ -71,12 +71,12 @@ go clean -modcache && go mod download  # Fix checksum issues
 - **Never** add `//nolint` without explicit approval
 - **Never** change function signatures unless necessary
 - **Always** run `go mod tidy` after adding/removing imports
-- Fix root cause over suppressing symptoms
+- Fix the fault, not the symptom ([Fix Root Causes](../rules/common/development-workflow.md#fix-root-causes))
 
 ## Stop Conditions
 
 Stop and report if:
-- Same error persists after 3 fix attempts
+- Same error persists after 2 fix attempts that share a premise — do not start a third until that premise is written down and tested ([Attack the Premise](../rules/common/development-workflow.md#attack-the-premise))
 - Fix introduces more errors than it resolves
 - Error requires architectural changes beyond scope
 

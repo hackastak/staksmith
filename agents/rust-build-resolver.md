@@ -123,13 +123,13 @@ grep "rust-version" Cargo.toml
 - **Never** use `unsafe` to work around borrow checker errors
 - **Never** add `.unwrap()` to silence type errors — propagate with `?`
 - **Always** run `cargo check` after every fix attempt
-- Fix root cause over suppressing symptoms
+- Fix the fault, not the symptom ([Fix Root Causes](../rules/common/development-workflow.md#fix-root-causes))
 - Prefer the simplest fix that preserves the original intent
 
 ## Stop Conditions
 
 Stop and report if:
-- Same error persists after 3 fix attempts
+- Same error persists after 2 fix attempts that share a premise — do not start a third until that premise is written down and tested ([Attack the Premise](../rules/common/development-workflow.md#attack-the-premise))
 - Fix introduces more errors than it resolves
 - Error requires architectural changes beyond scope
 - Borrow checker error requires redesigning data ownership model
