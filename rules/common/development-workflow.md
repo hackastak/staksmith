@@ -73,6 +73,8 @@ Script the check when you will repeat it. The strongest proof is a deterministic
 
 Before you say it works, name the artifact, the command or observation, and the result. If you could not check the real artifact, say that. Do not upgrade a proxy into a pass.
 
+A speedup, regression, throughput, latency, or eval score is a number, not a completion claim. Vet it with [Explain the Number](./performance.md#explain-the-number) before you report it or act on it.
+
 ## Feature Implementation Workflow
 
 0. **Research & Reuse** _(mandatory before any new implementation)_
