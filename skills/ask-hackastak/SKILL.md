@@ -46,6 +46,7 @@ Not everything starts from your own idea. When you're picking up existing work:
 ### Crossing sessions
 
 - `/handoff` writes a durable handoff document so a fresh session (or another agent) continues cleanly. Save-only — it never launches anything; you open the next session yourself.
+- `/resume-session` catches the user up. Load a saved session file, catch up on this chat, or reconstruct where work left off across recent chats. That is not a handoff, and it is not a new skill.
 - `strategic-compact` vs the built-in `/compact`: the skill tells you *when* a boundary is worth compacting at; `/compact` is the act.
 
 ### Codebase health — ongoing, not tied to one feature

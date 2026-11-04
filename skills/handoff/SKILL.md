@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: Write a durable handoff document so a fresh agent — or you in a new session — can continue this work: what was done, the current state, the next moves, and which skills to reach for, with secrets redacted. Save-only, never launches. Use at a session boundary, before /clear or /compact, when handing work to another agent, or when the user invokes /handoff.
+description: Write a durable handoff document so a fresh agent — or you in a new session — can continue this work: what was done, the current state, the next moves, and which skills to reach for, with secrets redacted. Save-only, never launches. Use at a session boundary, before /clear or /compact, when handing work to another agent, or when the user invokes /handoff. A catch-up in this chat, or across recent chats, is /resume-session, not a handoff.
 category: "Workflow & Meta"
 origin: Hackastak
 disable-model-invocation: true
@@ -10,6 +10,14 @@ argument-hint: "What the next session should focus on, or nothing"
 # Handoff
 
 Write a **handoff document**: a self-contained note that lets a fresh agent, or you in a new session, pick up exactly where this one left off. The skill produces the artifact and stops.
+
+## Catch-up is not a handoff
+
+In-chat catch-up and cross-session reconstruction are enhancements of `/resume-session`, not new skills. Do not look for `ketchup` or `recall`.
+
+If the user wants to know what changed in this chat, what is waiting on them, or where they left off across recent chats, do not write a document. Read `commands/resume-session.md` and follow the matching catch-up route. Stop there.
+
+`/handoff` still writes a document when they asked to hand the thread off, before `/clear` or `/compact`, or invoked `/handoff` without asking for a catch-up.
 
 **Save-only. This skill never launches anything.** It does not spawn a background agent, does not open a new session, does not run `claude --bg`. It writes one document and hands the path back. Continuation is a separate, human-initiated step: someone opens a fresh session and points it at the document.
 
@@ -103,3 +111,4 @@ After the handoff document is written, chain the `quick-note` skill (see [[quick
 - **`strategic-compact`** — the in-place counterpart: compact to keep going; hand off to stop and resume elsewhere.
 - **`weekly-momentum-report`** — narrates throughput across a week; `handoff` captures the state of one thread at a single moment.
 - **`what-next`** — where the next session might start if the handoff's next moves have already been done.
+- **`/resume-session`** — the catch-up route. Load a saved session file, catch up on this chat, or reconstruct where work left off. Not a second copy of this document.

@@ -370,7 +370,7 @@ Everything below is **plugin-distributed**: it installs with the plugin (`/plugi
 | `/reflect` | Hold a mirror to the second brain — read the vault's stated goals, the attention it actually spends, and the beliefs it keeps returning to, then report how the thinking reflects the person, what it reveals about how they reason, and where behavior pulls toward or away from their goals. | `commands/reflect.md` |
 | `/regex-vs-llm-structured-text` | Decision framework for choosing between regex and LLM when parsing structured text — start with regex, add LLM only for low-confidence edge cases. | `commands/regex-vs-llm-structured-text.md` |
 | `/resolving-merge-conflicts` | Resolve an in-progress git merge or rebase conflict — read the intent behind each side, resolve the hunks, run the project's checks, then hand back for the final commit. | `commands/resolving-merge-conflicts.md` |
-| `/resume-session` | Load the most recent session file from ~/.claude/sessions/ and resume work with full context from where the last session ended. | `commands/resume-session.md` |
+| `/resume-session` | Load a saved session, catch the user up on this chat, or reconstruct where work left off across recent chats. | `commands/resume-session.md` |
 | `/review-changes` | Review only the changes in the working tree — the staged and unstaged diff against HEAD. | `commands/review-changes.md` |
 | `/review-github-pr` | Review a GitHub pull request for the current branch by PR number. | `commands/review-github-pr.md` |
 | `/rust-build` | Fix Rust build errors, borrow checker issues, and dependency problems incrementally. | `commands/rust-build.md` |

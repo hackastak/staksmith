@@ -267,7 +267,7 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Inputs.** `$ARGUMENTS` (focus for next session, or empty). No config.json. Ships an `agents/` subdir. Reads the conversation state and git state.
 **Outputs.** One handoff document, at `<vault>/1. Projects/<Project>/Handoff_<slug>.md` when the work fuzzy-matches a project folder, the session scratchpad (`Handoff_<slug>.md`) when nothing matches, or the cwd (`handoff-<slug>.md`) when bound to a specific repo. Plus a weekly-note breadcrumb via `quick-note`.
 **Vault dependencies.** Prefers `<vault>/1. Projects/<Project>/` via fuzzy project-name matching (asks when ambiguous, never creates a folder silently); the breadcrumb assumes the weekly-note structure `quick-note` uses.
-**Related.** `strategic-compact` (the in-place counterpart), `quick-note`, `weekly-momentum-report`, `what-next`.
+**Related.** `strategic-compact` (the in-place counterpart), `quick-note`, `weekly-momentum-report`, `what-next`, `/resume-session` (in-chat and cross-session catch-up; not a second handoff).
 
 ### `implement`
 
