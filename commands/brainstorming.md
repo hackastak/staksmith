@@ -14,4 +14,6 @@ Invoke the **`brainstorming`** skill and apply it to the request below. The full
 /brainstorming [request or arguments]
 ```
 
+Playing a goal back, or sharpening a task before it starts, is this command. Those are not new skills. Do not look for `sharpen` or `in-your-own-words`. The approval gate still blocks code.
+
 $ARGUMENTS

@@ -124,6 +124,7 @@ This is not a redesign around a new requirement. It questions a fact the current
    - Prefer adopting or porting a proven approach over writing net-new code when it meets the requirement.
 
 1. **Plan First**
+   - Align on the goal before the plan. `/brainstorming` restates the problem and aims the task. `sharpen` and `in-your-own-words` are not skills.
    - Use **planner** agent to create implementation plan
    - Generate planning docs before coding: PRD, architecture, system_design, tech_doc, task_list
    - Identify dependencies and risks

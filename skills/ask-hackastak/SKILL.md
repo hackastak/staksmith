@@ -27,7 +27,7 @@ A skill invoked in a bloated context gives worse results than the same skill inv
 The spine. Most work is somewhere on this line; find where you are and take the next step.
 
 1. **Research the ground** — `/source-research` investigates a question against high-trust primary sources (docs, source, specs) before you commit to a shape.
-2. **Shape the design** — `codebase-design` gives the deep-module vocabulary to think in; `/prototype` builds a throwaway to answer one design question; `/domain-modeling` pins the domain language and records decisions as ADRs.
+2. **Shape the design** — `codebase-design` gives the deep-module vocabulary to think in; `/prototype` builds a throwaway to answer one design question; `/domain-modeling` pins the domain language and records decisions as ADRs. `/brainstorming` aligns intent before a design exists: it plays the goal and the problem back, then aims the task. That is not `sharpen` or `in-your-own-words`.
 3. **Write the spec** — `/to-spec` turns the conversation into a PRD and publishes it to the tracker.
 4. **Break it into tickets** — `/to-tickets` cuts the spec into tracer-bullet tickets with their blocking edges. By default these land in the vault at `1. Projects/<Project>/issues/NN-*.md` (github issues opt-in per repo, local `.scratch/` as the offline alternative).
 5. **Stress-test before building** — `/grill-me` interviews you relentlessly until the plan holds; `/grill-with-docs` does the same and leaves the glossary and ADRs behind; `/batch-grill-me` asks a whole frontier of questions per round when you'd rather answer in batches.

@@ -6,4 +6,6 @@ description: "Use BEFORE any creative work — creating features, building compo
 
 Load the skill defined in `skills/brainstorming/SKILL.md`, then follow its workflow to handle the request below. Treat that file as the authoritative instructions for this command.
 
+Playing a goal back, or sharpening a task before it starts, is this command. Those are not new skills. Do not look for `sharpen` or `in-your-own-words`. The approval gate still blocks code.
+
 $ARGUMENTS
