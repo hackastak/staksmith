@@ -12,7 +12,7 @@ Surface architectural friction and propose **deepening opportunities** — refac
 
 This skill is *informed* by the project's domain model and built on a shared design vocabulary:
 
-- **`codebase-design`** supplies the architecture vocabulary — **module**, **interface**, **depth**, **seam**, **adapter**, **leverage**, **locality** — and its principles: the deletion test, "the interface is the test surface", "one adapter means a hypothetical seam, two means a real one". Use these terms exactly in every suggestion. Don't drift into "component", "service", "API", or "boundary".
+- **`codebase-design`** supplies the architecture vocabulary — **module**, **interface**, **depth**, **seam**, **adapter**, **leverage**, **locality** — and its principles: the deletion test, "the interface is the test surface", "one adapter means a hypothetical seam, two means a real one". It also carries usage-first sketching, interface-depth comparison, and the scrap tells. Use these terms exactly in every suggestion. Don't drift into "component", "service", "API", or "boundary". Those rules apply here even when `/architect` is not the entry point.
 - **`CONTEXT.md`** gives names to good seams; the ADRs in `docs/adr/` record decisions this skill should not re-litigate.
 
 ## Process
@@ -65,13 +65,14 @@ Side effects happen inline as decisions crystallise, via `domain-modeling`:
 - **Naming a deepened module after a concept not in `CONTEXT.md`?** Add the term. Create the file lazily if it doesn't exist.
 - **Sharpening a fuzzy term mid-conversation?** Update `CONTEXT.md` right there.
 - **User rejects a candidate for a load-bearing reason?** Offer an ADR: *"Want me to record this so future architecture reviews don't re-suggest it?"* Only offer when the reason would actually be needed by a future explorer — skip ephemeral reasons ("not worth it right now") and self-evident ones. The reason must clear both gates of the house standard.
-- **Want to explore alternative interfaces for the deepened module?** Use `codebase-design`'s `DESIGN-IT-TWICE.md` — fan parallel sub-agents out to design the interface several radically different ways, then compare on depth, locality, and seam placement.
+- **Want to explore alternative interfaces for the deepened module?** Use `codebase-design`'s `DESIGN-IT-TWICE.md`. Require at least two structurally distinct candidates. Each writes usage first, then derives the type sketch from that usage. Compare on interface depth: prefer the design that hides more complexity behind a smaller public surface. If the chosen shape hits the scrap tells in `codebase-design` (Scrap a wrong shape), throw it out and re-sketch. Do not bolt fixes onto a wrong design. Do not role-play `interrogate`, `blast-radius`, or `arena` from here. Those run when `/architect` is the entry point.
 
 This skill plans; it doesn't build. When the shape is agreed, hand off to `to-tickets` (for a wide refactor, the expand–contract sequence lives there) or straight to `implement` for a single deepening. **Never commit** — if any file was touched during the session, stage it and hand back.
 
 ## Related skills
 
-- **`codebase-design`** — the vocabulary, the deletion test, `DEEPENING.md`, `DESIGN-IT-TWICE.md`.
+- **`codebase-design`** — the vocabulary, the deletion test, usage-first sketching, the scrap tells, `DEEPENING.md`, `DESIGN-IT-TWICE.md`.
+- **`/architect`** — the sketch-then-implement loop for a new feature. This skill deepens a codebase that is already hard to change. It still uses that loop's usage-first rule and scrap tells.
 - **`diagnosing-bugs`** — hands off here at Phase 6, when "what would have prevented this bug?" turns out to be architectural. That handoff arrives with specifics; use them as the scoping direction in step 1.
 - **`domain-modeling` / `adr-standard`** — the glossary and ADR trail this skill maintains and respects.
 - **`to-tickets` / `implement`** — where an agreed deepening goes to get built.

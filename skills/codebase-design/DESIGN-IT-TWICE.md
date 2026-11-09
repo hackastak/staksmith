@@ -18,7 +18,7 @@ Show this to the user, then immediately proceed to Step 2. The user reads and th
 
 ### 2. Fan out the designers
 
-Spawn 3+ sub-agents with Claude Code's **Agent tool**, `subagent_type: "general-purpose"`. Issue every call **in a single message** so they actually run concurrently — sequential calls waste the whole point of the pattern. Each agent must produce a **radically different** interface for the deepened module.
+Spawn 3+ sub-agents with Claude Code's **Agent tool**, `subagent_type: "general-purpose"`. Issue every call **in a single message** so they actually run concurrently — sequential calls waste the whole point of the pattern. Each agent must produce a **structurally distinct** interface for the deepened module. Whole-shape alternatives, not point fixes inside one shape. If you cannot produce a second distinct shape, stop. The design space was not exhausted.
 
 If the user has explicitly opted into multi-agent orchestration, the same fan-out can run as a `Workflow` `parallel()` stage instead. Default to the Agent tool.
 
@@ -31,10 +31,12 @@ Prompt each sub-agent with a separate technical brief (file paths, coupling deta
 
 Include the [SKILL.md](SKILL.md) vocabulary in every brief, plus the project's `CONTEXT.md` glossary if one exists (see `domain-modeling`), so each sub-agent names things consistently with both the architecture language and the project's domain language. If there's no `CONTEXT.md`, skip it silently.
 
+Each sub-agent writes usage first, then derives the interface from that usage. When they diverge, reconcile the sketch to the usage, not the reverse. Bodies stay `not implemented`.
+
 Each sub-agent outputs:
 
-1. Interface (types, methods, params — plus invariants, ordering, error modes)
-2. Usage example showing how callers use it
+1. Usage: the README-style call, plus two or three real call sites. Write this before the types.
+2. Interface derived from that usage (types, methods, params — plus invariants, ordering, error modes)
 3. What the implementation hides behind the seam
 4. Dependency strategy and adapters (see [DEEPENING.md](DEEPENING.md))
 5. Trade-offs — where leverage is high, where it's thin
@@ -43,7 +45,9 @@ Sub-agent reports are not shown to the user. Relay the designs yourself in Step 
 
 ### 3. Present and compare
 
-Present designs sequentially so the user can absorb each one, then compare them in prose. Contrast by **depth** (leverage at the interface), **locality** (where change concentrates), and **seam placement**.
+Present designs sequentially so the user can absorb each one, then compare them in prose. Contrast by **interface depth** (prefer the design that hides more complexity behind a smaller public surface), **locality** (where change concentrates), and **seam placement**.
+
+If a candidate hits the scrap tells in [SKILL.md](SKILL.md) (Scrap a wrong shape), throw it out. Do not bolt a fix onto a wrong shape and call it a hybrid.
 
 After comparing, give your own recommendation: which design you think is strongest and why. If elements from different designs would combine well, propose a hybrid. Be opinionated — the user wants a strong read, not a menu.
 

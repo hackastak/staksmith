@@ -60,7 +60,7 @@ After the fill-in has a diff, run `blast-radius` on that diff before calling the
 
 If implementation keeps producing friction the sketch cannot absorb, throw the sketch out. Do not bolt fixes onto a wrong design. That bar is Fix Root Causes in `rules/common/development-workflow.md`.
 
-The signal is a pattern, not one instance. Tells:
+The same tells live in `codebase-design` (Scrap a wrong shape), so they apply when `/architect` is not the entry point. The signal is a pattern, not one instance. Tells:
 
 - The same workaround shape appearing across unrelated code.
 - Several unrelated edge cases that each need a special-case branch.

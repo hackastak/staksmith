@@ -110,6 +110,29 @@ Good interfaces make testing natural:
 - An **Adapter** sits at a **Seam** and satisfies the **Interface**.
 - **Depth** produces **Leverage** for callers and **Locality** for maintainers.
 
+## Usage first, then depth
+
+When sketching an interface, write the caller's usage first. Two or three real call sites, then derive the type sketch from that usage. Bodies stay `not implemented`. Tricky logic is pseudocode, not a guessed implementation. When usage and the sketch diverge, reconcile the sketch to the usage, not the reverse.
+
+Require at least two structurally distinct candidates before picking one, even when the first looks sufficient. Whole-shape alternatives, not point fixes inside one shape. Compare them on interface depth: prefer the design that hides more complexity behind a smaller public surface. `/architect` runs this as Phase B. These rules still apply when the entry point is this skill or `improve-codebase-architecture`.
+
+## Scrap a wrong shape
+
+If a design keeps producing friction the sketch cannot absorb, throw it out. Do not bolt fixes onto a wrong design. That bar is Fix Root Causes in `rules/common/development-workflow.md`.
+
+The signal is a pattern, not one instance. Tells:
+
+- The same workaround shape appearing across unrelated code.
+- Several unrelated edge cases that each need a special-case branch.
+- Types that need escape hatches (`any`, casts, optional fields that are always set) to compile.
+- A "we need a lock" reflex when the sketch said the state was not shared.
+- Callers that must know the abstraction's internal rules to use it.
+- Two or more independent deviations of the same shape.
+
+A few edge cases do not condemn an architecture. Complexity in the data is not complexity in the design.
+
+When you scrap, redesign as if the new constraints had been day-one assumptions. Subtract before adding. The new sketch should be smaller than the old one before it grows. Return to usage-first sketching and compare the new candidates on interface depth. This is not the `/architect` loop. Do not role-play `interrogate`, `blast-radius`, or `arena` from here. Those run when `/architect` is the entry point.
+
 ## Rejected framings
 
 - **Depth as ratio of implementation-lines to interface-lines** (Ousterhout): rewards padding the implementation. We use depth-as-leverage instead.
@@ -119,7 +142,7 @@ Good interfaces make testing natural:
 ## Going deeper
 
 - **Deepening a cluster given its dependencies** — see [DEEPENING.md](DEEPENING.md): dependency categories, seam discipline, and replace-don't-layer testing.
-- **Exploring alternative interfaces** — see [DESIGN-IT-TWICE.md](DESIGN-IT-TWICE.md): fan out parallel sub-agents to design the interface several radically different ways, then compare on depth, locality, and seam placement.
+- **Exploring alternative interfaces** — see [DESIGN-IT-TWICE.md](DESIGN-IT-TWICE.md): fan out parallel sub-agents to design the interface several structurally distinct ways. Each candidate writes usage first. Compare on interface depth, locality, and seam placement. Scrap a shape that hits the tells above.
 
 ## Related skills
 
