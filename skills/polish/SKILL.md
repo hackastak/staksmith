@@ -63,10 +63,15 @@ Check the article against The HackaStak guidelines:
 | Product names | **Bold** on first mention | ✓ or ✗ |
 | Emoji count | 2-3 total (🛠️ 💡 ✨) | ✓ or ✗ |
 | Tone | Conversational, not corporate | ✓ or ✗ |
+| Firsthand point of view | Where applicable, explains what earned its place, why, and a real limitation/tradeoff; no unsupported experience claims | ✓ / ✗ / N/A |
 | No em dashes | Zero `—` in the body (see rule below) | ✓ or ✗ |
 | Colon restraint | 1-2 stylistic prose colons max (see rule below) | ✓ or ✗ |
 | No reflexive antithesis | 1 "It's not X, it's Y" max (see rule below) | ✓ or ✗ |
 | No banned phrases | See list below | ✓ or ✗ |
+
+**Editorial Point-of-View Check:**
+
+For first-person pieces about tools, workflows, or personal systems, check whether the article makes the author's judgment visible: what earned a place in the workflow, why it stayed, what was rejected, and where it falls short when a real limitation is known. Flag generic praise or feature summaries that could have been written without firsthand use. Verify that personal testing, outcomes, and tradeoffs are supported by the draft or vault sources. Never invent experience or force a negative take when no honest limitation is documented. Mark this check N/A when the topic does not call for firsthand evaluation. This is an evolution of the existing approachable voice, not a request to change tone wholesale.
 
 **Structure Check:**
 | Criterion | Target | Status |

@@ -39,6 +39,7 @@ Key constraints to apply throughout drafting:
 - **Format:** Concrete tools or a personal system, first-person and actionable, is what wins (format is secondary). For roundups, use the item scaffold: Description → Key Features → Why You Should Use It
 - **Emoji budget:** 2–3 per piece (🚀 💡 🛠️ ✨)
 - **Headline pattern:** "Topic: The Subtitle That Sells It"
+- **Editorial promise:** Make the point of view recognizable through firsthand judgment: what earned a place in the author's workflow, why it stayed, what was rejected, and where it falls short. The recurring promise is: “I tried it, here’s what earned its spot, and here’s where it falls short.” This evolves the existing approachable voice; it does not call for a wholesale tone change. Apply where the topic supports firsthand experience, and never invent testing, use, outcomes, or tradeoffs that the sources do not establish.
 
 ## Step 2: Clarify the Topic
 
@@ -149,7 +150,7 @@ For each item, use the scaffold:
 - Use "you" to address reader directly
 - Rhetorical questions as transitions ("Sound familiar?")
 - **Bold product names** on first mention
-- Opinionated but fair, because readers trust your filter
+- Opinionated but fair, because readers trust your filter. For first-person/tool/system pieces, show the judgment behind the recommendation: what earned its place, why, what was rejected, and a real limitation or tradeoff when one is known. Ground claims in the author's notes or experience; if firsthand evidence is missing, do not imply testing or manufacture a limitation.
 - **No em dashes (`—`).** They read as AI-generated. Join two clauses with a comma + coordinating conjunction (and, but, or, so) to make a compound sentence, use commas (or parentheses) for an aside, a colon for an elaboration or list, or just split into two sentences. Only the em dash (`—`) is banned. Hyphens (`-`) in compound words and modifiers are fine and should stay (no-fluff, open-source, early-to-mid, terminal-native). En dashes (`–`) in numeric ranges (`7–12`, `$3–$5`) are also fine.
 - **No reflexive antithesis.** Avoid the "It's not X, it's Y" negation-contrast construction and its variants ("That's not A, that's B," "not just X but Y," "X isn't about A, it's about B"). It's an AI-writing tell, the same family as em dashes. Used once it lands, but sprinkled through a piece it reads as a tic, so cap it at one per article and state the positive claim directly instead. Genuine factual either/or distinctions the reader needs (e.g., "`fc` edits the last command, not the current line") are fine and don't count.
 
@@ -216,6 +217,7 @@ Before delivering, verify against The HackaStak standards:
 - [ ] No banned phrases
 - [ ] No corporate/formal tone
 - [ ] Opinionated but fair, not preachy
+- [ ] Where firsthand evidence supports it, the piece shows why the tool/system earned its place and includes a real tradeoff or limitation; no experience or results are invented
 
 **Format:**
 - [ ] Listicle items follow scaffold (Description → Features → Why You Should Use It)
@@ -323,5 +325,5 @@ After delivering, ask:
 - 7–12 minute read time is the Medium sweet spot
 - When in doubt, start with the most concrete example you have
 - Mix well-known tools (validation) with lesser-known finds (discovery)
-- Remember: consistency matters more than topic selection right now — ship it
+- Let the Blog Strategy's current performance guidance govern topic and framing; do not assume consistency outweighs topic selection.
 - Mirrors the `/blog-draft` invocation; pairs with `blog-ideas`.
