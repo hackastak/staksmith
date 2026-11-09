@@ -168,7 +168,7 @@ staksmith/
 |
 |-- agents/           # Specialized subagents for delegation
 |   |-- planner.md            # Feature implementation planning
-|   |-- architect.md          # System design decisions
+|   |-- architect.md          # Read-only architecture review
 |   |-- tdd-guide.md          # Test-driven development
 |   |-- code-reviewer.md      # Quality and security review
 |   |-- security-reviewer.md  # Vulnerability analysis
@@ -541,7 +541,7 @@ Not sure where to start? Use this quick reference:
 | I want to... | Use this command | Agent used |
 |--------------|-----------------|------------|
 | Plan a new feature | `/staksmith:plan "Add auth"` | planner |
-| Design system architecture | `/staksmith:plan` + architect agent | architect |
+| Design system architecture | `/architect` | architect skill |
 | Write code with tests first | `/tdd` | tdd-guide |
 | Review code I just wrote | `/code-review` | code-reviewer |
 | Fix a failing build | `/build-fix` | build-error-resolver |

@@ -51,7 +51,7 @@ Pick the passes that match the stack, then **dispatch them all in a single messa
 |---|---|---|
 | Correctness & general quality | `code-reviewer` | always |
 | Security (incl. dependency CVEs, OWASP) | `security-reviewer` | always; **read-only brief required** |
-| Architecture & module depth | `architect` | always |
+| Architecture & module depth | `architect` agent | always. The read-only reviewer in `agents/architect.md`, not the `/architect` design skill. |
 | Dead code, duplication, cleanliness | `refactor-cleaner` | always; **read-only brief required** |
 | Database (queries, schema, migrations) | `database-reviewer` | only if a DB layer was detected; **read-only brief required**; **engine-fit caveat required** (see below) |
 | Language-idiomatic | `python-reviewer` / `go-reviewer` / `rust-reviewer` / `cpp-reviewer` | one per detected language |
@@ -153,6 +153,7 @@ sentences. The dimension tags after the location say which pass(es) surfaced it.
 
 - **`code-review`** — the same dimensions in one context over a branch; use it for a branch, not a whole unfamiliar repo.
 - **`security-scan`** — the security axis alone, run inline; `audit-codebase` dispatches the `security-reviewer` agent for the same coverage as one pass among many.
-- **`improve-codebase-architecture`** — a deeper, interactive architecture pass than the `architect` sub-agent gives here.
+- **`architect` skill** — sketches and implements a shape. Not this fan-out. The pass here is the read-only `architect` agent.
+- **`improve-codebase-architecture`** — a deeper, interactive architecture pass than the `architect` agent gives here.
 - **`review-changes`** / **`review-github-pr`** — the diff and PR tiers of the review family.
 - **`adr-standard`** — what to do when a finding collides with an accepted ADR.

@@ -15,7 +15,7 @@ This is a **production-ready AI coding plugin** providing specialized agents, sk
 | Agent | Purpose | When to Use |
 |-------|---------|-------------|
 | planner | Implementation planning | Complex features, refactoring |
-| architect | System design and scalability | Architectural decisions |
+| architect | Read-only architecture review | Fan-out review. Design goes to the `/architect` skill |
 | tdd-guide | Test-driven development | New features, bug fixes |
 | code-reviewer | Code quality and maintainability | After writing/modifying code |
 | security-reviewer | Vulnerability detection | Before commits, sensitive code |
@@ -39,7 +39,7 @@ Use agents proactively without user prompt:
 - Complex feature requests → **planner**
 - Code just written/modified → **code-reviewer**
 - Bug fix or new feature → **tdd-guide**
-- Architectural decision → **architect**
+- Architectural decision → **`/architect` skill** (the `architect` agent only reviews)
 - Security-sensitive code → **security-reviewer**
 - Multi-channel communication triage → **chief-of-staff**
 - Autonomous loops / loop monitoring → **loop-operator**

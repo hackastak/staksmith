@@ -1,18 +1,7 @@
 ---
 name: prompt-optimizer
-description: >-
+description: "Analyze raw prompts, identify intent and gaps, match staksmith components (skills/commands/agents/hooks), and output a ready-to-paste optimized prompt. Advisory role only — never executes the task itself. TRIGGER when: user says optimize prompt, improve my prompt, how to write a prompt for, help me prompt, rewrite this prompt, or explicitly asks to enhance prompt quality. DO NOT TRIGGER when: user wants the task executed directly, or says just do it. DO NOT TRIGGER when the user wants code or performance optimized — those are refactoring tasks, not prompt optimization."
 category: "Workflow & Meta"
-  Analyze raw prompts, identify intent and gaps, match staksmith components
-  (skills/commands/agents/hooks), and output a ready-to-paste optimized
-  prompt. Advisory role only — never executes the task itself.
-  TRIGGER when: user says "optimize prompt", "improve my prompt",
-  "how to write a prompt for", "help me prompt", "rewrite this prompt",
-  or explicitly asks to enhance prompt quality. Also triggers on Chinese
-  equivalents: "优化prompt", "改进prompt", "怎么写prompt", "帮我优化这个指令".
-  DO NOT TRIGGER when: user wants the task executed directly, or says
-  "just do it" / "直接做". DO NOT TRIGGER when user says "优化代码",
-  "优化性能", "optimize performance", "optimize this code" — those are
-  refactoring/performance tasks, not prompt optimization.
 origin: community
 metadata:
   author: YannJY02
@@ -29,7 +18,6 @@ and output a complete optimized prompt the user can paste and run.
 - User says "optimize this prompt", "improve my prompt", "rewrite this prompt"
 - User says "help me write a better prompt for..."
 - User says "what's the best way to ask Claude Code to..."
-- User says "优化prompt", "改进prompt", "怎么写prompt", "帮我优化这个指令"
 - User pastes a draft prompt and asks for feedback or enhancement
 - User says "I don't know how to prompt for this"
 - User says "how should I use staksmith for..."
@@ -38,10 +26,10 @@ and output a complete optimized prompt the user can paste and run.
 ### Do Not Use When
 
 - User wants the task done directly (just execute it)
-- User says "优化代码", "优化性能", "optimize this code", "optimize performance" — these are refactoring tasks, not prompt optimization
+- User says "optimize this code" or "optimize performance" — these are refactoring tasks, not prompt optimization
 - User is asking about staksmith configuration (use `configure-staksmith` instead)
 - User wants a skill inventory (use `skill-stocktake` instead)
-- User says "just do it" or "直接做"
+- User says "just do it"
 
 ## How It Works
 
@@ -50,7 +38,7 @@ and output a complete optimized prompt the user can paste and run.
 Do NOT write code, create files, run commands, or take any implementation
 action. Your ONLY output is an analysis plus an optimized prompt.
 
-If the user says "just do it", "直接做", or "don't optimize, just execute",
+If the user says "just do it" or "don't optimize, just execute",
 do not switch into implementation mode inside this skill. Tell the user this
 skill only produces optimized prompts, and instruct them to make a normal
 task request if they want execution instead.
@@ -264,50 +252,49 @@ A compact version for experienced staksmith users. Vary by intent type:
 
 - "Optimize this prompt for staksmith"
 - "Rewrite this prompt so Claude Code uses the right commands"
-- "帮我优化这个指令"
 - "How should I prompt staksmith for this task?"
 
-### Example 1: Vague Chinese Prompt (Project Detected)
+### Example 1: Vague Prompt (Project Detected)
 
 **User input:**
 ```
-帮我写一个用户登录页面
+Build me a user login page
 ```
 
 **Phase 0 detects:** `package.json` with Next.js 15, TypeScript, Tailwind CSS
 
 **Optimized Prompt (Full):**
 ```
-使用项目现有技术栈（Next.js 15 + TypeScript + Tailwind CSS）实现用户登录页面。
+Build a user login page with the project's existing stack (Next.js 15, TypeScript, Tailwind CSS).
 
-技术要求：
-- 沿用项目现有的组件结构和路由约定
-- 表单验证使用项目中已有的验证方案（检查是否已用 Zod/Yup/其他）
-- 认证方式：沿用项目现有认证方案（如无，默认 JWT）
-- 包含：邮箱/密码登录表单、表单验证、错误提示、加载状态、响应式布局
+Technical requirements:
+- Follow the project's existing component structure and routing conventions
+- Use the validation library already in the project (check for Zod, Yup, or another). Do not add a second one
+- Use the project's existing auth approach. If none exists, default to JWT and say so
+- Include an email/password form, validation, error display, a loading state, and a responsive layout
 
-工作流：
-1. /plan 先规划组件结构和认证流程，参考现有页面的模式
-2. /tdd 测试先行：编写登录表单的单元测试和认证流程的集成测试
-3. 实现登录页面和认证逻辑
-4. /code-review 审查实现
-5. /verify 验证所有测试通过且页面正常渲染
+Workflow:
+1. /plan the component structure and auth flow against an existing page
+2. /tdd: unit tests for the form and an integration test for the auth flow, failing first
+3. Implement the login page and auth logic
+4. /code-review the implementation
+5. /verify that the tests pass and the page renders
 
-安全要求：
-- 密码不明文传输
-- 防止暴力破解（rate limiting）
-- XSS 防护
+Security:
+- Do not send the password in the clear
+- Rate-limit login attempts
+- XSS protection
 - CSRF token
 
-验收标准：
-- 所有测试通过，覆盖率 80%+
-- 页面在移动端和桌面端正常渲染
-- 登录成功跳转到 dashboard，失败显示错误信息
+Done when:
+- Tests pass, coverage 80%+
+- The page renders on mobile and desktop
+- Success goes to the dashboard. Failure shows an error
 
-不要做：
-- 不要实现注册页面
-- 不要实现忘记密码功能
-- 不要修改现有的路由结构
+Do not:
+- Build a registration page
+- Build a forgot-password flow
+- Change the existing route structure
 ```
 
 ### Example 2: Moderate English Prompt

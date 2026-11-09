@@ -21,7 +21,7 @@ Orchestrate multiple specialized agents for this complex task: $ARGUMENTS
 | Agent | Specialty | Use For |
 |-------|-----------|---------|
 | planner | Implementation planning | Complex feature design |
-| architect | System design | Architectural decisions |
+| architect | Architecture review | Fan-out review. Design is `/architect` |
 | code-reviewer | Code quality | Review changes |
 | security-reviewer | Security analysis | Vulnerability detection |
 | tdd-guide | Test-driven dev | Feature implementation |

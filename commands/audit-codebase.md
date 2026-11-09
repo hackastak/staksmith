@@ -10,7 +10,7 @@ Invoke the **`audit-codebase`** skill to review an unfamiliar codebase **end-to-
 
 1. **Scope** the repo (languages, ecosystems, DB layer, high-risk surface).
 2. **Build a shared context brief** — conventions, ADRs, scope, high-risk surface — to paste into every pass.
-3. **Fan out the specialist passes in one message** so they run concurrently in clean contexts: `code-reviewer`, `security-reviewer`, `architect`, `refactor-cleaner`, `database-reviewer` (if a DB layer exists), the matching language reviewer(s), and a performance pass. Mutation-capable agents are briefed strictly read-only.
+3. **Fan out the specialist passes in one message** so they run concurrently in clean contexts: `code-reviewer`, `security-reviewer`, the `architect` agent (read-only review, not the `/architect` skill), `refactor-cleaner`, `database-reviewer` (if a DB layer exists), the matching language reviewer(s), and a performance pass. Mutation-capable agents are briefed strictly read-only.
 4. **Merge, dedupe, and verify** — one defect = one finding tagged with every dimension that surfaced it; spot-check every Critical/Major.
 5. **Emit one severity-ranked report** with a per-pass coverage section.
 
@@ -35,3 +35,4 @@ A single inline report: verdict, findings tiered **Critical / Major / Minor / Ni
 - Skill: `skills/audit-codebase/SKILL.md`
 - Single-axis / smaller unit: `/security-scan` · `/code-review` · `/review-changes`
 - Deeper architecture pass: `skills/improve-codebase-architecture/`
+- Shape a new design: `/architect`

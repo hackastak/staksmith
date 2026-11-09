@@ -146,7 +146,7 @@ For independent checks, run agents in parallel:
 Run simultaneously:
 - code-reviewer (quality)
 - security-reviewer (security)
-- architect (design)
+- architect (architecture review; design is `/architect`)
 
 ### Merge Results
 Combine outputs into single report
