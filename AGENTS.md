@@ -5,7 +5,7 @@ This is a **production-ready AI coding plugin** providing specialized agents, sk
 ## Core Principles
 
 1. **Agent-First** — Delegate to specialized agents for domain tasks
-2. **Test-Driven** — Write tests before implementation, 80%+ coverage required
+2. **Test-Driven** — Write tests before implementation when the path is clear and cheap. Skip a bad or expensive test. 80% is a target, not a mandate. The gate is `tdd-workflow`. There is no `tdd` skill.
 3. **Security-First** — Never compromise on security; validate all inputs
 4. **Immutability** — Always create new objects, never mutate existing ones
 5. **Plan Before Execute** — Plan complex features before writing code
@@ -83,17 +83,17 @@ Use parallel execution for independent operations — launch multiple agents sim
 
 ## Testing Requirements
 
-**Minimum coverage: 80%**
+**Coverage target: 80%**, when the path is cheap. Not a reason to add a bad test.
 
-Test types (all required):
+Test types, on the seams you agreed:
 1. **Unit tests** — Individual functions, utilities, components
 2. **Integration tests** — API endpoints, database operations
 3. **E2E tests** — Critical user flows
 
-**TDD workflow (mandatory):**
-1. Write test first (RED) — test should FAIL
+**TDD workflow:** follow `tdd-workflow`'s skip gate. `tdd` is not a skill. When the gate says write a test:
+1. Write test first (RED) — name the check and the failure it produced
 2. Write minimal implementation (GREEN) — test should PASS
-3. Refactor (IMPROVE) — verify coverage 80%+
+3. Refactor (IMPROVE) — 80% is a target, not a mandate
 
 Troubleshoot failures: check test isolation → verify mocks → fix implementation (not tests, unless tests are wrong).
 
@@ -102,7 +102,7 @@ Troubleshoot failures: check test isolation → verify mocks → fix implementat
 **Prove it works** before any done claim. Check the real artifact: run the flow, read the stored value, or inspect the diff. A green build, a self-report, or "it compiles" is not proof. Never cite a `file:line` you did not open. Full rule: `rules/common/development-workflow.md` (Prove It Works). There is no `principle-prove-it-works` skill.
 
 1. **Plan** — Use planner agent, identify dependencies and risks, break into phases
-2. **TDD** — Use tdd-guide agent, write tests first, implement, refactor
+2. **TDD** — Use tdd-guide agent and `tdd-workflow`. Write tests first only when the skip gate says the path is clear and cheap.
 3. **Review** — Use code-reviewer agent immediately, address CRITICAL/HIGH issues
 4. **Capture knowledge in the right place**
    - Personal debugging notes, preferences, and temporary context → auto memory

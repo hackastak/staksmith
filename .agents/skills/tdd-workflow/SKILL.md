@@ -1,12 +1,24 @@
 ---
 name: tdd-workflow
-description: Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.
+description: Use this skill when writing new features, fixing bugs, or refactoring code. A new test is a judgment call: skip it when the path is unclear, expensive, integration-heavy, or not requested. Prefer no new test over a bad test.
 origin: staksmith
 ---
 
 # Test-Driven Development Workflow
 
-This skill ensures all code development follows TDD principles with comprehensive test coverage.
+This skill is the red → green loop when a test is worth writing. The canonical copy is `skills/tdd-workflow/SKILL.md`. Follow that file if the two diverge.
+
+Graft of pstack `tdd`. It is not a skill. Do not look for `skills/tdd`. This skill is the only surface. It does not need poteto-mode or setup-pstack.
+
+## When to skip
+
+Write a failing test first only when the path is clear and cheap: the user asked for TDD, a failing test, or a regression test, or the bug has an obvious local test target.
+
+Skip a new test when the path is unclear, expensive, integration-heavy, or not requested. Prefer no new test over a bad test. A bad test mostly tests mocks, encodes implementation details, depends on timing or unrelated global state, or would be deleted after proving the fix.
+
+80% coverage is a judgment call, not a mandate. Do not add tests to chase the number.
+
+When the gate says write a test, red still comes before green. Name the check and the failure it produced, then the passing-after run. If failing-before evidence could not be shown, say why and name the closest check used instead.
 
 ## When to Activate
 
@@ -19,10 +31,10 @@ This skill ensures all code development follows TDD principles with comprehensiv
 ## Core Principles
 
 ### 1. Tests BEFORE Code
-ALWAYS write tests first, then implement code to make tests pass.
+When the skip gate says write a test, write it first, then implement to make it pass. Do not force a test the gate said to skip.
 
 ### 2. Coverage Requirements
-- Minimum 80% coverage (unit + integration + E2E)
+- 80% is a target when the path is cheap, not a reason to add a bad test
 - All edge cases covered
 - Error scenarios tested
 - Boundary conditions verified
@@ -407,4 +419,4 @@ npm test && npm run lint
 
 ---
 
-**Remember**: Tests are not optional. They are the safety net that enables confident refactoring, rapid development, and production reliability.
+**Remember**: A clear, cheap test is the safety net. A bad test is not. Prefer no new test over one that mostly tests mocks, encodes the implementation, depends on timing or global state, or would be deleted after proving the fix.

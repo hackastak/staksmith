@@ -464,4 +464,4 @@ Everything below is **plugin-distributed**: it installs with the plugin (`/plugi
 | `rust-build-resolver` | Rust build, compilation, and dependency error resolution specialist. | `agents/rust-build-resolver.md` |
 | `rust-reviewer` | Expert Rust code reviewer specializing in ownership, lifetimes, error handling, unsafe usage, and idiomatic patterns. | `agents/rust-reviewer.md` |
 | `security-reviewer` | Security vulnerability detection and remediation specialist. | `agents/security-reviewer.md` |
-| `tdd-guide` | Test-Driven Development specialist enforcing write-tests-first methodology. | `agents/tdd-guide.md` |
+| `tdd-guide` | Test-Driven Development specialist. | `agents/tdd-guide.md` |

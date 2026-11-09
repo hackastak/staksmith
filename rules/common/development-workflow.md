@@ -132,11 +132,12 @@ This is not a redesign around a new requirement. It questions a fact the current
    - Name the data shape before the logic. Scaffold that every later phase needs comes first ([Foundational Thinking](./coding-style.md#foundational-thinking)). That is a rule, not a skill.
 
 2. **TDD Approach**
-   - Use **tdd-guide** agent
-   - Write tests first (RED)
+   - Use **tdd-guide** agent and `tdd-workflow`. `tdd` is not a skill.
+   - Write tests first (RED) only when that skill's skip gate says the path is clear and cheap
+   - Name the failing-before check and the failure it produced
    - Implement to pass tests (GREEN)
    - Refactor (IMPROVE)
-   - Verify 80%+ coverage
+   - Treat 80% as a target, not a mandate to add a bad test
 
 3. **Code Review**
    - Use **code-reviewer** agent immediately after writing code

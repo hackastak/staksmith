@@ -9,13 +9,15 @@ Test Types (ALL required):
 
 ## Test-Driven Development
 
-MANDATORY workflow:
-1. Write test first (RED)
+The red → green loop is the default when `tdd-workflow`'s skip gate says the path is clear and cheap. Skip a new test when the path is unclear, expensive, integration-heavy, or not requested. Prefer no new test over a bad test. 80% is a target, not a reason to add a test that would be deleted after proving the point. `tdd` is not a skill.
+
+When the gate says write a test:
+1. Write test first (RED) — name the check and the failure it produced
 2. Run test - it should FAIL
 3. Write minimal implementation (GREEN)
 4. Run test - it should PASS
 5. Refactor (IMPROVE)
-6. Verify coverage (80%+)
+6. Treat 80% as a target, not a mandate
 
 A passing suite is not proof the change works. Before claiming done, follow [Prove It Works](./development-workflow.md#prove-it-works): check the real artifact, and do not fabricate a `file:line`.
 
@@ -29,4 +31,4 @@ A passing suite is not proof the change works. Before claiming done, follow [Pro
 
 ## Agent Support
 
-- **tdd-guide** - Use PROACTIVELY for new features, enforces write-tests-first
+- **tdd-guide** - Use PROACTIVELY for new features. It follows `tdd-workflow`'s skip gate. It does not force a bad test to hit 80%.

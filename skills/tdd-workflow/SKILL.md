@@ -1,15 +1,15 @@
 ---
 name: tdd-workflow
-description: Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.
+description: Use this skill when writing new features, fixing bugs, or refactoring code. A new test is a judgment call: skip it when the path is unclear, expensive, integration-heavy, or not requested. Prefer no new test over a bad test.
 category: "Testing & TDD"
 origin: staksmith
 ---
 
 # Test-Driven Development Workflow
 
-This skill ensures all code development follows TDD principles with comprehensive test coverage.
+This skill is the red → green loop when a test is worth writing. The discipline below is what makes that loop produce tests worth keeping: when to skip, where tests go, what a bad test is, and the evidence a failing-before check must leave. Consult it before the loop, not after.
 
-TDD is the red → green loop. The discipline below is what makes that loop produce tests worth keeping: where tests go, what a good one is, and the rules that bind the cycle. It applies on every cycle — consult it before and during the loop, not after.
+Graft of pstack `tdd`. It is not a skill. Do not look for `skills/tdd`. This skill is the only surface. It does not need poteto-mode or setup-pstack.
 
 ## When to Activate
 
@@ -18,6 +18,18 @@ TDD is the red → green loop. The discipline below is what makes that loop prod
 - Refactoring existing code
 - Adding API endpoints
 - Creating new components
+
+## When to skip
+
+Write a failing test first only when the path is clear and cheap: the user asked for TDD, a failing test, or a regression test, or the bug has an obvious local test target.
+
+Skip a new test when the path is unclear, expensive, integration-heavy, or not requested. That includes broad harness setup, brittle mocks, slow end-to-end infrastructure, production-only state, vague reproduction steps, or large unrelated fixture churn. Use the closest useful check instead: a targeted script, a manual reproduction command, browser automation, a snapshot comparison, a log assertion, or a focused integration check.
+
+Prefer no new test over a bad test. A bad test mostly tests mocks, encodes implementation details, depends on timing or unrelated global state, or would be deleted after proving the fix.
+
+80% coverage is a judgment call, not a mandate. Hit it when the seams under test are cheap to cover. Do not add tests to chase the number.
+
+When the gate says write a test, red still comes before green. In the final response, name the check and the failure it produced, then the passing-after run. If failing-before evidence could not be shown, say why and name the closest check used instead.
 
 ## Seams — where tests go
 
@@ -46,13 +58,12 @@ Work in **vertical slices**: one test → one implementation → repeat. Each te
 ## Core Principles
 
 ### 1. Tests BEFORE Code
-ALWAYS write tests first, then implement code to make tests pass.
+When the skip gate says write a test, write it first, then implement to make it pass. Do not force a test the gate said to skip.
 
 ### 2. Coverage Requirements
-- Minimum 80% coverage (unit + integration + E2E)
-- All edge cases covered
-- Error scenarios tested
-- Boundary conditions verified
+- 80% is a target when the path is cheap, not a reason to add a bad test
+- Unit, integration, and E2E cover the seams you agreed, not every file
+- Edge cases, error scenarios, and boundary conditions belong on those seams
 
 ### 3. Test Types
 
@@ -114,6 +125,8 @@ npm test
 # Tests should fail - we haven't implemented yet
 ```
 
+Record the failure. The final response names this check and the failure it produced. If it passes, or fails for an unrelated reason, fix the test before editing production code.
+
 ### Step 4: Implement Code
 Write minimal code to make tests pass:
 
@@ -142,7 +155,7 @@ Resist doing this between red and green. The next tracer bullet comes first.
 ### Step 7: Verify Coverage
 ```bash
 npm run test:coverage
-# Verify 80%+ coverage achieved
+# 80% is a target when the path is cheap, not a reason to add a bad test
 ```
 
 ## Testing Patterns
@@ -495,7 +508,7 @@ npm test && npm run lint
 
 ## Best Practices
 
-1. **Write Tests First** - Always TDD
+1. **Write Tests First** - When the skip gate says the path is clear and cheap. Not when it says skip.
 2. **One Assert Per Test** - Focus on single behavior
 3. **Descriptive Test Names** - Explain what's tested
 4. **Arrange-Act-Assert** - Clear test structure
@@ -508,12 +521,21 @@ npm test && npm run lint
 
 ## Success Metrics
 
-- 80%+ code coverage achieved
-- All tests passing (green)
-- No skipped or disabled tests
+- The skip gate was applied. A skipped test names the closest check used instead.
+- When a test was written, the response names the check and the failure it produced, then the passing-after run.
+- 80% is a target, not a done gate. Do not add a bad test to reach it.
+- Tests that were written are passing (green)
 - Fast test execution (< 30s for unit tests)
-- E2E tests cover critical user flows
+- E2E tests cover critical user flows when that path is the cheap one
 - Tests catch bugs before production
+
+## Final response
+
+Report the evidence, not just the outcome:
+
+- Name the failing-before test or executable check and the failure it produced.
+- Name the passing-after run and any nearby validation.
+- If failing-before evidence could not be demonstrated, state why and describe the closest check used instead.
 
 ## Related skills
 
@@ -522,7 +544,8 @@ npm test && npm run lint
 - **`review-changes` / `code-review`** — where refactoring belongs, once the slice is green.
 - **`domain-modeling`** — maintains the `CONTEXT.md` glossary that test names should match.
 - Language-specific variants inherit this discipline: `laravel-tdd`, `cpp-testing`, `golang-testing`, `python-testing`, `rust-testing`.
+- There is no `tdd` skill. Do not look for one.
 
 ---
 
-**Remember**: Tests are not optional. They are the safety net that enables confident refactoring, rapid development, and production reliability.
+**Remember**: A clear, cheap test is the safety net. A bad test is not. Prefer no new test over one that mostly tests mocks, encodes the implementation, depends on timing or global state, or would be deleted after proving the fix.
