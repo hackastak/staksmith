@@ -382,7 +382,7 @@ for project_name in "${project_names[@]}"; do
     generate_adrs "$project_name" "$vault_path" "$repo_path"
     generate_architecture_md "$project_name" "$vault_path" "$repo_path"
 
-    ((generated++))
+    generated=$((generated + 1))
 done
 
 echo "" >&2

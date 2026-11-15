@@ -40,7 +40,7 @@ Don't block on it. Keep working; the agent reports when it's done.
 ## Related skills
 
 - **`wayfinder`** — research tickets on a map resolve through this skill, in parallel.
-- **`grill-with-docs`** — the file this skill produces is what you take into the design conversation.
+- **`grill-me`** — the file this skill produces is what you take into the design conversation.
 - **`deep-research`** — broad web synthesis including secondary sources. Different mode: that one surveys a landscape, this one nails a technical fact to its owner.
 - **`documentation-lookup`** — Context7 library docs, when the question is "what's the API for X" and a lookup will do.
 - **`search-first`** — for "does a library already do this?" rather than "how does this work?".

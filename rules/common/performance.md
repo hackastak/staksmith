@@ -1,6 +1,6 @@
 # Performance Optimization
 
-A measured number is not evidence until [Explain the Number](#explain-the-number). For a performance number, run `benchmark-checklist`. Do not look for `skills/principle-explain-the-number`.
+A measured number is not evidence until [Explain the Number](#explain-the-number). Do not look for `skills/principle-explain-the-number`.
 
 ## Model Selection Strategy
 
@@ -66,7 +66,7 @@ Apply this before you trust, report, or act on a number you measured: a speedup,
 - **List what else the number could be measuring, and rule out each one with evidence.** The usual suspects are errors, skipped or cached work, code that never ran, an untuned side left on default settings, noise, and a piece too small to matter end to end.
 - **Keep the evidence with the number.** Put the run count, the spread, and the limiter in the notes or a linked artifact.
 
-For a performance number, run the full procedure in `benchmark-checklist`. For an eval result, ask the same of the trials: did every run do the task, does the gap hold across trials and models, and does the scenario matter.
+Apply the full procedure above to a performance number. For an eval result, ask the same of the trials: did every run do the task, does the gap hold across trials and models, and does the scenario matter.
 
 You skipped this when the evidence behind a number has no run count, no spread, or no named limiter, or when the time saved is larger than the time the changed piece took.
 

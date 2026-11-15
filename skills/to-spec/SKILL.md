@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 # To Spec
 
-Take the current conversation and codebase understanding and produce a spec — you may know this document as a PRD. **Do not interview the user.** Synthesise what you already know. If the conversation hasn't settled enough to write from, say so and point at `grill-me` or `grill-with-docs` rather than starting an interview here.
+Take the current conversation and codebase understanding and produce a spec — you may know this document as a PRD. **Do not interview the user.** Synthesise what you already know. If the conversation hasn't settled enough to write from, say so and point at `grill-me` rather than starting an interview here.
 
 The tracker backend is configured per repo in `docs/agents/issue-tracker.md`. If that file is missing, the vault backend is the default — run `setup-hackastak` to make the choice explicit.
 
@@ -90,6 +90,6 @@ Anything else worth recording.
 
 ## Related skills
 
-- **`grill-me` / `grill-with-docs`** — for when the conversation isn't settled enough to synthesise from yet.
+- **`grill-me`** — for when the conversation isn't settled enough to synthesise from yet.
 - **`to-tickets`** — the natural next step: break this spec into tracer-bullet tickets.
 - **`codebase-design`** — seam and module vocabulary used in step 2.

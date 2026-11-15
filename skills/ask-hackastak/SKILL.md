@@ -30,7 +30,7 @@ The spine. Most work is somewhere on this line; find where you are and take the 
 2. **Shape the design** — `codebase-design` gives the deep-module vocabulary to think in; `/prototype` builds a throwaway to answer one design question; `/domain-modeling` pins the domain language and records decisions as ADRs. `/brainstorming` aligns intent before a design exists: it plays the goal and the problem back, then aims the task. That is not `sharpen` or `in-your-own-words`.
 3. **Write the spec** — `/to-spec` turns the conversation into a PRD and publishes it to the tracker.
 4. **Break it into tickets** — `/to-tickets` cuts the spec into tracer-bullet tickets with their blocking edges. By default these land in the vault at `1. Projects/<Project>/issues/NN-*.md` (github issues opt-in per repo, local `.scratch/` as the offline alternative).
-5. **Stress-test before building** — `/grill-me` interviews you relentlessly until the plan holds; `/grill-with-docs` does the same and leaves the glossary and ADRs behind; `/batch-grill-me` asks a whole frontier of questions per round when you'd rather answer in batches.
+5. **Stress-test before building** — `/grill-me` interviews you relentlessly until the plan holds. Pair it with `/domain-modeling` when you want the glossary and ADRs captured as you go.
 6. **Build it** — `/implement` executes a planned unit (spec, tickets, or issue); `/tdd-workflow` drives it test-first when the skip gate says the path is clear and cheap. There is no `tdd` skill.
 7. **When it fights back** — `/diagnosing-bugs` is the loop for hard bugs and performance regressions: build a red-capable feedback loop before hypothesizing. The fix bar is Fix Root Causes; after two failed fixes that share a premise, Attack the Premise. Both are rules in `rules/common/development-workflow.md`, not skills.
 8. **Review, in three tiers** — `/review-changes` is the tight in-dev loop over the working-tree diff (with introduced/pre-existing attribution); `/code-review` reads the whole branch broadly before you push; `/review-github-pr` reviews an actual PR by number. For a multi-model adversarial pass over a diff, `/interrogate`. It does not edit code, and it is not a substitute for the three tiers. `/show-me-your-work` keeps a TSV decision trail a reviewer can check after a long or unattended run. It is not `/checkpoint` (a git snapshot for rollback).
@@ -52,10 +52,6 @@ Not everything starts from your own idea. When you're picking up existing work:
 ### Codebase health — ongoing, not tied to one feature
 
 - `/improve-codebase-architecture` scans for deepening opportunities, presents them as a report, and grills through which are worth doing.
-- `/correct` makes a repeated agent mistake impossible: architecture, then types, then a lint whose error names the fix, then a test. Docs last. It is not `learn` or `evolve` (those extract a pattern; this hardens a mistake).
-- `/create-verification-skill` writes a project-local skill that drives the app the way a user does and proves it with evidence. It is not `e2e-testing` (Playwright suite patterns) and not `verification-loop` or `/verify` (build, type, lint, and test gates).
-- `/create-formal-verification-skill` writes a project-local skill that checks one property past the cases tests reach — a race, a retry, a state machine, a parser, or unsafe code — with the tool that fits. It is not `/create-verification-skill`.
-- `/benchmark-checklist` vets a speedup, regression, or other number you measured before you report it or act on it. It is not `/perf-review` (that reads code and ranks likely cost).
 
 ### The vocabulary underneath
 
@@ -82,7 +78,6 @@ One line each; open the skill for the detail.
 - `/writing-beats` and `/writing-shape` — exploit: assemble the material into a journey of beats, or shape it into an argued article.
 - `/article-writing` — write long-form content in the house voice.
 - `/polish` — audit and fix a draft against the HackaStak style guidelines.
-- `/technical-writing` — Diátaxis, sentence rules, and Global English for docs, RFCs, READMEs, PR descriptions, and commit messages. Not the blog voice pass, and not `unslop` (that owns the AI-tell catalog).
 - (`writing-grounding` is the shared reference the writing skills lean on, not invoked directly.)
 
 ### Personal / productivity
@@ -94,7 +89,7 @@ One line each; open the skill for the detail.
 
 ### Skill authoring
 - `/skill-design` — the vocabulary and principles for writing a skill that behaves predictably. Read it first.
-- `/skill-builder` scaffolds a new skill; `/skill-stocktake` audits skills for quality; `/skill-auto-extractor` mines git history and session logs for repeated workflows worth capturing.
+- `/skill-create` scaffolds a new skill; `/skill-stocktake` audits skills for quality.
 
 ## What this skill does not do
 

@@ -112,11 +112,11 @@ One paragraph, 2–4 sentences.>
 - **Read-only.** Read-only build/measure tooling and read-only git only. Never `EXPLAIN ANALYZE` a mutation, never run load tests that write, never edit.
 - **Findings are the deliverable; fixes are not.** Hand the report back; the user decides what to optimize. Premature optimization of a cold path is its own waste.
 - **Don't flag what won't matter.** Micro-optimizations on cold paths, and rewrites whose payoff you can't estimate, are noise. If you can't answer "how much does this cost here," don't report it.
-- **Measure honestly.** Distinguish measured from reasoned findings, and name coverage gaps — a profiler that wasn't run is a gap, not a clean result. A number you report is not trusted until [Explain the Number](../../rules/common/performance.md#explain-the-number) holds. Run `benchmark-checklist` on that number before you act on it.
+- **Measure honestly.** Distinguish measured from reasoned findings, and name coverage gaps — a profiler that wasn't run is a gap, not a clean result. A number you report is not trusted until [Explain the Number](../../rules/common/performance.md#explain-the-number) holds — vet it against that rule before you act on it.
 
 ## Related skills
 
-- **`benchmark-checklist`** — vets a number you measured. This review reasons about code. It does not replace that checklist.
+- **[Explain the Number](../../rules/common/performance.md#explain-the-number)** (rule) — vets a number you measured before you act on it. This review reasons about code; it does not replace that check.
 - **`performance-reviewer`** (agent) — the same review delegated to an isolated subagent; `audit-codebase` dispatches it as its performance pass.
 - **`code-review`** — the broad review whose Performance dimension is a lighter pass than this.
 - **`database-reviewer`** / **`postgres-patterns`** — deeper when the bottlenecks are query- or schema-shaped.

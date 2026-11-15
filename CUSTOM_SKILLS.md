@@ -1,6 +1,6 @@
 # Custom Skills
 
-Deep reference for the **69 skills built for Staksmith** (`origin: Hackastak`), the ones marked ⭐ in [`SKILLS.md`](SKILLS.md). It exists so these skills stay usable **without the Obsidian vault** many of them were designed around.
+Deep reference for the **66 skills built for Staksmith** (`origin: Hackastak`), the ones marked ⭐ in [`SKILLS.md`](SKILLS.md). It exists so these skills stay usable **without the Obsidian vault** many of them were designed around.
 
 **How this differs from [`SKILLS.md`](SKILLS.md).** That catalog is auto-generated and indexes *every* skill with a one-line description and location. This document is hand-authored and goes deeper, on the custom skills only: how each one works, what it takes as input, what it produces, and exactly which vault structure it assumes. Use `SKILLS.md` to find a skill; come here to understand how to run it.
 
@@ -197,7 +197,7 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Inputs.** No config.json. Reads `docs/adr/` in the governed repo if it exists; otherwise proceeds silently. Ships an `agents/` subdir with a supporting agent definition.
 **Outputs.** ADR files at `docs/adr/NNNN-slug.md`, one decision per file, with sections Status, Problem Statement, Considered Options, Decision, Consequences (optional `Date`/`Deciders` metadata). Slugs name the question, not the outcome.
 **Vault dependencies.** None. Operates on the code repo; the domain model and ADRs are deliberately repo-native, not vault-native.
-**Related.** `domain-modeling`, `grill-with-docs`, `vault-to-code-bridge`, `improve-codebase-architecture`, `setup-hackastak`, `sdd-workflow`.
+**Related.** `domain-modeling`, `grill-me`, `vault-to-code-bridge`, `improve-codebase-architecture`, `setup-hackastak`, `sdd-workflow`.
 
 ### `ask-hackastak`
 
@@ -208,16 +208,6 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Outputs.** Advisory routing prose only: named skills, why each fits, and the deciding difference when two compete. Writes and executes nothing.
 **Vault dependencies.** None directly. Operates as a pointer; the skills it routes to carry their own vault assumptions.
 **Related.** Effectively every skill, since it is the index. Spine anchors include `source-research`, `codebase-design`, `prototype`, `domain-modeling`, `grill-me`, `implement`, `tdd-workflow`, and the review tier `review-changes` / `code-review` / `review-github-pr`.
-
-### `batch-grill-me`
-
-**Purpose.** A relentless design interview that asks every frontier question at once, round by round, so the user answers a batch per message instead of one prompt at a time. It reaches a shared understanding before any building begins.
-**When to use.** When the user wants to answer a batch of design questions in one pass, when they know the domain, are working AFK, or care about throughput, or when they invoke `/batch-grill-me`. Model invocation is disabled.
-**How it works.** It models the design as a tree and works it in rounds. Each round it asks the whole frontier (every decision whose prerequisites are settled), numbered with a recommended answer each, then waits. Answers reshape the tree and the frontier is recomputed; facts are dispatched to sub-agents rather than asked of the user. Done when the frontier is empty, and it does not act until the user confirms.
-**Inputs.** No config.json; no explicit arguments beyond the conversation. Ships an `agents/` subdir. Reads the environment/codebase via sub-agents to settle fact-based questions.
-**Outputs.** A settled shared understanding in the conversation. It captures nothing durable itself; that is `grill-with-docs`'s job or the downstream spec skills.
-**Vault dependencies.** None. Operates on the conversation and, via sub-agents, the working tree.
-**Related.** `grill-me` (the one-at-a-time cadence), `grill-with-docs` (compose to capture terms/ADRs), `to-spec` / `to-tickets` (where a finished interview goes next).
 
 ### `codebase-design`
 
@@ -237,7 +227,7 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Inputs.** `$ARGUMENTS` (a workflow to design, or empty). No config.json. Reads `<vault>/2. Areas/Workflows/NOTES.md` for the user's tools/channels/terminology; interviews the user first when it is thin. Ships an `agents/` subdir.
 **Outputs.** One spec per workflow at `<vault>/2. Areas/Workflows/<workflow>.md`, wikilinked to each other and the Areas they serve, plus the shared `NOTES.md` sharpened with canonical terms.
 **Vault dependencies.** Assumes `<vault>/2. Areas/Workflows/` (PARA Areas), creating the folder if absent, and matches surrounding note frontmatter conventions.
-**Related.** `grill-me` (the interview engine), `batch-grill-me`, `loop` / `schedule` (execution), `to-spec` (the software-feature equivalent), `wizard`.
+**Related.** `grill-me` (the interview engine), `loop` / `schedule` (execution), `to-spec` (the software-feature equivalent), `wizard`.
 
 ### `domain-modeling`
 
@@ -247,17 +237,7 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Inputs.** No config.json. Reads and writes the repo-native `CONTEXT.md` (or per-context `CONTEXT.md` plus a root `CONTEXT-MAP.md` in multi-context repos) and `docs/adr/`, all created lazily. Ships an `agents/` subdir.
 **Outputs.** An evolving `CONTEXT.md` glossary (glossary only, no specs or implementation notes), a `CONTEXT-MAP.md` when multiple contexts exist, and ADRs in `docs/adr/` per the house standard.
 **Vault dependencies.** None. The domain model is deliberately repo-native (the exception to the vault-first habit) so the glossary evolves in the same commit as the code.
-**Related.** `adr-standard`, `codebase-design` (the complementary architecture vocabulary), `grill-with-docs`, `setup-hackastak`.
-
-### `grill-with-docs`
-
-**Purpose.** A relentless `grill-me` interview that also leaves a paper trail: the glossary and ADRs get written as decisions crystallise, via `domain-modeling`. Two skills in one session, so the design that is settled is also captured.
-**When to use.** When the user wants to be grilled on a design and have the domain model captured at the same time, especially a design the repo will have to live with (new domain concepts, costly-to-unwind decisions, fuzzy vocabulary). Use plain `grill-me` for a plan that only needs to survive the next hour. Model invocation is disabled.
-**How it works.** `grill-me` drives the conversation (one question at a time, recommended answer each, facts looked up, no acting until confirmed) while `domain-modeling` captures output as it happens: terms into `CONTEXT.md` the moment they resolve, and an ADR into `docs/adr/` for any decision clearing both gates. Capture happens mid-interview, not batched at the end; ADRs are noted and written at the next natural break. Contradictions with existing ADRs are surfaced and superseded, never edited.
-**Inputs.** No config.json. Reads and writes the repo's `CONTEXT.md` and `docs/adr/` through `domain-modeling`. Ships an `agents/` subdir.
-**Outputs.** A settled design plus a written paper trail: updated `CONTEXT.md` glossary entries and any qualifying ADRs in `docs/adr/`.
-**Vault dependencies.** None. Captures to the repo-native `CONTEXT.md` and `docs/adr/`.
-**Related.** `grill-me`, `batch-grill-me`, `domain-modeling`, `adr-standard`, `to-spec` / `to-tickets`.
+**Related.** `adr-standard`, `codebase-design` (the complementary architecture vocabulary), `grill-me`, `setup-hackastak`.
 
 ### `handoff`
 
@@ -293,11 +273,11 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 
 **Purpose.** Enforces spec-driven development: an approved spec (not a coverage number) is written first and is the gate closed at the end, so every line of implementation traces back to a story or decision in the spec. A thin orchestrator that sequences existing skills and adds the spec-conformance gate none of them own.
 **When to use.** When building a feature big enough to write requirements down first, spanning multiple stories/actors, more than one committable unit, or more than one session, or when the user says "spec-first" / "spec-driven development" / invokes `/sdd`. For a single function or quick fix, use `/tdd` instead. Model invocation is disabled.
-**How it works.** The loop is SPEC to SLICE to BUILD to CONFORM to REPEAT. SPEC runs `to-spec` on a settled conversation (or `grill-me` / `grill-with-docs` first if not settled), respecting ADRs. SLICE runs `to-tickets` into tracer-bullet slices each tracing to a story. BUILD works the frontier via `implement` (which drives `tdd-workflow` at confirmed seams). CONFORM is the distinguishing gate: walk the spec's user stories and the ticket's acceptance criteria, check implementation decisions, confirm no untraceable behaviour crept in, and run `verification-loop` for the mechanical floor. Then stage, summarise the spec mapping, and hand back for a manual commit.
+**How it works.** The loop is SPEC to SLICE to BUILD to CONFORM to REPEAT. SPEC runs `to-spec` on a settled conversation (or `grill-me` first if not settled), respecting ADRs. SLICE runs `to-tickets` into tracer-bullet slices each tracing to a story. BUILD works the frontier via `implement` (which drives `tdd-workflow` at confirmed seams). CONFORM is the distinguishing gate: walk the spec's user stories and the ticket's acceptance criteria, check implementation decisions, confirm no untraceable behaviour crept in, and run `verification-loop` for the mechanical floor. Then stage, summarise the spec mapping, and hand back for a manual commit.
 **Inputs.** No config.json. Reads the tracker backend in `docs/agents/issue-tracker.md` (vault by default) via `to-spec` / `to-tickets`, and `docs/adr/` for constraining decisions. Ships an `agents/` subdir.
 **Outputs.** An approved spec published to the tracker, tracer-bullet tickets, test-first implementation staged (never committed), and an explicit per-ticket conformance result stating which stories/criteria are satisfied and what was deferred.
 **Vault dependencies.** Indirect: `to-spec` / `to-tickets` publish to the configured tracker, the vault by default, per `docs/agents/issue-tracker.md`.
-**Related.** `grill-me` / `grill-with-docs`, `to-spec`, `to-tickets`, `implement`, `tdd-workflow`, `verification-loop` / `review-changes`, `adr-standard`.
+**Related.** `grill-me`, `to-spec`, `to-tickets`, `implement`, `tdd-workflow`, `verification-loop` / `review-changes`, `adr-standard`.
 
 ### `setup-hackastak`
 
@@ -309,16 +289,6 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Vault dependencies.** For the vault backend it assumes a PARA project folder under `<vault>/1. Projects/<Project>/`; the github and local backends need no vault.
 **Related.** `to-spec`, `to-tickets`, `triage`, `wayfinder` (read its output), `domain-modeling`, `adr-standard`, `vault-to-code-bridge`, `setup-pre-commit`, `git-guardrails`.
 
-### `skill-auto-extractor`
-
-**Purpose.** Mines git history and session logs across repositories to detect repeated workflows and auto-generate reusable SKILL.md definitions for review before promotion.
-**When to use.** On a monthly review, after a sprint, before a team member transition, when the same workflow is detected 3+ times, or as part of the continuous-learning (homunculus) evolution system.
-**How it works.** A 3-phase pipeline run via shell scripts: `scripts/scan-history.sh` extracts patterns from git logs and session transcripts, `scripts/detect-patterns.sh` identifies reusable workflows, and `scripts/generate-skill.sh` writes SKILL.md files. Generated skills follow the `skill-design` vocabulary and should be checked against the sprawl and no-op failure modes. Depends on `jq`, `git`, `bc`, and Claude AI access.
-**Inputs.** `config.json` keys: `repos_root`, `days_back`, `min_frequency`, `confidence_threshold`, `output_path`, `session_logs_path`, `exclude_repos`, `author_name`, `pattern_types`, `cache_path`. It reads git repos under `repos_root` and optional session logs at `session_logs_path`.
-**Outputs.** A pattern report at `~/.claude/homunculus/evolved/patterns-report.json` and generated skills under `~/.claude/homunculus/evolved/skills/{pattern-id}/` (SKILL.md, metadata.json, examples/), pending review before promotion to `~/.claude/skills/` or the Staksmith skills dir.
-**Vault dependencies.** None. Operates on code repos and the `~/.claude/homunculus/` workspace.
-**Related.** `skill-design`, `skill-builder`, `skill-stocktake`, `continuous-learning-v2`, `weekly-momentum-report`, `vault-to-code-bridge`, `code-to-docs-sync`.
-
 ### `skill-design`
 
 **Purpose.** The reference layer for writing and editing skills well: the vocabulary and principles (predictability, invocation, information hierarchy, leading words, failure modes) that make a skill predictable. It does no task itself.
@@ -327,7 +297,7 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Inputs.** No config.json or arguments. Reads its sibling `GLOSSARY.md` for bolded term definitions.
 **Outputs.** None. It is a knowledge reference consulted while working on other skills.
 **Vault dependencies.** None. Pure reference, no filesystem writes.
-**Related.** `skill-builder` (authors a new skill), `skill-stocktake` (audits skills), `skill-auto-extractor` (mines patterns), `writing-fragments` (shares the leading-word concept).
+**Related.** `skill-create` (scaffolds a new skill), `skill-stocktake` (audits skills), `continuous-learning-v2` (mines patterns), `writing-fragments` (shares the leading-word concept).
 
 ### `teach`
 
@@ -347,7 +317,7 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Inputs.** No config.json. Reads the conversation and the recipient/need details gathered in the two-step interview.
 **Outputs.** A Markdown questionnaire. Default `<vault>/1. Projects/<Project>/Questionnaire_<slug>.md` on a project match, else `<vault>/0. Inbox/Questionnaire_<slug>.md`; or `to-questionnaire-<slug>.md` in the cwd when it belongs beside a code repo.
 **Vault dependencies.** Defaults to `<vault>/1. Projects/<Project>/` or `<vault>/0. Inbox/`, with the same fuzzy project matching as the other vault skills. Can target the code repo instead.
-**Related.** `grill-me`, `batch-grill-me`, `to-spec`, `to-tickets`.
+**Related.** `grill-me`, `to-spec`, `to-tickets`.
 
 ### `to-spec`
 
@@ -357,7 +327,7 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Inputs.** No config.json. Reads `docs/agents/issue-tracker.md` for the backend (defaults to vault), `CONTEXT.md`, the domain glossary, and `docs/adr/`.
 **Outputs.** A spec published per backend: vault `<vault>/1. Projects/<Project>/spec.md` (wikilinked), github a `gh` issue, or local `.scratch/<feature-slug>/spec.md`.
 **Vault dependencies.** For the vault backend, `<vault>/1. Projects/<Project>/spec.md` following `issue-tracker-vault.md` conventions. None for github/local.
-**Related.** `grill-me`, `grill-with-docs`, `to-tickets`, `codebase-design`, `setup-hackastak`.
+**Related.** `grill-me`, `to-tickets`, `codebase-design`, `setup-hackastak`.
 
 ### `to-tickets`
 
@@ -373,21 +343,21 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 
 **Purpose.** Moves issues (and, on github, external PRs) through a small state machine of triage roles: categorize, verify the claim, grill if needed, and write agent-ready briefs.
 **When to use.** When the user says "triage this", "what needs my attention", "move #42 to ready-for-agent", or invokes `/triage`. User-invoked only (`disable-model-invocation: true`).
-**How it works.** Presents attention buckets (untriaged, needs-triage, needs-info with reporter activity) or triages a named item: gather context, check redundancy and prior rejection against `.out-of-scope/`, recommend a category and state role, verify the claim (reproduce a bug or run a PR diff), grill via `grill-with-docs` if needed, then apply the outcome (post an agent brief, needs-info notes, or wontfix). Roles are two categories (bug, enhancement) and five states (needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix). Remote comments carry an AI-generated disclaimer; all writes pass a confirm gate. Reference files: `AGENT-BRIEF.md`, `OUT-OF-SCOPE.md`.
+**How it works.** Presents attention buckets (untriaged, needs-triage, needs-info with reporter activity) or triages a named item: gather context, check redundancy and prior rejection against `.out-of-scope/`, recommend a category and state role, verify the claim (reproduce a bug or run a PR diff), grill via `grill-me` if needed, then apply the outcome (post an agent brief, needs-info notes, or wontfix). Roles are two categories (bug, enhancement) and five states (needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix). Remote comments carry an AI-generated disclaimer; all writes pass a confirm gate. Reference files: `AGENT-BRIEF.md`, `OUT-OF-SCOPE.md`.
 **Inputs.** No config.json. Reads `docs/agents/issue-tracker.md` (backend and whether external PRs are a surface), `docs/agents/triage-labels.md` for label strings, `CONTEXT.md`, ADRs, and `.out-of-scope/*.md`.
 **Outputs.** Updated role labels (github) or `Status:` lines (vault/local), posted agent briefs, triage notes, and `.out-of-scope/*.md` entries for rejected enhancements. External-PR triage applies only on github.
 **Vault dependencies.** For the vault backend, tickets under `<vault>/1. Projects/<Project>/` with `Status:` lines and a `## Comments` heading. None for github; local uses `.scratch/`.
-**Related.** `grill-with-docs`, `diagnosing-bugs`, `to-tickets`, `implement`, `setup-hackastak`.
+**Related.** `grill-me`, `diagnosing-bugs`, `to-tickets`, `implement`, `setup-hackastak`.
 
 ### `wayfinder`
 
 **Purpose.** Plans a chunk of work too big and foggy for one session as a shared map of decision tickets (questions whose resolution is a decision, not a build), resolving them one at a time until the way to the destination is clear.
 **When to use.** When an effort is too big and too foggy to spec yet, or when the user invokes `/wayfinder`. User-invoked only (`disable-model-invocation: true`).
-**How it works.** Two modes. Chart the map: name the destination via `grill-with-docs`, map the frontier breadth-first, create the map (Destination, Notes, Decisions-so-far, Not yet specified, Out of scope), create specifiable tickets and wire blocking edges in a second pass, fire `source-research` subagents for research tickets, then stop. Work the map: load the low-res map, claim the next frontier ticket, resolve it (by ticket type: research/prototype/grilling/task, each HITL or AFK), record the resolution, and update the map and its fog of war. Never resolves more than one ticket per session (except parallel research).
+**How it works.** Two modes. Chart the map: name the destination via `grill-me`, map the frontier breadth-first, create the map (Destination, Notes, Decisions-so-far, Not yet specified, Out of scope), create specifiable tickets and wire blocking edges in a second pass, fire `source-research` subagents for research tickets, then stop. Work the map: load the low-res map, claim the next frontier ticket, resolve it (by ticket type: research/prototype/grilling/task, each HITL or AFK), record the resolution, and update the map and its fog of war. Never resolves more than one ticket per session (except parallel research).
 **Inputs.** No config.json. Reads the "Wayfinding operations" section of `docs/agents/issue-tracker.md` (backend, defaults to vault), the map body, ticket bodies on demand, and the skills named in the map's `## Notes`.
 **Outputs.** A map artifact and child decision tickets with type/status/blocking edges. Vault `<vault>/1. Projects/<Project>/map.md` plus `issues/NN-<slug>.md`; github a `wayfinder:map` issue with `wayfinder:<type>` child issues using native dependencies; local the vault file shapes under `.scratch/<effort-slug>/`.
 **Vault dependencies.** For the vault backend, `<vault>/1. Projects/<Project>/map.md` and `issues/`, wikilinked. None for github; local uses `.scratch/`.
-**Related.** `grill-with-docs`, `source-research`, `prototype`, `to-spec`, `to-tickets`, `implement`.
+**Related.** `grill-me`, `source-research`, `prototype`, `to-spec`, `to-tickets`, `implement`.
 
 ### `wizard`
 
@@ -445,7 +415,7 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 
 **Purpose.** Scans a codebase for deepening opportunities (refactors that turn shallow modules into deep ones for testability and AI-navigability), presents them as a visual Markdown report saved in the vault, then grills through whichever candidate the user picks. It plans; it does not build.
 **When to use.** When the user wants an architecture review, asks where the codebase is getting hard to change, or invokes `/improve-codebase-architecture`. (Model invocation is disabled, so it runs on explicit request.)
-**How it works.** Scopes to recently-changed hot spots (via `git log`) unless the user names a direction, uses the `Explore` agent to find shallow modules and seam leakage, applies the deletion test, and classifies each candidate's dependencies by the four `codebase-design` categories. It writes a durable, wikilinkable review note to the vault, then runs a `grill-with-docs` loop on the chosen candidate, doing side effects inline via `domain-modeling` (updating `CONTEXT.md`, offering ADRs on load-bearing rejections). Uses the `codebase-design` vocabulary (module, interface, depth, seam, adapter, leverage, locality) throughout.
+**How it works.** Scopes to recently-changed hot spots (via `git log`) unless the user names a direction, uses the `Explore` agent to find shallow modules and seam leakage, applies the deletion test, and classifies each candidate's dependencies by the four `codebase-design` categories. It writes a durable, wikilinkable review note to the vault, then runs a `grill-me` loop on the chosen candidate, doing side effects inline via `domain-modeling` (updating `CONTEXT.md`, offering ADRs on load-bearing rejections). Uses the `codebase-design` vocabulary (module, interface, depth, seam, adapter, leverage, locality) throughout.
 **Inputs.** The repo (weighted to hot spots) or a user-named module/subsystem/pain point; reads `CONTEXT.md` and `docs/adr/`. Uses the `Explore` agent to walk the code.
 **Outputs.** A Markdown note written to `<vault>/1. Projects/<Project>/Architecture_Review_<YYYY-MM-DD>.md` following `MD-REPORT.md` (Mermaid for graph-shaped structure, ASCII depth-boxes for mass/depth, text badges, before/after per candidate, a Top recommendation). Optionally offers to publish the same report as a Claude Code Artifact. Never commits.
 **Vault dependencies.** Yes. Locates the project folder by fuzzy-matching the repo name against `<vault>/1. Projects/` (asks if ambiguous, never creates one silently) and writes the review note there, wikilinking to the project's other notes and following the tracker's draft/confirm/write gate.
@@ -505,7 +475,7 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Inputs.** Configured via `config.json`: `repos_root` directories to scan, `watch_files` (README.md, CLAUDE.md, CONTRIBUTING.md, docs globs, API_DOCUMENTATION.md), `ignore_repos`, `auto_commit` (default false, requires approval), `staleness_threshold_days`, and per-file `comparison_rules`. Depends on `jq`, `git`, `diff`, and Claude AI access.
 **Outputs.** A drift report JSON at `~/.claude/homunculus/code-to-docs-sync/drift-report.json`, a side-by-side fix preview with rationale, and (on approval) edits to the documentation files, optionally auto-committed.
 **Vault dependencies.** None. Operates on code repos configured in `config.json` (the shipped default points at `~/Developer/PROJECTS` and `~/Developer/SMILESTACKLABS`).
-**Related.** `vault-to-code-bridge`, `weekly-momentum-report`, `skill-auto-extractor`, `/review-pr`.
+**Related.** `vault-to-code-bridge`, `weekly-momentum-report`, `continuous-learning-v2`, `/review-pr`.
 
 ## Writing & Content
 
@@ -712,7 +682,7 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Inputs.** The research question and its use; the relevant sources (project, docs site, repo, spec); the target output location and convention to match.
 **Outputs.** A single Markdown file citing a source (URL, file path plus line, or spec section) for every claim, saved in the repo by default or in the vault otherwise.
 **Vault dependencies.** Repo by default. Uses the vault only when the question is not tied to a codebase, writing to the matching `<vault>/1. Projects/<Project>/` folder, or `<vault>/3. Resources/` for reference material.
-**Related.** `wayfinder`, `grill-with-docs`, `deep-research`, `documentation-lookup`, `search-first`.
+**Related.** `wayfinder`, `grill-me`, `deep-research`, `documentation-lookup`, `search-first`.
 
 
 ## DevOps & Deployment

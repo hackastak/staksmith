@@ -60,21 +60,21 @@ for i in $(seq 0 $((item_count - 1))); do
     # Skip if not auto-fixable
     if [[ "$auto_fixable" != "true" ]]; then
         echo "  Status: SKIPPED (manual review required)" >&2
-        ((skipped++))
+        skipped=$((skipped + 1))
         continue
     fi
 
     # Skip if proposed content is a placeholder comment
     if [[ "$proposed_content" == *"Manual review"* || "$proposed_content" == *"to be determined"* ]]; then
         echo "  Status: SKIPPED (needs AI analysis)" >&2
-        ((skipped++))
+        skipped=$((skipped + 1))
         continue
     fi
 
     # Check if file exists
     if [[ ! -f "$file_path" ]]; then
         echo "  Status: ERROR (file not found)" >&2
-        ((errors++))
+        errors=$((errors + 1))
         continue
     fi
 
@@ -92,7 +92,7 @@ for i in $(seq 0 $((item_count - 1))); do
     if [[ ! -s "$file_path" ]]; then
         echo "  Status: ERROR (file write failed, restoring backup)" >&2
         mv "$backup_file" "$file_path"
-        ((errors++))
+        errors=$((errors + 1))
         continue
     fi
 
@@ -100,7 +100,7 @@ for i in $(seq 0 $((item_count - 1))); do
     rm "$backup_file"
 
     echo "  Status: ✓ APPLIED" >&2
-    ((applied++))
+    applied=$((applied + 1))
 
     # Git commit if auto-commit enabled
     if [[ "$AUTO_COMMIT" == "true" ]]; then

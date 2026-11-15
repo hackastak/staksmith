@@ -2324,7 +2324,11 @@ async function runTests() {
           'printf "%s\\n" "$PROJECT_DIR"'
         ].join('; ');
 
-        const proc = spawn('bash', ['-lc', shellCommand], {
+        // Non-login shell to match how hooks/hooks.json invokes observe.sh
+        // (plain `bash`, via run-with-flags-shell.sh). A login shell would run
+        // macOS path_helper and reorder PATH so the Xcode git shim wins, which
+        // never happens on the real hook path and is not what this test covers.
+        const proc = spawn('bash', ['-c', shellCommand], {
           env: { ...process.env, HOME: homeDir, USERPROFILE: homeDir },
           stdio: ['ignore', 'pipe', 'pipe']
         });

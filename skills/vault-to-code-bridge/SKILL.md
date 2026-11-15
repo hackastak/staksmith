@@ -438,7 +438,7 @@ Every section here is regenerated on each run, which is exactly why ADR bodies a
 
 - **code-to-docs-sync**: Keep generated docs in sync after changes
 - **weekly-momentum-report**: Track documentation coverage
-- **skill-auto-extractor**: Learn common documentation patterns
+- **continuous-learning-v2**: Learn common documentation patterns
 
 ### With Vault Commands
 

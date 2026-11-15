@@ -70,7 +70,7 @@ similarity_score() {
     # Count matching characters in sequence
     for ((i=0; i<len1 && i<len2; i++)); do
         if [[ "${norm1:$i:1}" == "${norm2:$i:1}" ]]; then
-            ((common++))
+            common=$((common + 1))
         fi
     done
 

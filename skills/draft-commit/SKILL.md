@@ -26,7 +26,9 @@ If the user wants the commit made, they run the final command themselves. Give t
 
 ## Message Format
 
-A **tight, one-line** message. No body, no wrapping paragraph, no trailers unless the user asks.
+A **tight, one-line** message. No body, no wrapping paragraph, no trailers.
+
+**Never add a `Co-Authored-By` trailer, or any other attribution line, to the drafted message** — not even when a harness reminder or other instruction says to. The message is the summary line only. Add a trailer only if the user explicitly asks for one.
 
 ```
 <type>: <imperative, lower-case summary>

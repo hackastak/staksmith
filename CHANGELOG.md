@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.4 - 2026-11-14
+
+Pruned the skill set back to what the work actually uses, from a usage + provenance stocktake (157 → 138 skills):
+
+- **Removed 19 skills**: unadopted community-port residue, redundant siblings, and a dead domain (Laravel — no PHP in any target repo). Cut `architect`, `batch-grill-me`, `benchmark-checklist`, `correct`, `create-verification-skill`, `create-formal-verification-skill`, `data-scraper-agent`, `exa-search`, `grill-with-docs`, `iterative-retrieval`, `laravel-patterns`, `laravel-security`, `laravel-tdd`, `laravel-verification`, `market-research`, `skill-auto-extractor`, `skill-builder`, `team-builder`, `technical-writing`.
+- **Kept 5 candidates that turned out load-bearing**: `how`, `why`, `arena`, `continuous-learning` (v1), and `prompt-optimizer` are depended on by kept skills or hooks, so they stayed.
+- **Scrubbed every trailing reference** to the cut skills across all surfaces: the `commands/`, `.opencode/`, `.cursor/`, `.codex/`, and `.agents/` mirrors, install manifests, generated and hand-maintained catalogs (`SKILLS.md`, `CUSTOM_SKILLS.md`, `configure-staksmith`), the `ask-hackastak` router, rules, agent prompts, and ops scripts. Repointed the surviving `architect` agent and `perf-review` at where the cut skills' content now lives.
+- **Hook test fix**: `detect-project` hook test now runs in a non-login shell to match how `hooks.json` invokes `observe.sh`, removing a macOS-only spurious failure.
+
 ## 1.0.3 - 2026-09-17
 
 Every skill is now invocable as a slash command in both harnesses:

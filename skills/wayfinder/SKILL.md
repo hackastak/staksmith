@@ -89,7 +89,7 @@ Every ticket is either **HITL** — human in the loop, worked *with* a human who
 
 - **Research** (AFK) — reading documentation, third-party APIs, or local resources to surface a fact a decision waits on. Resolved by a **`source-research` subagent**. Use when knowledge outside the current working directory is required.
 - **Prototype** (HITL) — raise the fidelity of the discussion by making something cheap, rough, and concrete to react to: an outline, a rough take, a stub, or UI/logic code via the `prototype` skill. Links the prototype as an asset. Use when "how should it look" or "how should it behave" is the key question.
-- **Grilling** (HITL) — conversation via `grill-with-docs` (the `grill-me` interview with `domain-modeling` capturing terms and ADRs), one question at a time. The default case.
+- **Grilling** (HITL) — conversation via `grill-me` with `domain-modeling` capturing terms and ADRs, one question at a time. The default case.
 - **Task** (HITL or AFK) — manual work that must happen before a *decision* can be made: nothing to decide, prototype, or research, but the discussion is blocked until it's done. Signing up for a service so its API can be judged, provisioning access, moving data so its shape can be seen. This is the one type that *does* rather than decides — and it earns its place by unblocking a decision, not by delivering the destination. The agent drives it alone where it can; otherwise it hands the human a precise checklist. Resolved when the work is done; the answer records what was done and any resulting facts (where credentials live, new URLs, row counts) that later tickets depend on.
 
 ## Fog of war
@@ -121,7 +121,7 @@ Two modes. Either way, **never resolve more than one ticket per session** — wi
 
 The user invokes with a loose idea.
 
-1. **Name the destination.** Run `grill-with-docs` to pin down what this map is finding its way to — the spec, decision, or change. The destination fixes the scope, so it's settled first.
+1. **Name the destination.** Run `grill-me` (with `domain-modeling`) to pin down what this map is finding its way to — the spec, decision, or change. The destination fixes the scope, so it's settled first.
 2. **Map the frontier.** Grill again, **breadth-first** this time: fan out across the whole space rather than going deep on any one thread, surfacing the open decisions and the first steps takeable now. **If this surfaces no fog** — the way to the destination is already clear, the whole journey small enough for one session — you don't need a map. Stop and say so; `to-spec` is probably the right skill instead.
 3. **Create the map** with Destination and Notes filled in, Decisions-so-far empty, and the fog sketched into **Not yet specified**.
 4. **Create the tickets you can specify now**, then wire the blocking edges in a **second pass** — tickets need identities before they can reference each other. Wiring sorts them into the frontier and the blocked; everything you can't yet specify stays in the fog.
@@ -136,7 +136,7 @@ The user invokes with a map. A ticket is **optional** — without one, you pick 
 
 1. Load the **map** — the low-res view, not every ticket body.
 2. **Choose the ticket.** If the user named one, use it. Otherwise take the first frontier ticket in order. **Claim it before any work.**
-3. **Resolve it — zoom as needed.** Fetch the full body of any related or resolved ticket on demand; invoke the skills the `## Notes` block names. If in doubt, use `grill-with-docs`.
+3. **Resolve it — zoom as needed.** Fetch the full body of any related or resolved ticket on demand; invoke the skills the `## Notes` block names. If in doubt, use `grill-me`.
 4. **Record the resolution.** Post the answer on the ticket, mark it resolved, and **append a context pointer** — gist plus link — to the map's Decisions-so-far.
 5. **Update the map.** Add newly-surfaced tickets (create, then wire). Graduate any fog the answer has made specifiable, clearing each graduated patch from **Not yet specified** so it lives only as its new ticket. If the answer reveals that a ticket — this one or another — sits beyond the destination, **rule it out of scope** rather than resolving it on the route. If the decision invalidates other parts of the map, update or delete those tickets.
 
@@ -144,7 +144,7 @@ The user may run unblocked tickets in parallel, so expect other sessions to be e
 
 ## Related skills
 
-- **`grill-with-docs`** — the interview that charts the map and resolves grilling tickets.
+- **`grill-me`** (with `domain-modeling`) — the interview that charts the map and resolves grilling tickets.
 - **`source-research`** — resolves research tickets as a background subagent.
 - **`prototype`** — resolves prototype tickets.
 - **`to-spec` → `to-tickets` → `implement`** — the handoff once the way is clear.

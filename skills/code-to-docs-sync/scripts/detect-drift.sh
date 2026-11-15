@@ -235,7 +235,7 @@ for root in "${REPOS_ROOT[@]}"; do
 
     while IFS= read -r -d '' repo_path; do
         scan_repo "$repo_path"
-        ((total_repos++))
+        total_repos=$((total_repos + 1))
     done < <(find "$root" -mindepth 1 -maxdepth 1 -type d -print0)
 done
 

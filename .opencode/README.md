@@ -176,7 +176,6 @@ Additional specialized skills are shipped in `skills/` but not loaded by default
 
 - article-writing
 - content-engine
-- market-research
 - investor-materials
 - investor-outreach
 

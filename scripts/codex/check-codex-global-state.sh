@@ -125,7 +125,6 @@ declare -a required_skills=(
   frontend-slides
   investor-materials
   investor-outreach
-  market-research
   security-review
   strategic-compact
   tdd-workflow

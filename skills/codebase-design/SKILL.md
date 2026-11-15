@@ -114,7 +114,7 @@ Good interfaces make testing natural:
 
 When sketching an interface, write the caller's usage first. Two or three real call sites, then derive the type sketch from that usage. Bodies stay `not implemented`. Tricky logic is pseudocode, not a guessed implementation. When usage and the sketch diverge, reconcile the sketch to the usage, not the reverse.
 
-Require at least two structurally distinct candidates before picking one, even when the first looks sufficient. Whole-shape alternatives, not point fixes inside one shape. Compare them on interface depth: prefer the design that hides more complexity behind a smaller public surface. `/architect` runs this as Phase B. These rules still apply when the entry point is this skill or `improve-codebase-architecture`.
+Require at least two structurally distinct candidates before picking one, even when the first looks sufficient. Whole-shape alternatives, not point fixes inside one shape. Compare them on interface depth: prefer the design that hides more complexity behind a smaller public surface. These rules still apply when the entry point is this skill or `improve-codebase-architecture`.
 
 ## Scrap a wrong shape
 
@@ -131,7 +131,7 @@ The signal is a pattern, not one instance. Tells:
 
 A few edge cases do not condemn an architecture. Complexity in the data is not complexity in the design.
 
-When you scrap, redesign as if the new constraints had been day-one assumptions. Subtract before adding. The new sketch should be smaller than the old one before it grows. Return to usage-first sketching and compare the new candidates on interface depth. This is not the `/architect` loop. Do not role-play `interrogate`, `blast-radius`, or `arena` from here. Those run when `/architect` is the entry point.
+When you scrap, redesign as if the new constraints had been day-one assumptions. Subtract before adding. The new sketch should be smaller than the old one before it grows. Return to usage-first sketching and compare the new candidates on interface depth. Do not role-play `interrogate`, `blast-radius`, or `arena` from here.
 
 ## Rejected framings
 
