@@ -67,7 +67,7 @@ mkdir -p $TARGET/skills $TARGET/rules
 
 ### 2a: Choose Scope (Core vs Niche)
 
-Default to **Core (recommended for new users)** — copy `.agents/skills/*` plus `skills/search-first/` for research-first workflows. This bundle covers engineering, evals, verification, security, strategic compaction, frontend design, and Anthropic cross-functional skills (article-writing, content-engine).
+Default to **Core (recommended for new users)** — copy `.agents/skills/*` plus `skills/search-first/` for research-first workflows. This bundle covers engineering, evals, verification, security, strategic compaction, frontend design, and Anthropic cross-functional skills (article-writing).
 
 Use `AskUserQuestion` (single select):
 ```
@@ -83,16 +83,15 @@ If the user chooses niche or core + niche, continue to category selection below 
 
 ### 2b: Choose Skill Categories
 
-There are 7 selectable category groups below. The detailed confirmation lists that follow cover 45 skills across 8 categories, plus 1 standalone template. Use `AskUserQuestion` with `multiSelect: true`:
+There are 6 selectable category groups below. The detailed confirmation lists that follow cover 39 skills across 7 categories, plus 1 standalone template. Use `AskUserQuestion` with `multiSelect: true`:
 
 ```
 Question: "Which skill categories do you want to install?"
 Options:
   - "Framework & Language" — "Django, Laravel, Spring Boot, Go, Python, Java, Frontend, Backend patterns"
-  - "Database" — "PostgreSQL, ClickHouse, JPA/Hibernate patterns"
+  - "Database" — "PostgreSQL, JPA/Hibernate patterns"
   - "Workflow & Quality" — "TDD, verification, learning, security review, compaction"
-  - "Research & APIs" — "Deep research, Exa search, Claude API patterns"
-  - "Social & Content Distribution" — "X/Twitter API, crossposting alongside content-engine"
+  - "Research & APIs" — "Deep research, Claude API patterns"
   - "Media Generation" — "fal.ai image/video/audio alongside VideoDB"
   - "Orchestration" — "dmux multi-agent workflows"
   - "All skills" — "Install every available skill"
@@ -114,11 +113,10 @@ For each selected category, print the full list of skills below and ask the user
 | `python-patterns` | Pythonic idioms, PEP 8, type hints, best practices |
 | `python-testing` | Python testing with pytest, TDD, fixtures, mocking, parametrization |
 
-**Category: Database (2 skills)**
+**Category: Database (1 skill)**
 
 | Skill | Description |
 |-------|-------------|
-| `clickhouse-io` | ClickHouse patterns, query optimization, analytics, data engineering |
 | `postgres-patterns` | PostgreSQL query optimization, schema design, indexing, security |
 
 **Category: Workflow & Quality (7 skills)**
@@ -133,14 +131,11 @@ For each selected category, print the full list of skills below and ask the user
 | `tdd-workflow` | Enforces TDD with 80%+ coverage: unit, integration, E2E |
 | `verification-loop` | Verification and quality loop patterns |
 
-**Category: Business & Content (4 skills)**
+**Category: Business & Content (1 skill)**
 
 | Skill | Description |
 |-------|-------------|
 | `article-writing` | Long-form writing in a supplied voice using notes, examples, or source docs |
-| `content-engine` | Multi-platform social content, scripts, and repurposing workflows |
-| `investor-materials` | Pitch decks, one-pagers, investor memos, and financial models |
-| `investor-outreach` | Personalized investor cold emails, warm intros, and follow-ups |
 
 **Category: Research & APIs (2 skills)**
 
@@ -148,13 +143,6 @@ For each selected category, print the full list of skills below and ask the user
 |-------|-------------|
 | `deep-research` | Multi-source deep research using firecrawl and exa MCPs with cited reports |
 | `claude-api` | Anthropic Claude API patterns: Messages, streaming, tool use, vision, batches, Agent SDK |
-
-**Category: Social & Content Distribution (2 skills)**
-
-| Skill | Description |
-|-------|-------------|
-| `x-api` | X/Twitter API integration for posting, threads, search, and analytics |
-| `crosspost` | Multi-platform content distribution with platform-native adaptation |
 
 **Standalone**
 
@@ -234,8 +222,6 @@ Some skills reference others. Verify these dependencies:
 - `continuous-learning-v2` references `~/.claude/homunculus/` directory
 - `python-testing` may reference `python-patterns`
 - `golang-testing` may reference `golang-patterns`
-- `crosspost` references `content-engine` and `x-api`
-- `x-api` references `content-engine` and `crosspost`
 - Language-specific rules reference `common/` counterparts
 
 ### 4d: Report Issues

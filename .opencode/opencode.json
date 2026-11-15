@@ -376,10 +376,6 @@
       "description": "Use BEFORE any creative work — creating features, building components, adding functionality, or modifying behavior. Explores intent, requirements, and design, and gets explicit approval before implementation. Fires when the user asks to build/add/change something without a settled design.",
       "template": "{file:commands/brainstorming.md}\n\n$ARGUMENTS"
     },
-    "bun-runtime": {
-      "description": "Bun as runtime, package manager, bundler, and test runner. When to choose Bun vs Node, migration notes, and Vercel support.",
-      "template": "{file:commands/bun-runtime.md}\n\n$ARGUMENTS"
-    },
     "challenge": {
       "description": "Pressure-test a belief or decision by finding contradictions, hidden assumptions, weak reasoning, and missing perspectives across vault notes. Use before big decisions.",
       "template": "{file:commands/challenge.md}\n\n$ARGUMENTS"
@@ -387,10 +383,6 @@
     "claude-api": {
       "description": "Anthropic Claude API patterns for Python and TypeScript. Covers Messages API, streaming, tool use, vision, extended thinking, batches, prompt caching, and Claude Agent SDK. Use when building applications with the Claude API or Anthropic SDKs.",
       "template": "{file:commands/claude-api.md}\n\n$ARGUMENTS"
-    },
-    "clickhouse-io": {
-      "description": "ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.",
-      "template": "{file:commands/clickhouse-io.md}\n\n$ARGUMENTS"
     },
     "code-to-docs-sync": {
       "description": "Detect drift between code and documentation (READMEs, CLAUDE.md, API docs), propose automated fixes.",
@@ -415,10 +407,6 @@
     "content": {
       "description": "Manage The HackaStak content calendar and publishing pipeline — buffer health, pillar balance, scheduling, and publish tracking. Use to see status or move articles through the pipeline.",
       "template": "{file:commands/content.md}\n\n$ARGUMENTS"
-    },
-    "content-engine": {
-      "description": "Create platform-native content systems for X, LinkedIn, TikTok, YouTube, newsletters, and repurposed multi-platform campaigns. Use when the user wants social posts, threads, scripts, content calendars, or one source asset adapted cleanly across platforms.",
-      "template": "{file:commands/content-engine.md}\n\n$ARGUMENTS"
     },
     "content-hash-cache-pattern": {
       "description": "Cache expensive file processing results using SHA-256 content hashes — path-independent, auto-invalidating, with service layer separation.",
@@ -447,10 +435,6 @@
     "cpp-testing": {
       "description": "Use only when writing/updating/fixing C++ tests, configuring GoogleTest/CTest, diagnosing failing or flaky tests, or adding coverage/sanitizers.",
       "template": "{file:commands/cpp-testing.md}\n\n$ARGUMENTS"
-    },
-    "crosspost": {
-      "description": "Multi-platform content distribution across X, LinkedIn, Threads, and Bluesky. Adapts content per platform using content-engine patterns. Never posts identical content cross-platform. Use when the user wants to distribute content across social platforms.",
-      "template": "{file:commands/crosspost.md}\n\n$ARGUMENTS"
     },
     "database-migrations": {
       "description": "Database migration best practices for schema changes, data migrations, rollbacks, and zero-downtime deployments across PostgreSQL, MySQL, and common ORMs (Prisma, Drizzle, Django, TypeORM, golang-migrate).",
@@ -499,10 +483,6 @@
     "eval-harness": {
       "description": "Formal evaluation framework for Claude Code sessions implementing eval-driven development (EDD) principles",
       "template": "{file:commands/eval-harness.md}\n\n$ARGUMENTS"
-    },
-    "foundation-models-on-device": {
-      "description": "Apple FoundationModels framework for on-device LLM — text generation, guided generation with @Generable, tool calling, and snapshot streaming in iOS 26+.",
-      "template": "{file:commands/foundation-models-on-device.md}\n\n$ARGUMENTS"
     },
     "frontend-patterns": {
       "description": "Frontend development patterns for React, Next.js, state management, performance optimization, and UI best practices.",
@@ -564,29 +544,9 @@
       "description": "Inventory markdown files in your Obsidian vault inbox with basic metadata.",
       "template": "{file:commands/inbox-scan.md}\n\n$ARGUMENTS"
     },
-    "investor-materials": {
-      "description": "Create and update pitch decks, one-pagers, investor memos, accelerator applications, financial models, and fundraising materials. Use when the user needs investor-facing documents, projections, use-of-funds tables, milestone plans, or materials that must stay internally consistent across multiple fundraising assets.",
-      "template": "{file:commands/investor-materials.md}\n\n$ARGUMENTS"
-    },
-    "investor-outreach": {
-      "description": "Draft cold emails, warm intro blurbs, follow-ups, update emails, and investor communications for fundraising. Use when the user wants outreach to angels, VCs, strategic investors, or accelerators and needs concise, personalized, investor-facing messaging.",
-      "template": "{file:commands/investor-outreach.md}\n\n$ARGUMENTS"
-    },
-    "liquid-glass-design": {
-      "description": "iOS 26 Liquid Glass design system — dynamic glass material with blur, reflection, and interactive morphing for SwiftUI, UIKit, and WidgetKit.",
-      "template": "{file:commands/liquid-glass-design.md}\n\n$ARGUMENTS"
-    },
     "mcp-server-patterns": {
       "description": "Build MCP servers with Node/TypeScript SDK — tools, resources, prompts, Zod validation, stdio vs Streamable HTTP. Use Context7 or official MCP docs for latest API.",
       "template": "{file:commands/mcp-server-patterns.md}\n\n$ARGUMENTS"
-    },
-    "money": {
-      "description": "Act as a revenue advisor that mines your Obsidian vault for monetization opportunities, then goes beyond it to surface what you can't see from inside your own perspective. Diagnoses the revenue system first (conversion, recurring vs. one-time, sales infrastructure, pricing model, product vs. service), then recommends prioritized opportunities and the artifacts to build right now. Use when you want to make dramatically more money from assets you already have.",
-      "template": "{file:commands/money.md}\n\n$ARGUMENTS"
-    },
-    "nextjs-turbopack": {
-      "description": "Next.js 16+ and Turbopack — incremental bundling, FS caching, dev speed, and when to use Turbopack vs webpack.",
-      "template": "{file:commands/nextjs-turbopack.md}\n\n$ARGUMENTS"
     },
     "package-product": {
       "description": "Automate product packaging for Gumroad - handles guides, templates, skills, frameworks, and bundles. Generates appropriate documentation and sales pages based on product type.",
@@ -603,14 +563,6 @@
     "postgres-patterns": {
       "description": "PostgreSQL database patterns for query optimization, schema design, indexing, and security. Based on Supabase best practices.",
       "template": "{file:commands/postgres-patterns.md}\n\n$ARGUMENTS"
-    },
-    "product-ideas": {
-      "description": "Mine your Obsidian vault for sellable digital products - guides, templates, frameworks, and skill bundles. Evaluates market fit, recommends pricing, and identifies bundle opportunities.",
-      "template": "{file:commands/product-ideas.md}\n\n$ARGUMENTS"
-    },
-    "product-pipeline": {
-      "description": "Manage product calendar and launches - view pipeline status, schedule releases, track revenue, and get recommendations on what to work on next.",
-      "template": "{file:commands/product-pipeline.md}\n\n$ARGUMENTS"
     },
     "project-guidelines-example": {
       "description": "Example project-specific skill template based on a real production application.",
@@ -699,18 +651,6 @@
     "source-research": {
       "description": "Investigate a question against high-trust primary sources — official docs, source code, specs, first-party APIs — and capture the findings as a single cited Markdown file. Delegated to a background agent. Use when the user wants a technical topic researched, docs or API facts gathered, or reading legwork delegated.",
       "template": "{file:commands/source-research.md}\n\n$ARGUMENTS"
-    },
-    "story-ideas": {
-      "description": "Generate ranked, documented story ideas for the \"Stories You Won't Believe\" TikTok channel — unbelievable-but-true historical events. Use when you need fresh ideas for the content pipeline, grounded in real sources and filtered through the channel's pillars.",
-      "template": "{file:commands/story-ideas.md}\n\n$ARGUMENTS"
-    },
-    "story-pipeline": {
-      "description": "Manage the \"Stories You Won't Believe\" TikTok content calendar — buffer health, pillar balance, scheduling to the Mon/Wed/Fri cadence, and publish tracking via script frontmatter. Use to see pipeline status or move scripts through the pipeline.",
-      "template": "{file:commands/story-pipeline.md}\n\n$ARGUMENTS"
-    },
-    "story-script": {
-      "description": "Draft a publication-ready TikTok narration script for the \"Stories You Won't Believe\" channel, matching the owner's four canonical scripts for tone and structure. Use when turning a story idea into a finished, calm, documented script.",
-      "template": "{file:commands/story-script.md}\n\n$ARGUMENTS"
     },
     "strategic-compact": {
       "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
@@ -812,10 +752,6 @@
       "description": "Writing, exploit — shape raw material into an argued article, paragraph by paragraph, with deliberate format choices. Use for technical or brand long-form where the piece argues a thesis.",
       "template": "{file:commands/writing-shape.md}\n\n$ARGUMENTS"
     },
-    "x-api": {
-      "description": "X/Twitter API integration for posting tweets, threads, reading timelines, search, and analytics. Covers OAuth auth patterns, rate limits, and platform-native content posting. Use when the user wants to interact with X programmatically.",
-      "template": "{file:commands/x-api.md}\n\n$ARGUMENTS"
-    },
     "interrogate": {
       "description": "Adversarial review of a diff by one readonly reviewer per model, then a lead verdict. Does not edit code. Use when the user says interrogate, adversarial review, multi-model review, stress-test this code, or tear this apart.",
       "template": "{file:commands/interrogate.md}\n\n$ARGUMENTS"
@@ -859,6 +795,18 @@
     "prompt-optimizer": {
       "description": "Analyze raw prompts, identify intent and gaps, match staksmith components (skills/commands/agents/hooks), and output a ready-to-paste optimized prompt. Advisory role only — never executes the task itself. TRIGGER when: user says optimize prompt, improve my prompt, how to write a prompt for, help me prompt, rewrite this prompt, or explicitly asks to enhance prompt quality. DO NOT TRIGGER when: user wants the task executed directly, or says just do it. DO NOT TRIGGER when the user wants code or performance optimized — those are refactoring tasks, not prompt optimization.",
       "template": "{file:commands/prompt-optimizer.md}\n\n$ARGUMENTS"
+    },
+    "money": {
+      "description": "Act as a revenue advisor that mines your Obsidian vault for monetization opportunities, then goes beyond it to surface what you can't see from inside your own perspective. Diagnoses the revenue system first (conversion, recurring vs. one-time, sales infrastructure, pricing model, product vs. service), then recommends prioritized opportunities and the artifacts to build right now. Use when you want to make dramatically more money from assets you already have.",
+      "template": "{file:commands/money.md}\n\n$ARGUMENTS"
+    },
+    "product-ideas": {
+      "description": "Mine your Obsidian vault for sellable digital products - guides, templates, frameworks, and skill bundles. Evaluates market fit, recommends pricing, and identifies bundle opportunities.",
+      "template": "{file:commands/product-ideas.md}\n\n$ARGUMENTS"
+    },
+    "product-pipeline": {
+      "description": "Manage product calendar and launches - view pipeline status, schedule releases, track revenue, and get recommendations on what to work on next.",
+      "template": "{file:commands/product-pipeline.md}\n\n$ARGUMENTS"
     }
   },
   "permission": {

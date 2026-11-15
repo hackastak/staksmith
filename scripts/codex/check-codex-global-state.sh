@@ -118,13 +118,10 @@ declare -a required_skills=(
   article-writing
   backend-patterns
   coding-standards
-  content-engine
   e2e-testing
   eval-harness
   frontend-patterns
   frontend-slides
-  investor-materials
-  investor-outreach
   security-review
   strategic-compact
   tdd-workflow

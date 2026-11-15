@@ -113,8 +113,6 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | `api-design` | REST resource naming, status codes, pagination, versioning, rate limits |
 | `backend-patterns` | Backend architecture, API design, DB optimization for Node/Express/Next |
 | `frontend-patterns` | React/Next state management, performance, UI practices |
-| `nextjs-turbopack` | Next.js 16+ and Turbopack — when to use it over webpack |
-| `bun-runtime` | Bun as runtime, package manager, bundler, test runner |
 | `python-patterns` / `python-testing` | Pythonic idioms and PEP 8; pytest, fixtures, coverage |
 | `golang-patterns` / `golang-testing` | Idiomatic Go; table-driven tests, subtests, benchmarks, fuzzing |
 | `rust-patterns` / `rust-testing` | Ownership, traits, concurrency; unit/integration/property tests |
@@ -123,15 +121,12 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | `swift-concurrency-6-2` | Swift 6.2 Approachable Concurrency and `@concurrent` offloading |
 | `swift-actor-persistence` | Thread-safe persistence with actors and file-backed caches |
 | `swift-protocol-di-testing` | Protocol-based DI for mocking file system, network, and APIs |
-| `foundation-models-on-device` | Apple FoundationModels — guided generation, tool calling, iOS 26+ |
-| `liquid-glass-design` | iOS 26 Liquid Glass material for SwiftUI, UIKit, WidgetKit |
 
 ### Data & infrastructure
 
 | Skill | What it does |
 |-------|--------------|
 | `postgres-patterns` | Query optimization, schema design, indexing, RLS (Supabase-informed) |
-| `clickhouse-io` | ClickHouse patterns for high-performance analytical workloads |
 | `database-migrations` | Schema/data migrations, rollbacks, zero-downtime deploys |
 | `docker-patterns` | Compose for local dev, container security, networking, volumes |
 | `deployment-patterns` | CI/CD pipelines, health checks, rollback, production readiness |
@@ -210,15 +205,6 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | `blog-draft` | Draft a full post by mining the vault for evidence |
 | `polish` | Voice/structure/SEO audit, fixes, and a pre-publish checklist |
 | `content` | Content calendar and publishing pipeline — buffer health, pillar balance |
-| `content-engine` | Platform-native systems for X, LinkedIn, TikTok, YouTube, newsletters |
-| `crosspost` | Distribute across X, LinkedIn, Threads, Bluesky — adapted per platform |
-| `x-api` | X/Twitter posting, threads, timelines, search, analytics |
-
-### Media
-
-| Skill | What it does |
-|-------|--------------|
-| `story-ideas` / `story-script` / `story-pipeline` | Ideas, narration scripts, and calendar for the TikTok story channel |
 
 ### Product & fundraising
 
@@ -227,8 +213,6 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | `product-ideas` | Mine the vault for sellable digital products, with pricing guidance |
 | `product-pipeline` | Product calendar, launches, revenue tracking, what to build next |
 | `package-product` | Package guides, templates, and bundles for Gumroad with sales pages |
-| `investor-materials` | Decks, one-pagers, memos, accelerator applications, financial models |
-| `investor-outreach` | Cold emails, warm intros, follow-ups, and investor updates |
 | `visa-doc-translate` | Translate visa documents and produce a bilingual PDF |
 
 ### Operations (codified domain expertise)

@@ -139,7 +139,6 @@
       "kind": "skills",
       "description": "Database and persistence-focused skills.",
       "paths": [
-        "skills/clickhouse-io",
         "skills/database-migrations",
         "skills/postgres-patterns"
       ],
@@ -234,12 +233,9 @@
     {
       "id": "business-content",
       "kind": "skills",
-      "description": "Business, writing, market, and investor communication skills.",
+      "description": "Writing and long-form content skills.",
       "paths": [
-        "skills/article-writing",
-        "skills/content-engine",
-        "skills/investor-materials",
-        "skills/investor-outreach"
+        "skills/article-writing"
       ],
       "targets": [
         "claude",
@@ -253,28 +249,6 @@
       ],
       "defaultInstall": false,
       "cost": "heavy",
-      "stability": "stable"
-    },
-    {
-      "id": "social-distribution",
-      "kind": "skills",
-      "description": "Social publishing and distribution skills.",
-      "paths": [
-        "skills/crosspost",
-        "skills/x-api"
-      ],
-      "targets": [
-        "claude",
-        "cursor",
-        "antigravity",
-        "codex",
-        "opencode"
-      ],
-      "dependencies": [
-        "business-content"
-      ],
-      "defaultInstall": false,
-      "cost": "medium",
       "stability": "stable"
     },
     {
@@ -309,8 +283,6 @@
       "kind": "skills",
       "description": "Swift, SwiftUI, and Apple platform skills including concurrency, persistence, and design patterns.",
       "paths": [
-        "skills/foundation-models-on-device",
-        "skills/liquid-glass-design",
         "skills/swift-actor-persistence",
         "skills/swift-concurrency-6-2",
         "skills/swift-protocol-di-testing",
