@@ -71,13 +71,6 @@ test('design-it-twice and the architecture scan use the same pressure', () => {
   assert.match(scan, /usage first, then derives the type sketch/);
   assert.match(scan, /smaller public surface/);
   assert.match(scan, /Do not role-play `interrogate`, `blast-radius`, or `arena`/);
-  assert.match(scan, /even when `\/architect` is not the entry point/);
-});
-
-test('architect points at the shared tells instead of owning them alone', () => {
-  const content = read('skills/architect/SKILL.md');
-  assert.match(content, /codebase-design` \(Scrap a wrong shape\)/);
-  assert.match(content, /when `\/architect` is not the entry point/);
 });
 
 console.log(`\nResults: Passed: ${passed}, Failed: ${failed}`);

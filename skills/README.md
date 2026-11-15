@@ -91,8 +91,6 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | Skill | What it does |
 |-------|--------------|
 | `grill-me` | Relentless one-question-at-a-time interview until a plan holds up |
-| `batch-grill-me` | Same interview, but every frontier question at once, round by round |
-| `grill-with-docs` | Grilling that leaves a paper trail — glossary and ADRs as decisions land |
 | `challenge` | Pressure-test a belief by hunting contradictions and hidden assumptions |
 | `blueprint` | Turn a one-line objective into a multi-session construction plan |
 | `wayfinder` | Map work too big for one session as decision tickets, resolved one at a time |
@@ -121,7 +119,6 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | `golang-patterns` / `golang-testing` | Idiomatic Go; table-driven tests, subtests, benchmarks, fuzzing |
 | `rust-patterns` / `rust-testing` | Ownership, traits, concurrency; unit/integration/property tests |
 | `cpp-coding-standards` / `cpp-testing` | C++ Core Guidelines; GoogleTest/CTest, sanitizers, coverage |
-| `laravel-patterns` / `laravel-security` / `laravel-tdd` / `laravel-verification` | Eloquent, service layers, queues; PHPUnit/Pest; deployment readiness |
 | `swiftui-patterns` | SwiftUI architecture, `@Observable` state, navigation, performance |
 | `swift-concurrency-6-2` | Swift 6.2 Approachable Concurrency and `@concurrent` offloading |
 | `swift-actor-persistence` | Thread-safe persistence with actors and file-backed caches |
@@ -149,12 +146,10 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 | `enterprise-agent-ops` | Observability, security boundaries, lifecycle for long-lived agents |
 | `continuous-agent-loop` | Continuous autonomous loops with quality gates and recovery controls |
 | `eval-harness` | Formal eval framework for eval-driven development |
-| `iterative-retrieval` | Progressive context refinement for the subagent context problem |
 | `cost-aware-llm-pipeline` | Model routing by complexity, budget tracking, prompt caching |
 | `regex-vs-llm-structured-text` | When to parse with regex and when to reach for an LLM |
 | `claude-api` | Messages API, streaming, tool use, vision, thinking, batches, caching |
 | `mcp-server-patterns` | Build MCP servers with the Node/TS SDK — tools, resources, prompts |
-| `team-builder` | Interactive picker for composing and dispatching parallel agent teams |
 | `prompt-optimizer` | Analyze a raw prompt, match staksmith components, emit an optimized one |
 | `continuous-learning` | Extract reusable patterns from sessions into learned skills |
 | `continuous-learning-v2` | Instinct-based learning with confidence scoring and skill evolution |
@@ -163,9 +158,7 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 
 | Skill | What it does |
 |-------|--------------|
-| `skill-builder` | Scaffold a new skill with correct structure and frontmatter |
 | `skill-design` | Vocabulary and principles that make a skill predictable |
-| `skill-auto-extractor` | Mine git history and session logs for repeatable workflows |
 | `skill-stocktake` | Audit skills and commands for quality (Quick Scan or Full Stocktake) |
 | `configure-staksmith` | Interactive installer for skills and rules, user- or project-level |
 | `project-guidelines-example` | Template for a project-specific skill |
@@ -179,11 +172,8 @@ Skills with a `scripts/` phase pipeline cache intermediate results under `~/.cla
 |-------|--------------|
 | `deep-research` | Multi-source research via firecrawl/exa with cited reports |
 | `source-research` | Investigate against primary sources — docs, source code, specs |
-| `market-research` | Competitive analysis and industry intel with source attribution |
-| `exa-search` | Neural search for web, code, company, and people lookup |
 | `documentation-lookup` | Current library docs via Context7 instead of training data |
 | `converting-web-to-markdown` | Fetch a URL and convert it to markdown (WebFetch or Playwright) |
-| `data-scraper-agent` | Automated scheduled scraper for any public source |
 | `code-to-docs-sync` | Detect drift between code and READMEs/CLAUDE.md/API docs |
 
 ### Knowledge base (Obsidian vault)
