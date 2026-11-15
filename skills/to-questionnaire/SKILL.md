@@ -73,5 +73,5 @@ A closing catch-all: anything we didn't ask that we should know?
 
 ## Related skills
 
-- **`grill-me` / `batch-grill-me`** — the inbound direction: the agent grills the user.
+- **`grill-me`** — the inbound direction: the agent grills the user.
 - **`to-spec` / `to-tickets`** — the same conversation-to-durable-Markdown family. A returned questionnaire often feeds `to-spec`.

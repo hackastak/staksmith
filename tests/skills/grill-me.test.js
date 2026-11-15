@@ -5,7 +5,7 @@
  * is its SKILL.md. These tests pin the load-bearing promises that make grill-me
  * what it is, so an edit that quietly drops one fails here:
  *   - it starts from an existing plan and hands pre-plan work to brainstorming
- *   - one question at a time, with batch-grill-me named as the all-at-once variant
+ *   - one question at a time
  *   - each question carries a recommended answer
  *   - facts are the agent's to find, decisions are the user's to make
  *   - it does not act until the user confirms a shared understanding
@@ -53,10 +53,9 @@ test('it starts from an existing plan and routes pre-plan work to brainstorming'
   assert.match(content, /starts once a plan or design exists/);
 });
 
-test('questions go one at a time, with batch-grill-me as the all-at-once variant', () => {
+test('questions go one at a time, each carrying a recommended answer', () => {
   const content = read('skills/grill-me/SKILL.md');
   assert.match(content, /Ask the questions one at a time/);
-  assert.match(content, /batch-grill-me/);
   assert.match(content, /provide your recommended answer/);
 });
 

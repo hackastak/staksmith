@@ -44,9 +44,6 @@ Content creation workflow. These skills reference vault paths and published post
 ### Sync Skills (code-to-docs-sync, vault-to-code-bridge, weekly-momentum-report)
 Bridge between vault knowledge and code repositories. Multi-phase workflows with caching.
 
-### skill-auto-extractor
-Meta-skill that learns from git history. Feeds into the continuous learning system.
-
 ---
 
 ## Decisions Log

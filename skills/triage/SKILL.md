@@ -94,7 +94,7 @@ If a bug resists reproduction and the reporter's steps look sound, that's `diagn
 
 ### 4. Grill (if needed)
 
-If the request needs fleshing out, run `grill-with-docs` — the `grill-me` interview with `domain-modeling` capturing terms into `CONTEXT.md` and decisions into `docs/adr/` as they land. One question at a time; don't act until the maintainer confirms shared understanding.
+If the request needs fleshing out, run `grill-me` with `domain-modeling` capturing terms into `CONTEXT.md` and decisions into `docs/adr/` as they land. One question at a time; don't act until the maintainer confirms shared understanding.
 
 ### 5. Apply the outcome
 
@@ -137,7 +137,7 @@ If prior triage notes exist on the issue or PR, read them, check whether the rep
 
 ## Related skills
 
-- **`grill-with-docs`** — the interview in step 4.
+- **`grill-me`** (with `domain-modeling`) — the interview in step 4.
 - **`diagnosing-bugs`** — when a verified bug needs a real diagnosis loop rather than a brief.
 - **`to-tickets`** — when a `ready-for-agent` issue turns out to be several tickets' worth of work.
 - **`implement`** — what an agent runs once it picks up a `ready-for-agent` brief.

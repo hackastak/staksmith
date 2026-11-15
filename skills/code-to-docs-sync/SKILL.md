@@ -303,7 +303,7 @@ Track which fixes are accepted/rejected to improve suggestions:
 
 - **vault-to-code-bridge**: Generate initial docs
 - **weekly-momentum-report**: Include docs health in reports
-- **skill-auto-extractor**: Learn common drift patterns
+- **continuous-learning-v2**: Learn common drift patterns
 
 ### With MCP Servers
 

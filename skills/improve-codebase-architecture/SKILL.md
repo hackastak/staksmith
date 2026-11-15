@@ -58,7 +58,7 @@ Do **not** propose interfaces yet. Once the note is written, tell the user its p
 
 ### 3. Grilling loop
 
-Once the user picks a candidate, run **`grill-with-docs`** to walk the decision tree with them — constraints, dependencies, the shape of the deepened module, what sits behind the seam, which tests survive. One question at a time; don't act until they confirm shared understanding.
+Once the user picks a candidate, run **`grill-me`** (with `domain-modeling`) to walk the decision tree with them — constraints, dependencies, the shape of the deepened module, what sits behind the seam, which tests survive. One question at a time; don't act until they confirm shared understanding.
 
 Side effects happen inline as decisions crystallise, via `domain-modeling`:
 

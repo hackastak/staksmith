@@ -45,7 +45,7 @@ Follow the vault's draft → confirm → write gate: show the user the spec and 
 
 ## Related skills
 
-- **`grill-me`** — the interview engine. `batch-grill-me` if the user would rather answer a whole round at once.
+- **`grill-me`** — the interview engine.
 - **`loop` / `schedule`** — execution. A spec designed here is what they run.
 - **`to-spec`** — the software-feature equivalent. Keep them separate: that one specs a product change, this one specs a life or work automation.
 - **`wizard`** — for the half of a procedure that can't be automated and needs a human walked through it.

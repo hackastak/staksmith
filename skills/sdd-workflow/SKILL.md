@@ -40,7 +40,7 @@ For a single function or a quick bug fix, skip the ceremony — go straight to `
 The spec is the contract. It cannot be synthesised from a conversation that hasn't settled.
 
 - **If the conversation is already settled** — run `to-spec` to synthesise the spec/PRD and publish it to the configured tracker (vault by default; see `docs/agents/issue-tracker.md`). `to-spec` pauses once to confirm the test seams — that pause is part of this step.
-- **If it isn't settled** — stop and run `grill-me` (or `grill-with-docs` when there's reference material) first. Do not let SDD start an interview itself; that's `grill-me`'s job. Return here once the requirements hold together.
+- **If it isn't settled** — stop and run `grill-me` (with `domain-modeling` when there's reference material to capture) first. Do not let SDD start an interview itself; that's `grill-me`'s job. Return here once the requirements hold together.
 
 Respect any ADRs in `docs/adr/` covering the area. If the emerging spec would contradict one, surface that **now**, before writing — and if it warrants a new decision, record it per `adr-standard` before proceeding.
 
@@ -101,7 +101,7 @@ When every ticket is done and conforming, the feature is done — by definition,
 
 ## Related skills
 
-- **`grill-me` / `grill-with-docs`** — settle requirements before a spec exists (step 1).
+- **`grill-me`** — settle requirements before a spec exists (step 1).
 - **`to-spec`** — writes and publishes the spec (step 1).
 - **`to-tickets`** — breaks the spec into tracer-bullet tickets (step 2).
 - **`implement`** — builds one ticket test-first (step 3).
