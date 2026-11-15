@@ -13,7 +13,7 @@ This is **read-only analysis**. Read code, run read-only build/measure tooling, 
 
 **Rank by real hot-path impact, not by theoretical cost.** An O(n²) loop over a 3-element config slice is a Nit; a serial network call inside the main ingest loop is Critical. Before you flag anything, ask: how often does this run, over how much data, on a path the user waits on? A finding without a plausible answer to "how much does this actually cost here" is noise — cut it.
 
-A number you measured is not evidence until Explain the Number in `rules/common/performance.md` holds. Run `benchmark-checklist` before you report that number or recommend a change from it. A reasoned cost is not a measurement.
+A number you measured is not evidence until Explain the Number in `rules/common/performance.md` holds. Apply that rule before you report the number or recommend a change from it. A reasoned cost is not a measurement.
 
 ## Analysis approach
 
