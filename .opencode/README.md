@@ -175,9 +175,6 @@ The default OpenCode config loads 11 curated staksmith skills via the `instructi
 Additional specialized skills are shipped in `skills/` but not loaded by default to keep OpenCode sessions lean:
 
 - article-writing
-- content-engine
-- investor-materials
-- investor-outreach
 
 ## Configuration
 

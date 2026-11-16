@@ -48,8 +48,7 @@
         "platform-configs",
         "workflow-quality",
         "research-apis",
-        "business-content",
-        "social-distribution"
+        "business-content"
       ]
     },
     "full": {
@@ -66,7 +65,6 @@
         "security",
         "research-apis",
         "business-content",
-        "social-distribution",
         "orchestration",
         "swift-apple",
         "agentic-patterns",

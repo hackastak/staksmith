@@ -116,17 +116,9 @@
     {
       "id": "capability:content",
       "family": "capability",
-      "description": "Business, writing, market, and investor communication skills.",
+      "description": "Writing and long-form content skills.",
       "modules": [
         "business-content"
-      ]
-    },
-    {
-      "id": "capability:social",
-      "family": "capability",
-      "description": "Social publishing and distribution skills.",
-      "modules": [
-        "social-distribution"
       ]
     },
     {

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.5 - 2026-11-15
+
+Continued the stocktake prune with Tier 4 — the domain-dependent skills that only earn their place if you do the work (138 → 125 skills):
+
+- **Removed 13 skills** across three groups: fundraising (`investor-materials`, `investor-outreach`), the video/story channel (`story-ideas`, `story-pipeline`, `story-script`, `crosspost`, `content-engine`), and narrow stacks not shipped on (`clickhouse-io`, `foundation-models-on-device`, `liquid-glass-design`, `x-api`, `bun-runtime`, `nextjs-turbopack`). Each dropped its paired command and `.opencode/commands/` mirror; 12 `.agents/` + `.cursor/` mirror dirs were removed too.
+- **Kept the vault→Gumroad monetization pipeline**: `product-ideas` → `package-product` → `product-pipeline`, plus the `money` revenue advisor. These were initially swept up in the Tier 4 cut, then kept once it was clear they form one load-bearing workflow rather than independent residue — cutting part of a find→make→sell trilogy orphans the rest.
+- **Manifest cascade**: cutting `crosspost` + `x-api` emptied the `social-distribution` install module (`paths` requires `minItems: 1`), so the module, its `capability:social` component, and its references in the `research` + `full` profiles were removed; the one test exercising that dependency was retargeted to an equivalent still-valid pair.
+- **Scrubbed every trailing reference** to the cut skills across all surfaces: install manifests, `opencode.json`, the generated and hand-maintained catalogs (`SKILLS.md`, `CUSTOM_SKILLS.md`, `skills/README.md`, `configure-staksmith`), the `.codex`/`.opencode` listings, ops scripts, and see-also bullets in kept skills.
+
 ## 1.0.4 - 2026-11-14
 
 Pruned the skill set back to what the work actually uses, from a usage + provenance stocktake (157 → 138 skills):

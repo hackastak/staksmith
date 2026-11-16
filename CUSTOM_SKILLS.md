@@ -1,6 +1,6 @@
 # Custom Skills
 
-Deep reference for the **66 skills built for Staksmith** (`origin: Hackastak`), the ones marked ⭐ in [`SKILLS.md`](SKILLS.md). It exists so these skills stay usable **without the Obsidian vault** many of them were designed around.
+Deep reference for the **63 skills built for Staksmith** (`origin: Hackastak`), the ones marked ⭐ in [`SKILLS.md`](SKILLS.md). It exists so these skills stay usable **without the Obsidian vault** many of them were designed around.
 
 **How this differs from [`SKILLS.md`](SKILLS.md).** That catalog is auto-generated and indexes *every* skill with a one-line description and location. This document is hand-authored and goes deeper, on the custom skills only: how each one works, what it takes as input, what it produces, and exactly which vault structure it assumes. Use `SKILLS.md` to find a skill; come here to understand how to run it.
 
@@ -451,7 +451,6 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Vault dependencies.** None. Operates on the code repo / working tree.
 **Related.** `code-review`, `security-review`, `security-reviewer` (agent), `database-reviewer`, `adr-standard`.
 
-
 ## Testing & TDD
 
 ### `test-audit`
@@ -463,7 +462,6 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Outputs.** A single inline Markdown report: Summary with verdict, tiered findings with a short `—` label, a Coverage map turning the percentage into a decision, a "Coverage gaps (tooling)" section, and "What looks good".
 **Vault dependencies.** None. Operates on the code repo / working tree.
 **Related.** `tdd` and the language test skills (`go-test`, `python-testing`, `rust-test`, `cpp-test`), `code-review`, `codebase-design`, `audit-codebase` (dispatches this as its optional test-coverage pass).
-
 
 ## Docs & Lookup
 
@@ -518,36 +516,6 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Outputs.** A polish report, in-place fixes to the article, an appended pre-publish checklist, updated frontmatter, and a rename from `[Name]_DRAFT.md` to `[Name].md` in the `Medium_Blog` folder.
 **Vault dependencies.** Assumes `<vault>/2. Areas/Hackastak_Brand/Medium_Blog` with `Blog_Strategy.md` and article `.md` files carrying status frontmatter; greps `<vault>` for wikilinks when renaming.
 **Related.** `blog-draft` (produces the draft), `content` (scheduling after polish), the `writing-fragments`/`writing-beats`/`writing-shape` craft track (upstream drafting), `article-writing` (voice).
-
-### `story-ideas`
-
-**Purpose.** Generates ranked, documented story ideas for the "Stories You Won't Believe" TikTok channel: unbelievable-but-true historical events sourced from real accounts and filtered through the channel's pillars.
-**When to use.** Planning the story calendar, the idea buffer is thin, you want a batch focused on a specific pillar, or you need to counterweight an over-used pillar (Survival tends to dominate).
-**How it works.** Loads the pipeline strategy, inventories existing ideas and scripts to avoid duplicates and gauge pillar balance, generates at least 20 ideas ranked by viral potential (favoring documented sources and thin pillars per the 70/20/10 mix), then appends the batch under a dated heading.
-**Inputs.** Optional pillar name or theme (empty = balanced, weighted to gaps). Reads `PIPELINE.md`, `IDEAS.md`, and the `SCRIPTS/` folder.
-**Outputs.** New ranked ideas (hook, summary, pillar, why-people-watch, viral score) appended under a dated heading in `<vault>/1. Projects/Clipping/Unbelievable_Stories/IDEAS.md`, plus an in-chat summary.
-**Vault dependencies.** Assumes `<vault>/1. Projects/Clipping/Unbelievable_Stories` containing `PIPELINE.md`, `IDEAS.md`, and a `SCRIPTS/` folder of scripts with pillar frontmatter.
-**Related.** `story-script` (drafts an idea), `story-pipeline` (calendar); mirrors the `/story-ideas` command.
-
-### `story-pipeline`
-
-**Purpose.** Manages the "Stories You Won't Believe" TikTok content calendar, tracking buffer health, pillar balance, and scheduling to the Mon/Wed/Fri cadence via script frontmatter.
-**When to use.** Checking pipeline status and buffer health, deciding what to write or post next, scheduling a ready script, marking one published, or auditing pillar balance.
-**How it works.** Loads pipeline state from `PIPELINE.md` and each script's frontmatter, routes on the input (`status`, `next`, `schedule`, `publish`, or a script name), then generates a pipeline report or edits only the relevant YAML fields, suggesting the next open Mon/Wed/Fri slot when scheduling.
-**Inputs.** Optional `status`, `next`, `schedule [script] [date]`, `publish [script]`, or a script name. Reads `PIPELINE.md` and all `SCRIPTS/*.md` frontmatter (status, pillar, scheduled, published, viral_score).
-**Outputs.** An in-chat pipeline status report and in-place frontmatter updates to script files; buffer target is 5-6 ready/scheduled scripts.
-**Vault dependencies.** Assumes `<vault>/1. Projects/Clipping/Unbelievable_Stories` with `PIPELINE.md`, a `SCRIPTS/` folder, and a Dataview `Content_Calendar.md`.
-**Related.** `story-ideas` (fills the backlog), `story-script` (drafts scripts); mirrors the `/story-pipeline` command.
-
-### `story-script`
-
-**Purpose.** Drafts a publication-ready TikTok narration script for "Stories You Won't Believe," matching the owner's four canonical scripts for calm, documented, restrained tone and the channel's five-beat formula.
-**When to use.** Turning an idea from `IDEAS.md` into a finished script, replenishing the ready buffer, or when you need a full narration with caption, on-screen text, and hashtags in the established voice.
-**How it works.** Loads the strategy and source idea, reads all four canonical scripts as the gold-standard voice reference, confirms the event is documented history, writes a 60-90 second script on the five-beat formula (hook, setup, escalation, twist, payoff), produces the full output blocks, then saves and runs a six-point quality checklist to set `ready` or `scripted`.
-**Inputs.** Optional idea title from `IDEAS.md`, a free-text topic, or a pillar/score to auto-pick (recommends the top unwritten idea if empty). Reads `PIPELINE.md`, `IDEAS.md`, the `SCRIPTS/` listing, and the four named canonical scripts.
-**Outputs.** A complete script file (frontmatter plus CAPTION, SCRIPT, ON-SCREEN TEXT, THUMBNAIL TEXT, ENDING QUESTION) saved to `<vault>/1. Projects/Clipping/Unbelievable_Stories/SCRIPTS/[Descriptive_Title].md`.
-**Vault dependencies.** Assumes `<vault>/1. Projects/Clipping/Unbelievable_Stories` with `PIPELINE.md`, `IDEAS.md`, and a `SCRIPTS/` folder holding the four canonical reference scripts (pinned by name, never to be overwritten).
-**Related.** `story-ideas` (source ideas), `story-pipeline` (scheduling); mirrors the `/story-script` command.
 
 ### `writing-beats`
 
@@ -641,7 +609,6 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Vault dependencies.** None, operates on the code repo / working tree.
 **Related.** `git-guardrails`, `setup-ts-deep-modules`, `review-changes`.
 
-
 ## Business & Research
 
 ### `money`
@@ -684,7 +651,6 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Vault dependencies.** Repo by default. Uses the vault only when the question is not tied to a codebase, writing to the matching `<vault>/1. Projects/<Project>/` folder, or `<vault>/3. Resources/` for reference material.
 **Related.** `wayfinder`, `grill-me`, `deep-research`, `documentation-lookup`, `search-first`.
 
-
 ## DevOps & Deployment
 
 ### `package-product`
@@ -696,7 +662,6 @@ Each entry follows the same shape: **Purpose**, **When to use**, **How it works*
 **Outputs.** A populated `<vault>/2. Areas/Hackastak_Brand/Gumroad/<Product_Name>/` directory (listing instructions, customer files, `Product_Info.md`) that surfaces in the calendar's Dataview queries. PDF generation and ZIP creation are noted as manual next steps.
 **Vault dependencies.** Writes into the My_Notes vault's `2. Areas/Hackastak_Brand/Gumroad/` tree; may pull skill sources from `~/Developer/Staksmith/skills/`.
 **Related.** `product-ideas`, `product-pipeline`, `blog-draft`, `money`.
-
 
 ## Language & Framework Patterns
 
